@@ -1,0 +1,11 @@
+/* Doctors */
+.doctor-card {
+  @apply relative bg-white rounded-[40px] overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
+.doctor-image-wrapper {
+  @apply relative aspect-[4/5] overflow-hidden;
+}
+.doctor-info-overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8;
+}

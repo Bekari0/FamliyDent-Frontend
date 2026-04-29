@@ -1,0 +1,12 @@
+.glass {
+  @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
+}
+
+.soft-shadow {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
+
+.gradient-bg {
+  background: radial-gradient(circle at top left, rgba(14, 165, 233, 0.05), transparent 40%),
+              radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.05), transparent 40%);
+}

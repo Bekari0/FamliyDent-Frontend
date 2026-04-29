@@ -1,0 +1,33 @@
+/* Hero */
+.hero-section {
+  @apply relative pt-32 pb-20 lg:pt-56 lg:pb-40 overflow-hidden;
+  background: radial-gradient(circle at top left, rgba(14, 165, 233, 0.05), transparent 40%),
+              radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.05), transparent 40%);
+}
+.hero-title {
+  @apply text-5xl sm:text-6xl lg:text-8xl font-display font-bold text-slate-900 leading-[1.05] mb-8 tracking-tight;
+}
+.hero-description {
+  @apply text-lg sm:text-xl text-slate-600 mb-12 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium;
+}
+.hero-btn-primary {
+  @apply rounded-2xl px-12 py-8 text-lg font-bold shadow-2xl shadow-primary/30 hover:scale-105 transition-all duration-300;
+}
+.hero-btn-outline {
+  @apply rounded-2xl px-12 py-8 text-lg font-bold border-2 hover:bg-secondary transition-all duration-300;
+}
+.hero-badge {
+  @apply mb-8 rounded-full px-5 py-2 bg-primary/10 text-primary border-none font-bold text-xs uppercase tracking-[0.2em];
+}
+.hero-feature-card {
+  @apply flex items-center gap-4;
+}
+.hero-feature-icon-wrapper {
+  @apply w-14 h-14 rounded-2xl bg-white shadow-xl shadow-slate-200/50 flex items-center justify-center transition-all duration-500;
+}
+.hero-image-container {
+  @apply relative z-10 rounded-[60px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] border-[12px] border-white aspect-[4/5];
+}
+.hero-floating-card {
+  @apply absolute z-20 bg-white/70 backdrop-blur-md border border-white/20 shadow-sm p-5 rounded-[24px] flex items-center gap-4 max-w-[220px] shadow-2xl border-white/40;
+}

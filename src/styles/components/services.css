@@ -1,0 +1,23 @@
+/* Services */
+.section-padding {
+  @apply py-24 lg:py-32;
+}
+.section-title-wrapper {
+  @apply flex flex-col md:flex-row justify-between items-end mb-16 lg:mb-20 gap-8;
+}
+.section-subtitle {
+  @apply text-sm font-bold text-primary uppercase tracking-[0.2em];
+}
+.section-title {
+  @apply text-4xl lg:text-5xl font-display font-bold text-slate-900 leading-tight;
+}
+.service-card {
+  @apply h-full border-none rounded-[32px] hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 overflow-hidden bg-white border border-slate-100;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
+.service-image-wrapper {
+  @apply relative h-48 overflow-hidden;
+}
+.service-icon-wrapper {
+  @apply absolute top-4 left-4 w-12 h-12 rounded-xl bg-white/90 backdrop-blur-sm shadow-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500;
+}

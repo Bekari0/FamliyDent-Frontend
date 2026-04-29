@@ -1,0 +1,15 @@
+/* Contact */
+.contact-section {
+  @apply py-24 lg:py-32 bg-secondary scroll-mt-20 relative overflow-hidden;
+}
+.contact-card {
+  @apply p-6 bg-white rounded-[32px] border border-slate-100 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
+.contact-form-card {
+  @apply h-full border-none rounded-[48px] overflow-hidden bg-white border border-slate-100;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
+.input-field {
+  @apply h-14 rounded-2xl bg-secondary border-none focus-visible:ring-2 focus-visible:ring-primary/20 text-base;
+}

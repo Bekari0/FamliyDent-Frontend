@@ -1,0 +1,5 @@
+/* Reviews */
+.review-card {
+  @apply h-full border-none rounded-[32px] bg-white p-8 relative hover:-translate-y-2 transition-all duration-500 border border-secondary;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
