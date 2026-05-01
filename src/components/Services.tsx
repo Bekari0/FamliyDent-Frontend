@@ -68,7 +68,7 @@ const GRADIENTS: Record<string, string> = {
   "Диагностика": "from-slate-500 to-gray-500",
 };
 
-const API_URL = 'http://localhost:5000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export function Services() {
   const [categories, setCategories] = useState<CategoryService[]>([]);

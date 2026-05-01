@@ -1,0 +1,11 @@
+[build]
+  command = "npm run build"
+  publish = "dist"      # ← для Vite оставляем dist
+
+[build.environment]
+  VITE_API_URL = "https://familydent-backend.onrender.com"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

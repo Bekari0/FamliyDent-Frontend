@@ -66,7 +66,7 @@ export function Doctors() {
                           <Facebook className="w-5 h-5" />
                         </Button>
                       </div>
-                      <Button className="w-full rounded-2xl py-7 font-bold shadow-2xl shadow-primary/30 text-lg">
+                      <Button onClick={openBooking} className="w-full rounded-2xl py-7 font-bold shadow-2xl shadow-primary/30 text-lg">
                         <Calendar className="w-5 h-5 mr-2" />
                         Записаться
                       </Button>
