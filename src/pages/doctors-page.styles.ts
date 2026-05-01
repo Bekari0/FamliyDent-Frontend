@@ -1,42 +1,41 @@
-// Базовые контейнеры
 export const page = "min-h-screen bg-white pt-24 sm:pt-28 lg:pt-32";
-
-export const container = "container mx-auto px-4 sm:px-6 ";
+export const container = "container mx-auto px-4 sm:px-6 lg:px-8";
 export const breadcrumbWrapper = "pt-8 pb-4";
 export const breadcrumb = "flex items-center gap-2 text-sm text-slate-500";
 export const breadcrumbLink = "hover:text-primary transition-colors flex items-center gap-1";
 export const breadcrumbActive = "text-slate-900 font-medium";
-
-// Секция заголовка
 export const headerSection = "py-8 sm:py-12";
 export const headerInner = "text-center max-w-3xl mx-auto";
 export const headerBadge = "mb-4 sm:mb-6 rounded-full px-4 sm:px-6 py-1.5 sm:py-2 bg-primary/10 text-primary text-xs sm:text-sm border-0";
 export const headerTitle = "text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 sm:mb-6 leading-tight";
 export const headerTitleSpan = "text-primary";
 export const headerDesc = "text-base sm:text-lg text-slate-600";
-
-// Секция сетки
 export const gridSection = "py-12 sm:py-16";
 export const grid = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8";
-
-// Карточка
 export const card = "group h-full overflow-hidden hover:shadow-xl transition-all duration-300 border-0 shadow-md rounded-xl";
-export const cardGradient = "h-1.5 bg-gradient-to-r";
+export const imageWrapper = "relative aspect-[4/5] overflow-hidden";
+export const image = "w-full h-full object-cover transition-transform duration-700 group-hover:scale-110";
+export const ratingBadge = "absolute top-3 right-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-lg text-xs font-bold text-slate-900";
 export const cardContent = "p-5 sm:p-6";
-export const cardHeader = "flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6";
-export const cardIconWrapper = "w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br flex items-center justify-center shrink-0";
-export const cardIcon = "w-5 h-5 sm:w-7 sm:h-7 text-white";
-export const cardTitle = "text-lg sm:text-xl font-bold text-slate-900 leading-tight";
+export const specialtyBadge = "inline-block text-primary text-xs font-bold uppercase tracking-wider mb-3";
+export const cardTitle = "text-xl sm:text-2xl font-bold text-slate-900 mb-2";
+export const experience = "text-sm text-slate-500 mb-4";
+export const description = "text-sm text-slate-600 leading-relaxed mb-4";
 
-// Список услуг
-export const serviceList = "space-y-2 sm:space-y-3";
-export const serviceItem = "flex items-start gap-2 text-slate-600 text-sm sm:text-base";
-export const serviceIcon = "w-4 h-4 mt-0.5 text-primary/60 shrink-0";
-export const serviceText = "leading-relaxed";
+export const infoBlock = "mb-4";
+export const infoHeader = "flex items-center gap-2 font-bold text-slate-900 text-sm mb-2";
+export const infoIcon = "w-4 h-4 text-primary";
+export const infoTitle = "";
+export const infoText = "text-sm text-slate-600";
 
-// Кнопки
-export const buttonFull = "w-full mt-6 rounded-xl bg-primary hover:bg-primary/90 h-11 sm:h-12";
-export const buttonWhite = "bg-white text-primary hover:bg-slate-100 rounded-full px-6 sm:px-8 text-base sm:text-lg w-full sm:w-auto h-11 sm:h-12";
+export const achievementsList = "space-y-1.5 mt-2";
+export const achievementItem = "flex items-start gap-2 text-sm text-slate-600";
+export const achievementIcon = "w-3.5 h-3.5 text-primary mt-0.5 shrink-0";
+
+export const buttonGroup = "flex items-center gap-3 mt-6";
+export const buttonFull = "flex-1 rounded-xl bg-primary hover:bg-primary/90 h-11 text-sm";
+export const socialLinks = "flex items-center gap-2";
+export const socialButton = "w-10 h-10 rounded-xl border-slate-200 hover:border-primary hover:text-primary transition-all";
 
 export const ctaSection = "py-16 sm:py-24";
 export const ctaInner = "relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-primary/90 to-accent/90 p-6 sm:p-8 md:p-12 text-center";
@@ -50,6 +49,8 @@ export const ctaTitle = "text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold t
 export const ctaTitleSpan = "text-white/90";
 export const ctaDesc = "text-white/90 text-sm sm:text-base mb-6 sm:mb-8 max-w-2xl mx-auto px-4";
 export const ctaButtons = "flex flex-col sm:flex-row gap-4 justify-center items-center";
+export const buttonWhite = "bg-white text-primary hover:bg-slate-100 rounded-full px-6 sm:px-8 text-base sm:text-lg w-full sm:w-auto h-11 sm:h-12";
+
 export const ctaPhone = "flex items-center gap-3 group";
 export const ctaPhoneIcon = "w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors";
 export const ctaPhoneIconInner = "w-5 h-5 sm:w-6 sm:h-6 text-white";
@@ -61,3 +62,14 @@ export const loaderWrapper = "text-center py-20 sm:py-32";
 export const loader = "inline-block h-10 w-10 sm:h-12 sm:w-12 animate-spin rounded-full border-4 border-primary border-t-transparent";
 export const loaderText = "mt-4 text-slate-600 text-sm sm:text-base";
 export const errorText = "text-red-500 text-sm sm:text-base";
+export const socialOverlay = "absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500";
+export const socialIcons = "absolute bottom-6 left-0 right-0 flex justify-center gap-3";
+export const socialIconButton = "w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md text-white border-none hover:bg-primary hover:text-white transition-all";
+
+export const statsWrapper = "flex items-center justify-center gap-6 pt-4 pb-2 border-t border-slate-100";
+export const statItem = "flex flex-col items-center";
+export const statValue = "text-xl font-display font-bold text-slate-900";
+export const statLabel = "text-[10px] text-slate-400 font-bold uppercase tracking-tighter";
+export const statDivider = "w-px h-8 bg-slate-100";
+
+export const specialty = "text-slate-500 font-bold text-sm uppercase tracking-widest mb-4";

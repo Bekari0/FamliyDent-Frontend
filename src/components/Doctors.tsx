@@ -3,9 +3,12 @@ import { DOCTORS } from '@/constants';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Instagram, Facebook, Linkedin, Award, GraduationCap, Star, Calendar } from 'lucide-react';
+import { Instagram, Facebook, Award, GraduationCap, Star, Calendar } from 'lucide-react';
+import { useBooking } from '@/context/BookingContext';
 
 export function Doctors() {
+  const { openBooking } = useBooking();
+
   return (
     <section id="doctors" className="section-padding bg-slate-50 scroll-mt-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -61,9 +64,6 @@ export function Doctors() {
                         </Button>
                         <Button size="icon" variant="secondary" className="w-11 h-11 rounded-2xl bg-white/20 backdrop-blur-md text-white border-none hover:bg-primary hover:text-white transition-all">
                           <Facebook className="w-5 h-5" />
-                        </Button>
-                        <Button size="icon" variant="secondary" className="w-11 h-11 rounded-2xl bg-white/20 backdrop-blur-md text-white border-none hover:bg-primary hover:text-white transition-all">
-                          <Linkedin className="w-5 h-5" />
                         </Button>
                       </div>
                       <Button className="w-full rounded-2xl py-7 font-bold shadow-2xl shadow-primary/30 text-lg">

@@ -5,11 +5,14 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import Logo from '@/assets/images/logo/Logo.svg?react';
+import { useBooking } from '@/context/BookingContext';
+
 
 const NAV_ITEMS = [
   { label: 'Главная', href: '/' },
   { label: 'Услуги', href: '/services' },
-  { label: 'Врачи', href: '/#doctors' },
+  { label: 'Врачи', href: '/doctors' },
   { label: 'Отзывы', href: '/#reviews' },
   { label: 'Контакты', href: '/#contacts' },
 ];
@@ -17,6 +20,7 @@ const NAV_ITEMS = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const { openBooking } = useBooking();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,11 +43,9 @@ export function Header() {
       )}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3 group">
-          <img src="/images/logo/Logo.svg" alt="logo" />
-        </Link>
+        <Logo className="drop-shadow-2xl" />
 
-        {/* Desktop Nav */}
+
         <nav className="hidden lg:flex items-center gap-10">
           {NAV_ITEMS.map((item) => (
             <Link
@@ -65,20 +67,20 @@ export function Header() {
 
         <div className="hidden lg:flex items-center gap-6">
           <div className="flex flex-col items-end">
-            <a href="tel:+992000000000" className="flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-primary transition-colors">
+            <a href="tel:+992 446 60 66 00" className="flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-primary transition-colors">
               <Phone className="w-4 h-4 text-primary" />
-              +992 (000) 00-00-00
+              +992 446 60 66 00
             </a>
-            <span className="text-[10px] text-slate-400 font-medium uppercase tracking-tighter">Ежедневно с 08:00 до 20:00</span>
+            <span className="text-[10px] text-slate-400 font-medium uppercase tracking-tighter">Пн - Сб: 7:30 - 19:00</span>
           </div>
-          <Button className="rounded-2xl px-8 py-6 shadow-xl shadow-primary/20 hover:scale-105 transition-transform duration-300">
+          <Button onClick={openBooking} className="rounded-2xl px-8 py-6 shadow-xl shadow-primary/20 hover:scale-105 transition-transform duration-300">
             <Calendar className="w-4 h-4 mr-2" />
             Записаться
           </Button>
         </div>
 
         <div className="lg:hidden flex items-center gap-3">
-          <a href="tel:+992000000000" className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+          <a href="tel:+992 446 60 66 00" className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
             <Phone className="w-5 h-5" />
           </a>
           <Sheet>
@@ -114,12 +116,12 @@ export function Header() {
                 <div className="p-8 bg-slate-50 border-t border-slate-100">
                   <div className="mb-8">
                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Свяжитесь с нами</p>
-                    <a href="tel:+992000000000" className="text-2xl font-display font-bold text-slate-900 block mb-2">
-                      +992 (000) 00-00-00
+                    <a href="tel:+992 446 60 66 00" className="text-2xl font-display font-bold text-slate-900 block mb-2">
+                      +992 446 60 66 00
                     </a>
                     <p className="text-sm text-slate-500">г. Душанбе, ул. Рудаки 123</p>
                   </div>
-                  <Button className="w-full rounded-2xl py-8 text-lg shadow-xl shadow-primary/20">
+                  <Button onClick={openBooking} className="w-full rounded-2xl py-8 text-lg shadow-xl shadow-primary/20">
                     Записаться на прием
                   </Button>
                 </div>

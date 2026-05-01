@@ -3,8 +3,12 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, ShieldCheck, Star, Users, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useBooking } from '@/context/BookingContext';
 
 export function Hero() {
+
+  const { openBooking } = useBooking();
+
   return (
     <section className="hero-section">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,7 +45,7 @@ export function Hero() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 mb-16">
-              <Button size="lg" className="hero-btn-primary group">
+              <Button onClick={openBooking} size="lg" className="hero-btn-primary group">
                 <Calendar className="w-5 h-5 mr-3" />
                 Записаться на прием
                 <ArrowRight className="w-5 h-5 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
@@ -88,8 +92,7 @@ export function Hero() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent" />
             </div>
-            
-            {/* Floating Cards */}
+
             <motion.div 
               animate={{ y: [0, -20, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}

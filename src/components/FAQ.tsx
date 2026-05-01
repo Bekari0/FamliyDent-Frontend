@@ -55,8 +55,8 @@ export function FAQ() {
             <div className="p-6 bg-primary/5 rounded-[32px] border border-primary/10">
               <h4 className="font-bold text-slate-900 mb-2">Не нашли ответ?</h4>
               <p className="text-sm text-slate-600 mb-4">Напишите нам в чат или позвоните напрямую.</p>
-              <a href="tel:+992000000000" className="text-primary font-bold hover:underline">
-                +992 (000) 00-00-00
+              <a href="tel:+992 446 60 66 00" className="text-primary font-bold hover:underline">
+                +992 446 60 66 00
               </a>
             </div>
           </div>

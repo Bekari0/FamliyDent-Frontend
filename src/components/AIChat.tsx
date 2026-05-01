@@ -8,6 +8,7 @@ import { getChatResponse } from '@/services/geminiService';
 import { Message } from '@/types';
 import { toast } from 'sonner';
 
+
 export function AIChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -18,7 +19,7 @@ export function AIChat() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Автоматическая прокрутка вниз
+  // скролл
   useEffect(() => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
@@ -56,6 +57,7 @@ export function AIChat() {
     "Адрес",
     "График"
   ];
+
 
   return (
     <div className="fixed bottom-4 right-4 z-[100] flex flex-col items-end">
@@ -99,8 +101,6 @@ export function AIChat() {
                   </Button>
                 </div>
               </div>
-
-              {/* Messages - с прокруткой */}
               <div 
                 ref={scrollContainerRef}
                 className="flex-1 overflow-y-auto p-4 bg-slate-50/50"
@@ -142,8 +142,6 @@ export function AIChat() {
                   <div ref={messagesEndRef} />
                 </div>
               </div>
-
-              {/* Quick actions */}
               <div className="px-4 py-2 bg-slate-50 border-t border-slate-100 flex flex-wrap gap-1.5 shrink-0">
                 {quickActions.map((action, i) => (
                   <Button 
@@ -157,8 +155,6 @@ export function AIChat() {
                   </Button>
                 ))}
               </div>
-
-              {/* Input */}
               <div className="p-4 bg-white border-t border-slate-100 shrink-0">
                 <form 
                   onSubmit={(e) => { e.preventDefault(); handleSend(); }}
@@ -182,8 +178,6 @@ export function AIChat() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Кнопка чата */}
       <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}

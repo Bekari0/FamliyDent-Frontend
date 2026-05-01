@@ -1,52 +1,29 @@
 
-/* Header */
 .header-main {
   @apply fixed top-0 left-0 right-0 z-50 transition-all duration-500;
   background-color: #8B6F4D;
 }
 
 .header-scrolled {
-  background-color: rgba(139, 111, 77, 0.9);
+  background-color: rgba(139, 111, 77, 0.6);
   @apply backdrop-blur-xl shadow-lg py-3;
 }
 
 .header-transparent {
-  background-color: transparent;
+  background-color: rgba(160, 122, 76, 0.4);
   @apply py-6;
 }
 
-/* Логотип — виден везде */
 .logo {
   font-weight: bold;
   transition: all 0.3s ease;
 }
 
-/* Обычная шапка — белый лого */
 .header-main:not(.header-transparent) .logo {
   color: white;
 }
 
-/* Прозрачная шапка — тёмный лого */
 .header-transparent .logo {
-  color: #3A2C1E;  /* очень тёмный, почти чёрный */
+  color: #3A2C1E;  
   text-shadow: none;
 }
-
-/* Для лучшей читаемости в прозрачной шапке — добавляем светлую тень */
-.header-transparent .logo {
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
-}
-
-/* Навигация в прозрачной шапке тоже темнеет */
-.header-transparent .nav-link {
-  color: #3A2C1E;
-}
-
-.header-transparent .nav-link-inactive {
-  color: #5C4B32;
-}
-
-.header-transparent .nav-link-inactive:hover {
-  color: #8B6F4D;
-}
-

@@ -2,7 +2,7 @@ import { Instagram, Facebook, Linkedin, Mail, Phone, MapPin, ArrowRight, Heart }
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Link } from 'react-router-dom';
-
+import Logo from '@/assets/images/logo/Logo.svg?react';
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -14,9 +14,7 @@ export function Footer() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
           <div className="space-y-8">
-            <Link to="/" className="flex items-center gap-3 group">
-               <img src="/images/logo/Logo.svg" alt="logo" />
-            </Link>
+            <Logo />
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
               Современная стоматологическая клиника в Душанбе. Мы создаем здоровые и красивые улыбки с использованием передовых технологий и заботой о каждом пациенте.
             </p>
@@ -111,16 +109,16 @@ export function Footer() {
                 <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-white transition-colors">
                   <Phone className="w-5 h-5" />
                 </div>
-                <a href="tel:+992000000000" className="text-slate-400 hover:text-primary transition-colors text-sm font-bold">
-                  +992 (000) 00-00-00
+                <a href="tel:+992 446 60 66 00" className="text-slate-400 hover:text-primary transition-colors text-sm font-bold">
+                  +992 446 60 66 00
                 </a>
               </li>
               <li className="flex items-center gap-4 group">
                 <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-white transition-colors">
                   <Mail className="w-5 h-5" />
                 </div>
-                <a href="mailto:info@familydent.tj" className="text-slate-400 hover:text-primary transition-colors text-sm">
-                  info@familydent.tj
+                <a href="mailto:familydent.tj@gmail.com" className="text-slate-400 hover:text-primary transition-colors text-sm">
+                  familydent.tj@gmail.com
                 </a>
               </li>
             </ul>

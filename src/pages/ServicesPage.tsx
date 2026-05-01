@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useBooking } from '@/context/BookingContext';
 import { Badge } from '@/components/ui/badge';
 import { 
   Stethoscope, Sparkles, Zap, Activity, Scissors, Sun, 
@@ -48,6 +49,7 @@ export function ServicesPage() {
   const [categories, setCategories] = useState<CategoryService[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { openBooking } = useBooking();
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -94,7 +96,6 @@ export function ServicesPage() {
 
   return (
     <div className={styles.page}>
-      {/* Хлебные крошки */}
       <div className={styles.container}>
         <div className={styles.breadcrumbWrapper}>
           <nav className={styles.breadcrumb}>
@@ -108,7 +109,6 @@ export function ServicesPage() {
         </div>
       </div>
 
-      {/* Заголовок */}
       <div className={styles.container}>
         <div className={styles.headerSection}>
           <div className={styles.headerInner}>
@@ -123,7 +123,6 @@ export function ServicesPage() {
         </div>
       </div>
 
-      {/* Сетка услуг */}
       <div className={styles.container}>
         <div className={styles.gridSection}>
           <div className={styles.grid}>
@@ -159,7 +158,7 @@ export function ServicesPage() {
                         ))}
                       </ul>
 
-                      <Button className={styles.buttonFull}>
+                      <Button onClick={openBooking} className={styles.buttonFull}>
                         <Calendar className="w-4 h-4 mr-2" />
                         Записаться на прием
                       </Button>
@@ -172,7 +171,6 @@ export function ServicesPage() {
         </div>
       </div>
 
-      {/* CTA секция */}
       <div className={styles.container}>
         <div className={styles.ctaSection}>
           <div className={styles.ctaInner}>
@@ -199,12 +197,12 @@ export function ServicesPage() {
                 </p>
 
                 <div className={styles.ctaButtons}>
-                  <Button className={styles.buttonWhite}>
+                  <Button onClick={openBooking} className={styles.buttonWhite}>
                     <Calendar className="w-4 h-4 mr-2" />
                     Записаться сейчас
                   </Button>
 
-                  <a href="tel:+992000000000" className={styles.ctaPhone}>
+                  <a href="tel:+992 446 60 66 00" className={styles.ctaPhone}>
                     <div className={styles.ctaPhoneIcon}>
                       <Phone className={styles.ctaPhoneIconInner} />
                     </div>

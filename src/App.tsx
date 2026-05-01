@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { useEffect } from 'react';
 import { motion } from 'motion/react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
@@ -11,6 +6,9 @@ import { Footer } from './components/Footer';
 import { AIChat } from './components/AIChat';
 import { HomePage } from './pages/HomePage';
 import { ServicesPage } from './pages/ServicesPage';
+import { DoctorsPage } from './pages/DoctorsPage';
+import { BookingProvider } from './context/BookingContext';
+import { Toaster } from 'sonner';
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -32,18 +30,22 @@ function ScrollToTop() {
 export default function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <div className="min-h-screen bg-white flex flex-col">
-        <Header />
-        <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/services" element={<ServicesPage />} />
-          </Routes>
-        </main>
-        <Footer />
-        <AIChat />
-      </div>
+      <BookingProvider>
+        <ScrollToTop />
+        <div className="min-h-screen bg-white flex flex-col">
+          <Header />
+          <main className="flex-1">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/services" element={<ServicesPage />} />
+              <Route path="/doctors" element={<DoctorsPage />} />
+            </Routes>
+          </main>
+          <Footer />
+          <AIChat />
+          <Toaster position="top-center" expand={true} richColors />
+        </div>
+      </BookingProvider>
     </BrowserRouter>
   );
 }

@@ -30,16 +30,16 @@ export function Contact() {
     {
       icon: Phone,
       title: 'Телефон',
-      value: '+992 (000) 00-00-00',
-      description: 'Ежедневно с 08:00 до 20:00',
-      href: 'tel:+992000000000'
+      value: '+992 446 60 66 00',
+      description: 'Пн - Сб: 7:30 - 19:00',
+      href: 'tel:+992 446 60 66 00'
     },
     {
       icon: Mail,
       title: 'Email',
-      value: 'info@familydent.tj',
+      value: 'familydent.tj@gmail.com',
       description: 'Для общих вопросов',
-      href: 'mailto:info@familydent.tj'
+      href: 'mailto:familydent.tj@gmail.com'
     },
     {
       icon: MapPin,
