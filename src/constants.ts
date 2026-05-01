@@ -1,31 +1,4 @@
-import { Doctor, Review } from './types';
-
-export const DOCTORS: Doctor[] = [
-  {
-    id: '1',
-    name: 'Шарипова Нозанин Хурсандмуродовна',
-    specialty: 'Врач-стоматолог-терапевт, ортопед',
-    experience: '5 лет опыта',
-    image: 'images/doctors/SharipovaNozanin.jpg',
-    description: 'Специалист экспертного уровня в области дентальной имплантации и костной пластики.'
-  },
-  {
-    id: '2',
-    name: 'Халифаев Ромиз Парвизджонович',
-    specialty: 'Врач-ортодонт',
-    experience: '8 лет опыта',
-    image: '/images/doctors/HalifaevRomiz.jpg',
-    description: 'Создает идеальные улыбки с помощью современных брекет-систем и элайнеров.'
-  },
-  {
-    id: '3',
-    name: 'Назаров Сомон Муродаливиеч',
-    specialty: 'Стоматолог-терапевт',
-    experience: '10 лет опыта',
-    image: '/images/doctors/NazarovSomon.jpg',
-    description: 'Мастер художественной реставрации и эндodонтического лечения под микроскопом.'
-  }
-];
+import { Review } from './types';
 
 export const REVIEWS: Review[] = [
   {

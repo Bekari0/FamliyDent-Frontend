@@ -1,13 +1,57 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { DOCTORS } from '@/constants';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Instagram, Facebook, Award, GraduationCap, Star, Calendar } from 'lucide-react';
 import { useBooking } from '@/context/BookingContext';
+import axios from 'axios';
+
+interface Doctor {
+  _id: string;
+  name: string;
+  specialty: string;
+  experience: string;
+  image: string;
+}
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export function Doctors() {
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [loading, setLoading] = useState(true);
   const { openBooking } = useBooking();
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/api/doctors`);
+        setDoctors(response.data.slice(0, 3));
+        setLoading(false);
+      } catch (err) {
+        console.error('Ошибка загрузки врачей:', err);
+        setLoading(false);
+      }
+    };
+    fetchDoctors();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="doctors" className="section-padding bg-slate-50 scroll-mt-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center py-20">
+            <div className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+            <p className="mt-4 text-slate-600">Загрузка врачей...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (doctors.length === 0) {
+    return null;
+  }
 
   return (
     <section id="doctors" className="section-padding bg-slate-50 scroll-mt-20">
@@ -42,9 +86,9 @@ export function Doctors() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {DOCTORS.map((doctor, index) => (
+          {doctors.map((doctor, index) => (
             <motion.div
-              key={doctor.id}
+              key={doctor._id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -54,8 +98,9 @@ export function Doctors() {
                 <CardContent className="p-0">
                   <div className="relative aspect-[4/5] rounded-[40px] overflow-hidden mb-8 soft-shadow border-4 border-white">
                     <img 
-                      src={doctor.image} 
-                      alt={doctor.name} 
+                      src={doctor.image || 'https://picsum.photos/seed/doctor/500/600'} 
+                      alt={doctor.name}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="doctor-info-overlay">
                       <div className="flex gap-4 mb-6">
@@ -80,7 +125,7 @@ export function Doctors() {
                   
                   <div className="text-center px-4">
                     <Badge variant="outline" className="mb-4 rounded-full border-primary/20 text-primary bg-primary/5 px-4 py-1.5 font-bold uppercase tracking-wider text-[10px]">
-                      Стаж: {doctor.experience}
+                      Стаж: {doctor.experience || 'Опытный специалист'}
                     </Badge>
                     <h3 className="text-3xl font-display font-bold text-slate-900 mb-2 group-hover:text-primary transition-colors">
                       {doctor.name}
@@ -110,4 +155,3 @@ export function Doctors() {
     </section>
   );
 }
-
