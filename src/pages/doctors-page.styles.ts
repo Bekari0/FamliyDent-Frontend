@@ -12,28 +12,40 @@ export const headerTitleSpan = "text-primary";
 export const headerDesc = "text-base sm:text-lg text-slate-600";
 export const gridSection = "py-12 sm:py-16";
 export const grid = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8";
-export const card = "group h-full overflow-hidden hover:shadow-xl transition-all duration-300 border-0 shadow-md rounded-xl";
-export const imageWrapper = "relative aspect-[4/5] overflow-hidden";
+export const card = "group h-full flex flex-col overflow-hidden hover:shadow-xl transition-all duration-300 border-0 shadow-md rounded-xl";
+export const imageWrapper = "relative aspect-[4/5] overflow-hidden cursor-pointer";
 export const image = "w-full h-full object-cover transition-transform duration-700 group-hover:scale-110";
 export const ratingBadge = "absolute top-3 right-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-lg text-xs font-bold text-slate-900";
-export const cardContent = "p-5 sm:p-6";
+export const cardContent = "p-5 sm:p-6 flex flex-col flex-1";
 export const specialtyBadge = "inline-block text-primary text-xs font-bold uppercase tracking-wider mb-3";
 export const cardTitle = "text-xl sm:text-2xl font-bold text-slate-900 mb-2";
 export const experience = "text-sm text-slate-500 mb-4";
 export const description = "text-sm text-slate-600 leading-relaxed mb-4";
 
-export const infoBlock = "mb-4";
+export const infoBlock = "mb-4 p-3 bg-slate-50 rounded-2xl border border-slate-100/50";
 export const infoHeader = "flex items-center gap-2 font-bold text-slate-900 text-sm mb-2";
 export const infoIcon = "w-4 h-4 text-primary";
 export const infoTitle = "";
 export const infoText = "text-sm text-slate-600";
 
-export const achievementsList = "space-y-1.5 mt-2";
+export const achievementsList = "space-y-1.5";
 export const achievementItem = "flex items-start gap-2 text-sm text-slate-600";
 export const achievementIcon = "w-3.5 h-3.5 text-primary mt-0.5 shrink-0";
 
+export const experienceBadge = "flex items-center gap-1 text-xs text-slate-500 mb-3";
+export const statsBlock = "flex items-center gap-4 py-3 mb-4 border-t border-b border-slate-100";
+export const statItem = "flex items-center gap-2";
+export const statIcon = "w-4 h-4 text-primary";
+export const statValue = "text-sm font-bold text-slate-900";
+export const statLabel = "text-[10px] text-slate-400 font-medium";
+
+export const buttonWrapper = "mt-auto pt-4";
+export const buttonFull = "w-full rounded-xl bg-primary hover:bg-primary/90 h-11 text-sm";
+export const buttonOutline = "hidden"; 
+
+export const showMoreLink = "text-primary text-[10px] font-bold cursor-pointer hover:underline mt-1";
+
 export const buttonGroup = "flex items-center gap-3 mt-6";
-export const buttonFull = "flex-1 rounded-xl bg-primary hover:bg-primary/90 h-11 text-sm";
 export const socialLinks = "flex items-center gap-2";
 export const socialButton = "w-10 h-10 rounded-xl border-slate-200 hover:border-primary hover:text-primary transition-all";
 
@@ -67,9 +79,13 @@ export const socialIcons = "absolute bottom-6 left-0 right-0 flex justify-center
 export const socialIconButton = "w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md text-white border-none hover:bg-primary hover:text-white transition-all";
 
 export const statsWrapper = "flex items-center justify-center gap-6 pt-4 pb-2 border-t border-slate-100";
-export const statItem = "flex flex-col items-center";
-export const statValue = "text-xl font-display font-bold text-slate-900";
-export const statLabel = "text-[10px] text-slate-400 font-bold uppercase tracking-tighter";
 export const statDivider = "w-px h-8 bg-slate-100";
+
+export const imageOverlay = "absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-4 sm:p-6";
+export const imageOverlayContent = "translate-y-2 group-hover:translate-y-0 transition-transform duration-500";
+export const imageOverlayText = "text-white/80 text-[10px] font-bold uppercase tracking-widest";
+export const imageOverlayLine = "w-10 h-0.5 bg-primary rounded-full mt-2";
+export const imageIcon = "absolute top-4 right-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-primary shadow-lg opacity-0 group-hover:opacity-100 transition-all transform scale-90 group-hover:scale-100";
+export const imageIconInner = "w-4 h-4 sm:w-5 sm:h-5";
 
 export const specialty = "text-slate-500 font-bold text-sm uppercase tracking-widest mb-4";

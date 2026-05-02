@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useBooking } from '@/context/BookingContext';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Stethoscope, Sparkles, Calendar, Phone, Home, ChevronRight,
-  GraduationCap, Award, CheckCircle2, Star, Instagram, Facebook
+import { Stethoscope, Sparkles, Calendar, Phone, Home, ChevronRight,
+  GraduationCap, Award, CheckCircle2, Star, Instagram, Facebook,
+  X, History, Plus
 } from 'lucide-react';
+import { DoctorDetailModal } from '@/components/DoctorDetailModal';
 
 import * as styles from './doctors-page.styles';
 
@@ -30,6 +31,7 @@ export function DoctorsPage() {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
   const { openBooking } = useBooking();
 
   useEffect(() => {
@@ -121,12 +123,22 @@ export function DoctorsPage() {
                 className="h-full"
               >
                 <Card className={styles.card}>
-                  <div className={styles.imageWrapper}>
+                  <div 
+                    className={styles.imageWrapper}
+                    onClick={() => setSelectedDoctor(doctor)}
+                  >
                     <img 
                       src={doctor.image} 
                       alt={doctor.name}
                       className={styles.image}
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                      <span className="text-white/80 text-[10px] font-bold uppercase tracking-widest mb-1">Нажмите для подробностей</span>
+                      <div className="w-10 h-0.5 bg-primary rounded-full mt-1" />
+                    </div>
+                    <div className="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-primary shadow-lg lg:opacity-0 lg:group-hover:opacity-100 transition-all transform scale-90 group-hover:scale-100">
+                      <Plus className="w-6 h-6" />
+                    </div>
                   </div>
 
                   <CardContent className={styles.cardContent}>
@@ -159,25 +171,30 @@ export function DoctorsPage() {
                           <span className={styles.infoTitle}>Достижения</span>
                         </div>
                         <ul className={styles.achievementsList}>
-                          {doctor.achievements.slice(0, 3).map((item, idx) => (
+                          {doctor.achievements.slice(0, 2).map((item, idx) => (
                             <li key={idx} className={styles.achievementItem}>
                               <CheckCircle2 className={styles.achievementIcon} />
-                              <span>{item}</span>
+                              <span className="line-clamp-1">{item}</span>
                             </li>
                           ))}
-                          {doctor.achievements.length > 3 && (
-                            <li className={styles.achievementItem}>
-                              <span className="text-primary text-sm">+{doctor.achievements.length - 3} других</span>
+                          {doctor.achievements.length > 2 && (
+                            <li 
+                              className="text-primary text-[10px] font-bold cursor-pointer hover:underline mt-1"
+                              onClick={() => setSelectedDoctor(doctor)}
+                            >
+                              +{doctor.achievements.length - 2} еще
                             </li>
                           )}
                         </ul>
                       </div>
                     )}
 
-                    <Button onClick={openBooking} className={styles.buttonFull}>
-                      <Calendar className="w-4 h-4 mr-2" />
-                      Записаться
-                    </Button>
+                    <div className="mt-auto">
+                      <Button onClick={() => openBooking(doctor._id)} className={styles.buttonFull}>
+                        <Calendar className="w-4 h-4 mr-2" />
+                        Записаться
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -185,6 +202,16 @@ export function DoctorsPage() {
           </div>
         </div>
       </div>
+
+      <DoctorDetailModal 
+        doctor={selectedDoctor}
+        isOpen={!!selectedDoctor}
+        onClose={() => setSelectedDoctor(null)}
+        onBooking={(doctorId) => {
+          setSelectedDoctor(null);
+          openBooking(doctorId);
+        }}
+      />
 
       <div className={styles.container}>
         <div className={styles.ctaSection}>
@@ -212,7 +239,7 @@ export function DoctorsPage() {
                 </p>
 
                 <div className={styles.ctaButtons}>
-                  <Button onClick={openBooking} className={styles.buttonWhite}>
+                  <Button onClick={() => openBooking()} className={styles.buttonWhite}>
                     <Calendar className="w-4 h-4 mr-2" />
                     Записаться сейчас
                   </Button>

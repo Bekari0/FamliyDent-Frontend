@@ -1,15 +1,24 @@
 import { motion, AnimatePresence } from 'motion/react';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { X, Calendar, Phone as PhoneIcon, User, MessageSquare, Send, Clock, UserCheck, AlertCircle, Activity } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
+import axios from 'axios';
+
+interface Doctor {
+  _id: string;
+  name: string;
+}
 
 interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
+  doctors?: Doctor[];
+  isLoadingDoctors?: boolean;
+  defaultDoctorId?: string;
 }
 
 interface FormErrors {
@@ -18,20 +27,26 @@ interface FormErrors {
   date?: string;
 }
 
-const DOCTORS = [
-  { id: '1', name: 'Др. Ахмедов Саид' },
-  { id: '2', name: 'Др. Каримова Мадина' },
-  { id: '3', name: 'Др. Назаров Рустам' },
-  { id: 'any', name: 'Любой свободный врач' }
-];
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
-export function BookingModal({ isOpen, onClose }: BookingModalProps) {
+const DEFAULT_DOCTOR = { _id: 'any', name: 'Любой свободный врач' };
+
+export function BookingModal({ 
+  isOpen, 
+  onClose, 
+  doctors: initialDoctors,
+  isLoadingDoctors: initialLoading = false,
+  defaultDoctorId = 'any'
+}: BookingModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [backendDoctors, setBackendDoctors] = useState<Doctor[]>([]);
+  const [isFetching, setIsFetching] = useState(false);
+  
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     service: 'Консультация',
-    doctor: 'any',
+    doctor: defaultDoctorId,
     date: '',
     time: '09:00',
     comment: ''
@@ -39,25 +54,51 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
   const [errors, setErrors] = useState<FormErrors>({});
 
   useEffect(() => {
+    if (isOpen && !initialDoctors && backendDoctors.length === 0) {
+      const fetchDoctors = async () => {
+        try {
+          setIsFetching(true);
+          const response = await axios.get(`${API_URL}/api/doctors`);
+          setBackendDoctors(response.data);
+          setIsFetching(false);
+        } catch (err) {
+          console.error('Ошибка загрузки врачей в модалке:', err);
+          setIsFetching(false);
+        }
+      };
+      fetchDoctors();
+    }
+  }, [isOpen, initialDoctors, backendDoctors.length]);
+
+  const allDoctors = useMemo(() => {
+    const list = initialDoctors || backendDoctors;
+    const hasAny = list.some(d => d._id === 'any');
+    if (hasAny) return list;
+    return [DEFAULT_DOCTOR, ...list];
+  }, [initialDoctors, backendDoctors]);
+
+  const isLoading = initialLoading || isFetching;
+
+  useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      setFormData({
+      setFormData(prev => ({
+        ...prev,
+        doctor: defaultDoctorId || 'any',
         name: '',
         phone: '',
-        service: 'Консультация',
-        doctor: 'any',
         date: '',
         time: '09:00',
         comment: ''
-      });
+      }));
       setErrors({});
+      document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [isOpen]);
+  }, [isOpen, defaultDoctorId]);
 
   const validate = () => {
     const newErrors: FormErrors = {};
@@ -81,15 +122,10 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       
-      const maxDate = new Date();
-      maxDate.setFullYear(maxDate.getFullYear() + 1);
-
       if (isNaN(selectedDate.getTime())) {
         newErrors.date = 'Введите корректную дату';
       } else if (selectedDate < today) {
         newErrors.date = 'Дата не может быть в прошлом';
-      } else if (selectedDate > maxDate) {
-        newErrors.date = 'Слишком поздняя дата';
       }
     }
 
@@ -99,7 +135,6 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
-    // Simple masking logic for +992
     if (!value.startsWith('+992') && value.length > 0) {
       if (value.startsWith('992')) value = '+' + value;
       else value = '+992 ' + value;
@@ -112,12 +147,11 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
     if (!validate()) return;
 
     setIsSubmitting(true);
-    
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
     
+    const doctorName = allDoctors.find(d => d._id === formData.doctor)?.name || 'врачу';
     toast.success('Заявка принята!', {
-      description: `Мы свяжемся с вами для подтверждения записи к ${DOCTORS.find(d => d.id === formData.doctor)?.name}.`,
+      description: `Мы свяжемся с вами для подтверждения записи к ${doctorName}.`,
     });
     
     setIsSubmitting(false);
@@ -143,7 +177,8 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
             onClick={(e) => e.stopPropagation()}
             className="relative w-full max-w-[95%] sm:max-w-lg md:max-w-2xl lg:max-w-3xl bg-white rounded-[24px] md:rounded-[32px] shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[85vh]"
           >
-            <div className="hidden md:flex w-[30%] lg:w-[32%] bg-primary p-5 lg:p-8 flex-col justify-between relative overflow-hidden shrink-0">
+            {/* Left Side */}
+            <div className="hidden md:flex w-[30%] lg:w-[32%] bg-primary p-6 lg:p-8 flex-col justify-between relative overflow-hidden shrink-0">
               <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-24 -mt-24 blur-2xl" />
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-accent/20 rounded-full -ml-16 -mb-16 blur-xl" />
               
@@ -175,7 +210,8 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
               </div>
             </div>
 
-            <div className="flex-1 p-4 sm:p-6 md:p-7 lg:p-8 overflow-y-auto bg-white no-scrollbar">
+            {/* Form Side */}
+            <div className="flex-1 p-5 sm:p-7 md:p-8 lg:p-10 overflow-y-auto bg-white no-scrollbar">
               <div className="flex items-center justify-between mb-5">
                 <div>
                   <h2 className="text-lg lg:text-xl font-display font-bold text-slate-900">Запись на прием</h2>
@@ -191,7 +227,6 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
 
               <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
-                  {/* Name field */}
                   <div className="space-y-1">
                     <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2 px-1">
                       <User className="w-3 h-3 text-primary" />
@@ -271,10 +306,15 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                         value={formData.doctor}
                         onChange={(e) => setFormData({ ...formData, doctor: e.target.value })}
                         className="w-full h-10 md:h-12 rounded-lg md:rounded-xl bg-slate-50 px-3 text-slate-900 border-none focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer text-sm"
+                        disabled={isLoading}
                       >
-                        {DOCTORS.map(doc => (
-                          <option key={doc.id} value={doc.id}>{doc.name}</option>
-                        ))}
+                        {isLoading ? (
+                          <option>Загрузка врачей...</option>
+                        ) : (
+                          allDoctors.map(doc => (
+                            <option key={doc._id} value={doc._id}>{doc.name}</option>
+                          ))
+                        )}
                       </select>
                       <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
                         <X className="w-3 h-3 rotate-45" />
@@ -316,7 +356,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                         onChange={(e) => setFormData({ ...formData, time: e.target.value })}
                         className="w-full h-10 md:h-12 rounded-lg md:rounded-xl bg-slate-50 px-3 text-slate-900 border-none focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer text-sm"
                       >
-                        {['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'].map(t => (
+                        {['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'].map(t => (
                           <option key={t} value={t}>{t}</option>
                         ))}
                       </select>
@@ -335,40 +375,30 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
                   <Textarea 
                     value={formData.comment}
                     onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
-                    placeholder="Дополнительная информация (необязательно)" 
-                    className="min-h-[80px] md:min-h-[100px] rounded-lg md:rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-primary/20 text-sm p-3 resize-none transition-all"
+                    placeholder="Дополнительные пожелания" 
+                    className="min-h-[80px] rounded-lg md:rounded-xl bg-slate-50 border-none focus:ring-2 focus:ring-primary/20 text-sm p-3 resize-none transition-all"
                   />
                 </div>
 
-                <div className="pt-1">
+                <div className="pt-2">
                   <Button 
                     type="submit" 
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || isLoading}
                     className="w-full h-12 md:h-14 rounded-lg md:rounded-xl text-sm md:text-base font-bold shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all group overflow-hidden relative"
                   >
                     <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                     {isSubmitting ? (
                       <div className="flex items-center gap-3 relative z-10">
                         <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        <span>Обработка...</span>
+                        <span>Отправка...</span>
                       </div>
                     ) : (
                       <div className="flex items-center gap-2 relative z-10">
-                        <span>Записаться в клинику</span>
+                        <span>Записаться</span>
                         <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                       </div>
                     )}
                   </Button>
-                </div>
-
-                <div className="flex flex-col items-center gap-3 pt-4">
-                  <div className="flex items-center gap-6 opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
-                    <img src="https://www.vectorlogo.zone/logos/visa/visa-ar21.svg" className="h-4" alt="Visa" />
-                    <img src="https://www.vectorlogo.zone/logos/mastercard/mastercard-ar21.svg" className="h-6" alt="Mastercard" />
-                  </div>
-                  <p className="text-[10px] text-slate-400 leading-relaxed uppercase tracking-widest font-bold text-center">
-                    Ваши данные защищены <br className="sm:hidden" /> сквозным шифрованием
-                  </p>
                 </div>
               </form>
             </div>
@@ -378,4 +408,3 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
     </AnimatePresence>
   );
 }
-

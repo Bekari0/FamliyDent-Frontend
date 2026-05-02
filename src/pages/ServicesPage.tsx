@@ -100,7 +100,7 @@ export function ServicesPage() {
         <div className={styles.breadcrumbWrapper}>
           <nav className={styles.breadcrumb}>
             <Link to="/" className={styles.breadcrumbLink}>
-              <Home className="w-4 h-4" />
+                <Home className="w-4 h-4" />
               <span>Главная</span>
             </Link>
             <ChevronRight className="w-4 h-4" />
@@ -158,7 +158,7 @@ export function ServicesPage() {
                         ))}
                       </ul>
 
-                      <Button onClick={openBooking} className={styles.buttonFull}>
+                      <Button onClick={() => openBooking()} className={styles.buttonFull}>
                         <Calendar className="w-4 h-4 mr-2" />
                         Записаться на прием
                       </Button>
@@ -183,8 +183,10 @@ export function ServicesPage() {
                 viewport={{ once: true }}
               >
                 <div className={styles.ctaBadge}>
-                  <Sparkles className={styles.ctaBadgeIcon} />
-                  <span className={styles.ctaBadgeText}>Первый визит</span>
+                  <div className="flex items-center gap-2">
+                    <Sparkles className={styles.ctaBadgeIcon} />
+                    <span className={styles.ctaBadgeText}>Первый визит</span>
+                  </div>
                 </div>
 
                 <h2 className={styles.ctaTitle}>
@@ -197,18 +199,18 @@ export function ServicesPage() {
                 </p>
 
                 <div className={styles.ctaButtons}>
-                  <Button onClick={openBooking} className={styles.buttonWhite}>
+                  <Button onClick={() => openBooking()} className={styles.buttonWhite}>
                     <Calendar className="w-4 h-4 mr-2" />
                     Записаться сейчас
                   </Button>
 
-                  <a href="tel:+992 446 60 66 00" className={styles.ctaPhone}>
+                  <a href="tel:+992446606600" className={styles.ctaPhone}>
                     <div className={styles.ctaPhoneIcon}>
                       <Phone className={styles.ctaPhoneIconInner} />
                     </div>
                     <div className={styles.ctaPhoneText}>
                       <div className={styles.ctaPhoneLabel}>Позвоните нам</div>
-                      <div className={styles.ctaPhoneNumber}>+992 000 000 000</div>
+                      <div className={styles.ctaPhoneNumber}>+992 446 60 66 00</div>
                     </div>
                   </a>
                 </div>

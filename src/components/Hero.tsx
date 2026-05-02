@@ -45,7 +45,7 @@ export function Hero() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 mb-16">
-              <Button onClick={openBooking} size="lg" className="hero-btn-primary group">
+              <Button size="lg" className="hero-btn-primary group">
                 <Calendar className="w-5 h-5 mr-3" />
                 Записаться на прием
                 <ArrowRight className="w-5 h-5 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
@@ -130,4 +130,3 @@ export function Hero() {
     </section>
   );
 }
-

@@ -73,7 +73,7 @@ export function Header() {
             </a>
             <span className="text-[10px] text-slate-400 font-medium uppercase tracking-tighter">Пн - Сб: 7:30 - 19:00</span>
           </div>
-          <Button onClick={openBooking} className="rounded-2xl px-8 py-6 shadow-xl shadow-primary/20 hover:scale-105 transition-transform duration-300">
+          <Button onClick={() => openBooking()} className="rounded-2xl px-8 py-6 shadow-xl shadow-primary/20 hover:scale-105 transition-transform duration-300">
             <Calendar className="w-4 h-4 mr-2" />
             Записаться
           </Button>
@@ -121,7 +121,7 @@ export function Header() {
                     </a>
                     <p className="text-sm text-slate-500">г. Душанбе, ул. Рудаки 123</p>
                   </div>
-                  <Button onClick={openBooking} className="w-full rounded-2xl py-8 text-lg shadow-xl shadow-primary/20">
+                  <Button onClick={() => openBooking()} className="w-full rounded-2xl py-8 text-lg shadow-xl shadow-primary/20">
                     Записаться на прием
                   </Button>
                 </div>
@@ -133,4 +133,3 @@ export function Header() {
     </header>
   );
 }
-
