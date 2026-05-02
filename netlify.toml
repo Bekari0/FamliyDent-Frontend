@@ -1,9 +1,10 @@
 [build]
-  command = "npm run build"
-  publish = "dist"      # ← для Vite оставляем dist
+  command = "npm install --legacy-peer-deps && npm run build"
+  publish = "dist"
 
 [build.environment]
   VITE_API_URL = "https://familydent-backend.onrender.com"
+  NODE_VERSION = "22.22.2"
 
 [[redirects]]
   from = "/*"
