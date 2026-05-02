@@ -1,17 +1,18 @@
+// src/components/Contact.tsx
 import { motion } from 'motion/react';
-import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import { MapPin, Phone, Mail, Sparkles } from 'lucide-react';
+import { YandexMap } from './YandexMap';
 
 export function Contact() {
   const CLINIC_LOCATIONS = [
     {
-      center: [38.563467, 68.804442],
+      center: [38.563467, 68.804442] as [number, number],
       address: 'ул. Айни, 45',
       title: 'FamilyDent - Айни',
       phone: '+992 446 60 66 00'
     },
     {
-      center: [38.548990, 68.761355],
+      center: [38.54899, 68.761355] as [number, number],
       address: 'проспект Негмата Карабаева, 29',
       title: 'FamilyDent - Карабаева',
       phone: '+992 446 60 66 00'
@@ -44,7 +45,6 @@ export function Contact() {
 
   return (
     <section id="contacts" className="py-24 bg-white relative overflow-hidden">
-      {/* Background Blobs */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -mr-64 -mt-64" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px] -ml-48 -mb-48" />
 
@@ -126,42 +126,12 @@ export function Contact() {
               className="h-[450px] lg:h-full min-h-[500px] w-full rounded-[48px] overflow-hidden shadow-2xl border-8 border-white bg-slate-50 relative"
             >
               <div className="absolute inset-0 pointer-events-none border border-slate-200/50 rounded-[40px] z-10" />
-              
-              <YMaps query={{ lang: 'ru_RU' }}>
-                <Map 
-                  defaultState={{ 
-                    center: [38.553205, 68.791215], 
-                    zoom: 12,
-                    controls: [] 
-                  }} 
-                  width="100%" 
-                  height="100%"
-                  options={{
-                    autoFitToViewport: 'always',
-                    suppressMapOpenBlock: true,
-                    yandexMapDisablePoiInteractivity: true
-                  }}
-                >
-                  {CLINIC_LOCATIONS.map((loc, i) => (
-                    <Placemark 
-                      key={i}
-                      geometry={loc.center}
-                      properties={{
-                        balloonContentHeader: `<div class="font-bold text-primary p-1">${loc.title}</div>`,
-                        balloonContentBody: `<div class="text-slate-600 text-sm px-1 pb-1">${loc.address}</div>`,
-                        balloonContentFooter: `<div class="font-bold text-slate-900 px-1 pb-1">${loc.phone}</div>`,
-                        hintContent: loc.title
-                      }}
-                      options={{
-                        preset: 'islands#blueMedicalIcon',
-                        iconColor: '#C6A15B',
-                        hideIconOnBalloonOpen: false,
-                        balloonOffset: [3, -40]
-                      }}
-                    />
-                  ))}
-                </Map>
-              </YMaps>
+              <YandexMap 
+                locations={CLINIC_LOCATIONS}
+                defaultCenter={[38.553205, 68.791215]}
+                defaultZoom={12}
+                className="w-full h-full"
+              />
               <div className="absolute bottom-6 left-6 right-6 z-20 pointer-events-none">
                 <div className="bg-white/95 backdrop-blur-md p-5 rounded-3xl shadow-2xl border border-white/20 flex items-center justify-between">
                   <div className="flex items-center gap-4">
