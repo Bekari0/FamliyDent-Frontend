@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { YMaps, Map, Placemark } from '@mr-igorinni/react-yandex-maps-fork';
+import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import { MapPin, Phone, Mail, Sparkles } from 'lucide-react';
 
 export function Contact() {
