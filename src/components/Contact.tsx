@@ -24,7 +24,7 @@ export function Contact() {
       icon: Phone,
       title: 'Телефоны',
       value: '+992 446 60 66 00',
-      description: 'Ежедневно с 08:00 до 20:00',
+      description: 'Ежедневно с 7:30 до 19:00',
       href: 'tel:+992446606600'
     },
     {

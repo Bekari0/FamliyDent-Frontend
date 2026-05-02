@@ -19,25 +19,5 @@ export default defineConfig(({mode}) => {
     server: {
       hmr: process.env.DISABLE_HMR !== 'true',
     },
-    // Настройка для яндекс карт
-    optimizeDeps: {
-      include: ['@pbe/react-yandex-maps'],
-    },
-    build: {
-      commonjsOptions: {
-        include: [/@pbe\/react-yandex-maps/, /node_modules/],
-        transformMixedEsModules: true,
-      },
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            'yandex-maps': ['@pbe/react-yandex-maps'],
-          },
-        },
-      },
-    },
-    ssr: {
-      noExternal: ['@pbe/react-yandex-maps'],
-    },
   };
 });
