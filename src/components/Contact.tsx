@@ -1,38 +1,30 @@
-import * as React from 'react';
 import { motion } from 'motion/react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent } from '@/components/ui/card';
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, Sparkles } from 'lucide-react';
-import { toast } from 'sonner';
-import { useState } from 'react';
+import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
+import { MapPin, Phone, Mail, Sparkles } from 'lucide-react';
 
 export function Contact() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Симуляция API запроса
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    toast.success('Заявка успешно отправлена!', {
-      description: 'Мы свяжемся с вами в ближайшее время для подтверждения записи.',
-    });
-    
-    setIsSubmitting(false);
-    (e.target as HTMLFormElement).reset();
-  };
+  const CLINIC_LOCATIONS = [
+    {
+      center: [38.563467, 68.804442],
+      address: 'ул. Айни, 45',
+      title: 'FamilyDent - Айни',
+      phone: '+992 446 60 66 00'
+    },
+    {
+      center: [38.548990, 68.761355],
+      address: 'проспект Негмата Карабаева, 29',
+      title: 'FamilyDent - Карабаева',
+      phone: '+992 446 60 66 00'
+    }
+  ];
 
   const contactInfo = [
     {
       icon: Phone,
-      title: 'Телефон',
+      title: 'Телефоны',
       value: '+992 446 60 66 00',
-      description: 'Пн - Сб: 7:30 - 19:00',
-      href: 'tel:+992 446 60 66 00'
+      description: 'Ежедневно с 08:00 до 20:00',
+      href: 'tel:+992446606600'
     },
     {
       icon: Mail,
@@ -43,22 +35,23 @@ export function Contact() {
     },
     {
       icon: MapPin,
-      title: 'Адрес',
-      value: 'г. Душанбе, ул. Рудаки 123',
-      description: 'Центральный вход, 2 этаж',
+      title: 'Филиалы',
+      value: 'ул. Айни, 45 / ул. Н. Карабаева, 29',
+      description: 'г. Душанбе',
       href: '#'
     }
   ];
 
   return (
-    <section id="contacts" className="contact-section">
+    <section id="contacts" className="py-24 bg-white relative overflow-hidden">
+      {/* Background Blobs */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -mr-64 -mt-64" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] -ml-64 -mb-64" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px] -ml-48 -mb-48" />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-stretch">
-          <div className="flex-1 space-y-12">
-            <div>
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="flex flex-col lg:flex-row items-stretch gap-16 xl:gap-24">
+          <div className="flex-1">
+            <div className="mb-12">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -66,16 +59,16 @@ export function Contact() {
                 className="flex items-center gap-3 mb-6"
               >
                 <div className="w-12 h-0.5 bg-primary" />
-                <span className="section-subtitle">Контакты</span>
+                <span className="text-primary font-bold uppercase tracking-[0.2em] text-xs">Контакты</span>
               </motion.div>
               <motion.h2 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="section-title lg:text-6xl mb-8"
+                className="text-4xl lg:text-5xl font-display font-bold text-[#2C2A28] leading-tight mb-6"
               >
-                Остались вопросы? <br />
-                <span className="text-primary">Свяжитесь с нами</span>
+                Ждем вас в наших <br />
+                <span className="text-primary italic">филиалах</span>
               </motion.h2>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
@@ -84,11 +77,11 @@ export function Contact() {
                 transition={{ delay: 0.1 }}
                 className="text-lg text-slate-600 leading-relaxed max-w-xl"
               >
-                Мы всегда на связи, чтобы помочь вам. Выберите удобный способ связи или заполните форму, и мы перезвоним вам в течение 15 минут.
+                Мы всегда на связи, чтобы помочь вам. Выберите удобный филиал и запишитесь на прием прямо сейчас.
               </motion.p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
               {contactInfo.map((info, index) => (
                 <motion.a
                   key={index}
@@ -97,14 +90,14 @@ export function Contact() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="contact-card group"
+                  className="group p-6 rounded-[32px] bg-white border border-slate-200/50 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 shadow-sm"
                 >
                   <div className="w-12 h-12 rounded-2xl bg-primary/5 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-500">
                     <info.icon className="w-6 h-6" />
                   </div>
-                  <h4 className="font-bold text-slate-900 mb-1">{info.title}</h4>
-                  <p className="text-sm font-bold text-slate-900 mb-1">{info.value}</p>
-                  <p className="text-xs text-slate-400 font-medium">{info.description}</p>
+                  <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{info.title}</h4>
+                  <p className="text-base font-bold text-[#2C2A28] mb-1">{info.value}</p>
+                  <p className="text-xs text-slate-500">{info.description}</p>
                 </motion.a>
               ))}
               <motion.div
@@ -112,99 +105,76 @@ export function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="p-6 bg-primary rounded-[32px] shadow-2xl shadow-primary/20 text-white flex flex-col justify-center"
+                className="p-6 rounded-[32px] bg-primary text-white shadow-2xl shadow-primary/30 flex flex-col justify-center border border-white/10"
               >
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-2 mb-3">
                   <Sparkles className="w-5 h-5" />
-                  <span className="font-bold">AI Помощник</span>
+                  <span className="font-bold leading-none tracking-tight">AI Помощник</span>
                 </div>
-                <p className="text-sm opacity-90 leading-relaxed">
-                  Наш AI-ассистент доступен 24/7 и готов ответить на любые вопросы прямо сейчас.
+                <p className="text-sm opacity-95 leading-relaxed font-medium">
+                  Наш AI-ассистент доступен 24/7 и готов ответить на ваши вопросы.
                 </p>
               </motion.div>
             </div>
           </div>
 
-          <div className="flex-1">
+          <div className="flex-1 lg:max-w-xl xl:max-w-2xl w-full">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="h-full"
+              className="h-[450px] lg:h-full min-h-[500px] w-full rounded-[48px] overflow-hidden shadow-2xl border-8 border-white bg-slate-50 relative"
             >
-              <Card className="contact-form-card">
-                <CardContent className="p-8 lg:p-12">
-                  <div className="mb-10">
-                    <h3 className="text-3xl font-display font-bold text-slate-900 mb-3">Записаться на прием</h3>
-                    <p className="text-slate-500">Заполните форму, и мы подберем для вас удобное время.</p>
+              <div className="absolute inset-0 pointer-events-none border border-slate-200/50 rounded-[40px] z-10" />
+              
+              <YMaps query={{ lang: 'ru_RU' }}>
+                <Map 
+                  defaultState={{ 
+                    center: [38.553205, 68.791215], 
+                    zoom: 12,
+                    controls: [] 
+                  }} 
+                  width="100%" 
+                  height="100%"
+                  options={{
+                    autoFitToViewport: 'always',
+                    suppressMapOpenBlock: true,
+                    yandexMapDisablePoiInteractivity: true
+                  }}
+                >
+                  {CLINIC_LOCATIONS.map((loc, i) => (
+                    <Placemark 
+                      key={i}
+                      geometry={loc.center}
+                      properties={{
+                        balloonContentHeader: `<div class="font-bold text-primary p-1">${loc.title}</div>`,
+                        balloonContentBody: `<div class="text-slate-600 text-sm px-1 pb-1">${loc.address}</div>`,
+                        balloonContentFooter: `<div class="font-bold text-slate-900 px-1 pb-1">${loc.phone}</div>`,
+                        hintContent: loc.title
+                      }}
+                      options={{
+                        preset: 'islands#blueMedicalIcon',
+                        iconColor: '#C6A15B',
+                        hideIconOnBalloonOpen: false,
+                        balloonOffset: [3, -40]
+                      }}
+                    />
+                  ))}
+                </Map>
+              </YMaps>
+              <div className="absolute bottom-6 left-6 right-6 z-20 pointer-events-none">
+                <div className="bg-white/95 backdrop-blur-md p-5 rounded-3xl shadow-2xl border border-white/20 flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                      <MapPin className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Центральная локация</div>
+                      <div className="text-base font-bold text-slate-900 tracking-tight">г. Душанбе, Таджикистан</div>
+                    </div>
                   </div>
-                  
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Ваше имя</label>
-                        <Input 
-                          placeholder="Иван Иванов" 
-                          required 
-                          className="input-field"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Телефон</label>
-                        <Input 
-                          type="tel" 
-                          placeholder="+992 (___) __-__-__" 
-                          required 
-                          className="input-field"
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Выберите услугу</label>
-                      <select className="w-full h-14 rounded-2xl bg-slate-50 border-none focus-visible:ring-2 focus-visible:ring-primary/20 px-4 text-slate-600 text-base appearance-none cursor-pointer">
-                        <option>Профилактический осмотр</option>
-                        <option>Лечение кариеса</option>
-                        <option>Профессиональная чистка</option>
-                        <option>Имплантация</option>
-                        <option>Ортодонтия (брекеты)</option>
-                        <option>Отбеливание зубов</option>
-                      </select>
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Комментарий (необязательно)</label>
-                      <Textarea 
-                        placeholder="Опишите вашу проблему или пожелания..." 
-                        className="min-h-[120px] rounded-2xl bg-slate-50 border-none focus-visible:ring-2 focus-visible:ring-primary/20 text-base p-4"
-                      />
-                    </div>
-
-                    <Button 
-                      type="submit" 
-                      className="w-full h-16 rounded-2xl text-lg font-bold shadow-2xl shadow-primary/30 group"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        <div className="flex items-center gap-2">
-                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Отправка...
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-2">
-                          <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                          Отправить заявку
-                        </div>
-                      )}
-                    </Button>
-                    
-                    <p className="text-[10px] text-center text-slate-400 font-medium leading-relaxed">
-                      Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности <br />
-                      и обработкой персональных данных.
-                    </p>
-                  </form>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -212,5 +182,3 @@ export function Contact() {
     </section>
   );
 }
-
-
