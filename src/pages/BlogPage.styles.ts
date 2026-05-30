@@ -1,0 +1,15 @@
+﻿export const page = "min-h-screen bg-white pb-24";
+export const container = "container mx-auto px-4 sm:px-6 lg:px-8";
+export const header = "text-center max-w-3xl mx-auto mb-16";
+export const badge = "inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.2em] mb-6 border-0";
+export const title = "text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 leading-tight mb-6";
+export const titleSpan = "text-primary italic";
+export const desc = "text-lg text-slate-600 leading-relaxed";
+export const grid = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8";
+export const card = "group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border-0 flex flex-col h-full";
+export const imageWrapper = "aspect-[16/10] overflow-hidden";
+export const cardContent = "p-8 flex flex-col flex-1";
+export const meta = "flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4";
+export const cardTitle = "text-2xl font-bold text-slate-900 mb-4 group-hover:text-primary transition-colors line-clamp-2";
+export const cardDesc = "text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3";
+export const link = "mt-auto inline-flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-[10px] sm:text-xs group/link"
