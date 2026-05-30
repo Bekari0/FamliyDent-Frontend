@@ -1,12 +1,10 @@
 import { GoogleGenAI } from "@google/genai";
 import { Message } from "../types";
 
-const generationClient = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY || "",
-});
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
 
 const SYSTEM_INSTRUCTION = `
-Вы — онлайн-консультант стоматологической клиники FamilyDent в Душанбе, Таджикистан.
+Вы — AI-ассистент стоматологической клиники FamilyDent в Душанбе, Таджикистан.
 Ваша цель — помогать пациентам, отвечать на вопросы об услугах, ценах и записывать на прием.
 Будьте вежливы, профессиональны и заботливы.
 
@@ -22,11 +20,11 @@ const SYSTEM_INSTRUCTION = `
 
 export async function getChatResponse(messages: Message[]) {
   try {
-    const response = await generationClient.models.generateContent({
+    const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
-      contents: messages.map((m) => ({
-        role: m.role === "user" ? "user" : "model",
-        parts: [{ text: m.content }],
+      contents: messages.map(m => ({
+        role: m.role === 'user' ? 'user' : 'model',
+        parts: [{ text: m.content }]
       })),
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,

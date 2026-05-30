@@ -1,3 +1,0 @@
-**FamilyDent** - дипломная рабрта.
-
-**Frontend**

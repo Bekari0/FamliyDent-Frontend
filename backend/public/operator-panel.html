@@ -1,0 +1,1402 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Панель оператора — FamilyDent</title>
+    <style>
+      :root {
+        --bg: #f4f7fb;
+        --surface: #ffffff;
+        --surface-soft: #f8fafc;
+        --surface-hover: #eef4ff;
+        --border: #e5eaf2;
+        --text: #172033;
+        --muted: #6b7280;
+        --muted-soft: #9ca3af;
+        --primary: #2563eb;
+        --primary-hover: #1d4ed8;
+        --primary-soft: #dbeafe;
+        --danger: #ef4444;
+        --danger-hover: #dc2626;
+        --success: #16a34a;
+        --warning: #f59e0b;
+        --info: #0891b2;
+        --shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.08);
+        --shadow-md: 0 18px 55px rgba(15, 23, 42, 0.16);
+        --radius-sm: 12px;
+        --radius-md: 18px;
+        --radius-lg: 28px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        font-family: Inter, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        overflow: hidden;
+      }
+
+      button,
+      textarea,
+      input {
+        font: inherit;
+      }
+
+      button {
+        border: none;
+      }
+
+      .login-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background:
+          radial-gradient(
+            circle at 20% 20%,
+            rgba(96, 165, 250, 0.35),
+            transparent 32%
+          ),
+          radial-gradient(
+            circle at 80% 10%,
+            rgba(45, 212, 191, 0.28),
+            transparent 32%
+          ),
+          linear-gradient(135deg, #0f172a 0%, #1e3a8a 48%, #0f766e 100%);
+      }
+
+      .login-box {
+        width: min(420px, 100%);
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid rgba(255, 255, 255, 0.58);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        padding: 34px;
+        backdrop-filter: blur(18px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 26px;
+      }
+
+      .brand-logo {
+        width: 52px;
+        height: 52px;
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #2563eb, #14b8a6);
+        color: #fff;
+        font-size: 25px;
+        box-shadow: 0 14px 35px rgba(37, 99, 235, 0.32);
+      }
+
+      .brand-title {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+
+      .brand-subtitle {
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .field-group {
+        margin-bottom: 14px;
+      }
+
+      .field-label {
+        display: block;
+        margin-bottom: 7px;
+        color: #374151;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .input {
+        width: 100%;
+        min-height: 48px;
+        padding: 13px 15px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #fff;
+        color: var(--text);
+        outline: none;
+        transition:
+          border-color 0.18s,
+          box-shadow 0.18s,
+          background 0.18s;
+      }
+
+      .input:focus,
+      .textarea:focus {
+        border-color: rgba(37, 99, 235, 0.65);
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+      }
+
+      .login-hint {
+        margin: 12px 0 18px;
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: #eff6ff;
+        color: #1e40af;
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .btn {
+        min-height: 46px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 18px;
+        border-radius: 14px;
+        cursor: pointer;
+        font-weight: 800;
+        transition:
+          transform 0.16s,
+          box-shadow 0.16s,
+          background 0.16s,
+          opacity 0.16s;
+        user-select: none;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .btn-primary {
+        width: 100%;
+        background: linear-gradient(135deg, #2563eb, #14b8a6);
+        color: #fff;
+        box-shadow: 0 14px 35px rgba(37, 99, 235, 0.24);
+      }
+
+      .btn-primary:hover {
+        box-shadow: 0 18px 45px rgba(37, 99, 235, 0.32);
+      }
+
+      .btn-send {
+        background: var(--primary);
+        color: #fff;
+        white-space: nowrap;
+      }
+
+      .btn-send:hover {
+        background: var(--primary-hover);
+      }
+
+      .btn-danger {
+        background: #fee2e2;
+        color: #991b1b;
+        white-space: nowrap;
+      }
+
+      .btn-danger:hover {
+        background: #fecaca;
+      }
+
+      .btn:disabled {
+        cursor: not-allowed;
+        opacity: 0.55;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .app-container {
+        display: none;
+        height: 100vh;
+        width: 100vw;
+        background: var(--bg);
+      }
+
+      .sidebar {
+        width: 374px;
+        min-width: 320px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.86);
+        backdrop-filter: blur(16px);
+      }
+
+      .sidebar-header {
+        padding: 22px 20px 16px;
+        border-bottom: 1px solid var(--border);
+        background:
+          linear-gradient(
+            135deg,
+            rgba(37, 99, 235, 0.96),
+            rgba(20, 184, 166, 0.94)
+          ),
+          #2563eb;
+        color: #fff;
+      }
+
+      .sidebar-topline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .sidebar-title {
+        font-size: 19px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+      }
+
+      .online-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .online-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #22c55e;
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
+      }
+
+      .search-wrap {
+        position: relative;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 13px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.82;
+      }
+
+      .ticket-search {
+        width: 100%;
+        min-height: 42px;
+        padding: 11px 13px 11px 40px;
+        border: 1px solid rgba(255, 255, 255, 0.26);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.16);
+        color: #fff;
+        outline: none;
+      }
+
+      .ticket-search::placeholder {
+        color: rgba(255, 255, 255, 0.76);
+      }
+
+      .ticket-search:focus {
+        border-color: rgba(255, 255, 255, 0.55);
+        background: rgba(255, 255, 255, 0.22);
+      }
+
+      .tickets-meta {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        padding: 12px;
+        border-bottom: 1px solid var(--border);
+        background: #fff;
+      }
+
+      .meta-card {
+        padding: 10px;
+        border-radius: 14px;
+        background: var(--surface-soft);
+        border: 1px solid var(--border);
+      }
+
+      .meta-value {
+        font-size: 18px;
+        font-weight: 900;
+        line-height: 1;
+      }
+
+      .meta-label {
+        margin-top: 5px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .tickets-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 12px;
+      }
+
+      .ticket-item {
+        position: relative;
+        margin-bottom: 10px;
+        padding: 14px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background: var(--surface);
+        box-shadow: 0 5px 18px rgba(15, 23, 42, 0.04);
+        cursor: pointer;
+        transition:
+          transform 0.16s,
+          box-shadow 0.16s,
+          border-color 0.16s,
+          background 0.16s;
+        overflow: hidden;
+      }
+
+      .ticket-item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 5px;
+        background: var(--warning);
+      }
+
+      .ticket-item.status-in_progress::before {
+        background: var(--info);
+      }
+
+      .ticket-item.status-closed::before {
+        background: var(--muted-soft);
+      }
+
+      .ticket-item:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-sm);
+        border-color: rgba(37, 99, 235, 0.32);
+        background: #fbfdff;
+      }
+
+      .ticket-item.active {
+        border-color: rgba(37, 99, 235, 0.64);
+        background: linear-gradient(135deg, #eff6ff, #ffffff);
+        box-shadow: 0 12px 32px rgba(37, 99, 235, 0.13);
+      }
+
+      .ticket-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
+        padding-left: 4px;
+      }
+
+      .ticket-title {
+        font-size: 15px;
+        font-weight: 900;
+      }
+
+      .ticket-patient {
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .ticket-info {
+        display: grid;
+        gap: 7px;
+        padding-left: 4px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .ticket-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 9px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      .status-new {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .status-progress {
+        background: #cffafe;
+        color: #155e75;
+      }
+
+      .status-closed {
+        background: #f1f5f9;
+        color: #475569;
+      }
+
+      .chat-area {
+        flex: 1;
+        min-width: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background:
+          radial-gradient(
+            circle at 70% 8%,
+            rgba(37, 99, 235, 0.08),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at 95% 85%,
+            rgba(20, 184, 166, 0.1),
+            transparent 32%
+          ),
+          var(--bg);
+      }
+
+      .chat-header {
+        min-height: 78px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(14px);
+      }
+
+      .chat-title {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        min-width: 0;
+      }
+
+      .chat-avatar {
+        width: 46px;
+        height: 46px;
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        border-radius: 16px;
+        background: var(--primary-soft);
+        color: var(--primary);
+        font-size: 22px;
+      }
+
+      .chat-title h3 {
+        font-size: 18px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .chat-subtitle {
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .chat-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 24px;
+        scroll-behavior: smooth;
+      }
+
+      .message {
+        display: flex;
+        margin-bottom: 14px;
+        animation: messageIn 0.18s ease-out;
+      }
+
+      @keyframes messageIn {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .message.patient {
+        justify-content: flex-start;
+      }
+
+      .message.operator {
+        justify-content: flex-end;
+      }
+
+      .message-bubble {
+        max-width: min(680px, 72%);
+        padding: 13px 15px;
+        border-radius: 20px;
+        box-shadow: 0 5px 18px rgba(15, 23, 42, 0.05);
+        line-height: 1.5;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      .message.patient .message-bubble {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-bottom-left-radius: 7px;
+      }
+
+      .message.operator .message-bubble {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: #fff;
+        border-bottom-right-radius: 7px;
+      }
+
+      .message-author {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 12px;
+        font-weight: 900;
+        opacity: 0.9;
+      }
+
+      .message-text {
+        font-size: 14px;
+      }
+
+      .message-time {
+        margin-top: 7px;
+        font-size: 11px;
+        opacity: 0.7;
+      }
+
+      .chat-input-area {
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+        padding: 16px 24px 20px;
+        border-top: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(14px);
+      }
+
+      .input-shell {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .textarea {
+        width: 100%;
+        min-height: 52px;
+        max-height: 160px;
+        padding: 13px 15px;
+        resize: none;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: #fff;
+        color: var(--text);
+        outline: none;
+        line-height: 1.45;
+        transition:
+          border-color 0.18s,
+          box-shadow 0.18s;
+      }
+
+      .input-help {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-top: 6px;
+        color: var(--muted-soft);
+        font-size: 11px;
+      }
+
+      .empty-state {
+        height: 100%;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        color: var(--muted);
+        padding: 28px;
+      }
+
+      .empty-card {
+        max-width: 430px;
+        padding: 30px;
+        border: 1px dashed #cbd5e1;
+        border-radius: var(--radius-lg);
+        background: rgba(255, 255, 255, 0.62);
+      }
+
+      .empty-icon {
+        width: 62px;
+        height: 62px;
+        display: grid;
+        place-items: center;
+        margin: 0 auto 14px;
+        border-radius: 22px;
+        background: #eff6ff;
+        font-size: 28px;
+      }
+
+      .empty-title {
+        margin-bottom: 7px;
+        color: var(--text);
+        font-size: 18px;
+        font-weight: 900;
+      }
+
+      .toast {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 99;
+        min-width: 260px;
+        max-width: 420px;
+        padding: 13px 15px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: #fff;
+        color: var(--text);
+        box-shadow: var(--shadow-md);
+        transform: translateY(20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.2s;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .toast.error {
+        border-color: #fecaca;
+        background: #fff1f2;
+        color: #991b1b;
+      }
+
+      .toast.success {
+        border-color: #bbf7d0;
+        background: #f0fdf4;
+        color: #166534;
+      }
+
+      @media (max-width: 920px) {
+        body {
+          overflow: auto;
+        }
+
+        .app-container {
+          height: auto;
+          min-height: 100vh;
+          flex-direction: column;
+        }
+
+        .sidebar {
+          width: 100%;
+          min-width: 0;
+          height: 42vh;
+          min-height: 320px;
+          border-right: none;
+          border-bottom: 1px solid var(--border);
+        }
+
+        .chat-area {
+          height: 58vh;
+          min-height: 520px;
+        }
+
+        .chat-header,
+        .chat-input-area {
+          padding-left: 14px;
+          padding-right: 14px;
+        }
+
+        .chat-input-area {
+          flex-wrap: wrap;
+        }
+
+        .input-shell {
+          flex-basis: 100%;
+        }
+
+        .btn-send,
+        .btn-danger {
+          flex: 1;
+        }
+
+        .message-bubble {
+          max-width: 88%;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .login-box {
+          padding: 24px;
+          border-radius: 22px;
+        }
+
+        .tickets-meta {
+          grid-template-columns: 1fr;
+        }
+
+        .chat-actions {
+          display: none;
+        }
+
+        .message-bubble {
+          max-width: 94%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container" id="loginContainer">
+      <div class="login-box">
+        <div class="brand">
+          <div class="brand-logo"></div>
+          <div>
+            <div class="brand-title">FamilyDent</div>
+            <div class="brand-subtitle">
+              Панель оператора обращений пациентов
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="operatorName">Имя оператора</label>
+          <input
+            class="input"
+            type="text"
+            id="operatorName"
+            placeholder="Например: Администратор"
+            autocomplete="name"
+            required
+          />
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="operatorToken">Секретный ключ</label>
+          <input
+            class="input"
+            type="password"
+            id="operatorToken"
+            placeholder="Введите ключ доступа"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <div class="login-hint">
+          Используйте рабочий ключ доступа. После входа вы сможете принимать
+          обращения, отвечать пациентам и закрывать тикеты.
+        </div>
+
+        <button class="btn btn-primary" id="loginButton" onclick="login()">
+          Войти в панель
+        </button>
+      </div>
+    </div>
+
+    <div class="app-container" id="appContainer">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-topline">
+            <div>
+              <div class="sidebar-title">Активные обращения</div>
+              <div
+                style="font-size: 12px; margin-top: 5px; opacity: 0.84"
+                id="operatorsCount"
+              >
+                Операторов онлайн: —
+              </div>
+            </div>
+            <div class="online-pill">
+              <span class="online-dot"></span> Онлайн
+            </div>
+          </div>
+
+          <div class="search-wrap">
+            <span class="search-icon"></span>
+            <input
+              class="ticket-search"
+              id="ticketSearch"
+              type="text"
+              placeholder="Поиск по тикету или пациенту..."
+              oninput="renderTickets()"
+            />
+          </div>
+        </div>
+
+        <div class="tickets-meta">
+          <div class="meta-card">
+            <div class="meta-value" id="statTotal">0</div>
+            <div class="meta-label">Всего</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-value" id="statNew">0</div>
+            <div class="meta-label">Новые</div>
+          </div>
+          <div class="meta-card">
+            <div class="meta-value" id="statProgress">0</div>
+            <div class="meta-label">В работе</div>
+          </div>
+        </div>
+
+        <div class="tickets-list" id="ticketsList">
+          <div class="empty-state">
+            <div class="empty-card">
+              <div class="empty-icon">⏳</div>
+              <div class="empty-title">Загрузка обращений</div>
+              <div>Подключаемся к серверу и получаем список тикетов.</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="chat-area">
+        <div class="chat-header" id="chatHeader">
+          <div class="chat-title">
+            <div class="chat-avatar"></div>
+            <div>
+              <h3>Выберите обращение</h3>
+              <div class="chat-subtitle">
+                Откройте тикет из списка слева, чтобы начать работу
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+          <div class="empty-state">
+            <div class="empty-card">
+              <div class="empty-icon"></div>
+              <div class="empty-title">Тикет не выбран</div>
+              <div>
+                Выберите обращение пациента из списка слева. Здесь появится
+                история переписки.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input-area">
+          <div class="input-shell">
+            <textarea
+              class="textarea"
+              id="messageInput"
+              placeholder="Введите ответ пациенту..."
+              rows="2"
+              disabled
+            ></textarea>
+            <div class="input-help">
+              <span>Ctrl + Enter — отправить</span>
+              <span id="inputCounter">0 символов</span>
+            </div>
+          </div>
+          <button
+            class="btn btn-send"
+            id="sendButton"
+            onclick="sendMessage()"
+            disabled
+          >
+            Отправить
+          </button>
+          <button
+            class="btn btn-danger"
+            id="closeTicketButton"
+            onclick="closeTicket()"
+            disabled
+          >
+            Закрыть
+          </button>
+        </div>
+      </main>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      let socket;
+      let currentTicket = null;
+      let operatorName = "";
+      let ticketsCache = [];
+      let toastTimer = null;
+
+      const loginContainer = document.getElementById("loginContainer");
+      const appContainer = document.getElementById("appContainer");
+      const ticketsList = document.getElementById("ticketsList");
+      const chatHeader = document.getElementById("chatHeader");
+      const chatMessages = document.getElementById("chatMessages");
+      const messageInput = document.getElementById("messageInput");
+      const sendButton = document.getElementById("sendButton");
+      const closeTicketButton = document.getElementById("closeTicketButton");
+      const inputCounter = document.getElementById("inputCounter");
+
+      document
+        .getElementById("operatorName")
+        .addEventListener("keydown", handleLoginEnter);
+      document
+        .getElementById("operatorToken")
+        .addEventListener("keydown", handleLoginEnter);
+
+      messageInput.addEventListener("input", () => {
+        inputCounter.textContent = `${messageInput.value.length} символов`;
+        autoResizeTextarea(messageInput);
+      });
+
+      messageInput.addEventListener("keydown", (event) => {
+        if (event.ctrlKey && event.key === "Enter") {
+          event.preventDefault();
+          sendMessage();
+        }
+      });
+
+      function handleLoginEnter(event) {
+        if (event.key === "Enter") {
+          login();
+        }
+      }
+
+      function escapeHTML(value) {
+        return String(value ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function showToast(message, type = "") {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.className = `toast show ${type}`;
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toast.className = "toast";
+        }, 3200);
+      }
+
+      function autoResizeTextarea(textarea) {
+        textarea.style.height = "auto";
+        textarea.style.height = `${Math.min(textarea.scrollHeight, 160)}px`;
+      }
+
+      function formatDate(value) {
+        if (!value) return "—";
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return "—";
+        return date.toLocaleString("ru-RU", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      }
+
+      function formatTime(value) {
+        if (!value) return "—";
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return "—";
+        return date.toLocaleTimeString("ru-RU", {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      }
+
+      function getStatusMeta(status) {
+        if (status === "in_progress") {
+          return { className: "status-progress", text: "В работе", icon: "" };
+        }
+
+        if (status === "closed") {
+          return { className: "status-closed", text: "Закрыт", icon: "" };
+        }
+
+        return { className: "status-new", text: "Новый", icon: "" };
+      }
+
+      function setChatEnabled(enabled) {
+        messageInput.disabled = !enabled;
+        sendButton.disabled = !enabled;
+        closeTicketButton.disabled = !enabled;
+      }
+
+      function login() {
+        const name = document.getElementById("operatorName").value.trim();
+        const token = document.getElementById("operatorToken").value.trim();
+        const loginButton = document.getElementById("loginButton");
+
+        if (!name || !token) {
+          showToast("Введите имя оператора и секретный ключ.", "error");
+          return;
+        }
+
+        operatorName = name;
+        loginButton.disabled = true;
+        loginButton.textContent = "Подключение...";
+
+        socket = io();
+
+        socket.on("connect", () => {
+          socket.emit("operator_auth", { token, name });
+        });
+
+        socket.on("disconnect", () => {
+          showToast(
+            "Соединение с сервером потеряно. Пытаемся переподключиться...",
+            "error",
+          );
+        });
+
+        socket.on("connect_error", () => {
+          loginButton.disabled = false;
+          loginButton.textContent = "Войти в панель";
+          showToast("Не удалось подключиться к серверу.", "error");
+        });
+
+        socket.on("auth_success", () => {
+          loginContainer.style.display = "none";
+          appContainer.style.display = "flex";
+          showToast(`Добро пожаловать, ${name}!`, "success");
+          loadTickets();
+        });
+
+        socket.on("auth_error", (data) => {
+          loginButton.disabled = false;
+          loginButton.textContent = "Войти в панель";
+          showToast(
+            `Ошибка авторизации: ${data?.message || "проверьте ключ доступа"}`,
+            "error",
+          );
+        });
+
+        socket.on("tickets_list", (tickets) => {
+          ticketsCache = Array.isArray(tickets) ? tickets : [];
+          renderTickets();
+        });
+
+        socket.on("new_ticket", () => {
+          showToast("Поступило новое обращение пациента.", "success");
+          loadTickets();
+        });
+
+        socket.on("ticket_history", (messages) => {
+          displayMessages(messages);
+        });
+
+        socket.on("new_message", (message) => {
+          addMessage(message);
+          loadTickets();
+        });
+
+        socket.on("ticket_updated", (data) => {
+          loadTickets();
+          if (currentTicket === data.ticketId) {
+            renderChatHeader(
+              data.ticketId,
+              data.operator || operatorName,
+              data.status || "in_progress",
+            );
+          }
+        });
+
+        socket.on("ticket_closed", (data) => {
+          loadTickets();
+          if (currentTicket === data.ticketId) {
+            currentTicket = null;
+            setChatEnabled(false);
+            chatHeader.innerHTML = `
+ <div class="chat-title">
+ <div class="chat-avatar"></div>
+ <div>
+ <h3>Тикет закрыт</h3>
+ <div class="chat-subtitle">Выберите другое обращение для работы</div>
+ </div>
+ </div>
+ `;
+            chatMessages.innerHTML = `
+ <div class="empty-state">
+ <div class="empty-card">
+ <div class="empty-icon"></div>
+ <div class="empty-title">Обращение закрыто</div>
+ <div>История сохранена. Можно перейти к следующему пациенту.</div>
+ </div>
+ </div>
+ `;
+          }
+        });
+
+        socket.on("operators_count", (count) => {
+          document.getElementById("operatorsCount").textContent =
+            `Операторов онлайн: ${count}`;
+        });
+      }
+
+      function loadTickets() {
+        if (socket && socket.connected) {
+          socket.emit("refresh_tickets");
+        }
+      }
+
+      function updateStats(tickets) {
+        document.getElementById("statTotal").textContent = tickets.length;
+        document.getElementById("statNew").textContent = tickets.filter(
+          (ticket) => ticket.status === "new" || !ticket.status,
+        ).length;
+        document.getElementById("statProgress").textContent = tickets.filter(
+          (ticket) => ticket.status === "in_progress",
+        ).length;
+      }
+
+      function renderTickets() {
+        const query =
+          document
+            .getElementById("ticketSearch")
+            ?.value?.trim()
+            .toLowerCase() || "";
+        const filteredTickets = ticketsCache.filter((ticket) => {
+          const haystack = [ticket.ticketId, ticket.patientName, ticket.status]
+            .map((item) => String(item || "").toLowerCase())
+            .join(" ");
+          return haystack.includes(query);
+        });
+
+        updateStats(ticketsCache);
+
+        if (!ticketsCache.length) {
+          ticketsList.innerHTML = `
+ <div class="empty-state">
+ <div class="empty-card">
+ <div class="empty-icon"></div>
+ <div class="empty-title">Нет активных обращений</div>
+ <div>Когда пациент напишет в чат, новый тикет появится здесь.</div>
+ </div>
+ </div>
+ `;
+          return;
+        }
+
+        if (!filteredTickets.length) {
+          ticketsList.innerHTML = `
+ <div class="empty-state">
+ <div class="empty-card">
+ <div class="empty-icon"></div>
+ <div class="empty-title">Ничего не найдено</div>
+ <div>Попробуйте изменить запрос поиска.</div>
+ </div>
+ </div>
+ `;
+          return;
+        }
+
+        ticketsList.innerHTML = filteredTickets
+          .map((ticket) => {
+            const status = getStatusMeta(ticket.status);
+            const messagesCount = ticket.messages?.length || 0;
+            const patientName = ticket.patientName || "Пациент";
+            const activeClass =
+              currentTicket === ticket.ticketId ? "active" : "";
+            const normalizedStatus = ticket.status || "new";
+
+            return `
+ <div class="ticket-item ${activeClass} status-${escapeHTML(normalizedStatus)}" onclick="selectTicket('${escapeHTML(ticket.ticketId)}')">
+ <div class="ticket-head">
+ <div>
+ <div class="ticket-title">Тикет #${escapeHTML(ticket.ticketId)}</div>
+ <div class="ticket-patient"> ${escapeHTML(patientName)}</div>
+ </div>
+ <span class="status-badge ${status.className}">${status.icon} ${status.text}</span>
+ </div>
+ <div class="ticket-info">
+ <div class="ticket-row"> <span>${formatDate(ticket.createdAt)}</span></div>
+ <div class="ticket-row"> <span>${messagesCount} сообщений</span></div>
+ ${ticket.operator ? `<div class="ticket-row"> <span>${escapeHTML(ticket.operator)}</span></div>` : ""}
+ </div>
+ </div>
+ `;
+          })
+          .join("");
+      }
+
+      function selectTicket(ticketId) {
+        currentTicket = ticketId;
+        setChatEnabled(true);
+        messageInput.focus();
+        renderTickets();
+        renderChatHeader(ticketId, operatorName, "in_progress");
+        chatMessages.innerHTML = `
+ <div class="empty-state">
+ <div class="empty-card">
+ <div class="empty-icon">⏳</div>
+ <div class="empty-title">Загружаем историю</div>
+ <div>Получаем сообщения пациента по выбранному тикету.</div>
+ </div>
+ </div>
+ `;
+        socket.emit("take_ticket", { ticketId });
+      }
+
+      function renderChatHeader(
+        ticketId,
+        operator = operatorName,
+        status = "in_progress",
+      ) {
+        const statusMeta = getStatusMeta(status);
+        chatHeader.innerHTML = `
+ <div class="chat-title">
+ <div class="chat-avatar"></div>
+ <div>
+ <h3>Тикет #${escapeHTML(ticketId)}</h3>
+ <div class="chat-subtitle">Оператор: ${escapeHTML(operator || "не назначен")}</div>
+ </div>
+ </div>
+ <div class="chat-actions">
+ <span class="status-badge ${statusMeta.className}">${statusMeta.icon} ${statusMeta.text}</span>
+ </div>
+ `;
+      }
+
+      function displayMessages(messages) {
+        const safeMessages = Array.isArray(messages) ? messages : [];
+
+        if (!safeMessages.length) {
+          chatMessages.innerHTML = `
+ <div class="empty-state">
+ <div class="empty-card">
+ <div class="empty-icon"></div>
+ <div class="empty-title">Сообщений пока нет</div>
+ <div>Можно отправить первое сообщение пациенту.</div>
+ </div>
+ </div>
+ `;
+          return;
+        }
+
+        chatMessages.innerHTML = safeMessages.map(renderMessage).join("");
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function renderMessage(msg) {
+        const role = msg.role === "operator" ? "operator" : "patient";
+        const author =
+          role === "patient"
+            ? " Пациент"
+            : ` Оператор ${msg.operatorName ? escapeHTML(msg.operatorName) : ""}`;
+
+        return `
+ <div class="message ${role}">
+ <div class="message-bubble">
+ <span class="message-author">${author}</span>
+ <div class="message-text">${escapeHTML(msg.text)}</div>
+ <div class="message-time">${formatTime(msg.timestamp)}</div>
+ </div>
+ </div>
+ `;
+      }
+
+      function addMessage(msg) {
+        const emptyState = chatMessages.querySelector(".empty-state");
+        if (emptyState) {
+          chatMessages.innerHTML = "";
+        }
+
+        chatMessages.insertAdjacentHTML("beforeend", renderMessage(msg));
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function sendMessage() {
+        const message = messageInput.value.trim();
+
+        if (!currentTicket) {
+          showToast("Сначала выберите тикет.", "error");
+          return;
+        }
+
+        if (!message) {
+          showToast("Введите текст сообщения.", "error");
+          return;
+        }
+
+        socket.emit("send_message", { ticketId: currentTicket, message });
+        messageInput.value = "";
+        inputCounter.textContent = "0 символов";
+        autoResizeTextarea(messageInput);
+      }
+
+      function closeTicket() {
+        if (!currentTicket) {
+          showToast("Сначала выберите тикет.", "error");
+          return;
+        }
+
+        const resolution = prompt(
+          "Введите решение или комментарий по обращению (можно оставить пустым):",
+        );
+        socket.emit("close_ticket", { ticketId: currentTicket, resolution });
+        currentTicket = null;
+        setChatEnabled(false);
+        renderTickets();
+      }
+
+      setInterval(() => {
+        if (
+          socket &&
+          socket.connected &&
+          appContainer.style.display === "flex"
+        ) {
+          socket.emit("refresh_tickets");
+        }
+      }, 5000);
+    </script>
+  </body>
+</html>
