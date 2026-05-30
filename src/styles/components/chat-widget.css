@@ -1,0 +1,143 @@
+/* Chat widget */
+.chat-widget-wrapper {
+  @apply fixed bottom-6 right-6 z-[100] flex flex-col items-end;
+}
+.chat-card {
+  @apply w-[350px] sm:w-[420px] h-[600px] flex flex-col overflow-hidden border-none shadow-2xl shadow-primary/30 rounded-[24px];
+}
+
+/* Chat Header */
+.chat-header {
+  @apply bg-gradient-to-r from-primary to-primary/80 p-5 text-white flex items-center justify-between shadow-lg;
+}
+.chat-header-info {
+  @apply flex items-center gap-3;
+}
+.chat-avatar-wrapper {
+  @apply relative;
+}
+.chat-avatar-box {
+  @apply w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-md border border-white/30;
+}
+.chat-status-indicator {
+  @apply absolute -bottom-1 -right-1 w-4 h-4 bg-accent border-2 border-primary rounded-full;
+}
+.chat-title {
+  @apply font-display font-bold text-base leading-tight;
+}
+.chat-subtitle {
+  @apply text-[10px] opacity-90 font-medium uppercase tracking-widest;
+}
+.chat-header-actions {
+  @apply flex items-center gap-1;
+}
+.chat-header-btn {
+  @apply h-9 w-9 text-white hover:bg-white/10 rounded-xl;
+}
+
+/* Chat Messages */
+.chat-scroll-area {
+  @apply flex-1 p-5 bg-secondary;
+}
+.chat-messages-container {
+  @apply space-y-6 pb-4;
+}
+.chat-message-row {
+  @apply flex;
+}
+.chat-message-inner {
+  @apply flex gap-3 max-w-[85%];
+}
+.chat-message-avatar {
+  @apply w-9 h-9 rounded-xl flex items-center justify-center shrink-0 shadow-sm font-bold;
+}
+.chat-message-bubble {
+  @apply p-4 rounded-2xl text-sm leading-relaxed;
+}
+
+/* Response message */
+.chat-message-response .chat-message-avatar {
+  @apply bg-card text-primary border border-border;
+}
+.chat-message-response .chat-message-bubble {
+  @apply bg-card text-foreground shadow-sm border border-border rounded-tl-none;
+}
+
+/* User Message */
+.chat-message-user {
+  @apply justify-end;
+}
+.chat-message-user .chat-message-inner {
+  @apply flex-row-reverse;
+}
+.chat-message-user .chat-message-avatar {
+  @apply bg-primary text-white;
+}
+.chat-message-user .chat-message-bubble {
+  @apply bg-primary text-white rounded-tr-none shadow-md shadow-primary/10;
+}
+
+/* Loading State */
+.chat-loading-bubble {
+  @apply bg-card p-4 rounded-2xl shadow-sm border border-border flex gap-1.5 items-center;
+}
+.chat-loading-dot {
+  @apply w-2 h-2 bg-primary/40 rounded-full animate-bounce;
+}
+.chat-loading-text {
+  @apply text-[10px] text-text-secondary ml-2 font-medium uppercase tracking-tighter;
+}
+
+/* Quick Actions */
+.chat-quick-actions {
+  @apply px-5 py-3 bg-secondary border-t border-border flex flex-wrap gap-2;
+}
+.chat-quick-action-btn {
+  @apply text-[11px] h-8 rounded-xl bg-card border-border hover:bg-primary hover:text-white hover:border-primary transition-all duration-300;
+}
+
+/* Chat Input */
+.chat-input-area {
+  @apply p-5 bg-card border-t border-border;
+}
+.chat-input-form {
+  @apply flex gap-3;
+}
+.chat-input-field {
+  @apply rounded-xl h-12 bg-secondary border-none focus-visible:ring-2 focus-visible:ring-primary/20;
+}
+.chat-send-btn {
+  @apply w-12 h-12 rounded-xl shrink-0 shadow-lg shadow-primary/20;
+}
+.chat-disclaimer {
+  @apply text-[10px] text-center text-text-secondary mt-3 font-medium;
+}
+
+/* Trigger Button */
+.chat-trigger-btn {
+  @apply w-16 h-16 rounded-[24px] shadow-2xl shadow-primary/40 flex items-center justify-center p-0 relative overflow-hidden;
+}
+.chat-trigger-gradient {
+  @apply absolute inset-0 bg-gradient-to-tr from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500;
+}
+.chat-trigger-icon {
+  @apply relative z-10;
+}
+.chat-tooltip {
+  @apply absolute right-20 bg-card text-foreground text-xs font-bold py-2.5 px-4 rounded-2xl shadow-xl whitespace-nowrap border border-border pointer-events-none hidden sm:flex items-center gap-2;
+}
+.chat-notification-dot {
+  @apply absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full border-4 border-card animate-bounce;
+}
+
+.chat-card-container {
+  @apply mb-4;
+}
+
+.chat-subtitle-wrapper {
+  @apply flex items-center gap-1.5;
+}
+
+.chat-trigger-wrapper {
+  @apply relative;
+}

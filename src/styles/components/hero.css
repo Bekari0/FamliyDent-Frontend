@@ -1,32 +1,138 @@
+/* Hero */
 .hero-section {
-  @apply relative pt-32 pb-20 lg:pt-56 lg:pb-40 overflow-hidden;
-  background: radial-gradient(circle at top left, rgba(14, 165, 233, 0.05), transparent 40%),
-              radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.05), transparent 40%);
+ @apply relative pt-20 pb-12 lg:pt-24 lg:pb-20 overflow-hidden;
+ background: radial-gradient(circle at top left, rgba(198, 161, 91, 0.05), transparent 40%),
+ radial-gradient(circle at bottom right, rgba(198, 161, 91, 0.05), transparent 40%);
+}
+.hero-container {
+ @apply container mx-auto px-4;
+}
+.hero-layout {
+ @apply flex flex-col lg:flex-row items-center gap-12 lg:gap-16;
+}
+.hero-content {
+ @apply flex-1 text-center lg:text-left z-10;
 }
 .hero-title {
-  @apply text-5xl sm:text-6xl lg:text-8xl font-display font-bold text-slate-900 leading-[1.05] mb-8 tracking-tight;
+ @apply text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground leading-[1.1] mb-5 tracking-tight;
 }
 .hero-description {
-  @apply text-lg sm:text-xl text-slate-600 mb-12 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium;
+ @apply text-sm sm:text-base text-text-secondary mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-medium;
 }
 .hero-btn-primary {
-  @apply rounded-2xl px-12 py-8 text-lg font-bold shadow-2xl shadow-primary/30 hover:scale-105 transition-all duration-300;
+ @apply rounded-xl px-8 py-4 text-sm font-bold shadow-2xl shadow-primary/30 hover:scale-105 transition-all duration-300;
 }
 .hero-btn-outline {
-  @apply rounded-2xl px-12 py-8 text-lg font-bold border-2 hover:bg-secondary transition-all duration-300;
+ @apply rounded-xl px-8 py-4 text-sm font-bold border-2 hover:bg-secondary transition-all duration-300;
 }
 .hero-badge {
-  @apply mb-8 rounded-full px-5 py-2 bg-primary/10 text-primary border-none font-bold text-xs uppercase tracking-[0.2em];
+ @apply mb-6 rounded-full px-4 py-1.5 bg-primary/10 text-primary border-none font-bold text-[10px] uppercase tracking-[0.2em];
+}
+.hero-btn-group {
+ @apply flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12;
+}
+.hero-features {
+ @apply flex flex-wrap items-center justify-center lg:justify-start gap-8 lg:gap-10;
 }
 .hero-feature-card {
-  @apply flex items-center gap-4;
+ @apply flex items-center gap-3;
 }
 .hero-feature-icon-wrapper {
-  @apply w-14 h-14 rounded-2xl bg-white shadow-xl shadow-slate-200/50 flex items-center justify-center transition-all duration-500;
+ @apply w-12 h-12 rounded-xl bg-card shadow-xl shadow-foreground/5 flex items-center justify-center transition-all duration-500;
+}
+.hero-feature-title {
+ @apply font-bold text-foreground text-base;
+}
+.hero-feature-subtitle {
+ @apply text-[9px] text-text-secondary font-bold uppercase tracking-wider;
+}
+.hero-image-wrapper {
+ @apply flex-1 relative w-full max-w-[600px] lg:max-w-none;
 }
 .hero-image-container {
-  @apply relative z-10 rounded-[60px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] border-[12px] border-white aspect-[4/5];
+ @apply relative z-10 rounded-[60px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] border-[12px] border-card aspect-[4/5];
+}
+.hero-image {
+ @apply w-full h-full object-cover hover:scale-105 transition-transform duration-1000;
+}
+.hero-image-overlay {
+ @apply absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent;
 }
 .hero-floating-card {
-  @apply absolute z-20 bg-white/70 backdrop-blur-md border border-white/20 shadow-sm p-5 rounded-[24px] flex items-center gap-4 max-w-[220px] shadow-2xl border-white/40;
+ @apply absolute z-20 bg-card/70 backdrop-blur-md border border-border/20 shadow-sm p-5 rounded-[24px] flex items-center gap-4 max-w-[220px] shadow-2xl border-border/40;
+}
+.hero-floating-icon {
+ @apply w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-lg;
+}
+.hero-floating-title {
+ @apply font-bold text-foreground text-base;
+}
+.hero-floating-subtitle {
+ @apply text-[10px] text-text-secondary font-bold uppercase tracking-tight;
+}
+.hero-blob-1 {
+ @apply absolute -top-20 -right-20 w-80 h-80 bg-accent/20 rounded-full blur-[100px] animate-pulse;
+}
+.hero-blob-2 {
+ @apply absolute -bottom-20 -left-20 w-80 h-80 bg-primary/20 rounded-full blur-[100px] animate-pulse [animation-delay:2s];
+}
+
+.hero-btn-arrow {
+ @apply w-5 h-5 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all;
+}
+
+.hero-title-br {
+ @apply hidden sm:block;
+}
+
+.hero-title-accent-wrapper {
+ @apply text-primary relative;
+}
+
+.hero-title-underline-svg {
+ @apply absolute -bottom-2 left-0 w-full h-3 text-primary/20;
+}
+
+.hero-feature-icon-shield {
+ @apply w-7 h-7 text-accent group-hover:text-white transition-colors;
+}
+
+.hero-feature-icon-users {
+ @apply w-7 h-7 text-primary group-hover:text-white transition-colors;
+}
+
+.hero-feature-icon-wrapper-accent {
+ @apply group-hover:bg-accent group-hover:text-white;
+}
+
+.hero-feature-icon-wrapper-primary {
+ @apply group-hover:bg-primary group-hover:text-white;
+}
+
+.hero-feature-text-block {
+ @apply text-left;
+}
+
+.hero-floating-card-top {
+ @apply top-1/4 -left-8 lg:-left-16;
+}
+
+.hero-floating-card-bottom {
+ @apply bottom-1/4 -right-8 lg:-right-16;
+}
+
+.hero-floating-icon-accent {
+ @apply bg-accent shadow-accent/20;
+}
+
+.hero-floating-icon-primary {
+ @apply bg-primary shadow-primary/20;
+}
+
+.hero-floating-star {
+ @apply w-6 h-6 fill-white;
+}
+
+.hero-floating-calendar {
+ @apply w-6 h-6;
 }

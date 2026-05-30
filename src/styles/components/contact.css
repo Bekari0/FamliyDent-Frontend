@@ -1,15 +1,129 @@
 /* Contact */
 .contact-section {
-  @apply py-24 lg:py-32 bg-secondary scroll-mt-20 relative overflow-hidden;
+ @apply py-16 lg:py-24 scroll-mt-20 relative overflow-hidden;
+ background-color: var(--secondary);
+}
+.contact-container {
+ @apply container mx-auto px-4 sm:px-6 lg:px-8 relative z-10;
+}
+.contact-layout {
+ @apply flex flex-col lg:flex-row gap-12 lg:gap-16 items-stretch;
+}
+.contact-content {
+ @apply flex-1 space-y-8;
+}
+.contact-header-divider {
+ @apply w-12 h-0.5 bg-primary;
+}
+.contact-grid {
+ @apply grid grid-cols-1 sm:grid-cols-2 gap-6;
 }
 .contact-card {
-  @apply p-6 bg-white rounded-[32px] border border-slate-100 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+ @apply p-6 bg-card rounded-[32px] border border-border hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500;
+ box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
+.contact-icon-box {
+ @apply w-12 h-12 rounded-2xl bg-primary/5 flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-500;
+}
+.contact-info-title {
+ @apply font-bold text-foreground mb-1;
+}
+.contact-info-value {
+ @apply text-sm font-bold text-foreground mb-1;
+}
+.contact-info-description {
+ @apply text-xs text-text-secondary font-medium;
+}
+.contact-helper-badge {
+ @apply p-6 bg-primary rounded-[32px] shadow-2xl shadow-primary/20 text-white flex flex-col justify-center;
+}
+.contact-helper-title-box {
+ @apply flex items-center gap-2 mb-2;
+}
+.contact-helper-title {
+ @apply font-bold;
+}
+.contact-helper-text {
+ @apply text-sm opacity-90 leading-relaxed;
+}
+.contact-form-wrapper {
+ @apply flex-1;
 }
 .contact-form-card {
-  @apply h-full border-none rounded-[48px] overflow-hidden bg-white border border-slate-100;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+ @apply h-full border-none rounded-[48px] overflow-hidden bg-card border border-border;
+ box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
+.contact-form-padding {
+ @apply p-6 sm:p-8 lg:p-10;
+}
+.contact-form-header {
+ @apply mb-10;
+}
+.contact-form-title {
+ @apply text-3xl font-display font-bold text-foreground mb-3;
+}
+.contact-form-description {
+ @apply text-text-secondary;
+}
+.contact-form {
+ @apply space-y-6;
+}
+.field-group {
+ @apply space-y-2;
+}
+.field-label {
+ @apply text-xs font-bold text-text-secondary uppercase tracking-widest ml-1;
 }
 .input-field {
-  @apply h-14 rounded-2xl bg-secondary border-none focus-visible:ring-2 focus-visible:ring-primary/20 text-base;
+ @apply h-14 rounded-2xl bg-secondary border-none focus-visible:ring-2 focus-visible:ring-primary/20 text-base;
+}
+.select-field {
+ @apply w-full h-14 rounded-2xl bg-secondary border-none focus-visible:ring-2 focus-visible:ring-primary/20 px-4 text-text-secondary text-base appearance-none cursor-pointer;
+}
+.textarea-field {
+ @apply min-h-[120px] rounded-2xl bg-secondary border-none focus-visible:ring-2 focus-visible:ring-primary/20 text-base p-4;
+}
+.submit-btn {
+ @apply w-full h-16 rounded-2xl text-lg font-bold shadow-2xl shadow-primary/30;
+}
+.submit-loader-wrapper {
+ @apply flex items-center gap-2;
+}
+.submit-loader-dot {
+ @apply w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin;
+}
+.submit-btn-content {
+ @apply flex items-center gap-2;
+}
+.submit-btn-icon {
+ @apply w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform;
+}
+.form-footer-disclaimer {
+ @apply text-[10px] text-center text-text-secondary font-medium leading-relaxed;
+}
+.contact-bg-blob-1 {
+ @apply absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -mr-64 -mt-64;
+}
+.contact-bg-blob-2 {
+ @apply absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] -ml-64 -mb-64;
+}
+
+.contact-header-badge {
+ @apply flex items-center gap-3 mb-6;
+}
+
+.contact-section-title {
+ @apply text-3xl lg:text-5xl font-display font-bold text-[var(--foreground)] leading-tight mb-6;
+}
+
+.contact-section-description {
+ @apply text-base text-text-secondary leading-relaxed max-w-xl;
+}
+
+.contact-form-inner-wrapper {
+ @apply h-full;
+}
+
+.contact-form-grid {
+ @apply grid grid-cols-1 sm:grid-cols-2 gap-6;
 }

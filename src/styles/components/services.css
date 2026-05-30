@@ -1,22 +1,84 @@
-.section-padding {
-  @apply py-24 lg:py-32;
-}
+/* Services */
 .section-title-wrapper {
-  @apply flex flex-col md:flex-row justify-between items-end mb-16 lg:mb-20 gap-8;
-}
-.section-subtitle {
-  @apply text-sm font-bold text-primary uppercase tracking-[0.2em];
-}
-.section-title {
-  @apply text-4xl lg:text-5xl font-display font-bold text-slate-900 leading-tight;
+ @apply flex flex-col md:flex-row justify-between items-end mb-12 lg:mb-16 gap-6;
 }
 .service-card {
-  @apply h-full border-none rounded-[32px] hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 overflow-hidden bg-white border border-slate-100;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+ @apply h-full border-none rounded-[24px] hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 overflow-hidden bg-card border border-border;
+ box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
 }
 .service-image-wrapper {
-  @apply relative h-48 overflow-hidden;
+ @apply relative h-44 overflow-hidden;
+}
+.service-image {
+ @apply w-full h-full object-cover group-hover:scale-110 transition-transform duration-700;
+}
+.service-image-overlay {
+ @apply absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent;
 }
 .service-icon-wrapper {
-  @apply absolute top-4 left-4 w-12 h-12 rounded-xl bg-white/90 backdrop-blur-sm shadow-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500;
+ @apply absolute top-3 left-3 w-10 h-10 rounded-xl bg-card/90 backdrop-blur-sm shadow-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500;
+}
+.service-card-header {
+ @apply pt-5 pb-3;
+}
+.service-card-title {
+ @apply text-lg font-bold text-foreground group-hover:text-primary transition-colors;
+}
+.service-card-content {
+ @apply space-y-4 px-6 pb-6;
+}
+.service-description {
+ @apply text-text-secondary text-[13px] leading-relaxed line-clamp-3;
+}
+.service-footer {
+ @apply flex items-center justify-between pt-3 border-t border-border/50;
+}
+.service-price-label {
+ @apply text-[9px] text-text-secondary font-bold uppercase tracking-wider block mb-1;
+}
+.service-price-value {
+ @apply text-lg font-display font-bold text-primary;
+}
+.service-arrow-btn {
+ @apply w-9 h-9 rounded-xl bg-secondary text-text-secondary group-hover:bg-primary group-hover:text-white transition-all duration-300;
+}
+
+.services-homepage-section {
+ @apply py-12 lg:py-20 bg-background scroll-mt-20;
+}
+
+.services-homepage-header-left {
+ @apply max-w-2xl text-left;
+}
+
+.services-homepage-badge-wrapper {
+ @apply flex items-center gap-2 mb-3;
+}
+
+.services-homepage-badge-divider {
+ @apply w-10 h-0.5 bg-primary;
+}
+
+.services-homepage-all-btn {
+ @apply px-6 py-4 rounded-xl font-bold border-2 hover:bg-secondary transition-all duration-300 text-sm;
+}
+
+.services-homepage-all-btn-inner {
+ @apply flex items-center gap-2;
+}
+
+.services-homepage-all-btn-icon {
+ @apply w-4 h-4;
+}
+
+.services-homepage-grid {
+ @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10;
+}
+
+.services-homepage-icon {
+ @apply w-6 h-6;
+}
+
+.services-homepage-arrow-icon {
+ @apply w-5 h-5;
 }
