@@ -1,0 +1,164 @@
+@reference "../index.css";
+
+.widgetWrapper {
+  @apply fixed bottom-6 right-6 z-[100];
+}
+
+.cardContainer {
+  @apply absolute bottom-16 right-0 w-[360px] max-w-[calc(100vw-32px)];
+}
+
+.card {
+  @apply bg-card rounded-2xl shadow-2xl border border-border overflow-hidden flex flex-col h-[520px] max-h-[calc(100vh-128px)];
+}
+
+.header {
+  @apply p-5 bg-slate-900 text-white flex items-center justify-between;
+}
+
+.headerInfo {
+  @apply flex items-center gap-4;
+}
+
+.avatarWrapper {
+  @apply relative;
+}
+
+.avatarBox {
+  @apply w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white;
+}
+
+.statusIndicator {
+  @apply absolute -bottom-1 -right-1 w-4 h-4 bg-success border-4 border-foreground rounded-full;
+}
+
+.title {
+  @apply text-lg font-black tracking-tight;
+}
+
+.subtitleWrapper {
+  @apply flex items-center gap-1.5;
+}
+
+.subtitle {
+  @apply text-[10px] font-bold text-text-secondary uppercase tracking-widest;
+}
+
+.headerActions {
+  @apply flex gap-2;
+}
+
+.headerBtn {
+  @apply text-text-secondary hover:text-white hover:bg-white/10 rounded-xl;
+}
+
+.scrollArea {
+  @apply flex-1 min-h-0;
+}
+
+.messagesContainer {
+  @apply space-y-4 p-4;
+}
+
+.messageRow {
+  @apply flex;
+}
+
+.messageUser {
+  @apply justify-end;
+}
+
+.messageResponse {
+  @apply justify-start;
+}
+
+.messageInner {
+  @apply flex items-end gap-3 max-w-[85%];
+}
+
+.messageAvatar {
+  @apply w-7 h-7 rounded-lg bg-secondary flex items-center justify-center text-text-secondary flex-shrink-0;
+}
+
+.messageBubble {
+  @apply p-3 rounded-2xl text-sm leading-relaxed;
+}
+
+.messageUser .messageBubble {
+  @apply bg-primary text-white rounded-br-none;
+}
+
+.messageResponse .messageBubble {
+  @apply bg-secondary text-foreground border border-border rounded-bl-none;
+}
+
+.loadingBubble {
+  @apply flex items-center gap-3 p-4 bg-secondary rounded-3xl rounded-bl-none border border-border;
+}
+
+.loadingDot {
+  @apply w-1.5 h-1.5 bg-primary rounded-full animate-bounce;
+}
+
+.loadingText {
+  @apply text-[10px] font-bold text-primary uppercase tracking-widest;
+}
+
+.quickActions {
+  @apply px-4 py-3 flex gap-2 border-t border-border bg-secondary/50 overflow-x-auto whitespace-nowrap;
+  scrollbar-width: thin;
+  scroll-snap-type: x proximity;
+}
+
+.quickActionBtn {
+  @apply rounded-lg bg-card border-border text-[10px] font-bold h-8 px-3 hover:border-primary hover:text-primary transition-all shrink-0;
+  scroll-snap-align: start;
+}
+
+.inputArea {
+  @apply p-4 bg-card border-t border-border;
+}
+
+.inputForm {
+  @apply flex gap-3;
+}
+
+.inputField {
+  @apply rounded-xl h-11 bg-secondary border-transparent focus-visible:ring-primary focus-visible:bg-card transition-all;
+}
+
+.sendBtn {
+  @apply w-11 h-11 rounded-xl bg-primary hover:bg-primary-hover shadow-lg shadow-primary/20 transition-all flex-shrink-0;
+}
+
+.disclaimer {
+  @apply text-[10px] text-text-secondary text-center mt-4 font-medium;
+}
+
+.triggerWrapper {
+  @apply relative;
+}
+
+.triggerBtn {
+  @apply w-16 h-16 rounded-2xl bg-slate-900 text-white shadow-2xl relative overflow-hidden flex items-center justify-center;
+}
+
+.triggerBtn:hover .triggerGradient {
+  @apply opacity-100;
+}
+
+.triggerGradient {
+  @apply absolute inset-0 bg-gradient-to-tr from-primary/40 to-transparent opacity-0 transition-opacity;
+}
+
+.triggerIcon {
+  @apply relative z-10;
+}
+
+.tooltip {
+  @apply absolute right-24 bottom-4 bg-card text-foreground px-6 py-3 rounded-2xl shadow-2xl border border-border text-sm font-bold whitespace-nowrap hidden lg:flex items-center gap-3 pointer-events-none;
+}
+
+.notificationDot {
+  @apply absolute -top-1 -right-1 w-6 h-6 bg-primary border-4 border-card rounded-full z-20 animate-pulse;
+}
