@@ -1,4 +1,5 @@
-﻿import React from 'react';
+﻿
+import React from 'react';
 import { motion } from 'motion/react';
 import { Plus, Minus, Search, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';

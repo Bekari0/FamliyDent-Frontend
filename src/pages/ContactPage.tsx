@@ -1,4 +1,5 @@
-﻿import { Contact as ContactComponent } from '../components/Contact';
+﻿import React from 'react';
+import { Contact as ContactComponent } from '../components/Contact';
 import { motion } from 'motion/react';
 import { Phone, Mail, MapPin, Clock, MessageCircle, ChevronRight, Navigation, Bus, Car, Train } from 'lucide-react';
 import { Button } from '@/components/ui/button';
