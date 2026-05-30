@@ -1,0 +1,145 @@
+@reference "../index.css";
+
+.headerMain {
+ @apply fixed top-0 left-0 right-0 z-50 h-24 transition-all duration-700 flex items-center;
+}
+
+.headerScrolled {
+ @apply bg-background/95 backdrop-blur-3xl border-b border-border shadow-2xl py-4;
+}
+
+.headerTransparent {
+ @apply border-b border-transparent;
+}
+
+.headerContainer {
+ @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between;
+}
+
+.logoLink {
+ @apply flex items-center gap-4;
+}
+
+.logoBox {
+ @apply w-12 h-12 rounded-[18px] bg-primary flex items-center justify-center text-white text-2xl font-display font-bold shadow-2xl transition-all;
+}
+
+.logoText {
+ @apply text-2xl font-display font-bold text-primary tracking-tight transition-all;
+}
+
+.textHighlight {
+ @apply text-text-secondary;
+}
+
+.navDesktop {
+ @apply hidden lg:flex items-center gap-10;
+}
+
+.navLink {
+ @apply relative py-2 transition-all;
+}
+
+.navLinkActive {
+ @apply text-primary font-black text-[10px] uppercase tracking-[0.2em] italic;
+}
+
+.navLinkInactive {
+ @apply text-text-secondary hover:text-primary font-black text-[10px] uppercase tracking-[0.2em];
+}
+
+.navLinkUnderline {
+ @apply absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-500 rounded-full;
+}
+
+.navLinkUnderlineActive {
+ @apply w-full opacity-100;
+}
+
+.navLinkUnderlineInactive {
+ @apply w-0 opacity-0;
+}
+
+.actionsDesktop {
+ @apply hidden lg:flex items-center gap-10;
+}
+
+.phoneContainer {
+ @apply items-center;
+}
+
+.phoneLink {
+ @apply flex items-center gap-3 text-[10px] font-black text-primary uppercase tracking-[0.2em] hover:brightness-110 transition-all;
+}
+
+.phoneIcon {
+ @apply w-4 h-4 text-primary;
+}
+
+.mobileHeaderActions {
+ @apply flex lg:hidden items-center gap-4;
+}
+
+.mobilePhoneBtn {
+ @apply w-12 h-12 rounded-[18px] bg-primary/5 flex items-center justify-center text-primary shadow-sm;
+}
+
+.mobilePhoneIcon {
+ @apply w-5 h-5;
+}
+
+.mobileNavTrigger {
+ @apply flex items-center justify-center h-12 w-12 rounded-[18px] bg-primary/5 hover:bg-primary hover:text-white transition-all text-primary shadow-sm;
+}
+
+.mobileNavContent {
+ @apply p-0 border-none shadow-2xl;
+}
+
+.mobileNavInner {
+ @apply flex flex-col h-full bg-card;
+}
+
+.mobileNavHeader {
+ @apply p-8 border-b border-primary/5;
+}
+
+.mobileLogoBox {
+ @apply w-12 h-12 rounded-[18px] bg-primary flex items-center justify-center text-white text-2xl font-display font-bold;
+}
+
+.mobileLogoText {
+ @apply text-xl font-display font-bold text-primary tracking-tight;
+}
+
+.mobileNavLinks {
+ @apply flex-1 overflow-y-auto p-6 space-y-2;
+}
+
+.mobileNavLink {
+ @apply flex items-center justify-between p-5 rounded-[22px] text-[10px] font-black text-text-secondary uppercase tracking-[0.2em] hover:bg-secondary hover:text-primary transition-all;
+}
+
+.mobileNavChevron {
+ @apply w-4 h-4 text-text-secondary/50;
+}
+
+.mobileNavFooter {
+ @apply p-10 bg-secondary border-t border-border;
+}
+
+.mobileContactWrapper {
+ @apply space-y-4;
+}
+
+.mobileContactLabel {
+ @apply text-[10px] font-black text-text-secondary/50 uppercase tracking-[0.3em];
+}
+
+.mobileContactPhone {
+ @apply text-2xl font-display font-bold text-primary italic;
+}
+
+.mobileContactAddress {
+ @apply text-xs text-text-secondary font-medium;
+}

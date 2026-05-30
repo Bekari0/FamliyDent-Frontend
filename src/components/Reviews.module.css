@@ -1,0 +1,98 @@
+@reference "../index.css";
+
+/* Reviews */
+.section {
+ @apply py-24 bg-secondary scroll-mt-20 overflow-hidden relative;
+}
+
+.bgBlob {
+ @apply hidden;
+}
+
+.header {
+ @apply text-center max-w-3xl mx-auto mb-16;
+}
+
+.badge {
+ @apply flex items-center justify-center gap-4 mb-8;
+}
+
+.avatars {
+ @apply flex -space-x-3;
+}
+
+.avatarIcon {
+ @apply w-10 h-10 rounded-full border-2 border-card bg-secondary overflow-hidden;
+}
+
+.statsText {
+ @apply text-xs font-bold text-text-secondary uppercase tracking-widest;
+}
+
+.grid {
+ @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+.card {
+ @apply h-full border border-border rounded-xl p-6 bg-card shadow-md hover:shadow-lg transition-all duration-300 relative;
+}
+
+.quoteIcon {
+ @apply absolute top-6 right-6 w-10 h-10 text-border;
+}
+
+.stars {
+ @apply flex items-center gap-1 mb-6;
+}
+
+.text {
+ @apply text-text-secondary leading-relaxed mb-8;
+}
+
+.footer {
+ @apply flex items-center gap-4 pt-6 border-t border-border;
+}
+
+.avatar {
+ @apply w-12 h-12 rounded-full;
+}
+
+.authorInfo {
+ @apply flex flex-col;
+}
+
+.authorNameRow {
+ @apply flex items-center gap-2;
+}
+
+.authorName {
+ @apply text-lg font-bold text-foreground;
+}
+
+.verifiedBadge {
+ @apply w-4 h-4 bg-success rounded-full flex items-center justify-center;
+}
+
+.date {
+ @apply text-xs text-text-secondary mt-1;
+}
+
+.sectionTitle {
+ @apply text-3xl lg:text-4xl font-bold text-foreground mb-6;
+}
+
+.sectionDescription {
+ @apply text-lg text-text-secondary;
+}
+
+.starIcon {
+ @apply w-4 h-4 text-yellow-400 fill-yellow-400;
+}
+
+.verifiedSvg {
+ @apply w-2.5 h-2.5 text-white;
+}
+
+.textHighlight {
+ @apply text-primary not-italic font-black underline decoration-primary/10 underline-offset-8;
+}

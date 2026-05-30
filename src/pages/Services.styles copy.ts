@@ -1,0 +1,17 @@
+﻿export const section = "py-24 bg-white relative overflow-hidden";
+export const container = "container mx-auto px-4 sm:px-6 lg:px-8 relative z-10";
+export const header = "flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16";
+export const badge = "inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.2em] mb-6 border-0";
+export const title = "text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 leading-tight max-w-2xl";
+export const titleSpan = "text-primary";
+export const grid = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8";
+export const card = "group h-full bg-white rounded-xl border-0 shadow-md hover:shadow-xl transition-all duration-300 p-8 flex flex-col items-start gap-6";
+export const iconWrapper = "w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all cursor-default";
+export const cardTitle = "text-xl sm:text-2xl font-bold text-slate-900 group-hover:text-primary transition-colors";
+export const serviceList = "space-y-3";
+export const serviceItem = "flex items-center gap-3 text-sm font-medium text-slate-600";
+export const serviceDot = "w-1.5 h-1.5 rounded-full bg-primary/40 group-hover:bg-primary group-hover:scale-125 transition-all text-sm";
+export const cardFooter = "mt-auto pt-6 border-t border-slate-50 w-full flex items-center justify-between";
+export const footerText = "text-[10px] font-black text-slate-400 uppercase tracking-widest";
+export const arrowIcon = "w-5 h-5 text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all";
+export const seeAllBtn = "h-14 px-8 rounded-2xl border border-slate-100 hover:bg-slate-50 font-bold text-xs uppercase tracking-widest text-slate-500 hover:text-primary transition-all flex items-center gap-3"

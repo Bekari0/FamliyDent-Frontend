@@ -1,0 +1,15 @@
+﻿export const section = "py-24 bg-white relative overflow-hidden";
+export const container = "container mx-auto px-4 sm:px-6 lg:px-8";
+export const layout = "flex flex-col lg:flex-row gap-16 lg:gap-24";
+export const sidebar = "lg:w-1/3 flex flex-col justify-center";
+export const title = "text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 leading-tight mb-6";
+export const desc = "text-slate-600 text-lg leading-relaxed mb-8";
+export const supportCard = "p-8 rounded-xl bg-slate-50 border border-slate-100 shadow-sm";
+export const supportTitle = "text-xl font-bold text-slate-900 mb-3";
+export const supportDesc = "text-slate-500 text-sm mb-6 leading-relaxed";
+export const supportBtn = "inline-flex items-center justify-center w-full h-14 bg-primary hover:bg-primary/90 text-white rounded-xl font-bold text-base shadow-lg shadow-primary/20 hover:scale-105 transition-all text-center";
+export const accordionWrapper = "lg:w-2/3";
+export const accordion = "space-y-4";
+export const accordionItem = "border border-slate-100 rounded-xl bg-white overflow-hidden shadow-sm hover:shadow-md transition-all px-6 sm:px-8";
+export const accordionTrigger = "py-6 text-left text-base sm:text-lg font-bold text-slate-900 hover:text-primary hover:no-underline transition-colors flex items-center gap-4";
+export const accordionContent = "pb-6 text-slate-600 text-sm sm:text-base leading-relaxed"

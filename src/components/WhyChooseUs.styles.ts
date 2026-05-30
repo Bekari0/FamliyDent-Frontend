@@ -1,0 +1,12 @@
+﻿export const section = "py-24 bg-slate-50 relative overflow-hidden";
+export const container = "container mx-auto px-4 sm:px-6 lg:px-8 relative z-10";
+export const header = "text-center max-w-3xl mx-auto mb-20";
+export const badge = "inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.2em] mb-6 border-0";
+export const title = "text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 leading-tight";
+export const titleSpan = "text-primary italic";
+export const desc = "mt-6 text-slate-600 text-lg leading-relaxed";
+export const grid = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8";
+export const card = "group p-10 bg-white rounded-xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300";
+export const iconWrapper = "w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all mb-8";
+export const cardTitle = "text-xl font-bold text-slate-900 mb-4";
+export const cardDesc = "text-slate-600 text-sm leading-relaxed"

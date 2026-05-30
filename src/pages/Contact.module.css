@@ -1,0 +1,133 @@
+@reference "../index.css";
+
+.section {
+  @apply py-24 bg-background relative overflow-hidden;
+}
+
+.bgBlob1 {
+  @apply absolute top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] -mr-32 -mt-32;
+}
+
+.bgBlob2 {
+  @apply absolute bottom-0 left-0 w-[300px] h-[300px] bg-secondary rounded-full blur-[80px] -ml-24 -mb-24;
+}
+
+.container {
+  @apply w-full max-w-7xl mx-auto px-4 relative z-10;
+}
+
+.flexWrapper {
+  @apply flex flex-col lg:flex-row items-stretch gap-12;
+}
+
+.contentContainer {
+  @apply flex-1;
+}
+
+.headerTitleBox {
+  @apply mb-12;
+}
+
+.badgeLine {
+  @apply flex items-center gap-4 mb-6;
+}
+
+.badgeLineInner {
+  @apply w-12 h-1 bg-primary rounded-full;
+}
+
+.badgeText {
+  @apply text-primary font-bold uppercase tracking-widest text-xs;
+}
+
+.title {
+  @apply text-4xl lg:text-5xl font-bold text-foreground mb-6;
+}
+
+.titleSpan {
+  @apply text-primary;
+}
+
+.desc {
+  @apply text-lg text-text-secondary leading-relaxed max-w-xl;
+}
+
+.infoGrid {
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-8;
+}
+
+.infoCard {
+  @apply p-6 rounded-xl bg-secondary border border-border hover:border-primary/20 hover:shadow-lg transition-all duration-300 flex flex-col;
+}
+
+.infoIconBox {
+  @apply w-10 h-10 rounded-lg bg-card flex items-center justify-center text-primary mb-4 shadow-sm transition-all duration-300;
+}
+
+.infoLabel {
+  @apply text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1;
+}
+
+.infoValue {
+  @apply text-lg font-bold text-foreground mb-1;
+}
+
+.infoSmall {
+  @apply text-sm text-text-secondary;
+}
+
+.helperCard {
+  @apply p-6 rounded-xl bg-primary text-white shadow-lg flex flex-col justify-center;
+}
+
+.helperHeader {
+  @apply flex items-center gap-2 mb-4;
+}
+
+.helperLabel {
+  @apply font-bold text-xs uppercase tracking-widest;
+}
+
+.aiText {
+  @apply text-sm text-white/90 leading-relaxed;
+}
+
+.mapWrapper {
+  @apply flex-1 w-full;
+}
+
+.mapContainer {
+  @apply h-[400px] lg:h-full min-h-[500px] w-full rounded-xl overflow-hidden shadow-xl relative;
+}
+
+.mapOverlay {
+  @apply absolute inset-0 pointer-events-none border border-border rounded-xl z-10;
+}
+
+.mapLabelBox {
+  @apply absolute bottom-8 left-8 right-8 z-20 pointer-events-none;
+}
+
+.mapLabel {
+  @apply bg-card p-6 rounded-2xl shadow-xl border border-border flex items-center justify-between;
+}
+
+.mapLabelInner {
+  @apply flex items-center gap-4;
+}
+
+.mapLabelIconBox {
+  @apply w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary;
+}
+
+.mapLabelTags {
+  @apply text-left;
+}
+
+.mapLabelSmall {
+  @apply text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1;
+}
+
+.mapLabelBig {
+  @apply text-lg font-bold text-foreground;
+}

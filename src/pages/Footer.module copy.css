@@ -1,0 +1,117 @@
+@reference "../index.css";
+
+.footerMain {
+ @apply bg-background pt-32 pb-16 relative overflow-hidden;
+}
+
+.bgBlob1 {
+ @apply absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] -mr-48 -mt-48;
+}
+
+.bgBlob2 {
+ @apply absolute bottom-0 left-0 w-80 h-80 bg-accent/5 rounded-full blur-[80px] -ml-40 -mb-40;
+}
+
+.container {
+ @apply w-full max-w-7xl mx-auto px-4 relative z-10;
+}
+
+.grid {
+ @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16;
+}
+
+.brandSection {
+ @apply space-y-8;
+}
+
+.logoLink {
+ @apply flex items-center gap-4;
+}
+
+.logoBox {
+ @apply w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white text-xl font-bold shadow-md;
+}
+
+.logoText {
+ @apply text-xl font-bold text-foreground tracking-tight transition-all;
+}
+
+.tagline {
+ @apply text-text-secondary text-sm leading-relaxed max-w-xs font-medium;
+}
+
+.navTitle {
+ @apply text-sm font-bold text-foreground uppercase tracking-widest mb-6 flex items-center gap-3;
+}
+
+.navDot {
+ @apply w-1.5 h-1.5 rounded-full bg-primary;
+}
+
+.navList {
+ @apply space-y-6;
+}
+
+.navLink {
+ @apply flex items-center gap-2 text-[10px] font-black text-text-secondary uppercase tracking-[0.1em] hover:text-primary transition-all;
+}
+
+.navArrow {
+ @apply w-4 h-4 opacity-0 -ml-4 transition-all text-primary;
+}
+
+.contactList {
+ @apply space-y-8;
+}
+
+.contactItem {
+ @apply flex items-start gap-4;
+}
+
+.contactIconWrapper {
+ @apply w-10 h-10 rounded-lg bg-secondary border border-border flex items-center justify-center text-primary;
+}
+
+.contactText {
+ @apply text-sm text-foreground/60 leading-relaxed font-semibold italic;
+}
+
+.contactPhone {
+ @apply text-lg font-display font-bold text-primary italic hover:not-italic transition-all;
+}
+
+.contactEmail {
+ @apply text-sm font-black text-text-secondary hover:text-primary transition-all uppercase tracking-widest;
+}
+
+.divider {
+ @apply my-16 bg-border/20;
+}
+
+.bottom {
+ @apply flex flex-col md:flex-row items-center justify-between gap-8;
+}
+
+.copyrightWrapper {
+ @apply flex flex-wrap items-center justify-center md:justify-start gap-3 text-[10px] font-black text-text-secondary/40 uppercase tracking-[0.2em];
+}
+
+.bottomDivider {
+ @apply hidden md:inline opacity-10;
+}
+
+.madeWith {
+ @apply flex items-center gap-2;
+}
+
+.heartIcon {
+ @apply w-4 h-4 text-primary fill-primary opacity-40;
+}
+
+.bottomLinks {
+ @apply flex items-center gap-8;
+}
+
+.bottomLink {
+ @apply text-[10px] font-black text-text-secondary/40 hover:text-primary transition-all uppercase tracking-[0.2em];
+}
