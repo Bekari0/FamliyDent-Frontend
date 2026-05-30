@@ -1,12 +1,38 @@
-.glass {
-  @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
+/* Global Utilities */
+
+.section-padding {
+ @apply py-24 lg:py-32;
+}
+
+.section-subtitle {
+ @apply text-[var(--accent)] font-bold uppercase tracking-[0.2em] text-sm;
+}
+
+.section-title {
+ @apply text-4xl lg:text-5xl font-display font-medium text-[var(--foreground)] leading-tight;
 }
 
 .soft-shadow {
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+ box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
 }
 
-.gradient-bg {
-  background: radial-gradient(circle at top left, rgba(14, 165, 233, 0.05), transparent 40%),
-              radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.05), transparent 40%);
+.card-hover {
+ @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+}
+
+.text-highlight {
+ @apply text-primary;
+}
+
+.container-padding {
+ @apply container mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+ display: none;
+}
+
+.no-scrollbar {
+ -ms-overflow-style: none;
+ scrollbar-width: none;
 }
