@@ -1,38 +1,40 @@
-import React, { createContext, useContext, useState } from 'react';
-import { BookingModal } from '@/components/BookingModal';
+import React, { createContext, useContext } from 'react';
+import { useAuth } from './AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 interface BookingContextType {
-  openBooking: (doctorId?: string) => void;
+ openBooking: (doctorId?: string) => void;
 }
 
 const BookingContext = createContext<BookingContextType | undefined>(undefined);
 
 export function BookingProvider({ children }: { children: React.ReactNode }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedDoctorId, setSelectedDoctorId] = useState<string | undefined>(undefined);
+ const { user } = useAuth();
+ const navigate = useNavigate();
 
-  const openBooking = (doctorId?: string) => {
-    setSelectedDoctorId(doctorId);
-    setIsOpen(true);
-  };
-  const closeBooking = () => setIsOpen(false);
+ const openBooking = (doctorId?: string) => {
+ if (!user) {
+ toast.error('Войдите в систему, чтобы записаться на прием');
+ navigate('/login');
+ return;
+ }
 
-  return (
-    <BookingContext.Provider value={{ openBooking }}>
-      {children}
-      <BookingModal 
-        isOpen={isOpen} 
-        onClose={closeBooking} 
-        defaultDoctorId={selectedDoctorId || 'any'}
-      />
-    </BookingContext.Provider>
-  );
+ navigate(doctorId ? `/book?doctorId=${doctorId}` : '/book');
+ };
+
+ return (
+ <BookingContext.Provider value={{ openBooking }}>
+ {children}
+ </BookingContext.Provider>
+ );
 }
 
 export function useBooking() {
-  const context = useContext(BookingContext);
-  if (context === undefined) {
-    throw new Error('useBooking must be used within a BookingProvider');
-  }
-  return context;
+ const context = useContext(BookingContext);
+ if (context === undefined) {
+ throw new Error('useBooking must be used within a BookingProvider');
+ }
+ return context;
 }
+
