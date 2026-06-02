@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import { User as UserModel } from '../models/User';
 
 const User = UserModel as any;
+mongoose.set('bufferCommands', false);
 
 export const connectDB = async () => {
  const MONGODB_URI = process.env.MONGODB_URI;
@@ -13,7 +14,11 @@ export const connectDB = async () => {
  }
 
  try {
- await mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 5000 });
+ await mongoose.connect(MONGODB_URI, {
+ serverSelectionTimeoutMS: 5000,
+ connectTimeoutMS: 5000,
+ socketTimeoutMS: 10000,
+ });
  console.log('Connected to MongoDB');
 
  if (process.env.SEED_DB === 'true') {

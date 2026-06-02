@@ -4,6 +4,7 @@ export const grid = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 sm:ga
 export const brandCol = "lg:col-span-1";
 export const logo = "flex items-center gap-3 mb-8 group";
 export const logoIcon = "w-10 h-10 rounded-2xl bg-primary text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-primary/20 transition-transform group-hover:scale-110";
+export const logoImage = "w-10 h-10 object-contain transition-transform group-hover:scale-110";
 export const logoText = "text-2xl font-bold tracking-tight text-white";
 export const logoSpan = "text-primary";
 export const tagline = "text-slate-400 text-sm leading-relaxed max-w-xs";

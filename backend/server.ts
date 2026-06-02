@@ -1,12 +1,9 @@
-// backend/server.ts
+import path from "path";
+import { fileURLToPath } from "url";
 import dotenv from "dotenv";
-dotenv.config({ path: "../.env" });
-
 import express from "express";
 import app from "./app.ts";
 import { connectDB } from "./config/db";
-import path from "path";
-import { fileURLToPath } from "url";
 import { createServer as createViteServer } from "vite";
 import authRoutes from "./routes/auth";
 import doctorRoutes from "./routes/doctors";
@@ -25,19 +22,20 @@ import { DentalBot } from "./bot/bot";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const rootDir = path.resolve(__dirname, "..");
+
+dotenv.config({ path: path.join(rootDir, ".env") });
+dotenv.config({ path: path.join(__dirname, ".env"), override: false });
 
 async function startServer() {
   console.log("Starting integrated server...");
   console.log("Current working directory:", process.cwd());
   console.log("__dirname:", __dirname);
 
-  // Connect to DB
-  try {
-    await connectDB();
-    console.log("Database connection process completed");
-  } catch (err) {
-    console.error("Database connection failed:", err);
-  }
+  // Connect to DB without blocking the HTTP server startup.
+  connectDB()
+    .then(() => console.log("Database connection process completed"))
+    .catch((err) => console.error("Database connection failed:", err));
 
   // API Routes
   console.log("Configuring API routes...");
@@ -72,11 +70,14 @@ async function startServer() {
     res.sendFile(panelPath);
   });
 
-  // Vite Integration
-  if (process.env.NODE_ENV !== "production") {
+  // Vite Integration. The usual dev flow runs Vite separately on port 3000
+  // and proxies /api to this backend, so keep this server API-only by default.
+  const enableViteMiddleware = process.env.ENABLE_VITE_MIDDLEWARE === "true";
+
+  if (process.env.NODE_ENV !== "production" && enableViteMiddleware) {
     console.log("Detected development mode. Starting Vite middleware...");
     try {
-      const rootPath = path.join(__dirname, ".."); // Поднимаемся на уровень выше (в familydent)
+      const rootPath = rootDir; // Поднимаемся на уровень выше (в familydent)
       console.log("Vite root path:", rootPath);
       const vite = await createViteServer({
         server: { middlewareMode: true },
@@ -95,13 +96,15 @@ async function startServer() {
     } catch (err) {
       console.error("Failed to start Vite middleware:", err);
     }
-  } else {
+  } else if (process.env.NODE_ENV === "production") {
     console.log("Detected production mode. Serving static files...");
     const distPath = path.join(__dirname, "..", "dist");
     app.use(express.static(distPath));
     app.get("*", (req: any, res: any) => {
       res.sendFile(path.join(distPath, "index.html"));
     });
+  } else {
+    console.log("Development API-only mode. Frontend is served by Vite on port 3000.");
   }
 
   const PORT = Number(process.env.PORT) || 3000;

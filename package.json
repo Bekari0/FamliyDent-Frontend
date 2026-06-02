@@ -4,8 +4,8 @@
  "version": "0.0.0",
  "type": "module",
  "scripts": {
- "dev": "tsx server.ts",
- "dev:frontend": "vite",
+ "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+ "dev:frontend": "vite --port=3000 --host=0.0.0.0",
  "dev:backend": "set PORT=5000 && tsx backend/server.ts",
  "dev:split": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
  "build": "vite build",

@@ -1,6 +1,7 @@
 ﻿import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import * as styles from './Footer.styles';
+import logoWhite from '../assets/images/logo/LogoWhite.svg';
 
 import { 
  Instagram, Facebook, Mail, MapPin, Phone, 
@@ -19,7 +20,7 @@ export function Footer() {
  <div className={styles.grid}>
  <div className={styles.brandCol}>
  <Link to="/" className={styles.logo}>
- <div className={styles.logoIcon}>F</div>
+ <img src={logoWhite} alt="FamilyDent" className={styles.logoImage} />
  <span className={styles.logoText}>
  Family<span className={styles.logoSpan}>Dent</span>
  </span>
@@ -114,7 +115,7 @@ export function Footer() {
  <div className="flex items-center gap-2">
  <span className="text-slate-700">|</span>
  <span className="flex items-center gap-2">
- Сделано с <Heart className="w-4 h-4 text-red-500 fill-current" /> для вашей улыбки
+ Сделано с любовью для вашей улыбки
  </span>
  </div>
  </div>
@@ -127,7 +128,5 @@ export function Footer() {
  </footer>
  );
 }
-
-
 
 
