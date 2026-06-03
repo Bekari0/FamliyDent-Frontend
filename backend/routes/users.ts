@@ -13,6 +13,16 @@ const defaultNotificationSettings = {
  news: false
 };
 
+function getUserLookup(user: any) {
+ const ids = [user?.uid, user?._id?.toString?.(), user?._id].filter(Boolean);
+ return { $or: ids.flatMap((id) => [{ uid: id }, { _id: id }]) };
+}
+
+function toBooleanSetting(value: unknown, fallback: boolean) {
+ if (typeof value === 'boolean') return value;
+ return fallback;
+}
+
 router.patch('/me', authenticate, async (req: any, res) => {
  try {
  const allowed = ['displayName', 'phoneNumber', 'gender', 'birthDate', 'photoURL'];
@@ -22,7 +32,7 @@ router.patch('/me', authenticate, async (req: any, res) => {
  });
 
  const user = await UserModel.findOneAndUpdate(
- { uid: req.user.uid },
+ getUserLookup(req.user),
  update,
  { new: true, runValidators: true }
  );
@@ -52,16 +62,20 @@ router.get('/notification-settings', authenticate, async (req: any, res) => {
 
 router.put('/notification-settings', authenticate, async (req: any, res) => {
  try {
+ const currentSettings = {
+ ...defaultNotificationSettings,
+ ...(req.user.notificationSettings?.toObject?.() || req.user.notificationSettings || {})
+ };
  const settings = {
- email: Boolean(req.body.email),
- bookingUpdates: Boolean(req.body.bookingUpdates),
- appointmentReminders: Boolean(req.body.appointmentReminders),
- cancellations: Boolean(req.body.cancellations),
- news: Boolean(req.body.news)
+ email: toBooleanSetting(req.body.email, currentSettings.email),
+ bookingUpdates: toBooleanSetting(req.body.bookingUpdates, currentSettings.bookingUpdates),
+ appointmentReminders: toBooleanSetting(req.body.appointmentReminders, currentSettings.appointmentReminders),
+ cancellations: toBooleanSetting(req.body.cancellations, currentSettings.cancellations),
+ news: toBooleanSetting(req.body.news, currentSettings.news)
  };
 
  const user = await UserModel.findOneAndUpdate(
- { uid: req.user.uid },
+ getUserLookup(req.user),
  { notificationSettings: settings, updatedAt: new Date() },
  { new: true }
  );

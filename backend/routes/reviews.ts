@@ -91,6 +91,7 @@ router.post('/', authenticate, async (req: any, res) => {
  rating,
  text,
  comment: text,
+ source: 'site',
  status: 'pending',
  });
  await review.save();

@@ -7,6 +7,11 @@ const ReviewSchema = new mongoose.Schema({
  patientName: String,
  doctorId: String,
  doctorName: String,
+ source: { type: String, enum: ['site', 'google', 'yandex'], default: 'site', index: true },
+ externalId: String,
+ externalKey: { type: String, unique: true, sparse: true, index: true },
+ sourceUrl: String,
+ importedAt: Date,
  rating: { type: Number, required: true, min: 1, max: 5 },
  text: { type: String, required: true, trim: true },
  comment: { type: String, trim: true },
@@ -21,8 +26,10 @@ const ReviewSchema = new mongoose.Schema({
  transform: (_doc, ret: any) => {
  ret.id = ret._id;
  if (!ret.text && ret.comment) ret.text = ret.comment;
+ if (!ret.source) ret.source = 'site';
  }
  }
 });
 
-export const Review = mongoose.models.Review || mongoose.model('Review', ReviewSchema);
+export const Review = (mongoose.models.Review ||
+ mongoose.model('Review', ReviewSchema)) as mongoose.Model<any>;

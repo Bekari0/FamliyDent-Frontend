@@ -4,6 +4,7 @@ import { Check, Loader2, Star, Trash2, X } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { getDisplayDoctorName } from '../utils/doctorName';
+import { getReviewSourceClassName, getReviewSourceLabel } from '../utils/reviewSource';
 
 const filters = [
  { value: 'pending', label: 'Ожидают проверки' },
@@ -73,6 +74,11 @@ export function AdminReviews() {
  {Array.from({ length: 5 }).map((_, i) => <Star key={i} className={`w-4 h-4 ${i < Number(review.rating || 0) ? 'fill-current' : 'text-slate-200'}`} />)}
  </div>
  <span className="text-xs font-bold uppercase tracking-widest text-slate-500">{review.status}</span>
+ </div>
+ <div className="mb-4">
+ <span className={`inline-flex rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest ${getReviewSourceClassName(review.source)}`}>
+ {getReviewSourceLabel(review.source)}
+ </span>
  </div>
  <p className="text-slate-700 leading-relaxed flex-1">{review.text || review.comment || 'Нет текста'}</p>
  <div className="mt-5 pt-4 border-t border-slate-100 text-sm text-slate-600">

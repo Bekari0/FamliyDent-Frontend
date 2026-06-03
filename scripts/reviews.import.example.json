@@ -1,0 +1,31 @@
+{
+  "reviews": [
+    {
+      "source": "google",
+      "externalId": "google-review-001",
+      "authorName": "Алексей",
+      "rating": 5,
+      "text": "Отличная клиника, внимательные врачи и понятный план лечения.",
+      "date": "2026-05-20",
+      "sourceUrl": "https://maps.app.goo.gl/ixuA18AaaXULg9RX7"
+    },
+    {
+      "source": "google",
+      "externalId": "google-review-002",
+      "authorName": "Марина",
+      "rating": 5,
+      "text": "Понравилось отношение персонала и аккуратная работа врача.",
+      "date": "2026-05-18",
+      "sourceUrl": "https://maps.app.goo.gl/G7NYytKwkZYjnUxD7"
+    },
+    {
+      "source": "yandex",
+      "externalId": "yandex-review-001",
+      "authorName": "Пациент Яндекс Карт",
+      "rating": 5,
+      "text": "Хорошая стоматология, чисто, спокойно и профессионально.",
+      "date": "2026-05-15",
+      "sourceUrl": "https://yandex.ru/maps/org/femili_dent/16415187433/reviews/"
+    }
+  ]
+}

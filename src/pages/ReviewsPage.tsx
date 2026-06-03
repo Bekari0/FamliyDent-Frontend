@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'sonner';
 import { getDisplayDoctorName } from '../utils/doctorName';
+import { getReviewSourceClassName, getReviewSourceLabel } from '../utils/reviewSource';
 
 export function ReviewsPage() {
  const { user } = useAuth();
@@ -145,8 +146,13 @@ export function ReviewsPage() {
  {reviews.map((review, idx) => (
  <motion.div key={review._id || review.id} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (idx % 9) * 0.04 }} className="bg-card p-6 rounded-xl border border-border shadow-sm relative flex flex-col min-h-[250px]">
  <MessageSquare className="absolute top-6 right-6 w-10 h-10 text-primary/10" />
- <div className="flex items-center gap-1 text-amber-400 mb-4">
+ <div className="flex items-center justify-between gap-3 mb-4">
+ <div className="flex items-center gap-1 text-amber-400">
  {Array.from({ length: 5 }).map((_, i) => <Star key={i} className={`w-4 h-4 ${i < Number(review.rating || 0) ? 'fill-current' : 'text-slate-200'}`} />)}
+ </div>
+ <span className={`shrink-0 rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest ${getReviewSourceClassName(review.source)}`}>
+ {getReviewSourceLabel(review.source)}
+ </span>
  </div>
  <p className="text-text-secondary mb-6 leading-relaxed flex-1 line-clamp-7">{review.text || review.comment || 'Нет текста отзыва'}</p>
  <div className="border-t border-border pt-4">
