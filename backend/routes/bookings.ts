@@ -3,9 +3,18 @@ import { Booking as BookingModel } from '../models/Booking';
 import { User } from '../models/User';
 import { authenticate, authorize } from '../middleware/auth';
 import { getDoctorNameMap } from '../utils/doctorResolver';
+import {
+ notifyBookingCreated,
+ notifyBookingRescheduled,
+ notifyBookingStatusChanged,
+} from '../services/emailNotifications';
 
 const router = Router();
 const Booking = BookingModel as any;
+
+function runNotification(task: Promise<any>) {
+ task.catch((error) => console.error('Booking notification error:', error));
+}
 
 async function enrichBookings(bookings: any[]) {
  const patientIds = [...new Set(bookings.map((b) => b.patientId?.toString()).filter(Boolean))];
@@ -83,6 +92,7 @@ router.post('/', authenticate, async (req: any, res) => {
  status: 'pending',
  });
  await booking.save();
+ runNotification(notifyBookingCreated(booking));
  res.status(201).json((await enrichBookings([booking]))[0]);
  } catch (err) {
  console.error('Create booking error:', err);
@@ -100,8 +110,13 @@ router.patch('/:id', authenticate, async (req: any, res) => {
  if (status !== 'cancelled') return res.status(403).json({ error: 'Недостаточно прав для изменения статуса' });
  }
 
+ const previousBooking = await Booking.findOne(query);
+ if (!previousBooking) return res.status(404).json({ error: 'Запись не найдена' });
  const booking = await Booking.findOneAndUpdate(query, { status }, { new: true });
  if (!booking) return res.status(404).json({ error: 'Запись не найдена' });
+ if (previousBooking.status !== booking.status) {
+ runNotification(notifyBookingStatusChanged(booking, previousBooking.status));
+ }
  res.json((await enrichBookings([booking]))[0]);
  } catch (err) {
  console.error('Update booking status error:', err);
@@ -138,10 +153,15 @@ router.patch('/:id/user-action', authenticate, async (req: any, res) => {
  if (!booking) return res.status(404).json({ error: 'Запись не найдена' });
 
  if (req.body.action === 'reschedule') {
+ const previousDate = booking.date;
+ const previousTime = booking.time;
  booking.date = req.body.date;
  booking.time = req.body.time;
  booking.status = 'pending';
+ booking.reminderSentAt = undefined;
+ booking.reminderFor = undefined;
  await booking.save();
+ runNotification(notifyBookingRescheduled(booking, previousDate, previousTime));
  }
  res.json((await enrichBookings([booking]))[0]);
  } catch (err) {
@@ -161,6 +181,7 @@ router.patch('/:id/cancel', authenticate, async (req: any, res) => {
 
  booking.status = 'cancelled';
  await booking.save();
+ runNotification(notifyBookingStatusChanged(booking, 'active'));
  res.json((await enrichBookings([booking]))[0]);
  } catch (err) {
  console.error('Cancel booking error:', err);

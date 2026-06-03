@@ -20,6 +20,7 @@ import urgentRequestRoutes from "./routes/urgentRequests";
 import userRoutes from "./routes/users";
 import { initSocket } from "./socket";
 import { DentalBot } from "./bot/bot";
+import { startAppointmentReminderScheduler } from "./services/emailNotifications";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -134,6 +135,8 @@ async function startServer() {
     console.log(`>>> Server running on http://localhost:${PORT}`);
   });
 
+  const stopReminderScheduler = startAppointmentReminderScheduler();
+
   // ЗАПУСК ТЕЛЕГРАМ БОТА
   let dentalBot: DentalBot | null = null;
   try {
@@ -150,6 +153,7 @@ async function startServer() {
   // КОРРЕКТНОЕ ЗАВЕРШЕНИЕ
   process.once("SIGINT", () => {
     if (dentalBot) dentalBot.stop();
+    stopReminderScheduler();
     server.close(() => {
       console.log("Server closed");
       process.exit(0);
@@ -158,6 +162,7 @@ async function startServer() {
 
   process.once("SIGTERM", () => {
     if (dentalBot) dentalBot.stop();
+    stopReminderScheduler();
     server.close(() => {
       console.log("Server closed");
       process.exit(0);

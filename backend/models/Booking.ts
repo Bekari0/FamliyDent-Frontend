@@ -9,6 +9,8 @@ const BookingSchema = new mongoose.Schema({
  date: String,
  time: String,
  status: { type: String, enum: ['pending', 'confirmed', 'cancelled', 'completed'], default: 'pending' },
+ reminderSentAt: Date,
+ reminderFor: String,
  createdAt: { type: Date, default: Date.now }
 }, {
  toJSON: {
