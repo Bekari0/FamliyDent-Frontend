@@ -26,4 +26,5 @@ BookingSchema.pre('save', async function() {
  }
 });
 
-export const Booking = mongoose.models.Booking || mongoose.model('Booking', BookingSchema);
+export const Booking = (mongoose.models.Booking ||
+ mongoose.model('Booking', BookingSchema)) as mongoose.Model<any>;

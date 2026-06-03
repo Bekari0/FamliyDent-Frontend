@@ -1,14 +1,13 @@
 ﻿import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
- Menu, X, Phone, Calendar, ChevronDown, User, 
+ Menu, X, Phone, ChevronDown, User, 
  LogOut, Settings, ClipboardList, Loader2 
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { useBooking } from '@/context/BookingContext';
 import { useAuth } from '@/context/AuthContext';
 import {
  DropdownMenu,
@@ -50,7 +49,6 @@ export function Header() {
  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
  const location = useLocation();
  const navigate = useNavigate();
- const { openBooking } = useBooking();
  const { user, isAdmin, logout, loading } = useAuth();
  const isDoctor = user?.role === 'doctor';
  const isHome = location.pathname === '/';
@@ -203,10 +201,6 @@ export function Header() {
  
  {renderUserSection()}
 
- <Button onClick={() => openBooking()} className="header-cta-button">
- <Calendar className="header-btn-icon" />
- Записаться
- </Button>
  </div>
 
  <div className="header-mobile-header">
@@ -286,9 +280,6 @@ export function Header() {
  </a>
  <p className="mobile-nav-contact-address">г. Душанбе, ул. Рудаки 123</p>
  </div>
- <Button onClick={() => { setMobileMenuOpen(false); openBooking(); }} className="mobile-nav-cta">
- Записаться на прием
- </Button>
  </div>
  </div>
  </SheetContent>

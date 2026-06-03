@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import * as styles from './AboutPage.styles';
 
 const VALUES = [
- { title: 'Р‘РµР·Р±РѕР»РµР·РЅРµРЅРЅРѕСЃС‚СЊ', desc: 'РџСЂРёРјРµРЅСЏРµРј РёРЅРЅРѕРІР°С†РёРѕРЅРЅС‹Рµ РјРµС‚РѕРґС‹ Р°РЅРµСЃС‚РµР·РёРё Рё СЃРµРґР°С†РёРё' },
- { title: 'РўРѕС‡РЅРѕСЃС‚СЊ', desc: 'РњРёРєСЂРѕСЃРєРѕРїРёС‡РµСЃРєРёР№ РєРѕРЅС‚СЂРѕР»СЊ РІСЃРµС… СЌС‚Р°РїРѕРІ Р»РµС‡РµРЅРёСЏ РґР»СЏ РґРѕР»РіРѕРіРѕ СЂРµР·СѓР»СЊС‚Р°С‚Р°' },
- { title: 'Р§РµСЃС‚РЅРѕСЃС‚СЊ', desc: 'РџСЂРѕР·СЂР°С‡РЅС‹Рµ РїР»Р°РЅС‹ Р»РµС‡РµРЅРёСЏ Р±РµР· РЅР°РІСЏР·С‹РІР°РЅРёСЏ РЅРµРЅСѓР¶РЅС‹С… СѓСЃР»СѓРі' },
+ { title: 'Комфорт', desc: 'Создаем спокойную атмосферу и подбираем лечение так, чтобы пациенту было удобно на каждом этапе.' },
+ { title: 'Точность', desc: 'Используем современную диагностику и внимательно контролируем все этапы лечения.' },
+ { title: 'Честность', desc: 'Объясняем план лечения простым языком и не навязываем лишние услуги.' },
 ];
 
 export function AboutPage() {
@@ -17,7 +17,7 @@ export function AboutPage() {
  <div className={styles.backWrapper}>
  <Link to="/" className={styles.backButton}>
  <ChevronRight className={styles.backIcon} />
- Р’РµСЂРЅСѓС‚СЊСЃСЏ РЅР° РіР»Р°РІРЅСѓСЋ
+ Вернуться на главную
  </Link>
  </div>
 
@@ -26,22 +26,22 @@ export function AboutPage() {
  initial={{ opacity: 0, x: -30 }}
  animate={{ opacity: 1, x: 0 }}
  >
- <div className={styles.badge}>РњРёСЃСЃРёСЏ РєР»РёРЅРёРєРё</div>
+ <div className={styles.badge}>Миссия клиники</div>
  <h1 className={styles.title}>
- РЎРѕР·РґР°РµРј СѓР»С‹Р±РєРё, <br />
- <span className={styles.titleAccent}>РєРѕС‚РѕСЂС‹Рј РґРѕРІРµСЂСЏСЋС‚</span>
+ Создаем улыбки, <br />
+ <span className={styles.titleAccent}>которым доверяют</span>
  </h1>
  <p className={styles.description}>
- FamilyDent вЂ” СЌС‚Рѕ СЃРѕРІСЂРµРјРµРЅРЅС‹Р№ СЃС‚РѕРјР°С‚РѕР»РѕРіРёС‡РµСЃРєРёР№ С†РµРЅС‚СЂ РІ Р”СѓС€Р°РЅР±Рµ, РіРґРµ РјС‹ РѕР±СЉРµРґРёРЅРёР»Рё РїРµСЂРµРґРѕРІС‹Рµ С‚РµС…РЅРѕР»РѕРіРёРё, РѕРїС‹С‚ РІРµРґСѓС‰РёС… РІСЂР°С‡РµР№ Рё РёСЃРєСЂРµРЅРЅСЋСЋ Р·Р°Р±РѕС‚Сѓ Рѕ РєР°Р¶РґРѕРј РїР°С†РёРµРЅС‚Рµ. РќР°С€Р° С†РµР»СЊ вЂ” СЃРґРµР»Р°С‚СЊ РІР°С€Рµ Р»РµС‡РµРЅРёРµ РєРѕРјС„РѕСЂС‚РЅС‹Рј Рё СЌС„С„РµРєС‚РёРІРЅС‹Рј.
+ FamilyDent - современная стоматологическая клиника в Душанбе. Мы объединяем опыт врачей, точную диагностику и внимательное отношение к каждому пациенту, чтобы лечение было понятным, комфортным и эффективным.
  </p>
  <div className={styles.statsGrid}>
  <div>
  <div className={styles.statValue}>12+</div>
- <div className={styles.statLabel}>Р›РµС‚ РѕРїС‹С‚Р°</div>
+ <div className={styles.statLabel}>Лет опыта</div>
  </div>
  <div>
- <div className={styles.statValue}>15Рє+</div>
- <div className={styles.statLabel}>РЎС‡Р°СЃС‚Р»РёРІС‹С… РїР°С†РёРµРЅС‚РѕРІ</div>
+ <div className={styles.statValue}>15к+</div>
+ <div className={styles.statLabel}>Довольных пациентов</div>
  </div>
  </div>
  </motion.div>
@@ -63,8 +63,8 @@ export function AboutPage() {
  <Award className={styles.infoIcon} />
  </div>
  <div>
- <div className={styles.infoCardTitle}>РљР»РёРЅРёРєР° в„–1</div>
- <div className={styles.infoCardDescription}>РџРѕ РІРµСЂСЃРёРё РїР°С†РёРµРЅС‚РѕРІ Р”СѓС€Р°РЅР±Рµ</div>
+ <div className={styles.infoCardTitle}>Клиника FamilyDent</div>
+ <div className={styles.infoCardDescription}>Забота, точность и честный подход</div>
  </div>
  </div>
  </motion.div>
@@ -73,7 +73,7 @@ export function AboutPage() {
  <div className={styles.valuesSection}>
  <div className={styles.valuesInner}>
  <h2 className={styles.valuesTitle}>
- РќР°С€Рё С„СѓРЅРґР°РјРµРЅС‚Р°Р»СЊРЅС‹Рµ <span className={styles.valuesTitleAccent}>РїСЂРёРЅС†РёРїС‹</span>
+ Наши основные <span className={styles.valuesTitleAccent}>принципы</span>
  </h2>
  <div className={styles.valuesGrid}>
  {VALUES.map((item) => (

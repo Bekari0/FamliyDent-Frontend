@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useBooking } from '@/context/BookingContext';
 import { Badge } from '@/components/ui/badge';
-import { Stethoscope, Sparkles, Calendar, Phone, Home, ChevronRight,
+import { Sparkles, Calendar, Phone,
  GraduationCap, Award, CheckCircle2, Star, Instagram, Facebook,
  X, History, Plus
 } from 'lucide-react';
@@ -176,14 +176,6 @@ export function DoctorsPage() {
  </div>
  )}
 
- <div className={styles.buttonWrapper}>
- <Button 
- onClick={() => openBooking(doctor._id)} 
- className={styles.buttonFull}
- >
- Записаться на прием
- </Button>
- </div>
  </CardContent>
  </Card>
  </motion.div>

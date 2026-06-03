@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
  const doctors = await Doctor.find();
  res.json(doctors);
  } catch (err) {
+ console.error('Error fetching doctors:', err);
  res.status(500).json({ error: 'Ошибка при получении списка врачей' });
  }
 });
@@ -19,6 +20,7 @@ router.get('/:id', async (req, res) => {
  if (!doctor) return res.status(404).json({ error: 'Врач не найден' });
  res.json(doctor);
  } catch (err) {
+ console.error('Error fetching doctor:', err);
  res.status(500).json({ error: 'Ошибка сервера' });
  }
 });
@@ -29,6 +31,7 @@ router.patch('/:id', async (req, res) => {
  if (!doctor) return res.status(404).json({ error: 'Врач не найден' });
  res.json(doctor);
  } catch (err) {
+ console.error('Error updating doctor:', err);
  res.status(500).json({ error: 'Ошибка сервера' });
  }
 });

@@ -1,31 +1,68 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import dns from 'dns';
 import { User as UserModel } from '../models/User';
 
 const User = UserModel as any;
 mongoose.set('bufferCommands', false);
 
+const maskMongoUri = (uri: string) => {
+ try {
+ const parsed = new URL(uri);
+ const auth = parsed.username ? `${parsed.username}:***@` : '';
+ return `${parsed.protocol}//${auth}${parsed.host}${parsed.pathname}`;
+ } catch {
+ return uri.replace(/\/\/([^:]+):([^@]+)@/, '//$1:***@');
+ }
+};
+
+const logConnectionState = (state: string) => {
+ console.log(`[MongoDB] ${state}; readyState=${mongoose.connection.readyState}`);
+};
+
+mongoose.connection.on('connecting', () => logConnectionState('connecting'));
+mongoose.connection.on('connected', () => logConnectionState('connected'));
+mongoose.connection.on('disconnected', () => logConnectionState('disconnected'));
+mongoose.connection.on('reconnected', () => logConnectionState('reconnected'));
+mongoose.connection.on('error', (err) => {
+ console.error('[MongoDB] connection error event:', err.message);
+});
+
 export const connectDB = async () => {
  const MONGODB_URI = process.env.MONGODB_URI;
 
  if (!MONGODB_URI) {
- console.warn('WARNING: MONGODB_URI environment variable is not defined.');
- return;
+ throw new Error('MONGODB_URI environment variable is not defined.');
  }
+
+ const dnsServers = (process.env.MONGODB_DNS_SERVERS || '8.8.8.8,1.1.1.1')
+ .split(',')
+ .map((server) => server.trim())
+ .filter(Boolean);
+
+ if (dnsServers.length > 0) {
+ dns.setServers(dnsServers);
+ console.log(`[MongoDB] Node DNS servers: ${dnsServers.join(', ')}`);
+ }
+
+ console.log(`[MongoDB] Connecting to ${maskMongoUri(MONGODB_URI)}`);
 
  try {
  await mongoose.connect(MONGODB_URI, {
- serverSelectionTimeoutMS: 5000,
- connectTimeoutMS: 5000,
- socketTimeoutMS: 10000,
+ serverSelectionTimeoutMS: 15000,
+ connectTimeoutMS: 15000,
+ socketTimeoutMS: 30000,
+ maxPoolSize: 10,
+ retryWrites: true,
  });
- console.log('Connected to MongoDB');
+ console.log(`[MongoDB] Connected: ${mongoose.connection.name || 'default'}`);
 
  if (process.env.SEED_DB === 'true') {
  await seedDB();
  }
  } catch (err) {
- console.error('MongoDB connection error:', err);
+ console.error('[MongoDB] Initial connection failed:', err);
+ throw err;
  }
 };
 

@@ -38,4 +38,5 @@ const TicketSchema = new mongoose.Schema({
 TicketSchema.index({ status: 1, createdAt: -1 });
 TicketSchema.index({ patientId: 1 });
 
-export const Ticket = mongoose.models.Ticket || mongoose.model('Ticket', TicketSchema);
+export const Ticket = (mongoose.models.Ticket ||
+ mongoose.model('Ticket', TicketSchema)) as mongoose.Model<any>;

@@ -5,4 +5,5 @@ const ServiceSchema = new mongoose.Schema({
  services: [String]
 });
 
-export const Service = mongoose.models.Service || mongoose.model('Service', ServiceSchema);
+export const Service = (mongoose.models.Service ||
+ mongoose.model('Service', ServiceSchema)) as mongoose.Model<any>;

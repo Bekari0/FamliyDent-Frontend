@@ -8,6 +8,7 @@ router.get('/', async (req, res) => {
  const services = await Service.find();
  res.json(services);
  } catch (err) {
+ console.error('Error fetching services:', err);
  res.status(500).json({ error: 'Ошибка при получении услуг' });
  }
 });

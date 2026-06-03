@@ -2,6 +2,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import express from "express";
+import mongoose from "mongoose";
 import app from "./app.ts";
 import { connectDB } from "./config/db";
 import { createServer as createViteServer } from "vite";
@@ -25,20 +26,39 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
 
 dotenv.config({ path: path.join(rootDir, ".env") });
-dotenv.config({ path: path.join(__dirname, ".env"), override: false });
+dotenv.config({ path: path.join(__dirname, ".env"), override: true });
 
 async function startServer() {
   console.log("Starting integrated server...");
   console.log("Current working directory:", process.cwd());
   console.log("__dirname:", __dirname);
 
-  // Connect to DB without blocking the HTTP server startup.
   connectDB()
     .then(() => console.log("Database connection process completed"))
     .catch((err) => console.error("Database connection failed:", err));
 
   // API Routes
   console.log("Configuring API routes...");
+  app.get("/api/db-status", (_req, res) => {
+    res.json({
+      readyState: mongoose.connection.readyState,
+      state:
+        ["disconnected", "connected", "connecting", "disconnecting"][
+          mongoose.connection.readyState
+        ] || "unknown",
+      database: mongoose.connection.name || null,
+      host: mongoose.connection.host || null,
+    });
+  });
+
+  app.use("/api", (req, res, next) => {
+    if (mongoose.connection.readyState !== 1) {
+      res.status(503).json({ error: "Database connection is not ready" });
+      return;
+    }
+    next();
+  });
+
   app.use("/api/auth", authRoutes);
   app.use("/api/doctors", doctorRoutes);
   app.use("/api/services", serviceRoutes);

@@ -2,7 +2,7 @@
 import { motion } from 'motion/react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Award, ArrowRight, Plus, Star, Calendar } from 'lucide-react';
+import { Award, ArrowRight, Plus, Star } from 'lucide-react';
 import axios from 'axios';
 import { cn } from '@/lib/utils';
 import { useBooking } from '@/context/BookingContext';
@@ -165,12 +165,6 @@ export function Doctors() {
  className={styles.buttonOutline}
  >
  Подробнее
- </button>
- <button 
- onClick={() => openBooking(doctor._id)}
- className={styles.buttonPrimary}
- >
- Записаться
  </button>
  </div>
  </CardContent>
