@@ -1,4 +1,3 @@
-// backend/services/openrouterService.ts
 import dotenv from "dotenv";
 import OpenAI from "openai";
 import { ContextService } from "./contextService";

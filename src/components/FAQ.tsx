@@ -34,7 +34,7 @@ const FAQS = [
 export function FAQ() {
  return (
  <section className={styles.section}>
- {/* Background patterns */}
+ {/* Фоновые элементы */}
  <div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -ml-32 -mt-32" />
  
  <div className={styles.container}>

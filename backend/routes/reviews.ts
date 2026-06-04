@@ -3,6 +3,7 @@ import { Review as ReviewModel } from '../models/Review';
 import { Booking } from '../models/Booking';
 import { authenticate } from '../middleware/auth';
 import { resolveDoctorName } from '../utils/doctorResolver';
+import { moderateReview } from '../services/reviewModeration';
 
 const router = Router();
 const Review = ReviewModel as any;
@@ -13,7 +14,12 @@ async function getDoctorName(doctorId?: string) {
 
 router.get('/', async (_req, res) => {
  try {
- const reviews = await Review.find({ status: 'approved' }).sort({ createdAt: -1 });
+ const reviews = await Review.find({
+ $and: [
+ { status: 'approved' },
+ { $or: [{ moderationStatus: 'approved' }, { moderationStatus: { $exists: false } }] },
+ ],
+ }).sort({ date: -1, createdAt: -1 });
  res.json(reviews);
  } catch (err) {
  res.status(500).json({ error: 'Ошибка при получении отзывов' });
@@ -22,7 +28,12 @@ router.get('/', async (_req, res) => {
 
 router.get('/public', async (_req, res) => {
  try {
- const reviews = await Review.find({ status: 'approved' }).sort({ createdAt: -1 });
+ const reviews = await Review.find({
+ $and: [
+ { status: 'approved' },
+ { $or: [{ moderationStatus: 'approved' }, { moderationStatus: { $exists: false } }] },
+ ],
+ }).sort({ date: -1, createdAt: -1 });
  res.json(reviews);
  } catch (err) {
  res.status(500).json({ error: 'Ошибка при получении отзывов' });
@@ -81,6 +92,7 @@ router.post('/', authenticate, async (req: any, res) => {
  if (duplicate) return res.status(400).json({ error: 'Отзыв по этому приёму уже отправлен' });
 
  const doctorName = await getDoctorName(booking.doctorId?.toString());
+ const moderation = await moderateReview(text);
  const review = new Review({
  _id: `review-${Date.now()}`,
  patientId: req.user.uid || req.user._id,
@@ -92,7 +104,10 @@ router.post('/', authenticate, async (req: any, res) => {
  text,
  comment: text,
  source: 'site',
- status: 'pending',
+ status: moderation.status,
+ moderationStatus: moderation.status,
+ moderationReason: moderation.reason,
+ moderationScore: moderation.score,
  });
  await review.save();
  res.status(201).json({ message: 'Спасибо! Ваш отзыв отправлен на модерацию.', review });

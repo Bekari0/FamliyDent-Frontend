@@ -31,7 +31,7 @@ export const authorize = (...roles: string[]) => {
  return res.status(403).json({ error: 'Доступ запрещен' });
  }
  
- // Admins can do anything doctors can
+ // Администратор имеет права врача
  const effectiveRoles = roles.includes('doctor') ? [...roles, 'admin'] : roles;
  
  if (!effectiveRoles.includes(user.role)) {

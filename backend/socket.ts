@@ -1,4 +1,3 @@
-// backend/socket.ts
 import { Server as SocketServer } from "socket.io";
 import { Ticket } from "./models/Ticket";
 
@@ -7,9 +6,15 @@ let bot: any;
 
 export function initSocket(server: any, telegramBot: any) {
   bot = telegramBot;
+  const allowedOrigins = [
+    "http://localhost:3000",
+    "http://localhost:5000",
+    process.env.CLIENT_URL,
+  ].filter(Boolean) as string[];
+
   io = new SocketServer(server, {
     cors: {
-      origin: ["http://localhost:3000", "http://localhost:5000"],
+      origin: allowedOrigins,
       methods: ["GET", "POST"],
       credentials: true,
     },
@@ -66,7 +71,6 @@ export function initSocket(server: any, telegramBot: any) {
         socket.join(`ticket_${ticketId}`);
         socket.emit("ticket_history", ticket.messages);
 
-        // Исправлено: bot.bot.telegram.sendMessage
         if (bot && bot.bot && ticket.chatId) {
           try {
             await bot.bot.telegram.sendMessage(
@@ -102,7 +106,6 @@ export function initSocket(server: any, telegramBot: any) {
         ticket.lastActivity = new Date();
         await ticket.save();
 
-        // Исправлено: bot.bot.telegram.sendMessage
         if (bot && bot.bot && ticket.chatId) {
           try {
             await bot.bot.telegram.sendMessage(

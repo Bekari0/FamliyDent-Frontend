@@ -1,7 +1,7 @@
 
 import { Doctor, Service, Article, Booking, UserRole } from '../types';
 
-// 1. SERVICES (15 items)
+// 1. Услуги
 export const MOCK_SERVICES: Service[] = [
  { id: 's1', title: 'Лечение кариеса', category: 'Терапия', price: 350, duration: 60, description: 'Профессиональное лечение кариеса любой сложности.' },
  { id: 's2', title: 'Профгигиена AirFlow', category: 'Гигиена', price: 450, duration: 45, description: 'Удаление налета и зубного камня современным методом.' },
@@ -13,7 +13,7 @@ export const MOCK_SERVICES: Service[] = [
  { id: 's8', title: 'Удаление зуба', category: 'Хирургия', price: 800, duration: 40, description: 'Быстрое и безболезненное удаление.' },
  { id: 's9', title: 'Протезирование', category: 'Ортопедия', price: 8000, duration: 120, description: 'Восстановление зубов коронками.' },
  { id: 's10', title: 'Лечение каналов', category: 'Эндодонтия', price: 1200, duration: 90, description: 'Спасение зуба при пульпите.' },
- // Adding more to reach variety...
+ // Дополнительные позиции для разнообразия
  { id: 's11', title: 'Установка элайнеров', category: 'Ортодонтия', price: 120000, duration: 60, description: 'Прозрачные каппы для выравнивания.' },
  { id: 's12', title: 'КТ челюсти', category: 'Диагностика', price: 1500, duration: 20, description: '3D диагностика высокого разрешения.' },
  { id: 's13', title: 'Синус-лифтинг', category: 'Хирургия', price: 25000, duration: 90, description: 'Наращивание костной ткани.' },
@@ -21,7 +21,7 @@ export const MOCK_SERVICES: Service[] = [
  { id: 's15', title: 'Ночная капа', category: 'Терапия', price: 3000, duration: 30, description: 'Защита зубов от бруксизма.' },
 ];
 
-// 2. DOCTORS (20 items)
+// 2. Врачи
 export const MOCK_DOCTORS: Doctor[] = Array.from({ length: 20 }, (_, i) => ({
  id: `d${i + 1}`,
  name: i % 2 === 0 ? `Др. Имя${i + 1} Фамилия${i + 1}` : `Дарья Александровна ${i + 1}`,
@@ -35,7 +35,7 @@ export const MOCK_DOCTORS: Doctor[] = Array.from({ length: 20 }, (_, i) => ({
  reviewsCount: 10 + i * 5
 }));
 
-// 3. ARTICLES (50 items)
+// 3. Статьи
 export const MOCK_ARTICLES: Article[] = Array.from({ length: 50 }, (_, i) => ({
  id: `post-${i + 1}`,
  title: `Статья о здоровье зубов №${i + 1}`,
@@ -47,7 +47,7 @@ export const MOCK_ARTICLES: Article[] = Array.from({ length: 50 }, (_, i) => ({
  tags: ['здоровье', 'советы', 'технологии']
 }));
 
-// 4. BOOKINGS (300 items to reach 500+ records)
+// 4. Записи
 export const MOCK_BOOKINGS: Booking[] = Array.from({ length: 300 }, (_, i) => ({
  id: `b${i + 1}`,
  patientId: `u${(i % 50) + 1}`,
@@ -59,7 +59,7 @@ export const MOCK_BOOKINGS: Booking[] = Array.from({ length: 300 }, (_, i) => ({
  createdAt: Date.now() - (Math.random() * 10 * 86400000)
 }));
 
-// 5. REVIEWS (150 items)
+// 5. Отзывы
 export const MOCK_REVIEWS = Array.from({ length: 150 }, (_, i) => ({
  id: `r${i + 1}`,
  patientId: `u${(i % 50) + 1}`,

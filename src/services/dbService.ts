@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_URL = '/api';
 
-// Create an axios instance with a base URL relative to the origin
+// Создаем экземпляр axios с адресом относительно текущего домена
 const api = axios.create({
  baseURL: API_URL
 });
@@ -68,7 +68,7 @@ export class DbService {
  }
  }
 
- // Specialized queries
+ // Специализированные запросы
  static async getBookingsForUser(userId: string) {
  try {
  const response = await api.get(`/bookings?patientId=${userId}`);
@@ -79,12 +79,12 @@ export class DbService {
  }
  }
 
- // Real-time replacement (polling for now or just calling once)
+ // Обновление данных через периодический опрос
  static subscribeToCollection<T>(path: string, callback: (data: T[]) => void) {
  this.getAll<T>(path).then(callback);
  const interval = setInterval(() => {
  this.getAll<T>(path).then(callback);
- }, 5000); // Poll every 5 seconds as a simple real-time fallback
+ }, 5000);
  return () => clearInterval(interval);
  }
 }

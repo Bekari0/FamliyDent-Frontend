@@ -37,7 +37,13 @@ export function AdminReviews() {
  const action = async (id: string, type: 'approve' | 'reject' | 'delete') => {
  try {
  if (type === 'delete') await axios.delete(`/api/admin/reviews/${id}`);
- else await axios.patch(`/api/admin/reviews/${id}/${type}`);
+ else {
+ const nextStatus = type === 'approve' ? 'approved' : 'rejected';
+ await axios.patch(`/api/admin/reviews/${id}/moderation`, {
+ status: nextStatus,
+ reason: type === 'approve' ? 'Одобрено администратором' : 'Отклонено администратором',
+ });
+ }
  toast.success(type === 'approve' ? 'Отзыв одобрен' : type === 'reject' ? 'Отзыв отклонен' : 'Отзыв удален');
  fetchReviews();
  } catch (error: any) {
@@ -73,7 +79,7 @@ export function AdminReviews() {
  <div className="flex gap-1 text-amber-400">
  {Array.from({ length: 5 }).map((_, i) => <Star key={i} className={`w-4 h-4 ${i < Number(review.rating || 0) ? 'fill-current' : 'text-slate-200'}`} />)}
  </div>
- <span className="text-xs font-bold uppercase tracking-widest text-slate-500">{review.status}</span>
+ <span className="text-xs font-bold uppercase tracking-widest text-slate-500">{review.moderationStatus || review.status}</span>
  </div>
  <div className="mb-4">
  <span className={`inline-flex rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest ${getReviewSourceClassName(review.source)}`}>
@@ -81,9 +87,16 @@ export function AdminReviews() {
  </span>
  </div>
  <p className="text-slate-700 leading-relaxed flex-1">{review.text || review.comment || 'Нет текста'}</p>
+ {(review.moderationReason || review.moderationScore !== undefined) && (
+ <div className="mt-4 rounded-xl border border-slate-100 bg-slate-50 p-3 text-xs text-slate-600">
+ <div className="font-bold text-slate-700">Модерация</div>
+ {review.moderationReason && <div className="mt-1">{review.moderationReason}</div>}
+ {review.moderationScore !== undefined && <div className="mt-1">Score: {review.moderationScore}</div>}
+ </div>
+ )}
  <div className="mt-5 pt-4 border-t border-slate-100 text-sm text-slate-600">
- <div className="font-bold text-slate-900">{review.patientName || 'Пациент'}</div>
- <div>{getDisplayDoctorName(review)}</div>
+ <div><span className="font-bold text-slate-900">Пациент:</span> {review.patientName || review.authorName || 'Пациент'}</div>
+ <div className="mt-1"><span className="font-bold text-slate-900">Врач:</span> {getDisplayDoctorName(review)}</div>
  </div>
  <div className="flex gap-2 mt-5">
  <Button onClick={() => action(review._id || review.id, 'approve')} className="h-10 flex-1 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white">

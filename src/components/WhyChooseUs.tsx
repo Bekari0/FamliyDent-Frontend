@@ -39,7 +39,7 @@ const REASONS = [
 export function WhyChooseUs() {
  return (
  <section className={styles.section}>
- {/* Background Ornaments */}
+ {/* Фоновые элементы */}
  <div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -ml-32 -mt-32" />
  <div className="absolute bottom-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl -mr-32 -mb-32" />
 

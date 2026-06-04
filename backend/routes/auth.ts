@@ -37,9 +37,15 @@ const codeSchema = z.object({
  code: z.string().trim().regex(/^\d{6}$/, 'Введите 6 цифр кода')
 });
 
+const resetPasswordSchema = z.object({
+ token: z.string().trim().min(20, 'Некорректный токен'),
+ newPassword: z.string().min(8, 'Пароль должен быть не короче 8 символов')
+});
+
 const hashCode = (code: string) => crypto.createHash('sha256').update(code).digest('hex');
 const generateCode = () => crypto.randomInt(100000, 1000000).toString();
 const normalizeId = (value: unknown) => String(value || '');
+const hashToken = (token: string) => crypto.createHash('sha256').update(token).digest('hex');
 
 function publicUser(user: any) {
  const json = user?.toJSON ? user.toJSON() : { ...user };
@@ -145,8 +151,8 @@ router.post('/login', async (req, res) => {
  return res.status(401).json({ error: 'Неверный email или пароль' });
  }
 
- // Backward compatibility: old users may not have verification fields at all.
- // New unverified users are blocked only when there is an active verification code.
+ // Совместимость со старыми пользователями без полей подтверждения.
+ // Новые неподтвержденные пользователи блокируются только при активном коде.
  if (isNewUnverifiedUser(user)) {
  return res.status(403).json({ error: 'Подтвердите email перед входом' });
  }
@@ -289,6 +295,61 @@ router.post('/verify-code', async (req, res) => {
  }
 });
 
+router.post('/forgot-password', async (req, res) => {
+ try {
+ const { email } = emailSchema.parse(req.body);
+ const user = await User.findOne({ email });
+
+ if (!user) {
+ return res.json({ message: 'Если email найден, мы отправим ссылку для сброса пароля' });
+ }
+
+ const token = crypto.randomBytes(32).toString('hex');
+ user.resetPasswordToken = hashToken(token);
+ user.resetPasswordExpires = new Date(Date.now() + 60 * 60 * 1000);
+ await user.save();
+
+ await sendPasswordResetEmail(user, token);
+ res.json({ message: 'Ссылка для сброса пароля отправлена' });
+ } catch (err: any) {
+ if (err?.issues) {
+ return res.status(400).json({ error: err.issues[0]?.message || 'Укажите корректный email' });
+ }
+ if (err?.message === 'SMTP_NOT_CONFIGURED') {
+ return res.status(500).json({ error: 'SMTP для отправки писем не настроен' });
+ }
+ console.error('Forgot password error:', err);
+ res.status(500).json({ error: 'Не удалось отправить ссылку' });
+ }
+});
+
+router.post('/reset-password', async (req, res) => {
+ try {
+ const { token, newPassword } = resetPasswordSchema.parse(req.body);
+ const user = await User.findOne({
+ resetPasswordToken: hashToken(token),
+ resetPasswordExpires: { $gt: new Date() }
+ });
+
+ if (!user) {
+ return res.status(400).json({ error: 'Ссылка недействительна или устарела' });
+ }
+
+ user.password = await bcrypt.hash(newPassword, 12);
+ user.resetPasswordToken = undefined;
+ user.resetPasswordExpires = undefined;
+ await user.save();
+
+ res.json({ message: 'Пароль успешно изменен' });
+ } catch (err: any) {
+ if (err?.issues) {
+ return res.status(400).json({ error: err.issues[0]?.message || 'Проверьте данные' });
+ }
+ console.error('Reset password error:', err);
+ res.status(500).json({ error: 'Не удалось сбросить пароль' });
+ }
+});
+
 router.post('/logout', (_req, res) => {
  res.clearCookie('token', {
  httpOnly: true,
@@ -358,6 +419,32 @@ async function sendCodeForUser(user: any) {
  <p style="font-size:28px;font-weight:700;letter-spacing:4px;margin:12px 0">${code}</p>
  <p>Код действует 10 минут.</p>
  <p style="color:#6b6661;font-size:13px">Если вы не регистрировались в FamilyDent, просто проигнорируйте это письмо.</p>
+ </div>
+ `
+ });
+}
+
+async function sendPasswordResetEmail(user: any, token: string) {
+ const clientUrl = String(process.env.CLIENT_URL || 'http://localhost:3000').replace(/\/+$/, '');
+ const resetUrl = `${clientUrl}/reset-password?token=${encodeURIComponent(token)}`;
+ const transporter = createTransporter();
+
+ await transporter.sendMail({
+ from: process.env.SMTP_FROM || `"FamilyDent" <${process.env.SMTP_USER}>`,
+ to: user.email,
+ subject: 'Восстановление пароля FamilyDent',
+ text: `Для сброса пароля перейдите по ссылке: ${resetUrl}. Ссылка действует 1 час. Если вы не запрашивали восстановление, просто проигнорируйте это письмо.`,
+ html: `
+ <div style="font-family:Arial,sans-serif;line-height:1.5;color:#24211f">
+ <h2 style="margin:0 0 12px">FamilyDent</h2>
+ <p>Мы получили запрос на сброс пароля.</p>
+ <p>
+ <a href="${resetUrl}" style="display:inline-block;background:#C6A15B;color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:8px">
+ Сбросить пароль
+ </a>
+ </p>
+ <p>Ссылка действует 1 час.</p>
+ <p style="color:#6b6661;font-size:13px">Если вы не запрашивали восстановление, просто проигнорируйте это письмо.</p>
  </div>
  `
  });

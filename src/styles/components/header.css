@@ -1,9 +1,9 @@
-/* Header */
+/* Шапка */
 .header-main {
  @apply fixed top-0 left-0 right-0 z-50 transition-all duration-500;
 }
 .header-scrolled {
- @apply bg-background/90 backdrop-blur-xl shadow-lg shadow-foreground/5 py-2;
+ @apply bg-transparent backdrop-blur-sm py-2;
 }
 .header-transparent {
  @apply bg-transparent py-4;
@@ -12,7 +12,22 @@
  @apply container mx-auto px-4 flex items-center justify-between;
 }
 .header-logo-link {
- @apply flex items-center gap-2;
+ @apply inline-flex items-center text-white;
+}
+.header-logo-mark {
+ @apply h-8 w-auto;
+ filter:
+  drop-shadow(0 0 0.75px rgba(71, 85, 105, 0.95))
+  drop-shadow(0 1px 1px rgba(71, 85, 105, 0.45));
+}
+.mobile-sheet-logo-link {
+ @apply inline-flex items-center text-white;
+}
+.mobile-sheet-logo-mark {
+ @apply h-8 w-auto max-w-[180px];
+ filter:
+  drop-shadow(0 0 0.75px rgba(71, 85, 105, 0.95))
+  drop-shadow(0 1px 1px rgba(71, 85, 105, 0.45));
 }
 .header-logo-box {
  @apply w-9 h-9 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300;
@@ -57,7 +72,7 @@
  @apply w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary;
 }
 
-/* Mobile Nav Sheet */
+/* Мобильное меню */
 .mobile-nav-trigger {
  @apply w-11 h-11 rounded-xl bg-secondary;
 }

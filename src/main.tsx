@@ -4,8 +4,8 @@ import App from './App.tsx';
 import './index.css';
 import { Toaster } from '@/components/ui/sonner';
 
-// Register Service Worker for PWA only in production.
-// In local dev it can cache stale bundles and hide runtime fixes behind a white screen.
+// Регистрируем Service Worker только в production.
+// В локальной разработке он может кешировать старые сборки.
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
  window.addEventListener('load', () => {
  navigator.serviceWorker.register('/sw.js').then(registration => {

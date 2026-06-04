@@ -32,26 +32,26 @@ export function PatientRecordsPage() {
  const [showAddModal, setShowAddModal] = useState(false);
  const [selectedRecord, setSelectedRecord] = useState<MedicalRecord | null>(null);
 
- // Form states for adding data
+ // Состояние форм добавления данных
  const [newRecord, setNewRecord] = useState({ procedureTitle: '', details: '', toothNumber: '', price: '' });
  const [newScan, setNewScan] = useState({ description: '', type: 'x-ray' as any, imageUrl: '', originalName: '', mimeType: '', size: 0 });
  const [newRec, setNewRec] = useState({ content: '', nextVisitDate: '' });
  const [uploadingScan, setUploadingScan] = useState(false);
 
- // Fetching data
+ // Загрузка данных
  useEffect(() => {
  const fetchData = async () => {
  if (!effectivePatientId) return;
  
  setLoading(true);
  try {
- // Also fetch profile if it's a doctor/admin viewing a patient
+ // Дополнительно загружаем профиль, если карту смотрит врач или администратор
  if (effectivePatientId !== user?.uid) {
  try {
  const profileRes = await axios.get(`/api/admin/patients/${effectivePatientId}`);
  setPatientData(profileRes.data.patient);
  } catch (profileErr) {
- console.warn('Patient profile fetch failed (non-critical):', profileErr);
+ console.warn('Не удалось загрузить профиль пациента:', profileErr);
  setPatientData({ displayName: 'Пациент' });
  }
  }
@@ -104,7 +104,7 @@ export function PatientRecordsPage() {
  }
  setShowAddModal(false);
  toast.success('Запись добавлена');
- // Reset forms
+ // Сбрасываем формы
  setNewRecord({ procedureTitle: '', details: '', toothNumber: '', price: '' });
  setNewScan({ description: '', type: 'x-ray', imageUrl: '', originalName: '', mimeType: '', size: 0 });
  setNewRec({ content: '', nextVisitDate: '' });

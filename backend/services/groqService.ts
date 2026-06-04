@@ -1,4 +1,3 @@
-// backend/services/groqService.ts
 import dotenv from "dotenv";
 import Groq from "groq-sdk";
 
@@ -55,7 +54,7 @@ class GroqService {
         max_tokens: 500,
       });
 
-      console.log("Groq response received"); // Для отладки
+      console.log("Ответ консультанта получен");
       return (
         completion.choices[0]?.message?.content || "Не удалось получить ответ."
       );
@@ -63,7 +62,7 @@ class GroqService {
       console.error("Groq API Error:", error.message);
       console.error("Full error:", error);
 
-      // Если Groq не работает, используем fallback ответ
+      // Если сервис недоступен, используем резервный ответ
       return "Извините, онлайн-консультант временно недоступен. Пожалуйста, свяжитесь с оператором.";
     }
   }

@@ -1,8 +1,6 @@
 ﻿import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import * as styles from './Footer.styles';
-import logoWhite from '../assets/images/logo/LogoWhite.svg';
-
 import { 
  Instagram, Facebook, Mail, MapPin, Phone, 
  ArrowRight, Heart 
@@ -20,18 +18,15 @@ export function Footer() {
  <div className={styles.grid}>
  <div className={styles.brandCol}>
  <Link to="/" className={styles.logo}>
- <img src={logoWhite} alt="FamilyDent" className={styles.logoImage} />
- <span className={styles.logoText}>
- Family<span className={styles.logoSpan}>Dent</span>
- </span>
+ <img src="/Logo.svg" alt="FamilyDent" className={styles.logoImage} />
  </Link>
  <p className={styles.tagline}>
  Создаем здоровые и красивые улыбки с использованием передовых технологий и искренней заботой о каждом пациенте.
  </p>
  <div className={styles.socials}>
- <a href="#" className={styles.socialBtn}><Instagram className="w-5 h-5" /></a>
- <a href="#" className={styles.socialBtn}><Facebook className="w-5 h-5" /></a>
- <a href="#" className={styles.socialBtn}><Mail className="w-5 h-5" /></a>
+ <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram FamilyDent" className={styles.socialBtn}><Instagram className="w-5 h-5" /></a>
+ <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook FamilyDent" className={styles.socialBtn}><Facebook className="w-5 h-5" /></a>
+ <a href="mailto:info@familydent.tj" aria-label="Email FamilyDent" className={styles.socialBtn}><Mail className="w-5 h-5" /></a>
  </div>
  </div>
 
@@ -120,8 +115,8 @@ export function Footer() {
  </div>
  </div>
  <div className={styles.legal}>
- <a href="#" className={styles.legalLink}>Приватность</a>
- <a href="#" className={styles.legalLink}>Оферта</a>
+ <span className={styles.legalLink}>Приватность</span>
+ <span className={styles.legalLink}>Оферта</span>
  </div>
  </div>
  </div>

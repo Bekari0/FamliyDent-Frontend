@@ -668,7 +668,7 @@ export class DentalBot {
         createdAt: -1,
       });
 
-      console.log("Found bookings for user:", bookings.length); // Для отладки
+      console.log("Найдено записей пользователя:", bookings.length);
 
       if (!bookings || bookings.length === 0) {
         await ctx.reply(
@@ -741,7 +741,7 @@ export class DentalBot {
       date: { $gte: today },
     });
 
-    console.log("Found bookings for cancel:", bookings.length); // Для отладки
+    console.log("Найдено записей для отмены:", bookings.length);
 
     if (bookings.length === 0) {
       await ctx.reply(" У вас нет активных записей для отмены.");
@@ -813,7 +813,7 @@ export class DentalBot {
     const userId = ctx.from.id.toString();
     const lowerQuestion = question.toLowerCase();
 
-    // Быстрые rule-based ответы (экономия токенов)
+    // Быстрые ответы по правилам
     if (
       lowerQuestion.includes("привет") ||
       lowerQuestion.includes("здравствуй")
@@ -845,7 +845,7 @@ export class DentalBot {
       // Получаем историю диалога
       const history = chatMemory.getHistory(userId);
 
-      // Отправляем запрос к OpenRouter
+      // Отправляем запрос в сервис ответов
       const response = await openrouterService.getResponse(question, context);
       // Сохраняем в историю
       chatMemory.addMessage(userId, "user", question);

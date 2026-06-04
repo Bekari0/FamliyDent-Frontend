@@ -148,7 +148,7 @@ export function ArticleDetailPage() {
  animate={{ opacity: 1, scale: 1 }}
  className="aspect-[21/9] rounded-[40px] overflow-hidden mb-12 shadow-2xl"
  >
- <img src={image} alt={post.title} className="w-full h-full object-cover" />
+ <img src={image} alt={post.title} className="w-full h-full object-cover" loading="eager" decoding="async" />
  </motion.div>
 
  <div className="prose prose-stone prose-lg max-w-none">

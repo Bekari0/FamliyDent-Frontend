@@ -167,8 +167,8 @@ export function Header() {
  )}
  >
  <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
- <Link to="/" className="header-logo-link">
- <Logo className={cn("h-8 w-auto drop-shadow-2xl transition-all duration-500", (isScrolled || !isHome) ? "text-slate-900" : "text-slate-900")} />
+ <Link to="/" className="header-logo-link" aria-label="FamilyDent - на главную">
+ <Logo className="header-logo-mark" />
  </Link>
 
  <nav className="header-nav-desktop">
@@ -216,8 +216,8 @@ export function Header() {
  <SheetContent side="right" className="mobile-nav-content">
  <div className="mobile-nav-inner">
  <div className="mobile-nav-header">
- <Link to="/" onClick={() => setMobileMenuOpen(false)} className="inline-flex items-center text-slate-900">
- <Logo className="h-8 w-auto max-w-[180px]" />
+ <Link to="/" onClick={() => setMobileMenuOpen(false)} className="mobile-sheet-logo-link" aria-label="FamilyDent - на главную">
+ <Logo className="mobile-sheet-logo-mark" />
  </Link>
  </div>
  

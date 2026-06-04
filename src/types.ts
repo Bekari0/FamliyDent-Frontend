@@ -50,7 +50,7 @@ export interface Service {
   description: string;
   category: string;
   price: number;
-  duration: number; // in minutes
+  duration: number; // в минутах
   icon?: string;
   longDescription?: string;
 }
@@ -75,12 +75,12 @@ export interface Review {
   id: string;
   patientId: string;
   patientName?: string;
-  author?: string; // used in some components
-  avatar?: string; // used in some components
+  author?: string; // используется в некоторых компонентах
+  avatar?: string; // используется в некоторых компонентах
   doctorId: string;
   rating: number;
   comment: string;
-  text?: string; // used in some components
+  text?: string; // используется в некоторых компонентах
   date?: string;
   createdAt: number;
 }

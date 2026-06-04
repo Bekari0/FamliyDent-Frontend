@@ -68,6 +68,8 @@ export function BlogPage() {
  src={post.image || 'https://images.unsplash.com/photo-1559839734-2b71f1536780?q=80&w=2070'} 
  alt={post.title} 
  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+ loading="lazy"
+ decoding="async"
  />
  </div>
  <div className={styles.cardContent}>
@@ -88,7 +90,7 @@ export function BlogPage() {
  {post.excerpt}
  </p>
  <Link 
- to={`/blog/${post._id || post.id}`}
+ to={`/blog/${post.slug || post._id || post.id}`}
  className={styles.link}
  >
  Читать статью

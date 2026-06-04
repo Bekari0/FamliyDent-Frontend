@@ -18,7 +18,7 @@ export function ContactPage() {
  </Button>
  </div>
 
- {/* Hero Section for Contact Page */}
+ {/* Верхний блок страницы контактов */}
  <div className="mb-16">
  <div className="bg-card rounded-[48px] p-12 border border-border shadow-xl shadow-foreground/5 flex flex-col lg:flex-row gap-12">
  <div className="flex-1">

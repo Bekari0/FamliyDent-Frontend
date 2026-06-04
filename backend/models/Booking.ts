@@ -20,7 +20,7 @@ const BookingSchema = new mongoose.Schema({
  }
 });
 
-// Auto-increment bookingNumber
+// Автоматическая нумерация записей
 BookingSchema.pre('save', async function() {
  if (this.isNew) {
  const lastBooking = await (this.constructor as any).findOne({}, {}, { sort: { 'bookingNumber': -1 } });

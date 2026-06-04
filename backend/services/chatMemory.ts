@@ -1,4 +1,3 @@
-// backend/services/chatMemory.ts
 interface Message {
  role: 'user' | 'assistant';
  content: string;

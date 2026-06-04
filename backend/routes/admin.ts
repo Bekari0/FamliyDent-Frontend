@@ -8,6 +8,7 @@ import MedicalCard from '../models/MedicalCard';
 import { Review } from '../models/Review';
 import { authenticate, authorize } from '../middleware/auth';
 import { getDoctorNameMap as resolveDoctorNameMap } from '../utils/doctorResolver';
+import { syncExternalReviews } from '../services/externalReviewsSync';
 
 const router = Router();
 
@@ -159,7 +160,11 @@ router.patch('/patients/:id', authenticate, authorize('admin'), async (req, res)
 router.get('/reviews', authenticate, authorize('admin'), async (req, res) => {
  try {
  const status = String(req.query.status || '');
- const filter = ['pending', 'approved', 'rejected'].includes(status) ? { status } : {};
+ const filter = ['pending', 'approved', 'rejected'].includes(status)
+ ? status === 'approved'
+ ? { $or: [{ moderationStatus: 'approved' }, { moderationStatus: { $exists: false } }] }
+ : { moderationStatus: status }
+ : {};
  const reviews = await (Review as any).find(filter).sort({ createdAt: -1 });
  res.json(reviews);
  } catch (err) {
@@ -167,11 +172,27 @@ router.get('/reviews', authenticate, authorize('admin'), async (req, res) => {
  }
 });
 
+router.post('/reviews/sync', authenticate, authorize('admin'), async (_req, res) => {
+ try {
+ const result = await syncExternalReviews();
+ res.json({ message: 'Синхронизация отзывов завершена', result });
+ } catch (err) {
+ console.error('Manual reviews sync error:', err);
+ res.status(500).json({ error: 'Не удалось запустить синхронизацию отзывов' });
+ }
+});
+
 router.patch('/reviews/:id/approve', authenticate, authorize('admin'), async (req: any, res) => {
  try {
  const review = await (Review as any).findByIdAndUpdate(
  req.params.id,
- { status: 'approved', moderatedAt: new Date(), moderatedBy: req.user.uid || req.user._id },
+ {
+ status: 'approved',
+ moderationStatus: 'approved',
+ moderationReason: req.body?.reason || 'Одобрено администратором',
+ moderatedAt: new Date(),
+ moderatedBy: req.user.uid || req.user._id
+ },
  { new: true }
  );
  if (!review) return res.status(404).json({ error: 'Отзыв не найден' });
@@ -185,13 +206,45 @@ router.patch('/reviews/:id/reject', authenticate, authorize('admin'), async (req
  try {
  const review = await (Review as any).findByIdAndUpdate(
  req.params.id,
- { status: 'rejected', moderatedAt: new Date(), moderatedBy: req.user.uid || req.user._id },
+ {
+ status: 'rejected',
+ moderationStatus: 'rejected',
+ moderationReason: req.body?.reason || 'Отклонено администратором',
+ moderatedAt: new Date(),
+ moderatedBy: req.user.uid || req.user._id
+ },
  { new: true }
  );
  if (!review) return res.status(404).json({ error: 'Отзыв не найден' });
  res.json(review);
  } catch (err) {
  res.status(400).json({ error: 'Не удалось отклонить отзыв' });
+ }
+});
+
+router.patch('/reviews/:id/moderation', authenticate, authorize('admin'), async (req: any, res) => {
+ try {
+ const moderationStatus = String(req.body.status || '').trim();
+ if (!['approved', 'pending', 'rejected'].includes(moderationStatus)) {
+ return res.status(400).json({ error: 'Некорректный статус модерации' });
+ }
+
+ const review = await (Review as any).findByIdAndUpdate(
+ req.params.id,
+ {
+ status: moderationStatus,
+ moderationStatus,
+ moderationReason: String(req.body.reason || 'Manual moderation').trim(),
+ moderatedAt: new Date(),
+ moderatedBy: req.user.uid || req.user._id,
+ },
+ { new: true },
+ );
+
+ if (!review) return res.status(404).json({ error: 'Отзыв не найден' });
+ res.json(review);
+ } catch (err) {
+ res.status(400).json({ error: 'Не удалось обновить модерацию отзыва' });
  }
 });
 

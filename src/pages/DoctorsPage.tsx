@@ -184,7 +184,7 @@ export function DoctorsPage() {
  </div>
  </div>
 
- {/* Doctor Info Modal */}
+ {/* Информация о враче */}
  <DoctorDetailModal 
  doctor={selectedDoctor}
  isOpen={!!selectedDoctor}

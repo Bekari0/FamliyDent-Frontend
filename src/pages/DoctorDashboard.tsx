@@ -54,7 +54,7 @@ export function DoctorDashboard() {
  setBookings(bookingsRes.data);
  setStats(statsRes.data);
  
- // Load current doctor profile info
+ // Загружаем профиль текущего врача
  const docId = user?.doctorId;
  if (docId) {
  try {
@@ -62,7 +62,7 @@ export function DoctorDashboard() {
  setProfileData(docRes.data);
  } catch (docErr) {
  console.warn('Doctor profile not found (404 expected if unseeded):', docErr);
- // Don't toast error here, just use user info as fallback
+ // Не показываем ошибку, используем данные пользователя
  setProfileData({
  name: user?.displayName,
  specialty: 'Врач',
@@ -70,7 +70,7 @@ export function DoctorDashboard() {
  });
  }
  } else {
- // Fallback for doctor without ID yet
+ // Резервный вариант для врача без привязанного профиля
  setProfileData({
  name: user?.displayName,
  specialty: 'Врач-специалист',
@@ -153,7 +153,7 @@ export function DoctorDashboard() {
  </div>
  </div>
 
- {/* Stats Grid */}
+ {/* Статистика */}
  <div className={styles.statsGrid}>
  {[
  { label: 'Всего записей', value: safeNumber(stats?.total), icon: CalendarCheck, color: 'text-primary', bg: 'bg-primary/5' },
@@ -176,7 +176,7 @@ export function DoctorDashboard() {
  ))}
  </div>
 
- {/* Main Content */}
+ {/* Основное содержимое */}
  <div className={styles.mainGrid}>
  <div className={styles.mainCol}>
  <h2 className={styles.sectionTitle}>
@@ -298,7 +298,7 @@ export function DoctorDashboard() {
  </div>
  </div>
 
- {/* Edit Profile Modal */}
+ {/* Редактирование профиля */}
  {showEditProfile && (
  <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setShowEditProfile(false)} />

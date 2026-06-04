@@ -21,6 +21,8 @@ import userRoutes from "./routes/users";
 import { initSocket } from "./socket";
 import { DentalBot } from "./bot/bot";
 import { startAppointmentReminderScheduler } from "./services/emailNotifications";
+import { startExternalReviewsSyncScheduler } from "./services/externalReviewsSync";
+import { migrateReviewModerationStatuses } from "./services/reviewModeration";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -35,10 +37,13 @@ async function startServer() {
   console.log("__dirname:", __dirname);
 
   connectDB()
-    .then(() => console.log("Database connection process completed"))
+    .then(async () => {
+      console.log("Database connection process completed");
+      await migrateReviewModerationStatuses();
+    })
     .catch((err) => console.error("Database connection failed:", err));
 
-  // API Routes
+  // Маршруты API
   console.log("Configuring API routes...");
   app.get("/api/db-status", (_req, res) => {
     res.json({
@@ -73,16 +78,23 @@ async function startServer() {
   app.use("/api/urgent-requests", urgentRequestRoutes);
   app.use("/api/users", userRoutes);
 
-  // Catch-all API 404s
+  // Ответ для неизвестных API-маршрутов
   app.use("/api/*", (req, res) => {
     console.warn(`API 404: ${req.method} ${req.originalUrl}`);
     res.status(404).json({ error: `Route ${req.originalUrl} not found` });
   });
 
-  // Serve static files from public folder
+  // Раздача статических файлов
   const publicPath = path.join(__dirname, "public");
   console.log("Serving public from:", publicPath);
-  app.use(express.static(publicPath));
+  app.use(express.static(publicPath, {
+    maxAge: "1d",
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith(".html")) {
+        res.setHeader("Cache-Control", "no-cache");
+      }
+    },
+  }));
 
   // Явный маршрут для панели оператора
   app.get("/operator-panel.html", (req, res) => {
@@ -91,14 +103,14 @@ async function startServer() {
     res.sendFile(panelPath);
   });
 
-  // Vite Integration. The usual dev flow runs Vite separately on port 3000
-  // and proxies /api to this backend, so keep this server API-only by default.
+  // В разработке frontend запускается отдельно и проксирует /api на backend.
+  // Поэтому backend по умолчанию работает только с API.
   const enableViteMiddleware = process.env.ENABLE_VITE_MIDDLEWARE === "true";
 
   if (process.env.NODE_ENV !== "production" && enableViteMiddleware) {
     console.log("Detected development mode. Starting Vite middleware...");
     try {
-      const rootPath = rootDir; // Поднимаемся на уровень выше (в familydent)
+      const rootPath = rootDir;
       console.log("Vite root path:", rootPath);
       const vite = await createViteServer({
         server: { middlewareMode: true },
@@ -120,7 +132,20 @@ async function startServer() {
   } else if (process.env.NODE_ENV === "production") {
     console.log("Detected production mode. Serving static files...");
     const distPath = path.join(__dirname, "..", "dist");
-    app.use(express.static(distPath));
+    app.use(express.static(distPath, {
+      maxAge: "1y",
+      immutable: true,
+      setHeaders: (res, filePath) => {
+        if (filePath.endsWith(".html")) {
+          res.setHeader("Cache-Control", "no-cache");
+          return;
+        }
+
+        if (/\.(js|css|woff2|svg|png|jpg|jpeg|webp|avif|ico)$/i.test(filePath)) {
+          res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+        }
+      },
+    }));
     app.get("*", (req: any, res: any) => {
       res.sendFile(path.join(distPath, "index.html"));
     });
@@ -136,6 +161,7 @@ async function startServer() {
   });
 
   const stopReminderScheduler = startAppointmentReminderScheduler();
+  const stopExternalReviewsScheduler = startExternalReviewsSyncScheduler();
 
   // ЗАПУСК ТЕЛЕГРАМ БОТА
   let dentalBot: DentalBot | null = null;
@@ -154,6 +180,7 @@ async function startServer() {
   process.once("SIGINT", () => {
     if (dentalBot) dentalBot.stop();
     stopReminderScheduler();
+    stopExternalReviewsScheduler();
     server.close(() => {
       console.log("Server closed");
       process.exit(0);
@@ -163,6 +190,7 @@ async function startServer() {
   process.once("SIGTERM", () => {
     if (dentalBot) dentalBot.stop();
     stopReminderScheduler();
+    stopExternalReviewsScheduler();
     server.close(() => {
       console.log("Server closed");
       process.exit(0);

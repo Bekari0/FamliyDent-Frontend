@@ -23,8 +23,8 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
  }
 
  if (!user) {
- // Only toast and navigate if we are on a route that is definitely protected
- // If it's a layout route, we check user first
+ // Показываем предупреждение только на защищенных маршрутах
+ // Для маршрутов-оберток сначала проверяем пользователя
  toast.error('Для доступа к этой странице необходимо войти в систему');
  return <Navigate to="/login" state={{ from: location }} replace />;
  }
@@ -39,7 +39,7 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
  return <Navigate to="/" replace />;
  }
 
- // Block unverified users from /book and /profile
+ // Ограничиваем доступ неподтвержденным пациентам
  const restrictedPaths = ['/book', '/profile'];
  const isRestricted = restrictedPaths.some(path => location.pathname === path || location.pathname.startsWith(path + '/'));
  

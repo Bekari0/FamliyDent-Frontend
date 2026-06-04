@@ -9,7 +9,7 @@ router.get('/', authenticate, async (req: any, res) => {
  try {
  let query: any = { patientId: req.user.uid };
  
- // If admin/doctor wants specific patient
+ // Если администратор или врач открывает конкретного пациента
  if ((req.user.role === 'admin' || req.user.role === 'doctor') && req.query.patientId) {
  query = { patientId: req.query.patientId };
  }

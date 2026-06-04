@@ -62,7 +62,7 @@ export function DoctorDetailPage() {
  animate={{ opacity: 1, scale: 1 }}
  className="relative rounded-[40px] sm:rounded-[56px] overflow-hidden shadow-2xl border-[8px] sm:border-[12px] border-slate-50"
  >
- <img src={doctor.image} alt={doctor.name} className="w-full aspect-[4/5] object-cover" />
+ <img src={doctor.image} alt={doctor.name} className="w-full aspect-[4/5] object-cover" loading="eager" decoding="async" />
  <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-slate-900/80 via-slate-900/40 to-transparent text-white">
  <div className="flex items-center gap-2 text-amber-400">
  <Star className="w-5 h-5 fill-current" />

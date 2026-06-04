@@ -30,6 +30,21 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       target: "es2020",
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (!id.includes("node_modules")) return;
+            if (id.includes("react") || id.includes("react-dom") || id.includes("react-router-dom")) {
+              return "vendor-react";
+            }
+            if (id.includes("motion")) return "vendor-motion";
+            if (id.includes("@pbe/react-yandex-maps")) return "vendor-yandex-maps";
+            if (id.includes("jspdf")) return "vendor-pdf";
+            if (id.includes("axios")) return "vendor-axios";
+            if (id.includes("lucide-react")) return "vendor-icons";
+          },
+        },
+      },
     },
   };
 });

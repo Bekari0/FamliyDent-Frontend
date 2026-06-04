@@ -1,4 +1,4 @@
-/* Chat widget */
+/* Чат */
 .chat-widget-wrapper {
   @apply fixed bottom-6 right-6 z-[100] flex flex-col items-end;
 }
@@ -6,7 +6,7 @@
   @apply w-[350px] sm:w-[420px] h-[600px] flex flex-col overflow-hidden border-none shadow-2xl shadow-primary/30 rounded-[24px];
 }
 
-/* Chat Header */
+/* Шапка чата */
 .chat-header {
   @apply bg-gradient-to-r from-primary to-primary/80 p-5 text-white flex items-center justify-between shadow-lg;
 }
@@ -35,7 +35,7 @@
   @apply h-9 w-9 text-white hover:bg-white/10 rounded-xl;
 }
 
-/* Chat Messages */
+/* Сообщения чата */
 .chat-scroll-area {
   @apply flex-1 p-5 bg-secondary;
 }
@@ -55,7 +55,7 @@
   @apply p-4 rounded-2xl text-sm leading-relaxed;
 }
 
-/* Response message */
+/* Ответ консультанта */
 .chat-message-response .chat-message-avatar {
   @apply bg-card text-primary border border-border;
 }
@@ -63,7 +63,7 @@
   @apply bg-card text-foreground shadow-sm border border-border rounded-tl-none;
 }
 
-/* User Message */
+/* Сообщение пользователя */
 .chat-message-user {
   @apply justify-end;
 }
@@ -77,7 +77,7 @@
   @apply bg-primary text-white rounded-tr-none shadow-md shadow-primary/10;
 }
 
-/* Loading State */
+/* Состояние загрузки */
 .chat-loading-bubble {
   @apply bg-card p-4 rounded-2xl shadow-sm border border-border flex gap-1.5 items-center;
 }
@@ -88,7 +88,7 @@
   @apply text-[10px] text-text-secondary ml-2 font-medium uppercase tracking-tighter;
 }
 
-/* Quick Actions */
+/* Быстрые действия */
 .chat-quick-actions {
   @apply px-5 py-3 bg-secondary border-t border-border flex flex-wrap gap-2;
 }
@@ -96,7 +96,7 @@
   @apply text-[11px] h-8 rounded-xl bg-card border-border hover:bg-primary hover:text-white hover:border-primary transition-all duration-300;
 }
 
-/* Chat Input */
+/* Поле ввода */
 .chat-input-area {
   @apply p-5 bg-card border-t border-border;
 }
@@ -113,7 +113,7 @@
   @apply text-[10px] text-center text-text-secondary mt-3 font-medium;
 }
 
-/* Trigger Button */
+/* Кнопка открытия */
 .chat-trigger-btn {
   @apply w-16 h-16 rounded-[24px] shadow-2xl shadow-primary/40 flex items-center justify-center p-0 relative overflow-hidden;
 }

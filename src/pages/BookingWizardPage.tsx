@@ -4,6 +4,7 @@ import { Button } from '../components/ui/button';
 import { Check, Calendar as CalendarIcon, Clock, User, ChevronRight, Loader2, Stethoscope } from 'lucide-react';
 import { toast } from 'sonner';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { trackGoal } from '../components/Analytics';
 
 const timeSlots = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'];
 
@@ -128,6 +129,10 @@ export function BookingWizardPage() {
  date: data.date,
  time: data.time
  });
+ trackGoal('booking_submit', {
+ service: data.serviceName || data.serviceId,
+ doctor: data.doctorName || data.doctorId
+ });
  toast.success('Запись успешно создана');
  navigate('/profile/bookings');
  } catch (error: any) {
@@ -200,7 +205,7 @@ export function BookingWizardPage() {
  <div className="grid sm:grid-cols-2 gap-3">
  {doctors.map((doctor) => (
  <button key={doctor._id || doctor.id} onClick={() => selectDoctor(doctor)} className="flex items-center gap-4 p-4 rounded-xl border border-border bg-white text-left hover:border-primary hover:bg-primary/5 transition-all">
- <img src={doctor.image} alt={doctor.name} className="w-14 h-14 rounded-xl object-cover bg-secondary" />
+ <img src={doctor.image} alt={doctor.name} className="w-14 h-14 rounded-xl object-cover bg-secondary" loading="lazy" decoding="async" />
  <div>
  <div className="font-bold text-foreground">{doctor.name}</div>
  <div className="text-xs text-primary font-bold uppercase tracking-wider">{doctor.specialty}</div>

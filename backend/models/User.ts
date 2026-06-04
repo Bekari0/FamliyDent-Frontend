@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
  _id: { type: String, required: true },
- uid: { type: String }, // Optional if _id is used, but keeping for compatibility
+ uid: { type: String },
  email: { type: String, required: true, unique: true },
- password: { type: String }, // Hashed password for local auth
+ password: { type: String },
  displayName: String,
  role: { type: String, enum: ['patient', 'doctor', 'admin'], default: 'patient' },
  phoneNumber: String,
@@ -57,12 +57,6 @@ const UserSchema = new mongoose.Schema({
  }
 });
 
-// UserSchema.pre('save', function(next) {
-// if (this._id && !this.uid) {
-// this.uid = this._id as string;
-// }
-// next();
-// });
 
 export const User = (mongoose.models.User ||
  mongoose.model('User', UserSchema)) as mongoose.Model<any>;

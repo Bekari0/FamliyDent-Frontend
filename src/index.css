@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap");
 @import "tailwindcss";
 
-/* Theme and Base */
+/* Тема и базовые стили */
 @import "./styles/theme.css";
 @import "./styles/base.css";
 @import "./styles/utilities.css";
 
-/* Components */
+/* Компоненты */
 @import "./styles/components/header.css";
 @import "./styles/components/hero.css";
 @import "./styles/components/services.css";
@@ -18,10 +18,10 @@
 @import "./styles/components/footer.css";
 @import "./styles/components/reviews.css";
 
-/* Pages */
+/* Страницы */
 @import "./styles/pages/services-page.css";
 
-/* Third-party and Global */
+/* Сторонние и глобальные стили */
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";

@@ -1,4 +1,4 @@
-/* Hero */
+/* Первый экран */
 .hero-section {
  @apply relative pt-20 pb-12 lg:pt-24 lg:pb-20 overflow-hidden;
  background: radial-gradient(circle at top left, rgba(198, 161, 91, 0.05), transparent 40%),

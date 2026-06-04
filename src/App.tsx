@@ -1,52 +1,48 @@
-﻿/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Breadcrumbs } from "./components/Breadcrumbs";
 import { Footer } from "./components/Footer";
 import { ChatWidget } from "./components/ChatWidget";
 import { Toaster } from "sonner";
+import { Analytics } from "./components/Analytics";
+import { Seo } from "./components/Seo";
 
-// Context Providers
+// Провайдеры контекста
 import { BookingProvider } from "./context/BookingContext";
 import { AuthProvider } from "./context/AuthContext";
 
-// Pages
-import { HomePage } from "./pages/HomePage";
-import { DoctorsPage } from "./pages/DoctorsPage";
-import { DoctorDetailPage } from "./pages/DoctorDetailPage";
-import { ServicesPage } from "./pages/ServicesPage";
-import { ServiceDetailPage } from "./pages/ServiceDetailPage";
-import { PricingPage } from "./pages/PricingPage";
-import { AboutPage } from "./pages/AboutPage";
-import { ReviewsPage } from "./pages/ReviewsPage";
-import { BlogPage } from "./pages/BlogPage";
-import { ArticleDetailPage } from "./pages/ArticleDetailPage";
-import { FAQPage } from "./pages/FAQPage";
-import { ContactPage } from "./pages/ContactPage";
-import { LoginPage } from "./pages/LoginPage";
-import { RegisterPage } from "./pages/RegisterPage";
-import { ProfilePage } from "./pages/ProfilePage";
-import { MyBookingsPage } from "./pages/MyBookingsPage";
-import { BookingWizardPage } from "./pages/BookingWizardPage";
-import { AdminDashboard } from "./pages/AdminDashboard";
-import { AdminBookings } from "./pages/AdminBookings";
-import { AdminDoctors } from "./pages/AdminDoctors";
-import { AdminPatients } from "./pages/AdminPatients";
-import { AdminBlog } from "./pages/AdminBlog";
-import { AdminReviews } from "./pages/AdminReviews";
-import { PatientRecordsPage } from "./pages/PatientRecordsPage";
-import { DoctorDashboard } from "./pages/DoctorDashboard";
-import { VerifyEmailPage } from "./pages/VerifyEmailPage";
-import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
-import { ResetPasswordPage } from "./pages/ResetPasswordPage";
-import { NotFoundPage } from "./pages/NotFoundPage";
+const HomePage = lazy(() => import("./pages/HomePage").then((m) => ({ default: m.HomePage })));
+const DoctorsPage = lazy(() => import("./pages/DoctorsPage").then((m) => ({ default: m.DoctorsPage })));
+const DoctorDetailPage = lazy(() => import("./pages/DoctorDetailPage").then((m) => ({ default: m.DoctorDetailPage })));
+const ServicesPage = lazy(() => import("./pages/ServicesPage").then((m) => ({ default: m.ServicesPage })));
+const ServiceDetailPage = lazy(() => import("./pages/ServiceDetailPage").then((m) => ({ default: m.ServiceDetailPage })));
+const PricingPage = lazy(() => import("./pages/PricingPage").then((m) => ({ default: m.PricingPage })));
+const AboutPage = lazy(() => import("./pages/AboutPage").then((m) => ({ default: m.AboutPage })));
+const ReviewsPage = lazy(() => import("./pages/ReviewsPage").then((m) => ({ default: m.ReviewsPage })));
+const BlogPage = lazy(() => import("./pages/BlogPage").then((m) => ({ default: m.BlogPage })));
+const ArticleDetailPage = lazy(() => import("./pages/ArticleDetailPage").then((m) => ({ default: m.ArticleDetailPage })));
+const FAQPage = lazy(() => import("./pages/FAQPage").then((m) => ({ default: m.FAQPage })));
+const ContactPage = lazy(() => import("./pages/ContactPage").then((m) => ({ default: m.ContactPage })));
+const LoginPage = lazy(() => import("./pages/LoginPage").then((m) => ({ default: m.LoginPage })));
+const RegisterPage = lazy(() => import("./pages/RegisterPage").then((m) => ({ default: m.RegisterPage })));
+const ProfilePage = lazy(() => import("./pages/ProfilePage").then((m) => ({ default: m.ProfilePage })));
+const MyBookingsPage = lazy(() => import("./pages/MyBookingsPage").then((m) => ({ default: m.MyBookingsPage })));
+const BookingWizardPage = lazy(() => import("./pages/BookingWizardPage").then((m) => ({ default: m.BookingWizardPage })));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard").then((m) => ({ default: m.AdminDashboard })));
+const AdminBookings = lazy(() => import("./pages/AdminBookings").then((m) => ({ default: m.AdminBookings })));
+const AdminDoctors = lazy(() => import("./pages/AdminDoctors").then((m) => ({ default: m.AdminDoctors })));
+const AdminPatients = lazy(() => import("./pages/AdminPatients").then((m) => ({ default: m.AdminPatients })));
+const AdminBlog = lazy(() => import("./pages/AdminBlog").then((m) => ({ default: m.AdminBlog })));
+const AdminReviews = lazy(() => import("./pages/AdminReviews").then((m) => ({ default: m.AdminReviews })));
+const PatientRecordsPage = lazy(() => import("./pages/PatientRecordsPage").then((m) => ({ default: m.PatientRecordsPage })));
+const DoctorDashboard = lazy(() => import("./pages/DoctorDashboard").then((m) => ({ default: m.DoctorDashboard })));
+const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage").then((m) => ({ default: m.VerifyEmailPage })));
+const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage").then((m) => ({ default: m.ForgotPasswordPage })));
+const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage").then((m) => ({ default: m.ResetPasswordPage })));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage").then((m) => ({ default: m.NotFoundPage })));
 
-// Components
+// Компоненты
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { UserRole } from "./types";
 
@@ -67,12 +63,22 @@ function ScrollToTop() {
   return null;
 }
 
+function PageFallback() {
+  return (
+    <div className="min-h-[55vh] flex items-center justify-center">
+      <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <BookingProvider>
           <ScrollToTop />
+          <Seo />
+          <Analytics />
           <AppContent />
           <Toaster position="top-center" expand={true} richColors />
         </BookingProvider>
@@ -86,7 +92,7 @@ function AppContent() {
   const noHeaderFooterPages = ["/login", "/register"];
   const isAuthPage = noHeaderFooterPages.includes(location.pathname);
 
-  // List of valid routes to detect 404 state for layout purposes
+  // Список рабочих маршрутов для определения страницы 404
   const validRoutes = [
     "/",
     "/about",
@@ -118,6 +124,7 @@ function AppContent() {
       {!isAuthPage && <Header />}
       {!shouldHideBreadcrumbs && <Breadcrumbs />}
       <main className="flex-1">
+        <Suspense fallback={<PageFallback />}>
         <Routes>
           {/* Публичные маршруты */}
           <Route path="/" element={<HomePage />} />
@@ -133,7 +140,7 @@ function AppContent() {
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<ArticleDetailPage />} />
 
-          {/* Auth routes */}
+          {/* Маршруты авторизации */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/verify-email" element={<VerifyEmailPage />} />
@@ -170,6 +177,7 @@ function AppContent() {
           {/* 404 - всегда в конце, не защищён */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        </Suspense>
       </main>
       {!shouldHideFooter && <Footer />}
       <ChatWidget />

@@ -28,16 +28,16 @@ async function enrichBookings(bookings: any[]) {
  });
 }
 
-// Helper to get doctor identifiers confidently
+// Получаем все возможные идентификаторы врача
 async function getDoctorIdentifiers(user: any) {
  const ids = new Set<string>();
  
- // Add user's own IDs
+ // Добавляем собственные идентификаторы пользователя
  if (user._id) ids.add(user._id.toString());
  if (user.uid) ids.add(user.uid);
  if (user.doctorId) ids.add(user.doctorId);
  
- // Try to find a doctor document linked to this user ID
+ // Ищем профиль врача, связанный с пользователем
  const doctors = await (Doctor as any).find({ 
  $or: [
  { userId: user._id }, 
@@ -53,12 +53,12 @@ async function getDoctorIdentifiers(user: any) {
  return Array.from(ids);
 }
 
-// Get doctor's bookings
+// Получение записей врача
 router.get('/bookings', authenticate, authorize('doctor', 'admin'), async (req: any, res) => {
  try {
  const doctorIdentifiers = await getDoctorIdentifiers(req.user);
  
- // Find bookings where doctorId is any of the identifiers
+ // Ищем записи по любому из найденных идентификаторов
  const bookings = await (Booking as any).find({ 
  doctorId: { $in: doctorIdentifiers }
  }).sort({ date: 1, time: 1 });
@@ -71,7 +71,7 @@ router.get('/bookings', authenticate, authorize('doctor', 'admin'), async (req: 
  }
 });
 
-// Get doctor's stats
+// Получение статистики врача
 router.get('/stats', authenticate, authorize('doctor', 'admin'), async (req: any, res) => {
  try {
  const doctorIdentifiers = await getDoctorIdentifiers(req.user);
@@ -83,11 +83,11 @@ router.get('/stats', authenticate, authorize('doctor', 'admin'), async (req: any
  (Booking as any).countDocuments({ ...query, status: 'confirmed' })
  ]);
 
- // Calculate daily stats for the next 7 days
+ // Считаем статистику по дням на ближайшую неделю
  const daily: any[] = [];
  const now = new Date();
  
- // Get all bookings for these identifiers to count locally (simpler than many queries)
+ // Загружаем записи одним запросом и считаем локально
  const allBookings = await (Booking as any).find(query).select('date');
  
  for (let i = 0; i < 7; i++) {

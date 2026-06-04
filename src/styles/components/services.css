@@ -1,4 +1,4 @@
-/* Services */
+/* Услуги */
 .section-title-wrapper {
  @apply flex flex-col md:flex-row justify-between items-end mb-12 lg:mb-16 gap-6;
 }

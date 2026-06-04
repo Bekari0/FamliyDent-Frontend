@@ -19,11 +19,11 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Set default base URL for axios
+// Устанавливаем базовый адрес для axios
 axios.defaults.baseURL = '';
 axios.defaults.withCredentials = true;
 
-// Interceptor can still be used for other headers, but we'll rely on cookies for the token
+// Токен передается через cookie, перехватчик остается для общих заголовков
 axios.interceptors.request.use((config) => {
  return config;
 });
@@ -57,7 +57,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
  const register = async (email: string, password: string, displayName: string, phone?: string, birthDate?: string, gender?: string) => {
  await axios.post('/api/auth/register', { email, password, displayName, phone, birthDate, gender });
- // Don't set user yet, email needs verification
+ // Не авторизуем пользователя до подтверждения почты
  };
 
  const verifyCode = async (email: string, code: string) => {

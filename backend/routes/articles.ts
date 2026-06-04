@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { Article as ArticleModel } from '../models/Article';
 import { authenticate, authorize } from '../middleware/auth';
+import { createSlug } from '../utils/slug';
 
 const Article = ArticleModel as any;
 const router = Router();
@@ -16,7 +17,7 @@ router.get('/', async (_req, res) => {
 
 router.get('/:id', async (req, res) => {
  try {
- const article = await Article.findById(req.params.id);
+ const article = await findArticle(req.params.id);
  if (!article) return res.status(404).json({ error: 'Статья не найдена' });
  res.json(article);
  } catch (err) {
@@ -68,8 +69,12 @@ router.delete('/:id', authenticate, authorize('admin'), async (req, res) => {
 });
 
 function normalizeArticlePayload(body: any) {
+ const title = String(body.title || '').trim();
+ const requestedSlug = String(body.slug || '').trim();
+
  return {
- title: String(body.title || '').trim(),
+ title,
+ slug: createSlug(requestedSlug || title),
  excerpt: String(body.excerpt || '').trim(),
  content: String(body.content || '').trim(),
  image: String(body.image || '').trim(),
@@ -85,6 +90,14 @@ function normalizeArticlePayload(body: any) {
  .filter(Boolean),
  date: body.date || new Date()
  };
+}
+
+function findArticle(idOrSlug: string) {
+ if (/^[a-f\d]{24}$/i.test(idOrSlug)) {
+ return Article.findById(idOrSlug);
+ }
+
+ return Article.findOne({ slug: idOrSlug });
 }
 
 export default router;

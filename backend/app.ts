@@ -48,15 +48,30 @@ const upload = multer({
  }
 });
 
-// --- Security & Basics ---
-app.use(helmet({ contentSecurityPolicy: false, hsts: false }));
-app.use(cors({ origin: true, credentials: true }));
+// --- Безопасность и базовые настройки ---
+app.use(helmet({
+ contentSecurityPolicy: false,
+ hsts: process.env.NODE_ENV === 'production' ? { maxAge: 31536000, includeSubDomains: true, preload: true } : false
+}));
+app.use(cors({
+ origin: (origin, cb) => {
+ const clientUrl = process.env.CLIENT_URL?.replace(/\/+$/, '');
+ if (!origin || !clientUrl || origin === clientUrl) return cb(null, true);
+ return cb(new Error('Not allowed by CORS'));
+ },
+ credentials: true
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser(process.env.COOKIE_SECRET || 'family-dent-cookie-secret'));
 app.use(mongoSanitize());
-app.use('/uploads', express.static(uploadDir));
+app.use('/uploads', express.static(uploadDir, {
+ maxAge: '7d',
+ setHeaders: (res) => {
+ res.setHeader('Cache-Control', 'public, max-age=604800');
+ }
+}));
 
-// --- Swagger ---
+// --- Документация API ---
 const swaggerOptions = {
  definition: {
  openapi: '3.0.0',
@@ -77,7 +92,7 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-// --- Uploads ---
+// --- Загруженные файлы ---
 app.post('/api/upload', upload.single('file'), (req, res) => {
  if (!req.file) {
  return res.status(400).json({ error: 'Файл не был загружен' });

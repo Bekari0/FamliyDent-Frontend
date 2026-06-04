@@ -129,6 +129,8 @@ export function Doctors() {
  src={doctor.image} 
  alt={doctor.name}
  className={styles.imageStyle}
+ loading="lazy"
+ decoding="async"
  />
  
  <div className={styles.ratingBadge}>

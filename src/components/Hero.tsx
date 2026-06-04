@@ -6,6 +6,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import * as styles from './Hero.styles';
+import { trackGoal } from './Analytics';
 
 
 export function Hero() {
@@ -66,7 +67,16 @@ export function Hero() {
 
  <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.15 }} className="relative hidden md:block max-w-[590px] justify-self-center lg:justify-self-end">
  <div className={styles.imageContainer}>
- <img src="https://i.ibb.co/q3zdCD9c/offer-Image.jpg" alt="FamilyDent Clinic" className={styles.image} />
+ <img
+ src="/offerImage.jpg"
+ alt="Интерьер стоматологической клиники FamilyDent"
+ className={styles.image}
+ width={590}
+ height={420}
+ loading="eager"
+ decoding="async"
+ fetchPriority="high"
+ />
  </div>
  <motion.div
  animate={{ y: [0, -8, 0] }}
@@ -123,6 +133,7 @@ function UrgentRequestModal({ onClose }: { onClose: () => void }) {
  setSubmitting(true);
  try {
  await axios.post('/api/urgent-requests', form);
+ trackGoal('urgent_request_submit');
  toast.success('Заявка отправлена. Мы свяжемся с вами в ближайшее время.');
  onClose();
  } catch (error: any) {

@@ -40,13 +40,13 @@ export function Contact() {
       title: "Филиалы",
       value: "ул. Айни, 45 / ул. Н. Карабаева, 29",
       description: "г. Душанбе",
-      href: "#",
+      href: "https://yandex.tj/maps/?text=FamilyDent%20%D0%94%D1%83%D1%88%D0%B0%D0%BD%D0%B1%D0%B5",
     },
   ];
 
   return (
     <section id="contacts" className={styles.section}>
-      {/* Background blobs */}
+      {/* Фоновые элементы */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] -mr-48 -mt-48" />
       <div className="absolute bottom-0 left-0 w-72 h-72 bg-accent/5 rounded-full blur-[80px] -ml-36 -mb-36" />
 

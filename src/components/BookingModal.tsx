@@ -56,7 +56,7 @@ export function BookingModal({
  });
  const [errors, setErrors] = useState<FormErrors>({});
 
- // Fetch doctors if not provided
+ // Загружаем врачей, если список не передан извне
  useEffect(() => {
  if (isOpen && !initialDoctors && backendDoctors.length === 0) {
  const fetchDoctors = async () => {
@@ -84,7 +84,7 @@ export function BookingModal({
 
  const isLoading = initialLoading || isFetching;
 
- // Generate available dates (next 14 days excluding Sundays)
+ // Формируем доступные даты на ближайшие дни без воскресений
  const availableDates = useMemo(() => {
  const dates = [];
  const today = new Date();
@@ -93,7 +93,7 @@ export function BookingModal({
  const date = new Date();
  date.setDate(today.getDate() + i);
  
- // 0 is Sunday
+ // 0 — воскресенье
  if (date.getDay() !== 0) {
  dates.push({
  value: date.toISOString().split('T')[0],
@@ -107,7 +107,7 @@ export function BookingModal({
  return dates;
  }, []);
 
- // Sync defaultDoctorId when it changes or modal opens
+ // Синхронизируем выбранного врача при открытии модального окна
  useEffect(() => {
  if (isOpen) {
  setFormData(prev => ({
@@ -167,7 +167,7 @@ export function BookingModal({
 
  setIsSubmitting(true);
  try {
- // Check if user is authenticated
+ // Проверяем авторизацию пользователя
  const token = document.cookie.split('; ').find(row => row.startsWith('token='));
  if (!token) {
  toast.error('Пожалуйста, войдите в аккаунт, чтобы записаться');
@@ -176,7 +176,7 @@ export function BookingModal({
 
  await axios.post(`${API_URL}/bookings`, {
  doctorId: formData.doctor === 'any' ? allDoctors[1]?._id : formData.doctor,
- serviceId: 'general', // Simplified for now
+ serviceId: 'general',
  date: formData.date,
  time: formData.time,
  comment: formData.comment
@@ -213,7 +213,7 @@ export function BookingModal({
  onClick={(e) => e.stopPropagation()}
  className={styles.modal}
  >
- {/* Left Side */}
+ {/* Левая часть */}
  <div className={styles.leftSide}>
  <div className={styles.blob1} />
  <div className={styles.blob2} />
@@ -246,7 +246,7 @@ export function BookingModal({
  </div>
  </div>
 
- {/* Form Side */}
+ {/* Форма */}
  <div className={cn(styles.formSide, "no-scrollbar")}>
  <div className={styles.header}>
  <div>

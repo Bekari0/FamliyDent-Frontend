@@ -1,6 +1,6 @@
 @reference "../index.css";
 
-/* Reviews */
+/* Отзывы */
 .section {
  @apply py-24 bg-secondary scroll-mt-20 overflow-hidden relative;
 }

@@ -51,7 +51,7 @@ export function AdminDoctors() {
  description: doctor.description || '',
  education: Array.isArray(doctor.education) ? doctor.education.join('\n') : doctor.education || '',
  achievements: Array.isArray(doctor.achievements) ? doctor.achievements.join('\n') : doctor.achievements || '',
- password: '' // Don't show password on edit
+ password: ''
  });
  } else {
  setCurrentDoctor(null);
@@ -97,7 +97,7 @@ export function AdminDoctors() {
  };
 
  if (currentDoctor) {
- delete data.password; // Don't send password on patch unless we implement change password
+ delete data.password;
  }
 
  try {
@@ -187,7 +187,7 @@ export function AdminDoctors() {
  </div>
  )}
 
- {/* Modal */}
+ {/* Модальное окно */}
  <AnimatePresence>
  {isModalOpen && (
  <div className="fixed inset-0 z-50 flex items-center justify-center p-4">

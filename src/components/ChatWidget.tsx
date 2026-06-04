@@ -1,6 +1,6 @@
-﻿import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { MessageCircle, X, Send, User, RotateCcw } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { MessageCircle, RotateCcw, Send, User, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,23 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { useBooking } from "@/context/BookingContext";
 import styles from "./ChatWidget.module.css";
+
+function scrollHorizontally(container: HTMLDivElement, event: WheelEvent) {
+  const maxScrollLeft = container.scrollWidth - container.clientWidth;
+  if (maxScrollLeft <= 0) return;
+
+  const delta =
+    Math.abs(event.deltaX) > Math.abs(event.deltaY)
+      ? event.deltaX
+      : event.deltaY;
+
+  event.preventDefault();
+  event.stopPropagation();
+  container.scrollLeft = Math.max(
+    0,
+    Math.min(maxScrollLeft, container.scrollLeft + delta),
+  );
+}
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +41,71 @@ export function ChatWidget() {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [hasDelayedPing, setHasDelayedPing] = useState(false);
+  const widgetRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const quickActionsRef = useRef<HTMLDivElement>(null);
+
+  const playNotificationSound = () => {
+    try {
+      const AudioContextClass =
+        window.AudioContext ||
+        (window as Window & { webkitAudioContext?: typeof AudioContext })
+          .webkitAudioContext;
+
+      if (!AudioContextClass) return;
+
+      const audioContext = new AudioContextClass();
+      const gain = audioContext.createGain();
+      gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.08, audioContext.currentTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.55);
+      gain.connect(audioContext.destination);
+
+      [0, 0.16].forEach((offset, index) => {
+        const oscillator = audioContext.createOscillator();
+        oscillator.type = "sine";
+        oscillator.frequency.setValueAtTime(index === 0 ? 740 : 920, audioContext.currentTime + offset);
+        oscillator.connect(gain);
+        oscillator.start(audioContext.currentTime + offset);
+        oscillator.stop(audioContext.currentTime + offset + 0.12);
+      });
+
+      window.setTimeout(() => void audioContext.close(), 800);
+    } catch {
+      // Браузер может заблокировать звук до первого действия пользователя.
+    }
+  };
+
+  useEffect(() => {
+    if (sessionStorage.getItem("familydent-chat-pinged") === "true") return;
+
+    const timer = window.setTimeout(() => {
+      sessionStorage.setItem("familydent-chat-pinged", "true");
+      setHasDelayedPing(true);
+      if (!isOpen) playNotificationSound();
+    }, 15000);
+
+    return () => window.clearTimeout(timer);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen) setHasDelayedPing(false);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (widgetRef.current && !widgetRef.current.contains(target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [isOpen]);
 
   useEffect(() => {
     const scrollContainer = scrollRef.current?.querySelector(
@@ -33,6 +114,16 @@ export function ChatWidget() {
     if (scrollContainer)
       scrollContainer.scrollTop = scrollContainer.scrollHeight;
   }, [messages, isLoading, isOpen]);
+
+  useEffect(() => {
+    const container = quickActionsRef.current;
+    if (!container || !isOpen) return;
+
+    const handleWheel = (event: WheelEvent) => scrollHorizontally(container, event);
+    container.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => container.removeEventListener("wheel", handleWheel);
+  }, [isOpen]);
 
   const handleSend = async (textOverride?: string) => {
     const messageText = textOverride || input;
@@ -85,7 +176,7 @@ export function ChatWidget() {
   ];
 
   return (
-    <div className={styles.widgetWrapper}>
+    <div className={styles.widgetWrapper} ref={widgetRef}>
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -104,11 +195,11 @@ export function ChatWidget() {
                 <div className={styles.headerInfo}>
                   <div className={styles.avatarWrapper}>
                     <div className={styles.avatarBox}>
-                      <MessageCircle className="w-5 h-5" />
+                      <MessageCircle className="h-5 w-5" />
                     </div>
                     <div className={styles.statusIndicator} />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <h3 className={styles.title}>Консультант FamilyDent</h3>
                     <div className={styles.subtitleWrapper}>
                       <span className={styles.subtitle}>На связи</span>
@@ -123,7 +214,7 @@ export function ChatWidget() {
                     onClick={clearChat}
                     title="Очистить чат"
                   >
-                    <RotateCcw className="w-4 h-4" />
+                    <RotateCcw className="h-4 w-4" />
                   </Button>
                   <Button
                     variant="ghost"
@@ -132,7 +223,7 @@ export function ChatWidget() {
                     onClick={() => setIsOpen(false)}
                     title="Закрыть"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="h-5 w-5" />
                   </Button>
                 </div>
               </div>
@@ -154,9 +245,9 @@ export function ChatWidget() {
                       <div className={styles.messageInner}>
                         <div className={styles.messageAvatar}>
                           {msg.role === "user" ? (
-                            <User className="w-4 h-4" />
+                            <User className="h-4 w-4" />
                           ) : (
-                            <MessageCircle className="w-4 h-4" />
+                            <MessageCircle className="h-4 w-4" />
                           )}
                         </div>
                         <div className={styles.messageBubble}>
@@ -178,7 +269,7 @@ export function ChatWidget() {
                 </div>
               </ScrollArea>
 
-              <div className={styles.quickActions}>
+              <div className={styles.quickActions} ref={quickActionsRef}>
                 {quickActions.map((action) => (
                   <Button
                     key={action}
@@ -212,7 +303,7 @@ export function ChatWidget() {
                     className={styles.sendBtn}
                     disabled={isLoading}
                   >
-                    <Send className="w-5 h-5" />
+                    <Send className="h-5 w-5" />
                   </Button>
                 </form>
                 <p className={styles.disclaimer}>
@@ -244,7 +335,7 @@ export function ChatWidget() {
                 exit={{ rotate: 90, opacity: 0 }}
                 className={styles.triggerIcon}
               >
-                <X className="w-6 h-6" />
+                <X className="h-6 w-6" />
               </motion.div>
             ) : (
               <motion.div
@@ -257,14 +348,13 @@ export function ChatWidget() {
                   styles.triggerIcon,
                 )}
               >
-                <MessageCircle className="w-6 h-6" />
+                <MessageCircle className="h-6 w-6" />
               </motion.div>
             )}
           </AnimatePresence>
         </Button>
-        {!isOpen && <div className={styles.notificationDot} />}
+        {!isOpen && hasDelayedPing && <div className={styles.notificationDot} />}
       </motion.div>
     </div>
   );
 }
-

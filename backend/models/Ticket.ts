@@ -5,7 +5,7 @@ const TicketSchema = new mongoose.Schema({
  patientId: { type: String, ref: 'User', required: true },
  patientName: String,
  patientPhone: String,
- chatId: { type: Number, required: true }, // Telegram chat ID
+ chatId: { type: Number, required: true },
  
  status: { 
  type: String, 

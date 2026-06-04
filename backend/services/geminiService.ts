@@ -1,4 +1,3 @@
-// backend/services/geminiService.ts
 import dotenv from "dotenv";
 import {
   GoogleGenerativeAI,

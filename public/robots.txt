@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /doctor
+Disallow: /doctor/
+Disallow: /profile
+Disallow: /profile/
+Disallow: /login
+Disallow: /register
+Disallow: /reset-password
+Disallow: /verify-email
+
+Sitemap: https://familydent.tj/sitemap.xml

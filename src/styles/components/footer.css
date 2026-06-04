@@ -1,4 +1,4 @@
-/* Footer */
+/* Подвал */
 .footer-main {
  @apply relative pt-24 pb-12 bg-foreground text-card overflow-hidden z-0;
 }
