@@ -53,11 +53,34 @@ app.use(helmet({
  contentSecurityPolicy: false,
  hsts: process.env.NODE_ENV === 'production' ? { maxAge: 31536000, includeSubDomains: true, preload: true } : false
 }));
+const normalizeOrigin = (value?: string) => String(value || '').trim().replace(/\/+$/, '');
+const allowedOrigins = new Set(
+ [
+ normalizeOrigin(process.env.CLIENT_URL),
+ normalizeOrigin(process.env.APP_URL),
+ ...String(process.env.CORS_ORIGINS || '')
+ .split(',')
+ .map((origin) => normalizeOrigin(origin))
+ ].filter(Boolean)
+);
+
+const isAllowedAzureOrigin = (origin: string) => {
+ try {
+ const { hostname } = new URL(origin);
+ return hostname === 'azurewebsites.net' || hostname.endsWith('.azurewebsites.net');
+ } catch {
+ return false;
+ }
+};
+
 app.use(cors({
  origin: (origin, cb) => {
- const clientUrl = process.env.CLIENT_URL?.replace(/\/+$/, '');
- if (!origin || !clientUrl || origin === clientUrl) return cb(null, true);
- return cb(new Error('Not allowed by CORS'));
+ if (!origin) return cb(null, true);
+ const normalizedOrigin = normalizeOrigin(origin);
+ if (allowedOrigins.has(normalizedOrigin) || isAllowedAzureOrigin(normalizedOrigin)) {
+ return cb(null, true);
+ }
+ return cb(null, false);
  },
  credentials: true
 }));

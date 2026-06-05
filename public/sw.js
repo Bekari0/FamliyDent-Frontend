@@ -1,9 +1,9 @@
-const CACHE_NAME = 'familydent-static-v2';
-const STATIC_ASSETS = ['/', '/index.html', '/manifest.json'];
+const CACHE_NAME = 'familydent-static-v3';
+const FALLBACK_ASSETS = ['/index.html'];
 
 self.addEventListener('install', (event) => {
  event.waitUntil(
- caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
+ caches.open(CACHE_NAME).then((cache) => cache.addAll(FALLBACK_ASSETS))
  );
  self.skipWaiting();
 });
@@ -23,27 +23,26 @@ self.addEventListener('fetch', (event) => {
  if (
  event.request.method !== 'GET' ||
  url.pathname.startsWith('/api') ||
- url.pathname.startsWith('/uploads')
+ url.pathname.startsWith('/uploads') ||
+ url.pathname.startsWith('/assets')
  ) {
  return;
  }
 
  if (event.request.mode === 'navigate') {
  event.respondWith(
- fetch(event.request).catch(() => caches.match('/index.html'))
+ fetch(event.request)
+ .then((response) => {
+ const copy = response.clone();
+ caches.open(CACHE_NAME).then((cache) => cache.put('/index.html', copy));
+ return response;
+ })
+ .catch(() => caches.match('/index.html'))
  );
  return;
  }
 
  event.respondWith(
- caches.match(event.request).then((cached) => {
- if (cached) return cached;
- return fetch(event.request).then((response) => {
- if (!response || response.status !== 200 || response.type !== 'basic') return response;
- const copy = response.clone();
- caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
- return response;
- });
- })
+ fetch(event.request).catch(() => caches.match(event.request))
  );
 });

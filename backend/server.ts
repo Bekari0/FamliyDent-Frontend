@@ -150,6 +150,9 @@ async function startServer() {
         }
       },
     }));
+    app.get("/assets/*", (req: any, res: any) => {
+      res.status(404).type("text/plain").send(`Asset ${req.path} not found`);
+    });
     app.get("*", (req: any, res: any) => {
       res.sendFile(path.join(distPath, "index.html"));
     });
