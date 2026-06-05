@@ -31,6 +31,10 @@ const rootDir = path.resolve(__dirname, "..");
 dotenv.config({ path: path.join(rootDir, ".env") });
 dotenv.config({ path: path.join(__dirname, ".env"), override: true });
 
+if (process.env.WEBSITE_SITE_NAME) {
+  process.env.NODE_ENV = "production";
+}
+
 async function startServer() {
   console.log("Starting integrated server...");
   console.log("Current working directory:", process.cwd());
