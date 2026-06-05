@@ -8,8 +8,7 @@ import { Button } from '@/components/ui/button';
 import { useBooking } from '@/context/BookingContext';
 import { Badge } from '@/components/ui/badge';
 import { Sparkles, Calendar, Phone,
- GraduationCap, Award, CheckCircle2, Star, Instagram, Facebook,
- X, History, Plus
+ GraduationCap, Award, CheckCircle2, Star, History, Plus
 } from 'lucide-react';
 import { DoctorDetailModal } from '@/components/DoctorDetailModal';
 

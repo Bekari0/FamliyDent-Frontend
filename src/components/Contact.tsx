@@ -31,9 +31,9 @@ export function Contact() {
     {
       icon: Mail,
       title: "Email",
-      value: "info@familydent.tj",
+      value: "familydent.tj@gmail.com",
       description: "Для общих вопросов",
-      href: "mailto:info@familydent.tj",
+      href: "mailto:familydent.tj@gmail.com",
     },
     {
       icon: MapPin,

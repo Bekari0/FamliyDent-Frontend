@@ -24,9 +24,9 @@ export function Footer() {
  Создаем здоровые и красивые улыбки с использованием передовых технологий и искренней заботой о каждом пациенте.
  </p>
  <div className={styles.socials}>
- <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram FamilyDent" className={styles.socialBtn}><Instagram className="w-5 h-5" /></a>
- <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook FamilyDent" className={styles.socialBtn}><Facebook className="w-5 h-5" /></a>
- <a href="mailto:info@familydent.tj" aria-label="Email FamilyDent" className={styles.socialBtn}><Mail className="w-5 h-5" /></a>
+ <a href="https://www.instagram.com/familydent.tj/" target="_blank" rel="noreferrer" aria-label="Instagram FamilyDent" className={styles.socialBtn}><Instagram className="w-5 h-5" /></a>
+ <a href="https://www.facebook.com/familydentdushanbe" target="_blank" rel="noreferrer" aria-label="Facebook FamilyDent" className={styles.socialBtn}><Facebook className="w-5 h-5" /></a>
+ <a href="mailto:familydent.tj@gmail.com" aria-label="Email FamilyDent" className={styles.socialBtn}><Mail className="w-5 h-5" /></a>
  </div>
  </div>
 
@@ -89,7 +89,8 @@ export function Footer() {
  <div className={styles.contactIcon}><MapPin className="w-5 h-5" /></div>
  <div className={styles.contactText}>
  г. Душанбе, <br />
- ул. Рудаки 123
+ Улица Айни, 45<br />
+ Улица Немат Карабаева, 29
  </div>
  </div>
  <a href="tel:+992446606600" className={styles.contactItem}>
@@ -98,7 +99,7 @@ export function Footer() {
  </a>
  <div className={styles.contactItem}>
  <div className={styles.contactIcon}><Mail className="w-5 h-5" /></div>
- <div className={styles.contactText}>info@familydent.tj</div>
+ <div className={styles.contactText}>familydent.tj@gmail.com</div>
  </div>
  </div>
  </div>
