@@ -2,7 +2,10 @@
  "name": "react-example",
  "private": true,
  "version": "0.0.0",
- "type": "module",
+  "type": "module",
+ "engines": {
+  "node": "22.x"
+ },
  "scripts": {
   "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
   "dev:frontend": "vite --port=3000 --host=0.0.0.0",
