@@ -8,6 +8,44 @@ import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import { getDisplayDoctorName } from '../utils/doctorName';
 
+const clinicTimeZone = 'Europe/Moscow';
+const clinicTimeZoneOffset = '+03:00';
+
+const createTimeSlots = () => {
+ const slots = [];
+ for (let minutes = 7 * 60 + 30; minutes <= 19 * 60; minutes += 30) {
+ const hours = Math.floor(minutes / 60);
+ const mins = minutes % 60;
+ slots.push(`${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`);
+ }
+ return slots;
+};
+
+const timeSlots = createTimeSlots();
+
+const getClinicToday = (now = new Date()) => {
+ const parts = new Intl.DateTimeFormat('en-US', {
+ timeZone: clinicTimeZone,
+ year: 'numeric',
+ month: '2-digit',
+ day: '2-digit',
+ }).formatToParts(now);
+ const get = (type: string) => Number(parts.find((part) => part.type === type)?.value);
+ return new Date(Date.UTC(get('year'), get('month') - 1, get('day')));
+};
+
+const toDateValue = (date: Date) => {
+ const year = date.getUTCFullYear();
+ const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+ const day = String(date.getUTCDate()).padStart(2, '0');
+ return `${year}-${month}-${day}`;
+};
+
+const isPastSlot = (date: string, time: string, now: Date) => {
+ if (!date || !time) return false;
+ return new Date(`${date}T${time}:00${clinicTimeZoneOffset}`).getTime() <= now.getTime();
+};
+
 export function MyBookingsPage() {
  const [bookings, setBookings] = useState<any[]>([]);
  const [loading, setLoading] = useState(true);
@@ -15,6 +53,7 @@ export function MyBookingsPage() {
  const [rescheduleData, setRescheduleData] = useState({ date: '', time: '' });
  const [busySlots, setBusySlots] = useState<string[]>([]);
  const [isSubmitting, setIsSubmitting] = useState(false);
+ const [now, setNow] = useState(() => new Date());
 
  const fetchMyBookings = async () => {
  try {
@@ -31,6 +70,17 @@ export function MyBookingsPage() {
  useEffect(() => {
  fetchMyBookings();
  }, []);
+
+ useEffect(() => {
+ const timer = window.setInterval(() => setNow(new Date()), 30000);
+ return () => window.clearInterval(timer);
+ }, []);
+
+ useEffect(() => {
+ if (rescheduleData.date && rescheduleData.time && isPastSlot(rescheduleData.date, rescheduleData.time, now)) {
+ setRescheduleData((prev) => ({ ...prev, time: '' }));
+ }
+ }, [rescheduleData.date, rescheduleData.time, now]);
 
  const handleCancel = async (id: string) => {
  if (!window.confirm('Вы точно хотите отменить запись?')) return;
@@ -64,23 +114,30 @@ export function MyBookingsPage() {
 
  const availableDates = useMemo(() => {
  const dates = [];
- const today = new Date();
- for (let i = 0; i < 14; i++) {
- const d = new Date();
- d.setDate(today.getDate() + i);
- if (d.getDay() !== 0) {
+ const today = getClinicToday(now);
+ for (let i = 0; dates.length < 14 && i < 28; i++) {
+ const d = new Date(today);
+ d.setUTCDate(today.getUTCDate() + i);
+ if (d.getUTCDay() !== 0) {
+ const value = toDateValue(d);
+ if (!timeSlots.some((time) => !isPastSlot(value, time, now))) continue;
  dates.push({
- value: d.toISOString().split('T')[0],
- label: d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' })
+ value,
+ label: d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', timeZone: 'UTC' })
  });
  }
  }
  return dates;
- }, []);
+ }, [now]);
 
  const handleRescheduleSubmit = async (e: React.FormEvent) => {
  e.preventDefault();
  if (!rescheduleData.date || !rescheduleData.time) return;
+ if (isPastSlot(rescheduleData.date, rescheduleData.time, new Date())) {
+ toast.error('Нельзя перенести запись на прошедшее время');
+ setRescheduleData((prev) => ({ ...prev, time: '' }));
+ return;
+ }
  setIsSubmitting(true);
  try {
  await axios.patch(`/api/bookings/${isRescheduling._id || isRescheduling.id}/user-action`, {
@@ -101,7 +158,6 @@ export function MyBookingsPage() {
  const activeBookings = (Array.isArray(bookings) ? bookings : []).filter(b => b.status !== 'completed' && b.status !== 'cancelled');
  const pastBookings = (Array.isArray(bookings) ? bookings : []).filter(b => b.status === 'completed' || b.status === 'cancelled');
 
- const timeSlots = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'];
  const getDoctorName = (booking: any) => getDisplayDoctorName(booking);
 
  return (
@@ -278,14 +334,16 @@ export function MyBookingsPage() {
  <div className="grid grid-cols-4 gap-3">
  {timeSlots.map(t => {
  const isBusy = busySlots.includes(t);
+ const isPast = isPastSlot(rescheduleData.date, t, now);
+ const isDisabled = isBusy || isPast;
  return (
  <button 
  key={t} type="button" 
- disabled={isBusy}
+ disabled={isDisabled}
  onClick={() => setRescheduleData({...rescheduleData, time: t})}
  className={`h-12 rounded-xl text-xs font-bold transition-all border-2 shadow-sm ${
  rescheduleData.time === t ? 'border-primary bg-primary text-white shadow-primary/20' : 
- isBusy ? 'opacity-20 grayscale cursor-not-allowed border-primary/5 bg-primary/5 translate-y-0.5' : 'border-primary/5 bg-primary/5 text-primary/60 hover:border-primary/20 hover:-translate-y-0.5'
+ isDisabled ? 'opacity-20 grayscale cursor-not-allowed border-primary/5 bg-primary/5 translate-y-0.5' : 'border-primary/5 bg-primary/5 text-primary/60 hover:border-primary/20 hover:-translate-y-0.5'
  }`}
  >
  {t}

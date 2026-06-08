@@ -55,12 +55,12 @@ export function ContactPage() {
  </h3>
  <div className="space-y-2">
  <div className="flex justify-between items-center text-sm">
- <span className="text-text-secondary">Пн - Пт:</span>
- <span className="font-bold text-foreground">08:00 - 20:00</span>
+ <span className="text-text-secondary">Пн - Сб:</span>
+ <span className="font-bold text-foreground">7:30 - 19:00</span>
  </div>
  <div className="flex justify-between items-center text-sm">
- <span className="text-text-secondary">Сб - Вс:</span>
- <span className="font-bold text-foreground">09:00 - 18:00</span>
+ <span className="text-text-secondary">Вс:</span>
+ <span className="font-bold text-foreground">Выходной</span>
  </div>
  </div>
  </div>

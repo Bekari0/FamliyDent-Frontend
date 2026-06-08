@@ -31,6 +31,43 @@ interface FormErrors {
 const API_URL = '/api';
 
 const DEFAULT_DOCTOR = { _id: 'any', name: 'Любой свободный врач' };
+const clinicTimeZone = 'Europe/Moscow';
+const clinicTimeZoneOffset = '+03:00';
+
+const createTimeSlots = () => {
+ const slots = [];
+ for (let minutes = 7 * 60 + 30; minutes <= 19 * 60; minutes += 30) {
+ const hours = Math.floor(minutes / 60);
+ const mins = minutes % 60;
+ slots.push(`${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`);
+ }
+ return slots;
+};
+
+const timeSlots = createTimeSlots();
+
+const getClinicToday = (now = new Date()) => {
+ const parts = new Intl.DateTimeFormat('en-US', {
+ timeZone: clinicTimeZone,
+ year: 'numeric',
+ month: '2-digit',
+ day: '2-digit',
+ }).formatToParts(now);
+ const get = (type: string) => Number(parts.find((part) => part.type === type)?.value);
+ return new Date(Date.UTC(get('year'), get('month') - 1, get('day')));
+};
+
+const toDateValue = (date: Date) => {
+ const year = date.getUTCFullYear();
+ const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+ const day = String(date.getUTCDate()).padStart(2, '0');
+ return `${year}-${month}-${day}`;
+};
+
+const isPastSlot = (date: string, time: string, now: Date) => {
+ if (!date || !time) return false;
+ return new Date(`${date}T${time}:00${clinicTimeZoneOffset}`).getTime() <= now.getTime();
+};
 
 import { FALLBACK_DOCTORS } from '@/fallbackData';
 
@@ -44,6 +81,7 @@ export function BookingModal({
  const [isSubmitting, setIsSubmitting] = useState(false);
  const [backendDoctors, setBackendDoctors] = useState<Doctor[]>([]);
  const [isFetching, setIsFetching] = useState(false);
+ const [now, setNow] = useState(() => new Date());
  
  const [formData, setFormData] = useState({
  name: '',
@@ -51,10 +89,15 @@ export function BookingModal({
  service: 'Консультация',
  doctor: defaultDoctorId,
  date: '',
- time: '09:00',
+ time: '',
  comment: ''
  });
  const [errors, setErrors] = useState<FormErrors>({});
+
+ useEffect(() => {
+ const timer = window.setInterval(() => setNow(new Date()), 30000);
+ return () => window.clearInterval(timer);
+ }, []);
 
  // Загружаем врачей, если список не передан извне
  useEffect(() => {
@@ -87,25 +130,30 @@ export function BookingModal({
  // Формируем доступные даты на ближайшие дни без воскресений
  const availableDates = useMemo(() => {
  const dates = [];
- const today = new Date();
+ const today = getClinicToday(now);
  
- for (let i = 0; i < 21; i++) {
- const date = new Date();
- date.setDate(today.getDate() + i);
+ for (let i = 0; dates.length < 14 && i < 28; i++) {
+ const date = new Date(today);
+ date.setUTCDate(today.getUTCDate() + i);
  
  // 0 — воскресенье
- if (date.getDay() !== 0) {
+ if (date.getUTCDay() !== 0) {
+ const value = toDateValue(date);
+ if (!timeSlots.some((time) => !isPastSlot(value, time, now))) continue;
  dates.push({
- value: date.toISOString().split('T')[0],
- label: date.toLocaleDateString('ru-RU', { weekday: 'short', day: 'numeric', month: 'short' }),
- full: date.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' })
+ value,
+ label: date.toLocaleDateString('ru-RU', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }),
+ full: date.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' })
  });
  }
- 
- if (dates.length >= 14) break;
  }
  return dates;
- }, []);
+ }, [now]);
+
+ const availableTimeSlots = useMemo(
+ () => timeSlots.filter((time) => !isPastSlot(formData.date, time, now)),
+ [formData.date, now],
+ );
 
  // Синхронизируем выбранного врача при открытии модального окна
  useEffect(() => {
@@ -116,7 +164,9 @@ export function BookingModal({
  name: '',
  phone: '',
  date: availableDates[0]?.value || '',
- time: '09:00',
+ time: availableDates[0]?.value
+ ? timeSlots.find((time) => !isPastSlot(availableDates[0].value, time, new Date())) || ''
+ : '',
  comment: ''
  }));
  setErrors({});
@@ -127,7 +177,15 @@ export function BookingModal({
  return () => {
  document.body.style.overflow = 'unset';
  };
- }, [isOpen, defaultDoctorId, availableDates]);
+ }, [isOpen, defaultDoctorId]);
+
+ useEffect(() => {
+ if (!isOpen || !formData.date) return;
+ if (formData.time && availableTimeSlots.includes(formData.time)) return;
+ const nextTime = availableTimeSlots[0] || '';
+ if (formData.time === nextTime) return;
+ setFormData((prev) => ({ ...prev, time: nextTime }));
+ }, [isOpen, formData.date, formData.time, availableTimeSlots]);
 
  const validate = () => {
  const newErrors: FormErrors = {};
@@ -146,6 +204,10 @@ export function BookingModal({
 
  if (!formData.date) {
  newErrors.date = 'Выберите дату визита';
+ }
+
+ if (!formData.time || isPastSlot(formData.date, formData.time, new Date())) {
+ newErrors.date = 'Выберите доступное время визита';
  }
 
  setErrors(newErrors);
@@ -368,7 +430,11 @@ export function BookingModal({
  <div className={styles.selectWrapper}>
  <select 
  value={formData.date}
- onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+ onChange={(e) => {
+ const nextDate = e.target.value;
+ const nextTime = timeSlots.find((time) => !isPastSlot(nextDate, time, new Date())) || '';
+ setFormData({ ...formData, date: nextDate, time: nextTime });
+ }}
  className={styles.select}
  >
  {availableDates.map(date => (
@@ -399,7 +465,7 @@ export function BookingModal({
  onChange={(e) => setFormData({ ...formData, time: e.target.value })}
  className={styles.select}
  >
- {['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'].map(t => (
+ {availableTimeSlots.map(t => (
  <option key={t} value={t}>{t}</option>
  ))}
  </select>

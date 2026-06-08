@@ -11,9 +11,33 @@ import {
 
 const router = Router();
 const Booking = BookingModel as any;
+const clinicTimeZoneOffset = process.env.CLINIC_TIME_ZONE_OFFSET || '+03:00';
+const workdayStartMinutes = 7 * 60 + 30;
+const workdayEndMinutes = 19 * 60;
 
 function runNotification(task: Promise<any>) {
  task.catch((error) => console.error('Booking notification error:', error));
+}
+
+function parseBookingDateTime(date?: string, time?: string) {
+ if (!date || !time) return null;
+ const appointmentAt = new Date(`${date}T${time}:00${clinicTimeZoneOffset}`);
+ return Number.isNaN(appointmentAt.getTime()) ? null : appointmentAt;
+}
+
+function isPastBookingDateTime(date?: string, time?: string) {
+ const appointmentAt = parseBookingDateTime(date, time);
+ return !appointmentAt || appointmentAt.getTime() <= Date.now();
+}
+
+function isWithinWorkingHours(time?: string) {
+ const match = /^(\d{1,2}):(\d{2})$/.exec(String(time || ''));
+ if (!match) return false;
+ const hours = Number(match[1]);
+ const minutes = Number(match[2]);
+ if (hours > 23 || minutes > 59) return false;
+ const totalMinutes = hours * 60 + minutes;
+ return totalMinutes >= workdayStartMinutes && totalMinutes <= workdayEndMinutes;
 }
 
 async function enrichBookings(bookings: any[]) {
@@ -85,6 +109,14 @@ router.get('/my', authenticate, async (req: any, res) => {
 
 router.post('/', authenticate, async (req: any, res) => {
  try {
+ if (!isWithinWorkingHours(req.body.time)) {
+ return res.status(400).json({ error: 'Выберите время в рабочие часы: 07:30 - 19:00' });
+ }
+
+ if (isPastBookingDateTime(req.body.date, req.body.time)) {
+ return res.status(400).json({ error: 'Нельзя записаться на прошедшее время' });
+ }
+
  const booking = new Booking({
  _id: `booking-${Date.now()}`,
  ...req.body,
@@ -153,6 +185,14 @@ router.patch('/:id/user-action', authenticate, async (req: any, res) => {
  if (!booking) return res.status(404).json({ error: 'Запись не найдена' });
 
  if (req.body.action === 'reschedule') {
+ if (!isWithinWorkingHours(req.body.time)) {
+ return res.status(400).json({ error: 'Выберите время в рабочие часы: 07:30 - 19:00' });
+ }
+
+ if (isPastBookingDateTime(req.body.date, req.body.time)) {
+ return res.status(400).json({ error: 'Нельзя перенести запись на прошедшее время' });
+ }
+
  const previousDate = booking.date;
  const previousTime = booking.time;
  booking.date = req.body.date;
@@ -175,7 +215,7 @@ router.patch('/:id/cancel', authenticate, async (req: any, res) => {
  const booking = await Booking.findOne({ _id: req.params.id, patientId: { $in: [req.user.uid, req.user._id].filter(Boolean) } });
  if (!booking) return res.status(404).json({ error: 'Запись не найдена' });
 
- const bookingDate = booking.date ? new Date(`${booking.date}T${booking.time || '23:59'}`) : null;
+ const bookingDate = parseBookingDateTime(booking.date, booking.time || '23:59');
  if (bookingDate && bookingDate < new Date()) return res.status(400).json({ error: 'Прошедшую запись нельзя отменить' });
  if (booking.status === 'completed' || booking.status === 'cancelled') return res.status(400).json({ error: 'Эту запись уже нельзя отменить' });
 

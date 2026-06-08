@@ -1,12 +1,12 @@
 /* Шапка */
 .header-main {
- @apply fixed top-0 left-0 right-0 z-50 transition-all duration-500;
+ @apply fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-white/50 shadow-sm;
 }
 .header-scrolled {
- @apply bg-transparent backdrop-blur-sm py-2;
+ @apply bg-slate-200/80 backdrop-blur-xl py-2;
 }
 .header-transparent {
- @apply bg-transparent py-4;
+ @apply bg-slate-200/60 backdrop-blur-lg py-4;
 }
 .header-container {
  @apply container mx-auto px-4 flex items-center justify-between;
@@ -17,8 +17,8 @@
 .header-logo-mark {
  @apply h-8 w-auto;
  filter:
-  drop-shadow(0 0 0.75px rgba(71, 85, 105, 0.95))
-  drop-shadow(0 1px 1px rgba(71, 85, 105, 0.45));
+  drop-shadow(0 0 1px rgba(15, 23, 42, 0.95))
+  drop-shadow(0 2px 3px rgba(15, 23, 42, 0.55));
 }
 .mobile-sheet-logo-link {
  @apply inline-flex items-center text-white;
@@ -69,12 +69,12 @@
  @apply lg:hidden flex items-center gap-3;
 }
 .header-mobile-phone-btn {
- @apply w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary;
+ @apply w-10 h-10 bg-white/60 rounded-xl flex items-center justify-center text-primary backdrop-blur-sm border border-white/50;
 }
 
 /* Мобильное меню */
 .mobile-nav-trigger {
- @apply w-11 h-11 rounded-xl bg-secondary;
+ @apply w-11 h-11 rounded-xl bg-white/60 backdrop-blur-sm border border-white/50;
 }
 .mobile-nav-content {
  @apply w-full sm:w-[400px] p-0 border-none;

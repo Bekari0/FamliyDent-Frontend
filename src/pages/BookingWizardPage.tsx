@@ -6,7 +6,43 @@ import { toast } from 'sonner';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { trackGoal } from '../components/Analytics';
 
-const timeSlots = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'];
+const clinicTimeZone = 'Europe/Moscow';
+const clinicTimeZoneOffset = '+03:00';
+
+const createTimeSlots = () => {
+ const slots = [];
+ for (let minutes = 7 * 60 + 30; minutes <= 19 * 60; minutes += 30) {
+ const hours = Math.floor(minutes / 60);
+ const mins = minutes % 60;
+ slots.push(`${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`);
+ }
+ return slots;
+};
+
+const timeSlots = createTimeSlots();
+
+const getClinicToday = (now = new Date()) => {
+ const parts = new Intl.DateTimeFormat('en-US', {
+ timeZone: clinicTimeZone,
+ year: 'numeric',
+ month: '2-digit',
+ day: '2-digit',
+ }).formatToParts(now);
+ const get = (type: string) => Number(parts.find((part) => part.type === type)?.value);
+ return new Date(Date.UTC(get('year'), get('month') - 1, get('day')));
+};
+
+const toDateValue = (date: Date) => {
+ const year = date.getUTCFullYear();
+ const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+ const day = String(date.getUTCDate()).padStart(2, '0');
+ return `${year}-${month}-${day}`;
+};
+
+const isPastSlot = (date: string, time: string, now: Date) => {
+ if (!date || !time) return false;
+ return new Date(`${date}T${time}:00${clinicTimeZoneOffset}`).getTime() <= now.getTime();
+};
 
 export function BookingWizardPage() {
  const navigate = useNavigate();
@@ -22,6 +58,7 @@ export function BookingWizardPage() {
  const [loading, setLoading] = useState(true);
  const [isSubmitting, setIsSubmitting] = useState(false);
  const [busySlots, setBusySlots] = useState<string[]>([]);
+ const [now, setNow] = useState(() => new Date());
 
  const [data, setData] = useState({
  serviceId: '',
@@ -34,20 +71,33 @@ export function BookingWizardPage() {
 
  const availableDates = useMemo(() => {
  const dates = [];
- const today = new Date();
- for (let i = 0; i < 10; i++) {
+ const today = getClinicToday(now);
+ for (let i = 0; dates.length < 10 && i < 21; i++) {
  const date = new Date(today);
- date.setDate(today.getDate() + i);
- if (date.getDay() !== 0) {
+ date.setUTCDate(today.getUTCDate() + i);
+ if (date.getUTCDay() !== 0) {
+ const value = toDateValue(date);
+ if (!timeSlots.some((time) => !isPastSlot(value, time, now))) continue;
  dates.push({
- value: date.toISOString().split('T')[0],
- label: date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' }),
- weekday: date.toLocaleDateString('ru-RU', { weekday: 'short' })
+ value,
+ label: date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', timeZone: 'UTC' }),
+ weekday: date.toLocaleDateString('ru-RU', { weekday: 'short', timeZone: 'UTC' })
  });
  }
  }
  return dates;
+ }, [now]);
+
+ useEffect(() => {
+ const timer = window.setInterval(() => setNow(new Date()), 30000);
+ return () => window.clearInterval(timer);
  }, []);
+
+ useEffect(() => {
+ if (data.date && data.time && isPastSlot(data.date, data.time, now)) {
+ setData((prev) => ({ ...prev, time: '' }));
+ }
+ }, [data.date, data.time, now]);
 
  useEffect(() => {
  const fetchData = async () => {
@@ -111,6 +161,10 @@ export function BookingWizardPage() {
  };
 
  const selectTime = (time: string) => {
+ if (isPastSlot(data.date, time, now)) {
+ toast.error('Нельзя выбрать прошедшее время');
+ return;
+ }
  setData((prev) => ({ ...prev, time }));
  setTimeout(() => confirmRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 80);
  };
@@ -118,6 +172,12 @@ export function BookingWizardPage() {
  const handleFinish = async () => {
  if (!data.doctorId || !data.serviceId || !data.date || !data.time) {
  toast.error('Заполните все шаги записи');
+ return;
+ }
+
+ if (isPastSlot(data.date, data.time, new Date())) {
+ toast.error('Нельзя записаться на прошедшее время');
+ setData((prev) => ({ ...prev, time: '' }));
  return;
  }
 
@@ -237,8 +297,10 @@ export function BookingWizardPage() {
  <div className="grid grid-cols-3 gap-2">
  {timeSlots.map((time) => {
  const isBusy = busySlots.includes(time);
+ const isPast = isPastSlot(data.date, time, now);
+ const isDisabled = isBusy || isPast;
  return (
- <button key={time} disabled={isBusy} onClick={() => data.date ? selectTime(time) : toast.error('Сначала выберите дату')} className={`h-14 rounded-xl border font-bold text-sm transition-all ${data.time === time ? 'bg-primary text-white border-primary' : isBusy ? 'bg-secondary text-text-secondary/40 border-border cursor-not-allowed' : 'bg-white border-border text-foreground hover:border-primary'}`}>
+ <button key={time} disabled={isDisabled} onClick={() => data.date ? selectTime(time) : toast.error('Сначала выберите дату')} className={`h-14 rounded-xl border font-bold text-sm transition-all ${data.time === time ? 'bg-primary text-white border-primary' : isDisabled ? 'bg-secondary text-text-secondary/40 border-border cursor-not-allowed' : 'bg-white border-border text-foreground hover:border-primary'}`}>
  <Clock className="w-4 h-4 mx-auto mb-1" />
  {time}
  </button>

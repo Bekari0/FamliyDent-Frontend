@@ -1,5 +1,7 @@
 import nodemailer from 'nodemailer';
 import dns from 'dns';
+import fs from 'fs';
+import path from 'path';
 import { Booking } from '../models/Booking';
 import { User } from '../models/User';
 import { getDoctorNameMap } from '../utils/doctorResolver';
@@ -13,6 +15,16 @@ const defaultSettings = {
  cancellations: true,
  news: false,
 };
+
+const logoCid = 'familydent-icon';
+
+function getLogoPath() {
+ const candidates = [
+ path.resolve(process.cwd(), 'public', 'icon.svg'),
+ path.resolve(process.cwd(), '..', 'public', 'icon.svg'),
+ ];
+ return candidates.find((candidate) => fs.existsSync(candidate));
+}
 
 function createTransporter() {
  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
@@ -79,7 +91,7 @@ function normalizeUrl(value?: string) {
 
 function renderEmailTemplate({ subject, body }: { subject: string; body: string }) {
  const clientUrl = normalizeUrl(process.env.CLIENT_URL) || 'http://localhost:3000';
- const logoUrl = process.env.EMAIL_LOGO_URL?.trim() || `${clientUrl}/icon.svg`;
+ const logoUrl = getLogoPath() ? `cid:${logoCid}` : process.env.EMAIL_LOGO_URL?.trim() || `${clientUrl}/icon.svg`;
  const heroImageUrl = process.env.EMAIL_HERO_IMAGE_URL?.trim() || '';
  const safeSubject = escapeHtml(subject);
  const safeBody = escapeHtml(body).replace(/\r?\n/g, '<br>');
@@ -176,12 +188,21 @@ function renderEmailTemplate({ subject, body }: { subject: string; body: string 
 
 async function sendNotification(to: string, subject: string, body: string) {
  const transporter = createTransporter();
+ const logoPath = getLogoPath();
  await transporter.sendMail({
  from: process.env.SMTP_FROM || `"FamilyDent" <${process.env.SMTP_USER}>`,
  to,
  subject,
  text: body,
  html: renderEmailTemplate({ subject, body }),
+ attachments: logoPath
+ ? [{
+ filename: 'icon.svg',
+ path: logoPath,
+ cid: logoCid,
+ contentType: 'image/svg+xml',
+ }]
+ : [],
  });
 }
 
