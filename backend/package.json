@@ -3,7 +3,8 @@
  "version": "1.0.0",
  "scripts": {
   "start": "tsx ./server.ts",
-  "dev": "tsx ./server.ts"
+  "dev": "tsx ./server.ts",
+  "typecheck": "tsc -p ./tsconfig.json --noEmit"
  },
  "dependencies": {
   "@google/generative-ai": "^0.24.1",

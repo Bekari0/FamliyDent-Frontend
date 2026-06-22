@@ -121,8 +121,8 @@ export function AdminDoctors() {
  await axios.delete(`/api/doctors/${id}`);
  toast.success('Врач удален');
  fetchDoctors();
- } catch (error) {
- toast.error('Ошибка при удалении');
+ } catch (error: any) {
+ toast.error(error.response?.data?.error || 'Ошибка при удалении');
  }
  };
 

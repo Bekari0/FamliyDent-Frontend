@@ -971,8 +971,8 @@ export class DentalBot {
     );
   }
 
-  public launch() {
-    this.bot.launch();
+  public async launch() {
+    await this.bot.launch();
     console.log(" Telegram bot started");
   }
 

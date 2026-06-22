@@ -165,17 +165,17 @@ export function AdminPatients() {
  animate={{ opacity: 1, y: 0 }}
  className="group"
  >
- <Card className="rounded-xl border-border shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden bg-card border">
- <CardContent className="p-6">
- <div className="flex items-start justify-between mb-6">
- <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+ <Card className="rounded-2xl border-border shadow-sm hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 overflow-hidden bg-card border group-hover:border-primary/30">
+ <CardContent className="p-5 sm:p-6">
+ <div className="flex items-start justify-between gap-4 mb-6">
+ <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-secondary border border-border flex items-center justify-center text-primary shrink-0">
  <User className="w-8 h-8" />
  </div>
- <div className="flex gap-3">
+ <div className="flex gap-2 shrink-0">
  <Button
  variant="ghost"
  size="icon"
- className="h-11 w-11 rounded-xl text-primary bg-primary/10 hover:bg-primary hover:text-white shadow-sm"
+ className="h-11 w-11 rounded-xl !text-primary bg-primary/10 hover:!bg-primary hover:!text-white shadow-sm border border-primary/10"
  onClick={() => fetchPatientDetails(patient)}
  title="Открыть карточку пациента"
  >
@@ -184,7 +184,7 @@ export function AdminPatients() {
  <Button
  variant="ghost"
  size="icon"
- className="h-11 w-11 rounded-xl text-error bg-error/10 hover:bg-error hover:text-white shadow-sm"
+ className="h-11 w-11 rounded-xl !text-error bg-error/10 hover:!bg-error hover:!text-white shadow-sm border border-error/10"
  onClick={() => handleDelete(patient)}
  title="Удалить пациента"
  >
@@ -193,36 +193,37 @@ export function AdminPatients() {
  </div>
  </div>
 
- <div className="mb-6">
- <h3 className="text-2xl font-display font-bold text-foreground mb-2 line-clamp-1 leading-tight">
+ <div className="mb-6 min-w-0">
+ <h3 className="text-xl sm:text-2xl font-display font-bold text-foreground mb-3 line-clamp-1 leading-tight">
  {patient.displayName || 'Пациент без имени'}
  </h3>
- <div className="flex items-center gap-2 text-sm text-text-secondary font-semibold break-all">
+ <div className="flex items-start gap-2 text-sm text-text-secondary font-semibold break-all leading-relaxed">
  <Mail className="w-4 h-4 text-primary shrink-0" />
  {patient.email || 'Email не указан'}
  </div>
  </div>
 
- <div className="space-y-4 mb-6">
- <div className="flex items-center gap-4 text-base text-text-secondary font-semibold">
- <span className="p-3 rounded-xl bg-secondary text-primary">
+ <div className="space-y-3 mb-6">
+ <div className="flex items-center gap-3 text-sm sm:text-base text-text-secondary font-semibold">
+ <span className="p-2.5 rounded-xl bg-secondary text-primary border border-border shrink-0">
  <Phone className="w-5 h-5" />
  </span>
- {patient.phoneNumber || 'Без номера'}
+ <span className="min-w-0 break-words">{patient.phoneNumber || 'Без номера'}</span>
  </div>
- <div className="flex items-center gap-4 text-base text-text-secondary font-semibold">
- <span className="p-3 rounded-xl bg-secondary text-primary">
+ <div className="flex items-center gap-3 text-sm sm:text-base text-text-secondary font-semibold">
+ <span className="p-2.5 rounded-xl bg-secondary text-primary border border-border shrink-0">
  <Calendar className="w-5 h-5" />
  </span>
- С нами с{' '}
+ <span className="min-w-0">С нами с{' '}
  {patient.createdAt ? new Date(patient.createdAt).toLocaleDateString('ru-RU') : 'неизвестной даты'}
+ </span>
  </div>
  </div>
 
  {getPatientId(patient) && (
  <Link
  to={`/profile/records/${getPatientId(patient)}`}
- className="w-full h-14 rounded-xl bg-primary/10 text-primary font-black text-xs uppercase tracking-[0.18em] flex items-center justify-center gap-3 hover:bg-primary hover:text-white transition-all active:scale-95"
+ className="w-full min-h-12 rounded-xl bg-primary/10 text-primary font-black text-xs uppercase tracking-[0.16em] flex items-center justify-center gap-3 hover:bg-primary hover:text-white transition-all active:scale-95 px-4 text-center"
  >
  Медицинская карта
  <ChevronRight className="w-5 h-5" />
@@ -242,9 +243,9 @@ export function AdminPatients() {
  )}
 
  <Dialog open={isDetailModalOpen} onOpenChange={setIsDetailModalOpen}>
- <DialogContent className="max-w-4xl rounded-xl p-0 overflow-hidden border border-border shadow-2xl bg-card">
+ <DialogContent className="max-w-6xl w-[calc(100vw-2rem)] rounded-2xl p-0 overflow-hidden border border-border shadow-2xl bg-card">
  {selectedPatient && (
- <div className="max-h-[85vh] overflow-y-auto">
+ <div className="max-h-[88vh] overflow-y-auto no-scrollbar">
  <div className="bg-primary p-8 lg:p-10 text-white relative overflow-hidden">
  <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
  <div className="w-24 h-24 rounded-xl bg-white/20 backdrop-blur-xl flex items-center justify-center shadow-lg border border-white/20">

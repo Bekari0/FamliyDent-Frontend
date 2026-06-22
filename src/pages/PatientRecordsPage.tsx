@@ -159,23 +159,26 @@ export function PatientRecordsPage() {
  return (
  <div className="pt-24 pb-20 bg-background min-h-screen">
  <div className="container mx-auto px-4 max-w-5xl">
- <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
- <Button variant="ghost" asChild className="hover:bg-primary/5 rounded-xl text-primary/40 hover:text-primary transition-colors">
+ <div className="mb-8 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-start lg:items-center gap-4 lg:gap-6">
+ <div className="flex justify-start">
+ <Button variant="ghost" asChild className="hover:bg-primary/5 rounded-xl text-text-secondary hover:text-primary transition-colors">
  <Link to={isDoctor ? "/doctor/dashboard" : (isAdmin ? "/admin/patients" : "/profile")} className="flex items-center gap-2 font-black text-[10px] uppercase tracking-widest">
  <ChevronLeft className="w-4 h-4" />
  Вернуться назад
  </Link>
  </Button>
+ </div>
 
- <div className="flex bg-white p-1 rounded-3xl border border-primary/10 shadow-sm overflow-x-auto max-w-full no-scrollbar">
+ <div className="flex justify-start lg:justify-center overflow-x-auto max-w-full no-scrollbar">
+ <div className="flex bg-card p-1 rounded-2xl border border-border shadow-sm">
  {tabs.map((tab) => (
  <button
  key={tab.id}
  onClick={() => setActiveTab(tab.id as TabType)}
  className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-xs font-bold transition-all whitespace-nowrap ${
  activeTab === tab.id 
- ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-105' 
- : 'text-primary/40 hover:text-primary/60'
+ ? 'bg-primary text-white shadow-lg shadow-primary/20' 
+ : 'text-text-secondary hover:text-primary hover:bg-secondary'
  }`}
  >
  <tab.icon className="w-4 h-4" />
@@ -183,7 +186,9 @@ export function PatientRecordsPage() {
  </button>
  ))}
  </div>
+ </div>
 
+ <div className="flex justify-start lg:justify-end min-h-12">
  {(isDoctor || isAdmin) && activeTab !== 'card' && (
  <Button 
  onClick={() => setShowAddModal(true)}
@@ -194,26 +199,27 @@ export function PatientRecordsPage() {
  </Button>
  )}
  </div>
+ </div>
 
  <motion.div 
  key={activeTab}
  initial={{ opacity: 0, scale: 0.98 }}
  animate={{ opacity: 1, scale: 1 }}
- className="bg-white rounded-[50px] p-8 md:p-12 border border-primary/5 shadow-2xl shadow-primary/5 relative overflow-hidden"
+ className="bg-card rounded-2xl p-5 sm:p-6 md:p-8 border border-border shadow-md relative overflow-hidden"
  >
- <div className="flex flex-col md:flex-row items-center justify-between gap-10 mb-16">
- <div className="flex items-center gap-8">
- <div className="w-24 h-24 bg-primary/5 rounded-[40px] flex items-center justify-center text-primary shadow-inner">
+ <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-10">
+ <div className="flex items-center gap-5 min-w-0">
+ <div className="w-16 h-16 sm:w-20 sm:h-20 bg-secondary rounded-2xl border border-border flex items-center justify-center text-primary shadow-inner shrink-0">
  {activeTab === 'history' && <Stethoscope className="w-10 h-10" />}
  {activeTab === 'card' && <Shield className="w-10 h-10" />}
  {activeTab === 'scans' && <ImageIcon className="w-10 h-10" />}
  {activeTab === 'recommendations' && <ClipboardCheck className="w-10 h-10" />}
  </div>
  <div>
- <h1 className="text-4xl font-display font-bold text-foreground mb-2">
+ <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-2">
  {tabs.find(t => t.id === activeTab)?.label}
  </h1>
- <p className="text-text-secondary font-medium">
+ <p className="text-text-secondary font-medium leading-relaxed">
  {activeTab === 'history' && (patientData ? `История лечения: ${patientData.displayName}` : "История ваших посещений и проведенных процедур")}
  {activeTab === 'card' && (patientData ? `Мед. карта: ${patientData.displayName}` : "Общая медицинская информация, аллергии и противопоказания")}
  {activeTab === 'scans' && (patientData ? `Снимки: ${patientData.displayName}` : "Ваши рентгенограммы и другие диагностические снимки")}
@@ -221,8 +227,8 @@ export function PatientRecordsPage() {
  </p>
  </div>
  </div>
- <div className="px-6 py-3 bg-white text-foreground rounded-2xl flex items-center gap-3 text-[10px] font-black uppercase tracking-widest border border-border shadow-sm">
- <Lock className="w-4 h-4 text-primary/60" />
+ <div className="px-5 py-3 bg-secondary text-foreground rounded-xl flex items-center gap-3 text-[10px] font-black uppercase tracking-widest border border-border shadow-sm">
+ <Lock className="w-4 h-4 text-primary" />
  Данные защищены
  </div>
  </div>
@@ -284,11 +290,11 @@ export function PatientRecordsPage() {
  )}
  {showAddModal && (
  <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setShowAddModal(false)} className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" />
- <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="relative w-full max-w-md bg-white rounded-[40px] p-10 shadow-2xl overflow-hidden">
+ <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setShowAddModal(false)} className="absolute inset-0 bg-foreground/60 backdrop-blur-sm" />
+ <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="relative w-full max-w-md bg-card rounded-2xl p-6 sm:p-8 shadow-2xl overflow-hidden border border-border">
  <div className="flex justify-between items-center mb-8">
  <h3 className="text-3xl font-display font-bold text-foreground">Добавить данные</h3>
- <button onClick={() => setShowAddModal(false)} className="p-2 text-primary/20 hover:text-primary transition-colors"><X/></button>
+ <button onClick={() => setShowAddModal(false)} className="p-2 text-text-secondary hover:text-primary transition-colors"><X/></button>
  </div>
  
  {activeTab === 'history' && (
@@ -349,8 +355,8 @@ export function PatientRecordsPage() {
 }
 
 const EmptyState = ({ icon: Icon, message }: { icon: any, message: string }) => (
- <div className="text-center py-24 bg-secondary rounded-[40px] border border-dashed border-border">
- <Icon className="w-16 h-16 text-primary/20 mx-auto mb-6" />
+ <div className="text-center py-20 bg-secondary rounded-2xl border border-dashed border-border">
+ <Icon className="w-16 h-16 text-primary/40 mx-auto mb-6" />
  <p className="text-text-secondary font-bold text-lg tracking-tight">{message}</p>
  </div>
 );
@@ -359,24 +365,24 @@ const HistoryItem = ({ record, onClick, index }: any) => (
  <motion.div 
  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}
  onClick={onClick}
- className="group cursor-pointer flex flex-col sm:flex-row items-center justify-between p-8 rounded-[40px] bg-primary/5 border border-transparent hover:border-primary/20 transition-all hover:bg-white hover:shadow-2xl hover:shadow-primary/5"
+ className="group cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 p-5 sm:p-6 rounded-2xl bg-secondary border border-border hover:border-primary/30 transition-all hover:bg-card hover:shadow-lg hover:shadow-primary/10"
  >
- <div className="flex items-center gap-8 mb-6 sm:mb-0">
- <div className="w-16 h-16 bg-white rounded-[24px] flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
+ <div className="flex items-center gap-5 min-w-0">
+ <div className="w-14 h-14 bg-card rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shadow-sm border border-border shrink-0">
  <FileText className="w-8 h-8" />
  </div>
  <div>
  <div className="text-[10px] font-black text-text-secondary uppercase tracking-[0.2em] mb-2 leading-none">
  {new Date(record.createdAt).toLocaleDateString('ru-RU')}
  </div>
- <h3 className="text-2xl font-display font-bold text-foreground mb-1 transition-all leading-none">{record.procedureTitle}</h3>
+ <h3 className="text-xl sm:text-2xl font-display font-bold text-foreground mb-1 transition-all leading-tight">{record.procedureTitle}</h3>
  <div className="flex items-center gap-4 mt-3">
- {record.toothNumber && <span className="text-[10px] bg-white px-3 py-1 rounded-full border border-primary/10 font-black text-primary/60">ЗУБ №{record.toothNumber}</span>}
+ {record.toothNumber && <span className="text-[10px] bg-card px-3 py-1 rounded-full border border-primary/10 font-black text-primary">ЗУБ №{record.toothNumber}</span>}
  <div className="text-xs text-text-secondary font-bold">Детали зафиксированы</div>
  </div>
  </div>
  </div>
- <div className="text-primary/10 group-hover:text-primary/30 transition-colors">
+ <div className="text-primary/40 group-hover:text-primary transition-colors self-end sm:self-center">
  <ChevronLeft className="rotate-180 w-8 h-8" />
  </div>
  </motion.div>
@@ -385,9 +391,9 @@ const HistoryItem = ({ record, onClick, index }: any) => (
 const ScanItem = ({ scan, index, canDelete, onDelete }: any) => (
  <motion.div 
  initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: index * 0.05 }}
- className="group bg-primary/5 rounded-[32px] overflow-hidden border border-transparent hover:border-primary/20 transition-all hover:bg-white hover:shadow-xl"
+ className="group bg-secondary rounded-2xl overflow-hidden border border-border hover:border-primary/30 transition-all hover:bg-card hover:shadow-xl"
  >
- <div className="aspect-square bg-slate-100 relative overflow-hidden">
+ <div className="aspect-square bg-secondary relative overflow-hidden">
  <img src={scan.imageUrl || 'https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=400&h=400&fit=crop'} alt={scan.description} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" referrerPolicy="no-referrer" />
  <div className="absolute top-4 left-4">
  <span className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-xl text-[10px] font-black uppercase text-primary shadow-sm">
@@ -399,12 +405,12 @@ const ScanItem = ({ scan, index, canDelete, onDelete }: any) => (
  <div className="text-[9px] font-black text-text-secondary uppercase tracking-widest mb-1">{new Date(scan.createdAt).toLocaleDateString('ru-RU')}</div>
  <h4 className="font-bold text-foreground tracking-tight leading-tight mb-2">{scan.description || 'Диагностический снимок'}</h4>
  <div className="flex gap-2">
- <a href={scan.imageUrl} target="_blank" rel="noreferrer" className="flex-1 py-3 bg-white border border-primary/10 rounded-xl text-[10px] font-black uppercase text-primary/60 hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center justify-center gap-2">
+ <a href={scan.imageUrl} target="_blank" rel="noreferrer" className="flex-1 py-3 bg-card border border-primary/10 rounded-xl text-[10px] font-black uppercase text-primary hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center justify-center gap-2">
  <ExternalLink className="w-4 h-4" />
  Открыть
  </a>
  {canDelete && (
- <button onClick={() => onDelete(scan._id || scan.id)} className="w-11 bg-red-50 text-red-500 rounded-xl hover:bg-red-500 hover:text-white transition-all flex items-center justify-center" title="Удалить файл">
+ <button onClick={() => onDelete(scan._id || scan.id)} className="w-11 bg-error/10 text-error rounded-xl hover:bg-error hover:text-white transition-all flex items-center justify-center" title="Удалить файл">
  <Trash2 className="w-4 h-4" />
  </button>
  )}
@@ -416,9 +422,9 @@ const ScanItem = ({ scan, index, canDelete, onDelete }: any) => (
 const RecommendationItem = ({ rec, index }: any) => (
  <motion.div 
  initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.05 }}
- className="flex gap-6 p-8 rounded-[32px] bg-white border border-primary/10 shadow-sm relative overflow-hidden group"
+ className="flex gap-5 p-5 sm:p-6 rounded-2xl bg-card border border-border shadow-sm relative overflow-hidden group"
  >
- <div className={`w-14 h-14 shrink-0 rounded-2xl flex items-center justify-center ${rec.isCompleted ? 'bg-green-50 text-green-500' : 'bg-primary/5 text-primary'}`}>
+ <div className={`w-14 h-14 shrink-0 rounded-2xl flex items-center justify-center ${rec.isCompleted ? 'bg-success/10 text-success' : 'bg-primary/10 text-primary'}`}>
  {rec.isCompleted ? <ClipboardCheck /> : <AlertCircle />}
  </div>
  <div className="flex-1">
@@ -456,8 +462,8 @@ const InputField = ({ label, value, onChange, textarea, placeholder, type = "tex
 
 const RecordDetailModal = ({ record, onClose }: { record: MedicalRecord, onClose: () => void }) => (
  <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" />
- <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="relative w-full max-w-[600px] bg-white rounded-[40px] shadow-2xl overflow-hidden text-slate-800 p-12">
+ <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="absolute inset-0 bg-foreground/60 backdrop-blur-sm" />
+ <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="relative w-full max-w-[600px] bg-card rounded-2xl shadow-2xl overflow-hidden text-foreground p-6 sm:p-10">
  <div className="flex items-center justify-between mb-12">
  <div className="flex items-center gap-4">
  <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
@@ -465,10 +471,10 @@ const RecordDetailModal = ({ record, onClose }: { record: MedicalRecord, onClose
  </div>
  <div>
  <h2 className="text-2xl font-bold tracking-tight">Детали лечения</h2>
- <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Информация защищена</p>
+ <p className="text-xs text-text-secondary font-bold uppercase tracking-widest">Информация защищена</p>
  </div>
  </div>
- <button onClick={onClose} className="p-2 text-slate-300 hover:text-slate-600 transition-colors">
+ <button onClick={onClose} className="p-2 text-text-secondary hover:text-primary transition-colors">
  <X size={24} />
  </button>
  </div>
@@ -476,29 +482,29 @@ const RecordDetailModal = ({ record, onClose }: { record: MedicalRecord, onClose
  <div className="space-y-10">
  <div className="grid grid-cols-2 gap-8">
  <div className="space-y-2">
- <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
+ <p className="text-[10px] font-black uppercase tracking-widest text-primary flex items-center gap-2">
  <CalendarIcon size={12} /> Дата приема
  </p>
- <p className="font-bold text-slate-900 text-lg">{new Date(record.createdAt).toLocaleDateString('ru-RU')}</p>
+ <p className="font-bold text-foreground text-lg">{new Date(record.createdAt).toLocaleDateString('ru-RU')}</p>
  </div>
  {record.toothNumber && (
  <div className="space-y-2">
- <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Номер зуба</p>
- <p className="font-bold text-slate-900 text-lg">{record.toothNumber}</p>
+ <p className="text-[10px] font-black uppercase tracking-widest text-primary">Номер зуба</p>
+ <p className="font-bold text-foreground text-lg">{record.toothNumber}</p>
  </div>
  )}
  </div>
 
  <div className="space-y-4">
- <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Процедура</p>
- <div className="p-6 rounded-3xl bg-primary/5 border border-primary/10 text-slate-900 font-bold text-xl italic tracking-tight">
+ <p className="text-[10px] font-black uppercase tracking-widest text-primary">Процедура</p>
+ <div className="p-6 rounded-2xl bg-secondary border border-border text-foreground font-bold text-xl italic tracking-tight">
  {record.procedureTitle}
  </div>
  </div>
 
  <div className="space-y-4">
- <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Протокол лечения</p>
- <div className="p-8 rounded-3xl bg-slate-50 border border-slate-100 text-slate-700 whitespace-pre-wrap leading-relaxed font-medium shadow-inner">
+ <p className="text-[10px] font-black uppercase tracking-widest text-primary">Протокол лечения</p>
+ <div className="p-6 rounded-2xl bg-secondary border border-border text-text-secondary whitespace-pre-wrap leading-relaxed font-medium shadow-inner">
  {record.details}
  </div>
  </div>

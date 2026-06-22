@@ -174,10 +174,11 @@ async function startServer() {
   let dentalBot: DentalBot | null = null;
   try {
     dentalBot = new DentalBot();
-    dentalBot.launch();
+    await dentalBot.launch();
     console.log(" Telegram bot launched successfully");
   } catch (error) {
     console.error(" Failed to launch Telegram bot:", error);
+    dentalBot = null;
   }
 
   // ИНИЦИАЛИЗАЦИЯ WEBSOCKET (передаем бота)

@@ -10,6 +10,7 @@ import {
  Stethoscope,
  RefreshCcw,
  Newspaper,
+ MessageSquare,
  Download,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -83,12 +84,13 @@ export function AdminDashboard() {
  return (
  <div className="pt-24 pb-20 bg-background min-h-screen text-foreground">
  <div className="container mx-auto px-4">
- <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12">
+ <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
  {[
  { to: '/admin/bookings', icon: Calendar, caption: 'Управление', label: 'Записи' },
  { to: '/admin/patients', icon: Users, caption: 'База данных', label: 'Пациенты' },
  { to: '/admin/doctors', icon: Stethoscope, caption: 'Штат', label: 'Врачи' },
- { to: '/admin/blog', icon: Newspaper, caption: 'Контент', label: 'Статьи' },
+ { to: '/admin/blog', icon: Newspaper, caption: 'Модерация', label: 'Статьи' },
+ { to: '/admin/reviews', icon: MessageSquare, caption: 'Модерация', label: 'Отзывы' },
  ].map((item) => (
  <Button
  key={item.to}
@@ -213,7 +215,8 @@ export function AdminDashboard() {
  { to: '/admin/patients', icon: Users, label: 'Пациенты' },
  { to: '/admin/doctors', icon: Stethoscope, label: 'Врачи' },
  { to: '/admin/bookings', icon: Calendar, label: 'Записи' },
- { to: '/admin/blog', icon: Newspaper, label: 'Блог' },
+ { to: '/admin/blog', icon: Newspaper, label: 'Статьи' },
+ { to: '/admin/reviews', icon: MessageSquare, label: 'Отзывы' },
  ].map((item) => (
  <Link key={item.to} to={item.to} className="flex items-center justify-between p-4 rounded-xl bg-secondary hover:bg-muted transition-colors border border-border">
  <div className="flex items-center gap-3">
