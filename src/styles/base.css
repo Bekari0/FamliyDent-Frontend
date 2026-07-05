@@ -2,13 +2,16 @@
  * {
  @apply border-border outline-ring/50;
  }
+ html {
+ @apply bg-background font-sans;
+ }
  body {
  @apply bg-background text-foreground font-sans antialiased;
  }
- h1, h2, h3, h4, h5, h6 {
- @apply font-display tracking-tight;
+ h1, h2, h3 {
+ @apply font-display font-medium tracking-normal;
  }
- html {
- @apply font-sans;
+ h4, h5, h6 {
+ @apply font-sans font-semibold tracking-tight;
  }
 }

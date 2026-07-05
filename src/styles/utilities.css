@@ -1,23 +1,29 @@
 /* Глобальные утилиты */
 
 .section-padding {
- @apply py-24 lg:py-32;
+ @apply py-20 lg:py-28;
 }
 
+/* Тихий надзаголовок-киккер с тонкой линией */
 .section-subtitle {
- @apply text-[var(--accent)] font-bold uppercase tracking-[0.2em] text-sm;
+ @apply text-muted-foreground font-medium uppercase tracking-[0.14em] text-xs flex items-center gap-3;
+}
+
+.section-subtitle::before {
+ content: "";
+ @apply inline-block w-8 h-px bg-primary;
 }
 
 .section-title {
- @apply text-4xl lg:text-5xl font-display font-medium text-[var(--foreground)] leading-tight;
+ @apply text-3xl md:text-4xl lg:text-[2.75rem] font-display font-medium text-foreground leading-[1.15] text-balance;
 }
 
 .soft-shadow {
- box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+ box-shadow: 0 1px 2px rgba(38, 34, 30, 0.04), 0 8px 24px -12px rgba(38, 34, 30, 0.1);
 }
 
 .card-hover {
- @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+ @apply transition-shadow duration-300 hover:shadow-md;
 }
 
 .text-highlight {
