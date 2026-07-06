@@ -1,8 +1,7 @@
-﻿import { motion } from "motion/react";
 import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
-import { MapPin, Phone, Mail, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
+import { MapPin, Phone, Mail, Calendar } from "lucide-react";
 import * as styles from './Contact.styles';
-
 
 export function Contact() {
   const CLINIC_LOCATIONS = [
@@ -23,9 +22,9 @@ export function Contact() {
   const contactInfo = [
     {
       icon: Phone,
-      title: "Телефоны",
+      title: "Телефон",
       value: "+992 446 60 66 00",
-      description: "Пн - Сб с 7:30 до 19:00",
+      description: "Пн – Сб с 7:30 до 19:00",
       href: "tel:+992446606600",
     },
     {
@@ -46,78 +45,41 @@ export function Contact() {
 
   return (
     <section id="contacts" className={styles.section}>
-      {/* Фоновые элементы */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] -mr-48 -mt-48" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-accent/5 rounded-full blur-[80px] -ml-36 -mb-36" />
-
       <div className={styles.container}>
         <div className={styles.flexWrapper}>
           <div className={styles.contentContainer}>
-            <div className={styles.badgeLine}>
-              <div className={styles.badgeLineInner} />
-              <span className={styles.badgeText}>Мир FamilyDent</span>
-            </div>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className={styles.title}
-            >
-              Ждем вас в наших <br />
-              <span className={styles.titleSpan}>филиалах</span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className={styles.desc}
-            >
+            <p className={styles.kicker}>
+              <span className={styles.kickerLine} aria-hidden="true" />
+              Контакты
+            </p>
+            <h2 className={styles.title}>
+              Ждём вас в наших филиалах
+            </h2>
+            <p className={styles.desc}>
               Мы всегда на связи, чтобы помочь вам. Выберите удобный филиал и
-              запишитесь на прием — ваша идеальная улыбка начинается за этими
-              дверями.
-            </motion.p>
+              запишитесь на приём — администратор подтвердит время в течение часа.
+            </p>
 
-            <div className={styles.infoGrid}>
+            <div className={styles.infoList}>
               {contactInfo.map((info, index) => (
-                <motion.a
-                  key={index}
-                  href={info.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className={styles.infoCard}
-                >
-                  <div className={styles.infoIconBox}>
-                    <info.icon className="w-6 h-6" />
-                  </div>
-                  <span className={styles.infoLabel}>{info.title}</span>
-                  <span className={styles.infoValue}>{info.value}</span>
-                  <span className={styles.infoSmall}>{info.description}</span>
-                </motion.a>
-              ))}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className={styles.helperCard}
-              >
-                <div className="flex items-center gap-3 mb-4 text-primary">
-                  <Sparkles className="w-5 h-5" />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-white">
-                    Онлайн-помощник
+                <a key={index} href={info.href} className={styles.infoItem}>
+                  <span className={styles.infoIconBox}>
+                    <info.icon className="h-4 w-4" />
                   </span>
-                </div>
-                <p className="text-slate-400 text-sm leading-relaxed mb-6 max-w-[400px]">
-                  Онлайн-консультант доступен 24/7 и готов ответить на вопросы о
-                  лечении, ценах и графике работы специалистов.
-                </p>
-                <button className="h-12 px-8 rounded-xl bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-all active:scale-95 shadow-lg shadow-primary/20">
-                  Открыть чат
-                </button>
-              </motion.div>
+                  <span>
+                    <span className={styles.infoLabel}>{info.title}</span>
+                    <span className={styles.infoValue}>{info.value}</span>
+                    <span className={styles.infoSmall}>{info.description}</span>
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            <div className={styles.ctaRow}>
+              <Link to="/book" className={styles.ctaPrimary}>
+                <Calendar className="h-4 w-4" />
+                Записаться на приём
+              </Link>
             </div>
           </div>
 
@@ -149,7 +111,7 @@ export function Contact() {
                     }}
                     options={{
                       preset: "islands#blueMedicalIcon",
-                      iconColor: "#C6A15B",
+                      iconColor: "#A97F4F",
                       hideIconOnBalloonOpen: false,
                       balloonOffset: [3, -40],
                     }}
@@ -163,5 +125,3 @@ export function Contact() {
     </section>
   );
 }
-
-

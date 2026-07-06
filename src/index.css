@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@400;500;600&display=swap");
 @import "tailwindcss";
 
 /* Тема и базовые стили */
@@ -6,22 +6,6 @@
 @import "./styles/base.css";
 @import "./styles/utilities.css";
 
-/* Компоненты */
-@import "./styles/components/header.css";
-@import "./styles/components/hero.css";
-@import "./styles/components/services.css";
-@import "./styles/components/doctors.css";
-@import "./styles/components/why-choose-us.css";
-@import "./styles/components/faq.css";
-@import "./styles/components/chat-widget.css";
-@import "./styles/components/contact.css";
-@import "./styles/components/footer.css";
-@import "./styles/components/reviews.css";
-
-/* Страницы */
-@import "./styles/pages/services-page.css";
-
 /* Сторонние и глобальные стили */
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";

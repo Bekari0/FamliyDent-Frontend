@@ -1,135 +1,134 @@
-﻿import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { 
- Stethoscope, Sparkles, Zap, Activity, Scissors, Sun, 
- ArrowRight, Loader2 
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { ArrowRight, Plus, Loader2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import * as styles from './Services.styles';
 
-
-const ICON_MAP: Record<string, any> = {
- "Профессиональная гигиена и профилактика": Sparkles,
- "Ортопедия (протезирование)": Stethoscope,
- "Ортодонтия (выравнивание зубов)": Zap,
- "Хирургическая стоматология": Scissors,
- "Имплантология": Activity,
- "Детская стоматология": Sun,
- "Эстетическая стоматология": Sparkles,
- "Терапевтическая стоматология (лечение)": Stethoscope,
- "Диагностика": Activity,
+const CATEGORY_DESCRIPTIONS: Record<string, string> = {
+  'Терапевтическая стоматология (лечение)':
+    'Диагностика, лечение кариеса и его осложнений, восстановление зубов. Основная цель — сохранить здоровые зубы и предотвратить их разрушение.',
+  'Профессиональная гигиена и профилактика':
+    'Регулярная профессиональная чистка, снятие налёта и зубного камня, укрепление эмали — основа здоровья зубов на годы вперёд.',
+  'Ортопедия (протезирование)':
+    'Восстановление разрушенных и утраченных зубов коронками, винирами и протезами — функционально и эстетично.',
+  'Ортодонтия (выравнивание зубов)':
+    'Исправление прикуса и выравнивание зубов брекетами и элайнерами для детей и взрослых.',
+  'Хирургическая стоматология':
+    'Удаление зубов любой сложности, зубосохраняющие операции и подготовка к имплантации — бережно и без боли.',
+  'Имплантология':
+    'Восстановление утраченных зубов имплантатами ведущих систем с пожизненной гарантией на имплантат.',
+  'Детская стоматология':
+    'Лечение молочных и постоянных зубов у детей в спокойной, дружелюбной атмосфере — без страха и слёз.',
+  'Эстетическая стоматология':
+    'Отбеливание, виниры и художественная реставрация — эстетика улыбки с сохранением здоровья зубов.',
+  'Диагностика':
+    'Компьютерная томография, прицельные снимки и подробный план лечения до начала любых процедур.',
 };
 
 export function Services() {
- const [services, setServices] = useState<any[]>([]);
- const [loading, setLoading] = useState(true);
+  const [services, setServices] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [openIndex, setOpenIndex] = useState<number>(0);
 
- useEffect(() => {
- const fetchServices = async () => {
- try {
- const response = await axios.get('/api/services');
- setServices(Array.isArray(response.data) ? response.data : []);
- } catch (error) {
- console.error('Error fetching services:', error);
- } finally {
- setLoading(false);
- }
- };
- fetchServices();
- }, []);
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get('/api/services');
+        setServices(Array.isArray(response.data) ? response.data : []);
+      } catch (error) {
+        console.error('Error fetching services:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchServices();
+  }, []);
 
- return (
- <section id="services" className={styles.section}>
- <div className={styles.container}>
- <div className={styles.header}>
- <div>
- <motion.div
- initial={{ opacity: 0, scale: 0.9 }}
- whileInView={{ opacity: 1, scale: 1 }}
- viewport={{ once: true }}
- className={styles.badge}
- >
- Наши услуги
- </motion.div>
- <motion.h2 
- initial={{ opacity: 0, y: 20 }}
- whileInView={{ opacity: 1, y: 0 }}
- viewport={{ once: true }}
- className={styles.title}
- >
- Профессиональная <span className={styles.titleSpan}>забота</span> о вашей улыбке
- </motion.h2>
- </div>
- <motion.div
- initial={{ opacity: 0, x: 20 }}
- whileInView={{ opacity: 1, x: 0 }}
- viewport={{ once: true }}
- >
- <Link to="/services">
- <Button variant="outline" className={styles.seeAllBtn}>
- Все услуги
- <ArrowRight className="w-4 h-4" />
- </Button>
- </Link>
- </motion.div>
- </div>
+  return (
+    <section id="services" className={styles.section}>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <div>
+            <p className={styles.kicker}>
+              <span className={styles.kickerLine} aria-hidden="true" />
+              Наши услуги
+            </p>
+            <h2 className={styles.title}>
+              Комплексное лечение зубов для всей семьи
+            </h2>
+          </div>
+          <Link to="/services" className={styles.seeAllBtn}>
+            Все услуги
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
 
- {loading ? (
- <div className="py-20 flex justify-center items-center">
- <Loader2 className="w-10 h-10 animate-spin text-primary" />
- </div>
- ) : (
- <div className={styles.grid}>
- {services.map((cat, index) => {
- const Icon = ICON_MAP[cat.category] || Stethoscope;
- return (
- <motion.div
- key={cat._id || index}
- initial={{ opacity: 0, y: 30 }}
- whileInView={{ opacity: 1, y: 0 }}
- viewport={{ once: true }}
- transition={{ delay: index * 0.1 }}
- >
- <Link to={`/pricing`} className={styles.card}>
- <div className={styles.iconWrapper}>
- <Icon className="w-8 h-8" />
- </div>
- 
- <h3 className={styles.cardTitle}>
- {cat.category}
- </h3>
- 
- <ul className={styles.serviceList}>
- {cat.services.slice(0, 3).map((s: string) => (
- <li key={s} className={styles.serviceItem}>
- <div className={styles.serviceDot} />
- {s}
- </li>
- ))}
- {cat.services.length > 3 && (
- <li className="text-[10px] font-bold text-primary bg-primary/5 px-2 py-1 rounded inline-block">
- +{cat.services.length - 3} услуги
- </li>
- )}
- </ul>
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        ) : (
+          <div className={styles.list}>
+            {services.map((cat, index) => {
+              const isOpen = openIndex === index;
+              const description =
+                CATEGORY_DESCRIPTIONS[cat.category] ||
+                'Подробную информацию об услугах направления и ценах уточняйте у администратора клиники.';
+              return (
+                <div key={cat._id || index} className={styles.row}>
+                  <button
+                    className={styles.rowButton}
+                    onClick={() => setOpenIndex(isOpen ? -1 : index)}
+                    aria-expanded={isOpen}
+                  >
+                    <span className={styles.rowNumber}>{String(index + 1).padStart(2, '0')}</span>
+                    <span className={styles.rowTitle}>{cat.category}</span>
+                    <span className={cn(styles.rowIcon, isOpen && styles.rowIconOpen)} aria-hidden="true">
+                      <Plus className={cn('h-4 w-4 transition-transform duration-200', isOpen && 'rotate-45')} />
+                    </span>
+                  </button>
 
- <div className={styles.cardFooter}>
- <span className={styles.footerText}>{cat.services.length} процедур</span>
- <ArrowRight className={styles.arrowIcon} />
- </div>
- </Link>
- </motion.div>
- );
- })}
- </div>
- )}
- </div>
- </section>
- );
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        className={styles.panel}
+                      >
+                        <div className={styles.panelInner}>
+                          <div>
+                            <p className={styles.panelDesc}>{description}</p>
+                            <ul className={styles.panelServices}>
+                              {cat.services.slice(0, 6).map((s: string) => (
+                                <li key={s} className={styles.panelServiceItem}>
+                                  {s}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className={styles.panelActions}>
+                            <Link to="/book" className={styles.panelBookBtn}>
+                              Записаться на приём
+                            </Link>
+                            <Link to="/pricing" className={styles.panelLink}>
+                              Услуги и стоимость
+                              <ArrowRight className="h-4 w-4" />
+                            </Link>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </section>
+  );
 }
-
-
-
-
