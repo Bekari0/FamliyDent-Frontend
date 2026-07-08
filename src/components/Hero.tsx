@@ -1,12 +1,24 @@
 import { useState, type FormEvent } from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { Calendar, PhoneCall, X, Loader2 } from 'lucide-react';
+import {
+  ArrowUpRight, Play, X, Loader2, Instagram, Facebook, Send,
+  Stethoscope, Microscope, HeartPulse, Syringe, Dna, Cross
+} from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import * as styles from './Hero.styles';
 import { trackGoal } from './Analytics';
+
+const PARTNERS = [
+  { icon: Stethoscope, label: 'Oxygen Medical' },
+  { icon: Dna, label: 'DNA Laboratory' },
+  { icon: Cross, label: 'Pharmacy' },
+  { icon: HeartPulse, label: 'Imynology' },
+  { icon: Microscope, label: 'Diagnostica' },
+  { icon: Syringe, label: 'Medical Consulting' },
+];
 
 export function Hero() {
   const [urgentOpen, setUrgentOpen] = useState(false);
@@ -20,17 +32,23 @@ export function Hero() {
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className={styles.headlineWrap}
         >
-          <h1 className={styles.title}>
-            Качественная стоматология
-            <span className={styles.titleLight}>для здоровой улыбки</span>
+          <h1>
+            <span className={styles.titleDark}>
+              Качественная стоматология для здоровой
+            </span>
+            <span className={styles.titleLight}>
+              и красивой
+              <br />
+              улыбки
+            </span>
           </h1>
           <img
             src="/images/crystal-tooth.png"
             alt=""
             aria-hidden="true"
             className={styles.heroImage}
-            width={380}
-            height={380}
+            width={500}
+            height={500}
             loading="eager"
             decoding="async"
             fetchPriority="high"
@@ -48,21 +66,50 @@ export function Hero() {
               FamilyDent — семейная клиника в Душанбе. Современные технологии,
               внимательные врачи и комфортная атмосфера для всей семьи.
             </p>
-            <div className={styles.btnGroup}>
-              <Link to="/book" className={styles.btnPrimary}>
-                <Calendar className="h-4 w-4" />
-                Записаться на приём
+            <div className={styles.actionsRow}>
+              <Link to="/book" className={styles.btnSplit} aria-label="Записаться на приём">
+                <span className={styles.btnSplitMain}>Записаться на приём</span>
+                <span className={styles.btnSplitChip} aria-hidden="true">
+                  <ArrowUpRight className="h-4 w-4" />
+                </span>
               </Link>
-              <button onClick={() => setUrgentOpen(true)} className={styles.btnUrgent}>
-                <PhoneCall className="h-4 w-4 text-accent" />
-                Срочная консультация
-              </button>
+              <div className={styles.socialGroup}>
+                <a
+                  href="https://instagram.com/familydent.tj"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.socialBtn}
+                  aria-label="Instagram клиники"
+                >
+                  <Instagram className="h-4 w-4" />
+                </a>
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.socialBtn}
+                  aria-label="Facebook клиники"
+                >
+                  <Facebook className="h-4 w-4" />
+                </a>
+                <a
+                  href="https://t.me/familydent"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.socialBtn}
+                  aria-label="Telegram клиники"
+                >
+                  <Send className="h-4 w-4" />
+                </a>
+              </div>
             </div>
           </div>
 
           <div className={styles.bottomRight}>
             <div className={styles.statCard}>
-              <span className={styles.statCaption}>лет заботимся о здоровье пациентов</span>
+              <span className={styles.statCaption}>
+                лет профессионального опыта в заботе о пациентах
+              </span>
               <span className={styles.statValue}>12+</span>
             </div>
             <div className={styles.photoCard}>
@@ -70,14 +117,34 @@ export function Hero() {
                 src="/offerImage.jpg"
                 alt="Интерьер стоматологической клиники FamilyDent"
                 className={styles.photoImg}
-                width={240}
-                height={200}
+                width={256}
+                height={224}
                 loading="eager"
                 decoding="async"
               />
+              <button
+                type="button"
+                onClick={() => setUrgentOpen(true)}
+                className={styles.playBtn}
+                aria-label="Срочная консультация"
+              >
+                <Play className="h-5 w-5 fill-current" />
+              </button>
             </div>
           </div>
         </motion.div>
+
+        {/* Полоса партнёров */}
+        <div className={styles.partnersStrip}>
+          <div className={styles.partnersGrid}>
+            {PARTNERS.map((partner) => (
+              <span key={partner.label} className={styles.partnerItem}>
+                <partner.icon className="h-5 w-5" aria-hidden="true" />
+                {partner.label}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
 
       {urgentOpen && <UrgentRequestModal onClose={() => setUrgentOpen(false)} />}
