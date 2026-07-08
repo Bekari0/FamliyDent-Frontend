@@ -3,9 +3,9 @@ export const container = 'container mx-auto px-4 sm:px-6 lg:px-8';
 
 /* Заголовок: тёмная часть слева, светлая справа, кристальный зуб по центру */
 export const headlineWrap = 'relative';
-export const titleDark = 'relative z-10 block max-w-3xl text-[clamp(2.6rem,6.2vw,5.5rem)] font-semibold tracking-tight text-foreground leading-[1.04] text-balance';
+export const titleDark = 'relative block max-w-3xl text-[clamp(2.6rem,6.2vw,5.5rem)] font-semibold tracking-tight text-foreground leading-[1.04] text-balance';
 export const titleLight = 'relative block text-right text-[clamp(2.2rem,5.2vw,4.5rem)] font-medium tracking-tight text-primary-foreground leading-[1.08] lg:-mt-24';
-export const heroImage = 'pointer-events-none relative z-[5] mx-auto -mt-4 w-64 select-none mix-blend-multiply [mask-image:radial-gradient(ellipse_58%_58%_at_center,black_35%,transparent_78%)] sm:w-80 lg:absolute lg:left-1/2 lg:top-1/2 lg:mt-0 lg:w-[440px] lg:-translate-x-1/2 lg:-translate-y-[42%] xl:w-[500px]';
+export const heroImage = 'pointer-events-none relative z-10 mx-auto -mt-6 w-72 select-none mix-blend-multiply [mask-image:radial-gradient(ellipse_58%_58%_at_center,black_40%,transparent_80%)] sm:w-96 lg:absolute lg:left-1/2 lg:top-1/2 lg:mt-0 lg:w-[620px] lg:-translate-x-[46%] lg:-translate-y-[46%] xl:w-[720px]';
 
 /* Нижний ряд */
 export const bottomRow = 'mt-10 flex flex-col gap-8 lg:mt-20 lg:flex-row lg:items-end lg:justify-between';
