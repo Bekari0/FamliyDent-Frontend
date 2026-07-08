@@ -26,5 +26,5 @@ export const checkItem = 'flex items-start gap-3';
 export const checkIcon = 'mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded bg-accent text-accent-foreground';
 export const checkText = 'text-sm font-medium leading-snug text-espresso-foreground';
 export const darkDesc = 'mt-8 max-w-md border-t border-espresso-border pt-6 text-sm leading-relaxed text-espresso-muted';
-export const darkImageWrap = 'lg:absolute lg:inset-y-0 lg:left-1/2 lg:right-[calc((100%-100vw)/2)] lg:flex lg:items-center';
-export const darkImage = 'w-full object-cover mix-blend-screen [mask-image:linear-gradient(to_right,transparent_0%,black_12%)] lg:h-full lg:min-h-[560px] lg:w-auto lg:min-w-full lg:object-left';
+export const darkImageWrap = 'lg:absolute lg:inset-y-0 lg:left-[45%] lg:right-[calc((100%-100vw)/2)] lg:flex lg:items-center';
+export const darkImage = 'w-full object-cover mix-blend-lighten [mask-image:linear-gradient(to_right,transparent_0%,black_15%)] lg:h-full lg:min-h-[560px] lg:w-auto lg:min-w-full lg:object-left';
