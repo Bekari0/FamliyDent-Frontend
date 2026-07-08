@@ -74,9 +74,9 @@ export function DoctorDetailModal({ doctor, isOpen, onClose, onBooking }: Doctor
  <div className={styles.statLabel}>Опыт работы</div>
  </div>
  </div>
- <div className="w-px h-8 bg-slate-100" />
+ <div className="w-px h-8 bg-secondary" />
  <div className={styles.statItem}>
- <Star className="w-5 h-5 text-amber-400 fill-current" />
+ <Star className="w-5 h-5 text-primary fill-current" />
  <div>
  <div className={styles.statValue}>5.0 Рейтинг</div>
  <div className={styles.statLabel}>Отзывы пациентов</div>
@@ -94,7 +94,7 @@ export function DoctorDetailModal({ doctor, isOpen, onClose, onBooking }: Doctor
  </p>
  {doctor.education && (
  <div className={styles.eduBox}>
- <strong className="text-primary font-bold mr-2 uppercase text-[10px] tracking-widest">Образование:</strong> 
+ <strong className="text-primary font-semibold mr-2 uppercase text-[10px] tracking-[0.18em]">Образование:</strong> 
  {doctor.education}
  </div>
  )}

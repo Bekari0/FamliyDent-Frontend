@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -61,7 +61,7 @@ export function DoctorsPage() {
  <div className={styles.container}>
  <div className={styles.loaderWrapper}>
  <div className={styles.loader} />
- <p className="mt-4 text-slate-600 text-sm sm:text-base">Загрузка врачей...</p>
+ <p className="mt-4 text-muted-foreground text-sm sm:text-base">Загрузка врачей...</p>
  </div>
  </div>
  </div>
@@ -73,7 +73,7 @@ export function DoctorsPage() {
  <div className={styles.page}>
  <div className={styles.container}>
  <div className={styles.loaderWrapper}>
- <p className="text-red-500 text-sm sm:text-base">{error}</p>
+ <p className="text-destructive text-sm sm:text-base">{error}</p>
  <Button onClick={() => window.location.reload()} className="mt-4">
  Попробовать снова
  </Button>
@@ -124,12 +124,12 @@ export function DoctorsPage() {
  className={styles.imageStyle}
  />
  <div className={styles.ratingBadge}>
- <Star className="w-3 h-3 text-yellow-400 fill-current" />
+ <Star className="w-3 h-3 text-primary fill-current" />
  <span>5.0</span>
  </div>
- <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-4 sm:p-6">
+ <div className="absolute inset-0 bg-gradient-to-t from-espresso/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-4 sm:p-6">
  <div className="translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
- <div className="text-white/80 text-[10px] font-bold uppercase tracking-widest">Нажмите для подробностей</div>
+ <div className="text-espresso-foreground/90 text-[10px] font-semibold uppercase tracking-[0.18em]">Нажмите для подробностей</div>
  <div className="w-10 h-0.5 bg-primary rounded-full mt-2" />
  </div>
  </div>

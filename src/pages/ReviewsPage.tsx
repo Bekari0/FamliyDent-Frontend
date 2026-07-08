@@ -80,33 +80,33 @@ export function ReviewsPage() {
  </div>
 
  <div className="mx-auto mb-12 max-w-3xl text-center">
- <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-5 font-display text-[clamp(2.2rem,4vw,4rem)] font-bold text-foreground">
+ <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-5 font-display text-[clamp(2.2rem,4vw,4rem)] font-semibold text-foreground">
  Отзывы пациентов
  </motion.h1>
- <div className="mb-4 flex items-center justify-center gap-1 text-amber-400">
+ <div className="mb-4 flex items-center justify-center gap-1 text-primary">
  {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="h-6 w-6 fill-current" />)}
  </div>
- <p className="text-lg font-semibold text-text-secondary">
+ <p className="text-lg font-semibold text-muted-foreground">
  {reviews.length > 0 ? `${reviews.length} опубликованных отзывов` : 'На сайте отображаются только одобренные отзывы.'}
  </p>
  </div>
 
  {user && (
- <form onSubmit={handleSubmit} className="mx-auto mb-12 max-w-2xl space-y-5 rounded-xl border border-border bg-card p-6 shadow-sm">
+ <form onSubmit={handleSubmit} className="mx-auto mb-12 max-w-2xl space-y-5 rounded-md border border-border bg-card p-6 shadow-sm">
  <div>
- <h2 className="text-xl font-bold text-foreground">Оставить отзыв</h2>
- <p className="mt-1 text-sm text-text-secondary">Отзыв можно отправить после завершенного приема. Перед публикацией его проверит администратор.</p>
+ <h2 className="text-xl font-semibold text-foreground">Оставить отзыв</h2>
+ <p className="mt-1 text-sm text-muted-foreground">Отзыв можно отправить после завершенного приема. Перед публикацией его проверит администратор.</p>
  </div>
 
  {available.length === 0 ? (
- <div className="rounded-xl border border-border bg-secondary/70 p-4 text-sm text-text-secondary">
+ <div className="rounded-md border border-border bg-secondary/70 p-4 text-sm text-muted-foreground">
  Нет завершенных приемов, доступных для отзыва.
  </div>
  ) : (
  <>
  <label className="block">
  <span className="text-sm font-semibold text-foreground">Прием</span>
- <select value={form.appointmentId} onChange={(e) => setForm({ ...form, appointmentId: e.target.value })} className="mt-2 h-11 w-full rounded-xl border border-border bg-white px-3 text-foreground">
+ <select value={form.appointmentId} onChange={(e) => setForm({ ...form, appointmentId: e.target.value })} className="mt-2 h-11 w-full rounded-md border border-border bg-card px-3 text-foreground">
  {available.map((booking) => (
  <option key={booking._id || booking.id} value={booking._id || booking.id}>
  {booking.date || 'Дата не указана'} {booking.time || ''} · {getDisplayDoctorName(booking)}
@@ -117,10 +117,10 @@ export function ReviewsPage() {
 
  <div>
  <span className="text-sm font-semibold text-foreground">Оценка</span>
- <div className="mt-2 flex gap-2 text-amber-400">
+ <div className="mt-2 flex gap-2 text-primary">
  {[1, 2, 3, 4, 5].map((s) => (
  <button key={s} type="button" onClick={() => setForm({ ...form, rating: s })} className="p-1">
- <Star className={`h-7 w-7 ${form.rating >= s ? 'fill-current' : 'text-slate-200'}`} />
+ <Star className={`h-7 w-7 ${form.rating >= s ? 'fill-current' : 'text-espresso-muted'}`} />
  </button>
  ))}
  </div>
@@ -128,10 +128,10 @@ export function ReviewsPage() {
 
  <label className="block">
  <span className="text-sm font-semibold text-foreground">Текст отзыва</span>
- <textarea required value={form.text} onChange={(e) => setForm({ ...form, text: e.target.value })} className="mt-2 h-32 w-full resize-none rounded-xl border border-border bg-white p-4 focus:ring-2 focus:ring-primary/20" placeholder="Расскажите о вашем впечатлении..." />
+ <textarea required value={form.text} onChange={(e) => setForm({ ...form, text: e.target.value })} className="mt-2 h-32 w-full resize-none rounded-md border border-border bg-card p-4 focus:ring-2 focus:ring-primary/20" placeholder="Расскажите о вашем впечатлении..." />
  </label>
 
- <Button disabled={submitting} type="submit" className="h-12 w-full rounded-xl bg-primary font-bold text-white">
+ <Button disabled={submitting} type="submit" className="h-12 w-full rounded-md bg-primary font-semibold text-white">
  {submitting ? <Loader2 className="animate-spin" /> : <><Send className="mr-2 h-4 w-4" /> Отправить на модерацию</>}
  </Button>
  </>
@@ -142,7 +142,7 @@ export function ReviewsPage() {
  {loading ? (
  <div className="flex justify-center py-20"><Loader2 className="h-10 w-10 animate-spin text-primary" /></div>
  ) : reviews.length === 0 ? (
- <div className="mx-auto max-w-xl rounded-xl border border-border bg-card p-8 text-center text-text-secondary">Пока нет опубликованных отзывов.</div>
+ <div className="mx-auto max-w-xl rounded-md border border-border bg-card p-8 text-center text-muted-foreground">Пока нет опубликованных отзывов.</div>
  ) : (
  <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
  {reviews.map((review, idx) => (

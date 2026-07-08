@@ -37,11 +37,11 @@
 }
 
 .badgeText {
-  @apply text-primary font-bold uppercase tracking-widest text-xs;
+  @apply text-primary font-semibold uppercase tracking-[0.18em] text-xs;
 }
 
 .title {
-  @apply text-4xl lg:text-5xl font-bold text-foreground mb-6;
+  @apply text-4xl lg:text-5xl font-semibold text-foreground mb-6;
 }
 
 .titleSpan {
@@ -49,7 +49,7 @@
 }
 
 .desc {
-  @apply text-lg text-text-secondary leading-relaxed max-w-xl;
+  @apply text-lg text-muted-foreground leading-relaxed max-w-xl;
 }
 
 .infoGrid {
@@ -57,7 +57,7 @@
 }
 
 .infoCard {
-  @apply p-6 rounded-xl bg-secondary border border-border hover:border-primary/20 hover:shadow-lg transition-all duration-300 flex flex-col;
+  @apply p-6 rounded-md bg-secondary border border-border hover:border-primary/20 hover:shadow-lg transition-all duration-300 flex flex-col;
 }
 
 .infoIconBox {
@@ -65,19 +65,19 @@
 }
 
 .infoLabel {
-  @apply text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1;
+  @apply text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.18em] mb-1;
 }
 
 .infoValue {
-  @apply text-lg font-bold text-foreground mb-1;
+  @apply text-lg font-semibold text-foreground mb-1;
 }
 
 .infoSmall {
-  @apply text-sm text-text-secondary;
+  @apply text-sm text-muted-foreground;
 }
 
 .helperCard {
-  @apply p-6 rounded-xl bg-primary text-white shadow-lg flex flex-col justify-center;
+  @apply p-6 rounded-md bg-primary text-primary-foreground shadow-lg flex flex-col justify-center;
 }
 
 .helperHeader {
@@ -85,7 +85,7 @@
 }
 
 .helperLabel {
-  @apply font-bold text-xs uppercase tracking-widest;
+  @apply font-semibold text-xs uppercase tracking-[0.18em];
 }
 
 .aiText {
@@ -97,11 +97,11 @@
 }
 
 .mapContainer {
-  @apply h-[400px] lg:h-full min-h-[500px] w-full rounded-xl overflow-hidden shadow-xl relative;
+  @apply h-[400px] lg:h-full min-h-[500px] w-full rounded-md overflow-hidden shadow-xl relative;
 }
 
 .mapOverlay {
-  @apply absolute inset-0 pointer-events-none border border-border rounded-xl z-10;
+  @apply absolute inset-0 pointer-events-none border border-border rounded-md z-10;
 }
 
 .mapLabelBox {
@@ -109,7 +109,7 @@
 }
 
 .mapLabel {
-  @apply bg-card p-6 rounded-2xl shadow-xl border border-border flex items-center justify-between;
+  @apply bg-card p-6 rounded-lg shadow-xl border border-border flex items-center justify-between;
 }
 
 .mapLabelInner {
@@ -117,7 +117,7 @@
 }
 
 .mapLabelIconBox {
-  @apply w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary;
+  @apply w-12 h-12 rounded-md bg-primary/10 flex items-center justify-center text-primary;
 }
 
 .mapLabelTags {
@@ -125,9 +125,9 @@
 }
 
 .mapLabelSmall {
-  @apply text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1;
+  @apply text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.18em] mb-1;
 }
 
 .mapLabelBig {
-  @apply text-lg font-bold text-foreground;
+  @apply text-lg font-semibold text-foreground;
 }

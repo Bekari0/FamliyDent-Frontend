@@ -104,9 +104,9 @@ export function Contact() {
                     key={i}
                     geometry={loc.center}
                     properties={{
-                      balloonContentHeader: `<div class="font-bold text-primary p-1">${loc.title}</div>`,
-                      balloonContentBody: `<div class="text-slate-600 text-sm px-1 pb-1">${loc.address}</div>`,
-                      balloonContentFooter: `<div class="font-bold text-slate-900 px-1 pb-1">${loc.phone}</div>`,
+                      balloonContentHeader: `<div class="font-semibold text-primary p-1">${loc.title}</div>`,
+                      balloonContentBody: `<div class="text-muted-foreground text-sm px-1 pb-1">${loc.address}</div>`,
+                      balloonContentFooter: `<div class="font-semibold text-foreground px-1 pb-1">${loc.phone}</div>`,
                       hintContent: loc.title,
                     }}
                     options={{

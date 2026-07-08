@@ -102,7 +102,7 @@ export function ArticleDetailPage() {
  <div className="container mx-auto px-4 max-w-4xl">
  <Link 
  to="/blog" 
- className="inline-flex items-center gap-2 text-text-secondary hover:text-primary font-bold text-xs uppercase tracking-widest mb-10 transition-colors"
+ className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary font-semibold text-xs uppercase tracking-[0.18em] mb-10 transition-colors"
  >
  <ChevronLeft className="w-4 h-4" />
  Назад к блогу
@@ -111,7 +111,7 @@ export function ArticleDetailPage() {
  <header className="mb-12">
  <div className="flex gap-2 mb-6">
  {tags.map((t: string) => (
- <span key={t} className="px-4 py-1.5 bg-primary/5 text-primary rounded-full text-xs font-bold uppercase tracking-widest">
+ <span key={t} className="px-4 py-1.5 bg-primary/5 text-primary rounded-full text-xs font-semibold uppercase tracking-[0.18em]">
  #{t}
  </span>
  ))}
@@ -119,25 +119,25 @@ export function ArticleDetailPage() {
  <motion.h1 
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
- className="text-4xl lg:text-5xl font-display font-bold text-foreground mb-8 leading-tight"
+ className="text-4xl lg:text-5xl font-display font-semibold text-foreground mb-8 leading-tight"
  >
  {post.title}
  </motion.h1>
  
  <div className="flex items-center justify-between py-6 border-y border-border">
  <div className="flex items-center gap-6">
- <div className="flex items-center gap-2 text-sm text-text-secondary">
+ <div className="flex items-center gap-2 text-sm text-muted-foreground">
  <Calendar className="w-4 h-4" />
  {articleDate}
  </div>
- <div className="flex items-center gap-2 text-sm text-text-secondary font-bold">
+ <div className="flex items-center gap-2 text-sm text-muted-foreground font-semibold">
  <User className="w-4 h-4 text-primary" />
  {post.author}
  </div>
  </div>
  <div className="flex items-center gap-3">
  <button className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-secondary transition-colors">
- <Share2 className="w-4 h-4 text-text-secondary" />
+ <Share2 className="w-4 h-4 text-muted-foreground" />
  </button>
  </div>
  </div>
@@ -152,23 +152,23 @@ export function ArticleDetailPage() {
  </motion.div>
 
  <div className="prose prose-stone prose-lg max-w-none">
- <p className="text-xl text-text-secondary font-medium italic mb-10 leading-relaxed border-l-4 border-primary pl-8 py-2">
+ <p className="text-xl text-muted-foreground font-medium italic mb-10 leading-relaxed border-l-4 border-primary pl-8 py-2">
  {post.excerpt}
  </p>
  <div className="text-foreground leading-relaxed space-y-8">
  <p>{content}</p>
- <h3 className="text-2xl font-bold">Почему это важно?</h3>
+ <h3 className="text-2xl font-semibold">Почему это важно?</h3>
  <p>{content.slice(0, 1000)}</p>
  </div>
  </div>
 
  <div className="mt-20 pt-10 border-t border-border">
- <h3 className="text-xl font-bold text-foreground mb-6">Поделиться в соцсетях:</h3>
+ <h3 className="text-xl font-semibold text-foreground mb-6">Поделиться в соцсетях:</h3>
  <div className="flex flex-wrap gap-4">
  <button
  type="button"
  onClick={shareOnFacebook}
- className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-foreground text-card font-bold text-sm shadow-lg shadow-foreground/5 hover:opacity-90 active:scale-95 transition-all"
+ className="flex items-center gap-3 px-6 py-3 rounded-lg bg-foreground text-card font-semibold text-sm shadow-lg shadow-foreground/5 hover:opacity-90 active:scale-95 transition-all"
  >
  <Facebook className="w-5 h-5 fill-current" />
  Facebook
@@ -176,7 +176,7 @@ export function ArticleDetailPage() {
  <button
  type="button"
  onClick={shareOnTwitter}
- className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-primary text-white font-bold text-sm shadow-lg shadow-primary/20 hover:opacity-90 active:scale-95 transition-all"
+ className="flex items-center gap-3 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold text-sm shadow-lg shadow-primary/20 hover:opacity-90 active:scale-95 transition-all"
  >
  <Twitter className="w-5 h-5 fill-current" />
  Twitter
@@ -184,7 +184,7 @@ export function ArticleDetailPage() {
  <button
  type="button"
  onClick={copyArticleLink}
- className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-card border border-border text-text-secondary font-bold text-sm hover:bg-secondary active:scale-95 transition-all"
+ className="flex items-center gap-3 px-6 py-3 rounded-lg bg-card border border-border text-muted-foreground font-semibold text-sm hover:bg-secondary active:scale-95 transition-all"
  >
  <Link2 className="w-5 h-5" />
  {copied ? 'Ссылка скопирована' : 'Копировать ссылку'}

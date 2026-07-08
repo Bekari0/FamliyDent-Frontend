@@ -55,7 +55,7 @@ export function PatientMedicalCard({ patientId, isEditable = false }: PatientMed
  return (
  <div className="flex flex-col items-center justify-center py-20">
  <Loader2 className="w-10 h-10 animate-spin text-primary mb-4" />
- <p className="text-[10px] font-black uppercase tracking-[0.2em] text-text-secondary">Загрузка данных...</p>
+ <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Загрузка данных...</p>
  </div>
  );
  }
@@ -68,25 +68,25 @@ export function PatientMedicalCard({ patientId, isEditable = false }: PatientMed
  <div className="space-y-5">
  <h3 className="text-xl font-display font-bold text-foreground">Основные данные</h3>
  <div className="bg-secondary rounded-2xl p-5 sm:p-6 border border-border">
- <label className="block text-[10px] font-black uppercase tracking-widest text-primary mb-3 ml-1">Группа крови</label>
+ <label className="block text-[10px] font-semibold uppercase tracking-widest text-primary mb-3 ml-1">Группа крови</label>
  <input 
  type="text" 
  value={card.bloodType || ''} 
  onChange={(e) => setCard({...card, bloodType: e.target.value})}
  disabled={!isEditable}
  placeholder="Введите группу крови (напр. O+)"
- className="w-full bg-card border border-border rounded-xl p-4 font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all disabled:bg-background disabled:text-text-secondary"
+ className="w-full bg-card border border-border rounded-xl p-4 font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all disabled:bg-background disabled:text-muted-foreground"
  />
  </div>
  <div className="bg-secondary rounded-2xl p-5 sm:p-6 border border-border">
- <label className="block text-[10px] font-black uppercase tracking-widest text-primary mb-3 ml-1">Дополнительные заметки</label>
+ <label className="block text-[10px] font-semibold uppercase tracking-widest text-primary mb-3 ml-1">Дополнительные заметки</label>
  <textarea 
  value={card.notes || ''} 
  onChange={(e) => setCard({...card, notes: e.target.value})}
  disabled={!isEditable}
  rows={4}
  placeholder="Важные примечания для врачей..."
- className="w-full bg-card border border-border rounded-xl p-4 font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all disabled:bg-background disabled:text-text-secondary resize-none"
+ className="w-full bg-card border border-border rounded-xl p-4 font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all disabled:bg-background disabled:text-muted-foreground resize-none"
  />
  </div>
  </div>
@@ -96,7 +96,7 @@ export function PatientMedicalCard({ patientId, isEditable = false }: PatientMed
  
  <div className="bg-error/5 rounded-2xl p-5 sm:p-6 border border-error/10">
  <div className="flex items-center justify-between mb-4">
- <label className="block text-[10px] font-black uppercase tracking-widest text-error ml-1">Аллергии</label>
+ <label className="block text-[10px] font-semibold uppercase tracking-widest text-error ml-1">Аллергии</label>
  {card.allergies.length > 0 && <AlertCircle className="w-4 h-4 text-error" />}
  </div>
  
@@ -115,7 +115,7 @@ export function PatientMedicalCard({ patientId, isEditable = false }: PatientMed
  </span>
  ))}
  {card.allergies.length === 0 && (
- <p className="text-text-secondary font-medium italic text-sm py-2 px-2">Аллергий не выявлено</p>
+ <p className="text-muted-foreground font-medium italic text-sm py-2 px-2">Аллергий не выявлено</p>
  )}
  </div>
 
@@ -144,7 +144,7 @@ export function PatientMedicalCard({ patientId, isEditable = false }: PatientMed
  </div>
 
  <div className="bg-secondary rounded-2xl p-5 sm:p-6 border border-border">
- <label className="block text-[10px] font-black uppercase tracking-widest text-primary mb-4 ml-1">Хронические заболевания</label>
+ <label className="block text-[10px] font-semibold uppercase tracking-widest text-primary mb-4 ml-1">Хронические заболевания</label>
  <div className="flex flex-wrap gap-2 mb-4">
  {card.chronicConditions.map((condition, i) => (
  <span key={i} className="px-4 py-2 bg-card text-foreground rounded-xl text-xs font-bold border border-border flex items-center gap-2">
@@ -160,7 +160,7 @@ export function PatientMedicalCard({ patientId, isEditable = false }: PatientMed
  </span>
  ))}
  {card.chronicConditions.length === 0 && (
- <p className="text-text-secondary font-medium text-sm py-2 px-2">Данные отсутствуют</p>
+ <p className="text-muted-foreground font-medium text-sm py-2 px-2">Данные отсутствуют</p>
  )}
  </div>
 
@@ -180,7 +180,7 @@ export function PatientMedicalCard({ patientId, isEditable = false }: PatientMed
  setNewCondition('');
  }
  }}
- className="w-10 h-10 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-primary/90 transition-colors"
+ className="w-10 h-10 bg-primary text-primary-foreground rounded-xl flex items-center justify-center hover:bg-primary/90 transition-colors"
  >
  <Plus size={18} />
  </button>
@@ -195,7 +195,7 @@ export function PatientMedicalCard({ patientId, isEditable = false }: PatientMed
  <Button 
  onClick={handleSave} 
  disabled={saving}
- className="rounded-xl bg-primary text-white h-14 px-8 sm:px-10 font-bold shadow-xl shadow-primary/20 hover:bg-primary-hover transition-colors"
+ className="rounded-xl bg-primary text-primary-foreground h-14 px-8 sm:px-10 font-bold shadow-xl shadow-primary/20 hover:bg-primary-hover transition-colors"
  >
  {saving ? (
  <>
@@ -212,7 +212,7 @@ export function PatientMedicalCard({ patientId, isEditable = false }: PatientMed
  </div>
  )}
 
- <div className="flex items-center gap-4 p-5 bg-secondary rounded-2xl border border-border text-[10px] text-text-secondary font-bold uppercase tracking-widest">
+ <div className="flex items-center gap-4 p-5 bg-secondary rounded-2xl border border-border text-[10px] text-muted-foreground font-bold uppercase tracking-widest">
  <Shield className="w-5 h-5 text-primary" />
  Последнее обновление: {new Date(card.updatedAt).toLocaleString('ru-RU')}
  </div>

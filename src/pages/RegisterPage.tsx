@@ -106,9 +106,9 @@ export function RegisterPage() {
 
  <div className="container mx-auto px-4 max-w-6xl">
  <div className="bg-card rounded-[32px] overflow-hidden shadow-2xl flex flex-col lg:flex-row border border-border">
- <div className="lg:w-1/2 p-10 lg:p-16 bg-primary text-white">
+ <div className="lg:w-1/2 p-10 lg:p-16 bg-primary text-primary-foreground">
  <div className="max-w-md">
- <h1 className="text-4xl lg:text-5xl font-display font-bold mb-6 leading-tight">Присоединяйтесь к FamilyDent</h1>
+ <h1 className="text-4xl lg:text-5xl font-display font-semibold mb-6 leading-tight">Присоединяйтесь к FamilyDent</h1>
  <p className="text-lg text-white/75 mb-10">Получите доступ к онлайн-записи, своей медицинской карте и истории посещений.</p>
 
  <div className="space-y-6">
@@ -117,11 +117,11 @@ export function RegisterPage() {
  { icon: ArrowRight, title: 'Быстро', text: 'Запись к врачу и управление визитами в личном кабинете.' }
  ].map((item) => (
  <div key={item.title} className="flex gap-4">
- <div className="w-11 h-11 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
+ <div className="w-11 h-11 bg-card/10 rounded-md flex items-center justify-center shrink-0">
  <item.icon className="w-5 h-5" />
  </div>
  <div>
- <div className="font-bold text-lg mb-1">{item.title}</div>
+ <div className="font-semibold text-lg mb-1">{item.title}</div>
  <div className="text-sm text-white/65 leading-relaxed">{item.text}</div>
  </div>
  </div>
@@ -135,10 +135,10 @@ export function RegisterPage() {
  {!isVerifying ? (
  <>
  <div className="flex items-center gap-3 mb-8 text-primary">
- <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+ <div className="w-10 h-10 bg-primary/10 rounded-md flex items-center justify-center">
  <UserPlus className="w-6 h-6" />
  </div>
- <span className="font-bold uppercase tracking-widest text-xs">Регистрация пациента</span>
+ <span className="font-semibold uppercase tracking-[0.18em] text-xs">Регистрация пациента</span>
  </div>
 
  <form onSubmit={handleRegister} className="space-y-5">
@@ -149,12 +149,12 @@ export function RegisterPage() {
 
  <div className="grid sm:grid-cols-2 gap-4">
  <label className="space-y-2 block">
- <span className="text-xs font-bold text-text-secondary uppercase tracking-widest ml-1">Дата рождения</span>
- <input type="date" value={formData.birthDate} onChange={(e) => setFormData({ ...formData, birthDate: e.target.value })} className="w-full h-12 px-4 rounded-xl bg-secondary border border-border focus:ring-2 focus:ring-primary/20 text-foreground" />
+ <span className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.18em] ml-1">Дата рождения</span>
+ <input type="date" value={formData.birthDate} onChange={(e) => setFormData({ ...formData, birthDate: e.target.value })} className="w-full h-12 px-4 rounded-md bg-secondary border border-border focus:ring-2 focus:ring-primary/20 text-foreground" />
  </label>
  <label className="space-y-2 block">
- <span className="text-xs font-bold text-text-secondary uppercase tracking-widest ml-1">Пол</span>
- <select value={formData.gender} onChange={(e) => setFormData({ ...formData, gender: e.target.value })} className="w-full h-12 px-4 rounded-xl bg-secondary border border-border focus:ring-2 focus:ring-primary/20 text-foreground font-bold">
+ <span className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.18em] ml-1">Пол</span>
+ <select value={formData.gender} onChange={(e) => setFormData({ ...formData, gender: e.target.value })} className="w-full h-12 px-4 rounded-md bg-secondary border border-border focus:ring-2 focus:ring-primary/20 text-foreground font-semibold">
  <option value="male">Мужской</option>
  <option value="female">Женский</option>
  <option value="other">Другой</option>
@@ -169,47 +169,47 @@ export function RegisterPage() {
  <Field label="Повторите пароль" icon={Lock} type="password" value={formData.confirmPassword} onChange={(value: string) => setFormData({ ...formData, confirmPassword: value })} autoComplete="new-password" />
  </div>
 
- <Button disabled={submitting} type="submit" className="w-full h-14 rounded-xl bg-primary text-white font-bold text-base shadow-xl shadow-primary/20">
+ <Button disabled={submitting} type="submit" className="w-full h-14 rounded-md bg-primary text-primary-foreground font-semibold text-base shadow-xl shadow-primary/20">
  {submitting ? 'Создаем...' : 'Создать аккаунт'}
  </Button>
  </form>
 
  <div className="mt-8 text-center">
- <p className="text-text-secondary text-sm">
- Уже есть аккаунт? <Link to="/login" className="text-primary font-bold hover:underline">Войти</Link>
+ <p className="text-muted-foreground text-sm">
+ Уже есть аккаунт? <Link to="/login" className="text-primary font-semibold hover:underline">Войти</Link>
  </p>
  </div>
  </>
  ) : (
  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-7">
  <div className="flex items-center gap-3 text-primary">
- <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+ <div className="w-10 h-10 bg-primary/10 rounded-md flex items-center justify-center">
  <ShieldCheck className="w-6 h-6" />
  </div>
- <span className="font-bold uppercase tracking-widest text-xs">Подтверждение email</span>
+ <span className="font-semibold uppercase tracking-[0.18em] text-xs">Подтверждение email</span>
  </div>
 
  <div>
- <h2 className="text-2xl font-bold text-foreground">Введите код</h2>
- <p className="text-text-secondary mt-2">Мы отправили 6-значный код на <b>{formData.email}</b>. Код действует 10 минут.</p>
+ <h2 className="text-2xl font-semibold text-foreground">Введите код</h2>
+ <p className="text-muted-foreground mt-2">Мы отправили 6-значный код на <b>{formData.email}</b>. Код действует 10 минут.</p>
  </div>
 
  <form onSubmit={handleVerify} className="space-y-5">
- <input required type="text" inputMode="numeric" maxLength={6} value={verificationCode} onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, ''))} className="w-full h-16 text-center text-3xl font-black tracking-[0.7rem] rounded-xl bg-secondary border border-border focus:ring-2 focus:ring-primary/20 text-foreground" placeholder="000000" />
+ <input required type="text" inputMode="numeric" maxLength={6} value={verificationCode} onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, ''))} className="w-full h-16 text-center text-3xl font-semibold tracking-[0.7rem] rounded-md bg-secondary border border-border focus:ring-2 focus:ring-primary/20 text-foreground" placeholder="000000" />
 
- <Button disabled={submitting} type="submit" className="w-full h-14 rounded-xl bg-primary text-white font-bold text-base shadow-xl shadow-primary/20">
+ <Button disabled={submitting} type="submit" className="w-full h-14 rounded-md bg-primary text-primary-foreground font-semibold text-base shadow-xl shadow-primary/20">
  {submitting ? 'Проверяем...' : 'Подтвердить'}
  </Button>
  </form>
 
  <div className="text-center">
- <button onClick={handleResend} disabled={resendTimer > 0 || submitting} className={`font-bold text-sm uppercase tracking-widest ${resendTimer > 0 ? 'text-text-secondary cursor-not-allowed' : 'text-primary hover:underline'}`}>
+ <button onClick={handleResend} disabled={resendTimer > 0 || submitting} className={`font-semibold text-sm uppercase tracking-[0.18em] ${resendTimer > 0 ? 'text-muted-foreground cursor-not-allowed' : 'text-primary hover:underline'}`}>
  Отправить код повторно {resendTimer > 0 && `через ${resendTimer}с`}
  </button>
  </div>
 
  <div className="text-center">
- <button onClick={() => setIsVerifying(false)} className="text-text-secondary text-xs font-bold uppercase tracking-widest hover:text-foreground">
+ <button onClick={() => setIsVerifying(false)} className="text-muted-foreground text-xs font-semibold uppercase tracking-[0.18em] hover:text-foreground">
  <ArrowLeft className="w-3 h-3 inline mr-1" /> Изменить email
  </button>
  </div>
@@ -236,10 +236,10 @@ function Field({ label, icon: Icon, value, onChange, type = 'text', autoComplete
 
  return (
  <label className="space-y-2 block">
- <span className="text-xs font-bold text-text-secondary uppercase tracking-widest ml-1">{label}</span>
+ <span className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.18em] ml-1">{label}</span>
  <div className="relative">
- <input required type={type} value={value} onChange={isPhoneHandler ? handleChange : handleValueChange} autoComplete={autoComplete} maxLength={maxLength} className="w-full h-12 pl-11 pr-4 rounded-xl bg-secondary border border-border focus:ring-2 focus:ring-primary/20 text-foreground" />
- <Icon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
+ <input required type={type} value={value} onChange={isPhoneHandler ? handleChange : handleValueChange} autoComplete={autoComplete} maxLength={maxLength} className="w-full h-12 pl-11 pr-4 rounded-md bg-secondary border border-border focus:ring-2 focus:ring-primary/20 text-foreground" />
+ <Icon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
  </div>
  </label>
  );

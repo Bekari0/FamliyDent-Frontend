@@ -17,7 +17,7 @@
 }
 
 .blob1 {
- @apply absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -mr-24 -mt-24 blur-2xl;
+ @apply absolute top-0 right-0 w-48 h-48 bg-card/10 rounded-full -mr-24 -mt-24 blur-2xl;
 }
 
 .blob2 {
@@ -29,11 +29,11 @@
 }
 
 .iconBox {
- @apply inline-flex items-center justify-center w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl mb-6;
+ @apply inline-flex items-center justify-center w-12 h-12 bg-card/20 backdrop-blur-md rounded-md mb-6;
 }
 
 .leftTitle {
- @apply text-xl lg:text-2xl font-black text-white mb-3 leading-tight;
+ @apply text-xl lg:text-2xl font-semibold text-white mb-3 leading-tight;
 }
 
 .leftDesc {
@@ -49,15 +49,15 @@
 }
 
 .statIcon {
- @apply w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center shrink-0;
+ @apply w-8 h-8 rounded-lg bg-card/10 flex items-center justify-center shrink-0;
 }
 
 .statLabel {
- @apply text-[9px] font-bold uppercase tracking-wider text-white/40;
+ @apply text-[9px] font-semibold uppercase tracking-wider text-white/40;
 }
 
 .statValue {
- @apply font-bold text-xs lg:text-sm;
+ @apply font-semibold text-xs lg:text-sm;
 }
 
 .formSide {
@@ -69,7 +69,7 @@
 }
 
 .headerTitle {
- @apply text-lg lg:text-xl font-black text-foreground;
+ @apply text-lg lg:text-xl font-semibold text-foreground;
 }
 
 .titleUnderline {
@@ -77,7 +77,7 @@
 }
 
 .closeBtn {
- @apply w-8 h-8 md:w-10 md:h-10 rounded-full bg-secondary flex items-center justify-center text-text-secondary hover:text-foreground hover:bg-secondary/80 transition-all shrink-0;
+ @apply w-8 h-8 md:w-10 md:h-10 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary/80 transition-all shrink-0;
 }
 
 .form {
@@ -93,15 +93,15 @@
 }
 
 .label {
- @apply text-[10px] font-bold text-text-secondary uppercase tracking-wider flex items-center gap-2 px-1;
+ @apply text-[10px] font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-2 px-1;
 }
 
 .input {
- @apply h-10 md:h-12 rounded-lg md:rounded-xl bg-secondary border-transparent focus:bg-card transition-all text-sm;
+ @apply h-10 md:h-12 rounded-lg md:rounded-md bg-secondary border-transparent focus:bg-card transition-all text-sm;
 }
 
 .errorText {
- @apply text-[9px] text-red-500 font-bold px-1 flex items-center gap-1;
+ @apply text-[9px] text-destructive font-semibold px-1 flex items-center gap-1;
 }
 
 .selectWrapper {
@@ -109,23 +109,23 @@
 }
 
 .select {
- @apply w-full h-10 md:h-12 rounded-lg md:rounded-xl bg-secondary px-3 text-foreground border-none focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer text-sm;
+ @apply w-full h-10 md:h-12 rounded-lg md:rounded-md bg-secondary px-3 text-foreground border-none focus:ring-2 focus:ring-primary/20 outline-none appearance-none cursor-pointer text-sm;
 }
 
 .selectIcon {
- @apply absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-text-secondary;
+ @apply absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground;
 }
 
 .textarea {
- @apply min-h-[80px] rounded-lg md:rounded-xl bg-secondary border-none focus:ring-2 focus:ring-primary/20 text-sm p-3 resize-none transition-all;
+ @apply min-h-[80px] rounded-lg md:rounded-md bg-secondary border-none focus:ring-2 focus:ring-primary/20 text-sm p-3 resize-none transition-all;
 }
 
 .submitBtn {
- @apply w-full h-12 md:h-14 rounded-lg md:rounded-xl text-sm md:text-base font-bold shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all overflow-hidden relative;
+ @apply w-full h-12 md:h-14 rounded-lg md:rounded-md text-sm md:text-base font-semibold shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all overflow-hidden relative;
 }
 
 .submitOverlay {
- @apply absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300;
+ @apply absolute inset-0 bg-card/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300;
 }
 
 .submitContent {

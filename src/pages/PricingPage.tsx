@@ -64,7 +64,7 @@ export function PricingPage() {
  </div>
  </div>
  <div className={styles.priceRow}>
- <span className="text-slate-400 text-xs font-bold mr-1">от</span>
+ <span className="text-muted-foreground text-xs font-semibold mr-1">от</span>
  <span className={styles.priceValue}>{service.price}</span>
  <span className={styles.priceCurrency}>TJS</span>
  </div>
@@ -90,13 +90,13 @@ export function PricingPage() {
  Записаться сейчас
  </button>
  <div className={styles.benefits}>
- <div className="flex items-center gap-3 text-slate-400">
+ <div className="flex items-center gap-3 text-muted-foreground">
  <Check className="w-4 h-4 text-primary" />
- <span className="text-[10px] font-black uppercase tracking-widest">План лечения</span>
+ <span className="text-[10px] font-semibold uppercase tracking-[0.18em]">План лечения</span>
  </div>
- <div className="flex items-center gap-3 text-slate-400">
+ <div className="flex items-center gap-3 text-muted-foreground">
  <Check className="w-4 h-4 text-primary" />
- <span className="text-[10px] font-black uppercase tracking-widest">Без скрытых платежей</span>
+ <span className="text-[10px] font-semibold uppercase tracking-[0.18em]">Без скрытых платежей</span>
  </div>
  </div>
  </div>

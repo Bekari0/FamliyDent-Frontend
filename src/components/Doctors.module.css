@@ -25,11 +25,11 @@
 }
 
 .badge {
- @apply inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-6;
+ @apply inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-[0.18em] mb-6;
 }
 
 .title {
- @apply text-4xl lg:text-5xl font-bold text-foreground mb-6;
+ @apply text-4xl lg:text-5xl font-semibold text-foreground mb-6;
 }
 
 .titleSpan {
@@ -37,7 +37,7 @@
 }
 
 .desc {
- @apply text-lg text-text-secondary leading-relaxed;
+ @apply text-lg text-muted-foreground leading-relaxed;
 }
 
 .desktopActions {
@@ -45,7 +45,7 @@
 }
 
 .seeAllBtn {
- @apply rounded-xl px-8 h-14 font-bold border border-border text-foreground flex items-center gap-3 hover:bg-secondary transition-all;
+ @apply rounded-md px-8 h-14 font-semibold border border-border text-foreground flex items-center gap-3 hover:bg-secondary transition-all;
 }
 
 .btnArrow {
@@ -57,7 +57,7 @@
 }
 
 .card {
- @apply border border-border bg-card rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden;
+ @apply border border-border bg-card rounded-md shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden;
 }
 
 .cardContent {
@@ -81,7 +81,7 @@
 }
 
 .profileLabel {
- @apply text-white text-xs font-bold uppercase tracking-widest;
+ @apply text-white text-xs font-semibold uppercase tracking-[0.18em];
 }
 
 .plusIconBox {
@@ -93,7 +93,7 @@
 }
 
 .ratingValue {
- @apply text-sm font-bold text-foreground;
+ @apply text-sm font-semibold text-foreground;
 }
 
 .doctorInfo {
@@ -101,15 +101,15 @@
 }
 
 .expBadge {
- @apply mb-4 rounded-full border border-primary/10 text-primary bg-primary/5 px-4 py-1 font-bold uppercase tracking-widest text-[10px];
+ @apply mb-4 rounded-full border border-primary/10 text-primary bg-primary/5 px-4 py-1 font-semibold uppercase tracking-[0.18em] text-[10px];
 }
 
 .doctorName {
- @apply text-2xl font-bold text-foreground mb-1 transition-colors leading-tight;
+ @apply text-2xl font-semibold text-foreground mb-1 transition-colors leading-tight;
 }
 
 .doctorSpecialty {
- @apply text-text-secondary text-sm mb-6;
+ @apply text-muted-foreground text-sm mb-6;
 }
 
 .cardActions {
@@ -117,11 +117,11 @@
 }
 
 .detailsBtn {
- @apply flex-1 h-12 rounded-xl font-bold border border-border text-text-secondary hover:bg-secondary transition-all text-sm;
+ @apply flex-1 h-12 rounded-md font-semibold border border-border text-muted-foreground hover:bg-secondary transition-all text-sm;
 }
 
 .bookingBtn {
- @apply flex-1 h-12 rounded-xl font-bold bg-primary text-white hover:bg-primary-hover active:scale-95 transition-all text-sm;
+ @apply flex-1 h-12 rounded-md font-semibold bg-primary text-primary-foreground hover:bg-primary-hover active:scale-95 transition-all text-sm;
 }
 
 .mobileActions {
@@ -129,5 +129,5 @@
 }
 
 .mobileSeeAllBtn {
- @apply w-full rounded-xl py-4 font-bold border border-border text-foreground;
+ @apply w-full rounded-md py-4 font-semibold border border-border text-foreground;
 }

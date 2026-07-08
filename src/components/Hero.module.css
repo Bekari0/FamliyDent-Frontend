@@ -17,11 +17,11 @@
 }
 
 .badge {
- @apply mb-6 bg-secondary text-text-secondary border-none px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider;
+ @apply mb-6 bg-secondary text-muted-foreground border-none px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider;
 }
 
 .title {
- @apply text-4xl lg:text-6xl font-bold text-foreground mb-6 leading-tight;
+ @apply text-4xl lg:text-6xl font-semibold text-foreground mb-6 leading-tight;
 }
 
 .titleBr {
@@ -37,7 +37,7 @@
 }
 
 .desc {
- @apply text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-10;
+ @apply text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-10;
 }
 
 .btnGroup {
@@ -45,7 +45,7 @@
 }
 
 .btnPrimary {
- @apply h-14 px-8 rounded-xl bg-primary border-none text-white font-semibold text-base transition-all hover:bg-primary-hover active:scale-95;
+ @apply h-14 px-8 rounded-md bg-primary border-none text-white font-semibold text-base transition-all hover:bg-primary-hover active:scale-95;
 }
 
 .btnArrow {
@@ -53,7 +53,7 @@
 }
 
 .btnOutline {
- @apply h-14 px-8 rounded-xl border-border bg-card text-foreground font-semibold text-base hover:bg-secondary transition-all;
+ @apply h-14 px-8 rounded-md border-border bg-card text-foreground font-semibold text-base hover:bg-secondary transition-all;
 }
 
 .features {
@@ -65,11 +65,11 @@
 }
 
 .featureIconWrapper {
- @apply w-12 h-12 rounded-xl flex items-center justify-center;
+ @apply w-12 h-12 rounded-md flex items-center justify-center;
 }
 
 .featureIconWrapperAccent {
- @apply bg-secondary text-text-secondary;
+ @apply bg-secondary text-muted-foreground;
 }
 
 .featureIconWrapperPrimary {
@@ -81,11 +81,11 @@
 }
 
 .featureTitle {
- @apply text-lg font-bold text-foreground leading-none mb-1;
+ @apply text-lg font-semibold text-foreground leading-none mb-1;
 }
 
 .featureSubtitle {
- @apply text-xs text-text-secondary font-medium;
+ @apply text-xs text-muted-foreground font-medium;
 }
 
 .imageWrapper {
@@ -93,7 +93,7 @@
 }
 
 .imageContainer {
- @apply relative aspect-square rounded-2xl overflow-hidden shadow-xl;
+ @apply relative aspect-square rounded-lg overflow-hidden shadow-xl;
 }
 
 .image {
@@ -105,7 +105,7 @@
 }
 
 .floatingCard {
- @apply absolute z-20 bg-card/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-border flex items-center gap-4;
+ @apply absolute z-20 bg-card/90 backdrop-blur-sm p-4 rounded-md shadow-lg border border-border flex items-center gap-4;
 }
 
 .floatingCardTop {
@@ -129,11 +129,11 @@
 }
 
 .floatingTitle {
- @apply text-sm font-bold text-foreground;
+ @apply text-sm font-semibold text-foreground;
 }
 
 .floatingSubtitle {
- @apply text-[10px] text-text-secondary font-medium mt-0.5;
+ @apply text-[10px] text-muted-foreground font-medium mt-0.5;
 }
 
 .blob1 {

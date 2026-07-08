@@ -161,8 +161,8 @@ export function PatientRecordsPage() {
  <div className="container mx-auto px-4 max-w-5xl">
  <div className="mb-8 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-start lg:items-center gap-4 lg:gap-6">
  <div className="flex justify-start">
- <Button variant="ghost" asChild className="hover:bg-primary/5 rounded-xl text-text-secondary hover:text-primary transition-colors">
- <Link to={isDoctor ? "/doctor/dashboard" : (isAdmin ? "/admin/patients" : "/profile")} className="flex items-center gap-2 font-black text-[10px] uppercase tracking-widest">
+ <Button variant="ghost" asChild className="hover:bg-primary/5 rounded-md text-muted-foreground hover:text-primary transition-colors">
+ <Link to={isDoctor ? "/doctor/dashboard" : (isAdmin ? "/admin/patients" : "/profile")} className="flex items-center gap-2 font-semibold text-[10px] uppercase tracking-[0.18em]">
  <ChevronLeft className="w-4 h-4" />
  Вернуться назад
  </Link>
@@ -170,15 +170,15 @@ export function PatientRecordsPage() {
  </div>
 
  <div className="flex justify-start lg:justify-center overflow-x-auto max-w-full no-scrollbar">
- <div className="flex bg-card p-1 rounded-2xl border border-border shadow-sm">
+ <div className="flex bg-card p-1 rounded-lg border border-border shadow-sm">
  {tabs.map((tab) => (
  <button
  key={tab.id}
  onClick={() => setActiveTab(tab.id as TabType)}
- className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-xs font-bold transition-all whitespace-nowrap ${
+ className={`flex items-center gap-2 px-6 py-3 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${
  activeTab === tab.id 
- ? 'bg-primary text-white shadow-lg shadow-primary/20' 
- : 'text-text-secondary hover:text-primary hover:bg-secondary'
+ ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20' 
+ : 'text-muted-foreground hover:text-primary hover:bg-secondary'
  }`}
  >
  <tab.icon className="w-4 h-4" />
@@ -192,7 +192,7 @@ export function PatientRecordsPage() {
  {(isDoctor || isAdmin) && activeTab !== 'card' && (
  <Button 
  onClick={() => setShowAddModal(true)}
- className="rounded-2xl shadow-xl shadow-primary/20 bg-primary text-white font-bold h-12 px-6"
+ className="rounded-lg shadow-xl shadow-primary/20 bg-primary text-primary-foreground font-semibold h-12 px-6"
  >
  <PlusCircle className="w-4 h-4 mr-2" />
  Добавить
@@ -205,21 +205,21 @@ export function PatientRecordsPage() {
  key={activeTab}
  initial={{ opacity: 0, scale: 0.98 }}
  animate={{ opacity: 1, scale: 1 }}
- className="bg-card rounded-2xl p-5 sm:p-6 md:p-8 border border-border shadow-md relative overflow-hidden"
+ className="bg-card rounded-lg p-5 sm:p-6 md:p-8 border border-border shadow-md relative overflow-hidden"
  >
  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-10">
  <div className="flex items-center gap-5 min-w-0">
- <div className="w-16 h-16 sm:w-20 sm:h-20 bg-secondary rounded-2xl border border-border flex items-center justify-center text-primary shadow-inner shrink-0">
+ <div className="w-16 h-16 sm:w-20 sm:h-20 bg-secondary rounded-lg border border-border flex items-center justify-center text-primary shadow-inner shrink-0">
  {activeTab === 'history' && <Stethoscope className="w-10 h-10" />}
  {activeTab === 'card' && <Shield className="w-10 h-10" />}
  {activeTab === 'scans' && <ImageIcon className="w-10 h-10" />}
  {activeTab === 'recommendations' && <ClipboardCheck className="w-10 h-10" />}
  </div>
  <div>
- <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-2">
+ <h1 className="text-3xl sm:text-4xl font-display font-semibold text-foreground mb-2">
  {tabs.find(t => t.id === activeTab)?.label}
  </h1>
- <p className="text-text-secondary font-medium leading-relaxed">
+ <p className="text-muted-foreground font-medium leading-relaxed">
  {activeTab === 'history' && (patientData ? `История лечения: ${patientData.displayName}` : "История ваших посещений и проведенных процедур")}
  {activeTab === 'card' && (patientData ? `Мед. карта: ${patientData.displayName}` : "Общая медицинская информация, аллергии и противопоказания")}
  {activeTab === 'scans' && (patientData ? `Снимки: ${patientData.displayName}` : "Ваши рентгенограммы и другие диагностические снимки")}
@@ -227,7 +227,7 @@ export function PatientRecordsPage() {
  </p>
  </div>
  </div>
- <div className="px-5 py-3 bg-secondary text-foreground rounded-xl flex items-center gap-3 text-[10px] font-black uppercase tracking-widest border border-border shadow-sm">
+ <div className="px-5 py-3 bg-secondary text-foreground rounded-md flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.18em] border border-border shadow-sm">
  <Lock className="w-4 h-4 text-primary" />
  Данные защищены
  </div>
@@ -236,7 +236,7 @@ export function PatientRecordsPage() {
  {loading ? (
  <div className="flex flex-col items-center justify-center py-20">
  <Loader2 className="w-12 h-12 animate-spin text-primary mb-4" />
- <p className="text-text-secondary font-bold uppercase tracking-widest text-[10px]">Загрузка данных...</p>
+ <p className="text-muted-foreground font-semibold uppercase tracking-[0.18em] text-[10px]">Загрузка данных...</p>
  </div>
  ) : (
  <div className="min-h-[400px]">
@@ -291,10 +291,10 @@ export function PatientRecordsPage() {
  {showAddModal && (
  <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setShowAddModal(false)} className="absolute inset-0 bg-foreground/60 backdrop-blur-sm" />
- <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="relative w-full max-w-md bg-card rounded-2xl p-6 sm:p-8 shadow-2xl overflow-hidden border border-border">
+ <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="relative w-full max-w-md bg-card rounded-lg p-6 sm:p-8 shadow-2xl overflow-hidden border border-border">
  <div className="flex justify-between items-center mb-8">
- <h3 className="text-3xl font-display font-bold text-foreground">Добавить данные</h3>
- <button onClick={() => setShowAddModal(false)} className="p-2 text-text-secondary hover:text-primary transition-colors"><X/></button>
+ <h3 className="text-3xl font-display font-semibold text-foreground">Добавить данные</h3>
+ <button onClick={() => setShowAddModal(false)} className="p-2 text-muted-foreground hover:text-primary transition-colors"><X/></button>
  </div>
  
  {activeTab === 'history' && (
@@ -311,8 +311,8 @@ export function PatientRecordsPage() {
  {activeTab === 'scans' && (
  <div className="space-y-4">
  <div>
- <label className="block text-[10px] font-black uppercase tracking-widest text-foreground/60 mb-2 ml-2">Файл снимка</label>
- <label className="w-full min-h-24 bg-secondary border border-border rounded-2xl p-4 font-bold text-foreground flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-primary transition-all">
+ <label className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground/60 mb-2 ml-2">Файл снимка</label>
+ <label className="w-full min-h-24 bg-secondary border border-border rounded-lg p-4 font-semibold text-foreground flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-primary transition-all">
  {uploadingScan ? <Loader2 className="w-6 h-6 animate-spin text-primary" /> : <Upload className="w-6 h-6 text-primary" />}
  <span className="text-sm text-center">{newScan.originalName || 'Загрузить jpg, png, webp или pdf'}</span>
  <input type="file" accept="image/jpeg,image/png,image/webp,application/pdf" className="hidden" onChange={(e) => e.target.files?.[0] && handleScanUpload(e.target.files[0])} />
@@ -320,11 +320,11 @@ export function PatientRecordsPage() {
  </div>
  <InputField label="Описание" value={newScan.description} onChange={(v: string) => setNewScan({...newScan, description: v})} placeholder="Напр. Верхняя челюсть" />
  <div>
- <label className="block text-[10px] font-black uppercase tracking-widest text-text-secondary mb-2 ml-2">Тип снимка</label>
+ <label className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-2 ml-2">Тип снимка</label>
  <select 
  value={newScan.type} 
  onChange={e => setNewScan({...newScan, type: e.target.value as any})}
- className="w-full bg-secondary border border-border rounded-2xl p-4 font-bold text-foreground focus:outline-none"
+ className="w-full bg-secondary border border-border rounded-lg p-4 font-semibold text-foreground focus:outline-none"
  >
  <option value="x-ray">Рентген</option>
  <option value="photo">Фото</option>
@@ -343,8 +343,8 @@ export function PatientRecordsPage() {
  )}
 
  <div className="flex gap-4 mt-10">
- <Button onClick={() => setShowAddModal(false)} variant="ghost" className="flex-1 rounded-2xl font-bold h-14">Отмена</Button>
- <Button onClick={handleAddData} className="flex-1 rounded-2xl bg-primary text-white font-bold h-14 shadow-xl shadow-primary/20">Добавить</Button>
+ <Button onClick={() => setShowAddModal(false)} variant="ghost" className="flex-1 rounded-lg font-semibold h-14">Отмена</Button>
+ <Button onClick={handleAddData} className="flex-1 rounded-lg bg-primary text-primary-foreground font-semibold h-14 shadow-xl shadow-primary/20">Добавить</Button>
  </div>
  </motion.div>
  </div>
@@ -355,9 +355,9 @@ export function PatientRecordsPage() {
 }
 
 const EmptyState = ({ icon: Icon, message }: { icon: any, message: string }) => (
- <div className="text-center py-20 bg-secondary rounded-2xl border border-dashed border-border">
+ <div className="text-center py-20 bg-secondary rounded-lg border border-dashed border-border">
  <Icon className="w-16 h-16 text-primary/40 mx-auto mb-6" />
- <p className="text-text-secondary font-bold text-lg tracking-tight">{message}</p>
+ <p className="text-muted-foreground font-semibold text-lg tracking-tight">{message}</p>
  </div>
 );
 
@@ -365,20 +365,20 @@ const HistoryItem = ({ record, onClick, index }: any) => (
  <motion.div 
  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}
  onClick={onClick}
- className="group cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 p-5 sm:p-6 rounded-2xl bg-secondary border border-border hover:border-primary/30 transition-all hover:bg-card hover:shadow-lg hover:shadow-primary/10"
+ className="group cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 p-5 sm:p-6 rounded-lg bg-secondary border border-border hover:border-primary/30 transition-all hover:bg-card hover:shadow-lg hover:shadow-primary/10"
  >
  <div className="flex items-center gap-5 min-w-0">
- <div className="w-14 h-14 bg-card rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shadow-sm border border-border shrink-0">
+ <div className="w-14 h-14 bg-card rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shadow-sm border border-border shrink-0">
  <FileText className="w-8 h-8" />
  </div>
  <div>
- <div className="text-[10px] font-black text-text-secondary uppercase tracking-[0.2em] mb-2 leading-none">
+ <div className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.2em] mb-2 leading-none">
  {new Date(record.createdAt).toLocaleDateString('ru-RU')}
  </div>
- <h3 className="text-xl sm:text-2xl font-display font-bold text-foreground mb-1 transition-all leading-tight">{record.procedureTitle}</h3>
+ <h3 className="text-xl sm:text-2xl font-display font-semibold text-foreground mb-1 transition-all leading-tight">{record.procedureTitle}</h3>
  <div className="flex items-center gap-4 mt-3">
- {record.toothNumber && <span className="text-[10px] bg-card px-3 py-1 rounded-full border border-primary/10 font-black text-primary">ЗУБ №{record.toothNumber}</span>}
- <div className="text-xs text-text-secondary font-bold">Детали зафиксированы</div>
+ {record.toothNumber && <span className="text-[10px] bg-card px-3 py-1 rounded-full border border-primary/10 font-semibold text-primary">ЗУБ №{record.toothNumber}</span>}
+ <div className="text-xs text-muted-foreground font-semibold">Детали зафиксированы</div>
  </div>
  </div>
  </div>
@@ -391,26 +391,26 @@ const HistoryItem = ({ record, onClick, index }: any) => (
 const ScanItem = ({ scan, index, canDelete, onDelete }: any) => (
  <motion.div 
  initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: index * 0.05 }}
- className="group bg-secondary rounded-2xl overflow-hidden border border-border hover:border-primary/30 transition-all hover:bg-card hover:shadow-xl"
+ className="group bg-secondary rounded-lg overflow-hidden border border-border hover:border-primary/30 transition-all hover:bg-card hover:shadow-xl"
  >
  <div className="aspect-square bg-secondary relative overflow-hidden">
  <img src={scan.imageUrl || 'https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=400&h=400&fit=crop'} alt={scan.description} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" referrerPolicy="no-referrer" />
  <div className="absolute top-4 left-4">
- <span className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-xl text-[10px] font-black uppercase text-primary shadow-sm">
+ <span className="px-4 py-2 bg-card/90 backdrop-blur-sm rounded-md text-[10px] font-semibold uppercase text-primary shadow-sm">
  {scan.type}
  </span>
  </div>
  </div>
  <div className="p-6">
- <div className="text-[9px] font-black text-text-secondary uppercase tracking-widest mb-1">{new Date(scan.createdAt).toLocaleDateString('ru-RU')}</div>
- <h4 className="font-bold text-foreground tracking-tight leading-tight mb-2">{scan.description || 'Диагностический снимок'}</h4>
+ <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-[0.18em] mb-1">{new Date(scan.createdAt).toLocaleDateString('ru-RU')}</div>
+ <h4 className="font-semibold text-foreground tracking-tight leading-tight mb-2">{scan.description || 'Диагностический снимок'}</h4>
  <div className="flex gap-2">
- <a href={scan.imageUrl} target="_blank" rel="noreferrer" className="flex-1 py-3 bg-card border border-primary/10 rounded-xl text-[10px] font-black uppercase text-primary hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center justify-center gap-2">
+ <a href={scan.imageUrl} target="_blank" rel="noreferrer" className="flex-1 py-3 bg-card border border-primary/10 rounded-md text-[10px] font-semibold uppercase text-primary hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center justify-center gap-2">
  <ExternalLink className="w-4 h-4" />
  Открыть
  </a>
  {canDelete && (
- <button onClick={() => onDelete(scan._id || scan.id)} className="w-11 bg-error/10 text-error rounded-xl hover:bg-error hover:text-white transition-all flex items-center justify-center" title="Удалить файл">
+ <button onClick={() => onDelete(scan._id || scan.id)} className="w-11 bg-error/10 text-error rounded-md hover:bg-error hover:text-white transition-all flex items-center justify-center" title="Удалить файл">
  <Trash2 className="w-4 h-4" />
  </button>
  )}
@@ -422,18 +422,18 @@ const ScanItem = ({ scan, index, canDelete, onDelete }: any) => (
 const RecommendationItem = ({ rec, index }: any) => (
  <motion.div 
  initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.05 }}
- className="flex gap-5 p-5 sm:p-6 rounded-2xl bg-card border border-border shadow-sm relative overflow-hidden group"
+ className="flex gap-5 p-5 sm:p-6 rounded-lg bg-card border border-border shadow-sm relative overflow-hidden group"
  >
- <div className={`w-14 h-14 shrink-0 rounded-2xl flex items-center justify-center ${rec.isCompleted ? 'bg-success/10 text-success' : 'bg-primary/10 text-primary'}`}>
+ <div className={`w-14 h-14 shrink-0 rounded-lg flex items-center justify-center ${rec.isCompleted ? 'bg-success/10 text-success' : 'bg-primary/10 text-primary'}`}>
  {rec.isCompleted ? <ClipboardCheck /> : <AlertCircle />}
  </div>
  <div className="flex-1">
  <div className="flex items-center justify-between gap-4 mb-2">
- <div className="text-[10px] font-black text-text-secondary uppercase tracking-widest">
+ <div className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.18em]">
  Рекомендация от {new Date(rec.createdAt).toLocaleDateString()}
  </div>
  {rec.nextVisitDate && (
- <div className="px-4 py-1.5 bg-primary/5 text-primary rounded-full text-[9px] font-black uppercase">
+ <div className="px-4 py-1.5 bg-primary/5 text-primary rounded-full text-[9px] font-semibold uppercase">
  Визит: {new Date(rec.nextVisitDate).toLocaleDateString()}
  </div>
  )}
@@ -445,16 +445,16 @@ const RecommendationItem = ({ rec, index }: any) => (
 
 const InputField = ({ label, value, onChange, textarea, placeholder, type = "text" }: any) => (
  <div>
- <label className="block text-[10px] font-black uppercase tracking-widest text-text-secondary mb-2 ml-2">{label}</label>
+ <label className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-2 ml-2">{label}</label>
  {textarea ? (
  <textarea 
  value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder}
- className="w-full bg-secondary border border-border rounded-2xl p-4 font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none h-32"
+ className="w-full bg-secondary border border-border rounded-lg p-4 font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none h-32"
  />
  ) : (
  <input 
  type={type} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder}
- className="w-full bg-secondary border border-border rounded-2xl p-4 font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+ className="w-full bg-secondary border border-border rounded-lg p-4 font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
  />
  )}
  </div>
@@ -463,18 +463,18 @@ const InputField = ({ label, value, onChange, textarea, placeholder, type = "tex
 const RecordDetailModal = ({ record, onClose }: { record: MedicalRecord, onClose: () => void }) => (
  <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="absolute inset-0 bg-foreground/60 backdrop-blur-sm" />
- <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="relative w-full max-w-[600px] bg-card rounded-2xl shadow-2xl overflow-hidden text-foreground p-6 sm:p-10">
+ <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="relative w-full max-w-[600px] bg-card rounded-lg shadow-2xl overflow-hidden text-foreground p-6 sm:p-10">
  <div className="flex items-center justify-between mb-12">
  <div className="flex items-center gap-4">
- <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+ <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
  <Activity size={24} />
  </div>
  <div>
- <h2 className="text-2xl font-bold tracking-tight">Детали лечения</h2>
- <p className="text-xs text-text-secondary font-bold uppercase tracking-widest">Информация защищена</p>
+ <h2 className="text-2xl font-semibold tracking-tight">Детали лечения</h2>
+ <p className="text-xs text-muted-foreground font-semibold uppercase tracking-[0.18em]">Информация защищена</p>
  </div>
  </div>
- <button onClick={onClose} className="p-2 text-text-secondary hover:text-primary transition-colors">
+ <button onClick={onClose} className="p-2 text-muted-foreground hover:text-primary transition-colors">
  <X size={24} />
  </button>
  </div>
@@ -482,35 +482,35 @@ const RecordDetailModal = ({ record, onClose }: { record: MedicalRecord, onClose
  <div className="space-y-10">
  <div className="grid grid-cols-2 gap-8">
  <div className="space-y-2">
- <p className="text-[10px] font-black uppercase tracking-widest text-primary flex items-center gap-2">
+ <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary flex items-center gap-2">
  <CalendarIcon size={12} /> Дата приема
  </p>
- <p className="font-bold text-foreground text-lg">{new Date(record.createdAt).toLocaleDateString('ru-RU')}</p>
+ <p className="font-semibold text-foreground text-lg">{new Date(record.createdAt).toLocaleDateString('ru-RU')}</p>
  </div>
  {record.toothNumber && (
  <div className="space-y-2">
- <p className="text-[10px] font-black uppercase tracking-widest text-primary">Номер зуба</p>
- <p className="font-bold text-foreground text-lg">{record.toothNumber}</p>
+ <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">Номер зуба</p>
+ <p className="font-semibold text-foreground text-lg">{record.toothNumber}</p>
  </div>
  )}
  </div>
 
  <div className="space-y-4">
- <p className="text-[10px] font-black uppercase tracking-widest text-primary">Процедура</p>
- <div className="p-6 rounded-2xl bg-secondary border border-border text-foreground font-bold text-xl italic tracking-tight">
+ <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">Процедура</p>
+ <div className="p-6 rounded-lg bg-secondary border border-border text-foreground font-semibold text-xl italic tracking-tight">
  {record.procedureTitle}
  </div>
  </div>
 
  <div className="space-y-4">
- <p className="text-[10px] font-black uppercase tracking-widest text-primary">Протокол лечения</p>
- <div className="p-6 rounded-2xl bg-secondary border border-border text-text-secondary whitespace-pre-wrap leading-relaxed font-medium shadow-inner">
+ <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">Протокол лечения</p>
+ <div className="p-6 rounded-lg bg-secondary border border-border text-muted-foreground whitespace-pre-wrap leading-relaxed font-medium shadow-inner">
  {record.details}
  </div>
  </div>
 
  <div className="pt-6 flex justify-end">
- <Button onClick={onClose} className="rounded-2xl bg-primary text-white px-12 h-14 font-bold shadow-xl shadow-primary/30">
+ <Button onClick={onClose} className="rounded-lg bg-primary text-primary-foreground px-12 h-14 font-semibold shadow-xl shadow-primary/30">
  Закрыть
  </Button>
  </div>

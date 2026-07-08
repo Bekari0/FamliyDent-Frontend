@@ -36,16 +36,16 @@ export function VerifyEmailPage() {
  {status === 'loading' && (
  <div className="space-y-6">
  <Loader2 className="w-16 h-16 animate-spin text-primary mx-auto" />
- <h1 className="text-2xl font-bold">Проверка email...</h1>
+ <h1 className="text-2xl font-semibold">Проверка email...</h1>
  </div>
  )}
 
  {status === 'success' && (
  <div className="space-y-6">
- <CheckCircle className="w-16 h-16 text-green-500 mx-auto" />
- <h1 className="text-2xl font-bold">Email подтвержден!</h1>
- <p className="text-text-secondary">Теперь вы можете пользоваться всеми функциями клиники.</p>
- <Button asChild className="w-full h-14 rounded-2xl bg-primary text-white font-bold">
+ <CheckCircle className="w-16 h-16 text-success mx-auto" />
+ <h1 className="text-2xl font-semibold">Email подтвержден!</h1>
+ <p className="text-muted-foreground">Теперь вы можете пользоваться всеми функциями клиники.</p>
+ <Button asChild className="w-full h-14 rounded-lg bg-primary text-primary-foreground font-semibold">
  <Link to="/login">Войти в кабинет</Link>
  </Button>
  </div>
@@ -53,10 +53,10 @@ export function VerifyEmailPage() {
 
  {status === 'error' && (
  <div className="space-y-6">
- <XCircle className="w-16 h-16 text-red-500 mx-auto" />
- <h1 className="text-2xl font-bold">Ошибка</h1>
- <p className="text-text-secondary">{message}</p>
- <Button asChild variant="outline" className="w-full h-14 rounded-2xl border-border">
+ <XCircle className="w-16 h-16 text-destructive mx-auto" />
+ <h1 className="text-2xl font-semibold">Ошибка</h1>
+ <p className="text-muted-foreground">{message}</p>
+ <Button asChild variant="outline" className="w-full h-14 rounded-lg border-border">
  <Link to="/"><Home className="w-4 h-4 mr-2" /> На главную</Link>
  </Button>
  </div>

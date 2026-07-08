@@ -44,11 +44,11 @@ export function DoctorDetailPage() {
  <Home className="w-3.5 h-3.5" />
  Главная
  </Link>
- <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
+ <ChevronRight className="w-3.5 h-3.5 text-espresso-muted" />
  <Link to="/doctors" className={styles.breadcrumbLink}>
  Наши врачи
  </Link>
- <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
+ <ChevronRight className="w-3.5 h-3.5 text-espresso-muted" />
  <span className={styles.breadcrumbActive}>{doctor.name}</span>
  </div>
  </div>
@@ -60,13 +60,13 @@ export function DoctorDetailPage() {
  <motion.div 
  initial={{ opacity: 0, scale: 0.95 }}
  animate={{ opacity: 1, scale: 1 }}
- className="relative rounded-[40px] sm:rounded-[56px] overflow-hidden shadow-2xl border-[8px] sm:border-[12px] border-slate-50"
+ className="relative rounded-[40px] sm:rounded-[56px] overflow-hidden shadow-2xl border-[8px] sm:border-[12px] border-border"
  >
  <img src={doctor.image} alt={doctor.name} className="w-full aspect-[4/5] object-cover" loading="eager" decoding="async" />
- <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-slate-900/80 via-slate-900/40 to-transparent text-white">
- <div className="flex items-center gap-2 text-amber-400">
+ <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-espresso/80 via-espresso/40 to-transparent text-white">
+ <div className="flex items-center gap-2 text-primary">
  <Star className="w-5 h-5 fill-current" />
- <span className="font-bold text-lg">5.0 Рейтинг</span>
+ <span className="font-semibold text-lg">5.0 Рейтинг</span>
  <span className="text-white/60 text-sm ml-2">На основе отзывов</span>
  </div>
  </div>
@@ -82,7 +82,7 @@ export function DoctorDetailPage() {
  <span className={styles.specialtyBadge}>
  {doctor.specialty}
  </span>
- <span className="px-5 py-2 rounded-full bg-slate-50 text-slate-500 font-bold uppercase tracking-wider text-[10px] flex items-center gap-2">
+ <span className="px-5 py-2 rounded-full bg-secondary text-muted-foreground font-semibold uppercase tracking-wider text-[10px] flex items-center gap-2">
  <History className="w-4 h-4 text-primary" />
  Опыт работы: {doctor.experience}
  </span>
@@ -141,7 +141,7 @@ export function DoctorDetailPage() {
  Записаться на прием
  </Link>
  </Button>
- <Button variant="outline" asChild className="h-14 sm:h-18 px-10 rounded-2xl sm:rounded-3xl border-slate-100 text-lg font-bold hover:bg-slate-50 transition-all">
+ <Button variant="outline" asChild className="h-14 sm:h-18 px-10 rounded-lg sm:rounded-lg border-border text-lg font-semibold hover:bg-secondary transition-all">
  <Link to="/contact">Задать вопрос</Link>
  </Button>
  </div>

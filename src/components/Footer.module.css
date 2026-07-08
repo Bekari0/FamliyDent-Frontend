@@ -29,19 +29,19 @@
 }
 
 .logoBox {
- @apply w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white text-xl font-bold shadow-md;
+ @apply w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white text-xl font-semibold shadow-md;
 }
 
 .logoText {
- @apply text-xl font-bold text-foreground tracking-tight transition-all;
+ @apply text-xl font-semibold text-foreground tracking-tight transition-all;
 }
 
 .tagline {
- @apply text-text-secondary text-sm leading-relaxed max-w-xs font-medium;
+ @apply text-muted-foreground text-sm leading-relaxed max-w-xs font-medium;
 }
 
 .navTitle {
- @apply text-sm font-bold text-foreground uppercase tracking-widest mb-6 flex items-center gap-3;
+ @apply text-sm font-semibold text-foreground uppercase tracking-[0.18em] mb-6 flex items-center gap-3;
 }
 
 .navDot {
@@ -53,7 +53,7 @@
 }
 
 .navLink {
- @apply flex items-center gap-2 text-[10px] font-black text-text-secondary uppercase tracking-[0.1em] hover:text-primary transition-all;
+ @apply flex items-center gap-2 text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.1em] hover:text-primary transition-all;
 }
 
 .navArrow {
@@ -77,11 +77,11 @@
 }
 
 .contactPhone {
- @apply text-lg font-display font-bold text-primary italic hover:not-italic transition-all;
+ @apply text-lg font-display font-semibold text-primary italic hover:not-italic transition-all;
 }
 
 .contactEmail {
- @apply text-sm font-black text-text-secondary hover:text-primary transition-all uppercase tracking-widest;
+ @apply text-sm font-semibold text-muted-foreground hover:text-primary transition-all uppercase tracking-[0.18em];
 }
 
 .divider {
@@ -93,7 +93,7 @@
 }
 
 .copyrightWrapper {
- @apply flex flex-wrap items-center justify-center md:justify-start gap-3 text-[10px] font-black text-text-secondary/40 uppercase tracking-[0.2em];
+ @apply flex flex-wrap items-center justify-center md:justify-start gap-3 text-[10px] font-semibold text-muted-foreground/40 uppercase tracking-[0.2em];
 }
 
 .bottomDivider {
@@ -113,5 +113,5 @@
 }
 
 .bottomLink {
- @apply text-[10px] font-black text-text-secondary/40 hover:text-primary transition-all uppercase tracking-[0.2em];
+ @apply text-[10px] font-semibold text-muted-foreground/40 hover:text-primary transition-all uppercase tracking-[0.2em];
 }

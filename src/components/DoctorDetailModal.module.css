@@ -13,7 +13,7 @@
 }
 
 .closeBtn {
- @apply absolute top-6 right-6 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 hover:bg-white/40 md:bg-secondary md:hover:bg-secondary/80 flex items-center justify-center text-white md:text-text-secondary transition-all;
+ @apply absolute top-6 right-6 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-card/20 hover:bg-card/40 md:bg-secondary md:hover:bg-secondary/80 flex items-center justify-center text-white md:text-muted-foreground transition-all;
 }
 
 .imageWrapper {
@@ -33,15 +33,15 @@
 }
 
 .specialtyBadge {
- @apply bg-primary/10 text-primary border-none font-bold uppercase tracking-widest text-xs mb-4;
+ @apply bg-primary/10 text-primary border-none font-semibold uppercase tracking-[0.18em] text-xs mb-4;
 }
 
 .title {
- @apply text-2xl md:text-4xl font-black text-foreground mb-2;
+ @apply text-2xl md:text-4xl font-semibold text-foreground mb-2;
 }
 
 .statsRow {
- @apply flex flex-wrap items-center gap-4 text-text-secondary mb-8 pb-8 border-b border-border;
+ @apply flex flex-wrap items-center gap-4 text-muted-foreground mb-8 pb-8 border-b border-border;
 }
 
 .statItem {
@@ -49,7 +49,7 @@
 }
 
 .statValue {
- @apply font-bold text-foreground text-sm md:text-base;
+ @apply font-semibold text-foreground text-sm md:text-base;
 }
 
 .dot {
@@ -61,15 +61,15 @@
 }
 
 .label {
- @apply text-[10px] font-bold uppercase tracking-widest text-text-secondary mb-4 flex items-center gap-2;
+ @apply text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground mb-4 flex items-center gap-2;
 }
 
 .desc {
- @apply text-text-secondary leading-relaxed text-sm md:text-base;
+ @apply text-muted-foreground leading-relaxed text-sm md:text-base;
 }
 
 .eduBox {
- @apply mt-4 p-4 bg-secondary rounded-2xl text-foreground text-xs md:text-sm border border-border/50;
+ @apply mt-4 p-4 bg-secondary rounded-lg text-foreground text-xs md:text-sm border border-border/50;
 }
 
 .achGrid {
@@ -77,7 +77,7 @@
 }
 
 .achItem {
- @apply flex items-start gap-3 text-text-secondary text-xs md:text-sm;
+ @apply flex items-start gap-3 text-muted-foreground text-xs md:text-sm;
 }
 
 .footerActions {
@@ -85,5 +85,5 @@
 }
 
 .bookBtn {
- @apply flex-1 h-14 md:h-16 rounded-2xl font-bold text-sm md:text-base shadow-xl shadow-primary/20 bg-primary text-white hover:bg-primary/90 transition-all;
+ @apply flex-1 h-14 md:h-16 rounded-lg font-semibold text-sm md:text-base shadow-xl shadow-primary/20 bg-primary text-primary-foreground hover:bg-primary/90 transition-all;
 }

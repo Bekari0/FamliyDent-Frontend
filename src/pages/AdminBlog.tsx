@@ -128,12 +128,12 @@ export function AdminBlog() {
  <div className="container mx-auto px-4">
  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
  <div>
- <h1 className="text-3xl font-bold text-foreground">Управление статьями</h1>
- <p className="text-text-secondary">Создание, редактирование и публикация материалов блога</p>
+ <h1 className="text-3xl font-semibold text-foreground">Управление статьями</h1>
+ <p className="text-muted-foreground">Создание, редактирование и публикация материалов блога</p>
  </div>
  <button
  onClick={() => handleOpenModal()}
- className="px-5 py-3 rounded-xl bg-primary text-white font-bold flex items-center justify-center gap-2 hover:bg-primary-hover transition-all shadow-md"
+ className="px-5 py-3 rounded-md bg-primary text-primary-foreground font-semibold flex items-center justify-center gap-2 hover:bg-primary-hover transition-all shadow-md"
  >
  <Plus className="w-5 h-5" />
  Новая статья
@@ -143,10 +143,10 @@ export function AdminBlog() {
  {loading ? (
  <div className="flex flex-col items-center justify-center py-20">
  <Loader2 className="w-10 h-10 animate-spin text-primary mb-4" />
- <p className="text-text-secondary">Загрузка...</p>
+ <p className="text-muted-foreground">Загрузка...</p>
  </div>
  ) : articles.length === 0 ? (
- <div className="rounded-xl border border-dashed border-border bg-white py-16 text-center text-text-secondary font-semibold">
+ <div className="rounded-md border border-dashed border-border bg-card py-16 text-center text-muted-foreground font-semibold">
  Статей пока нет
  </div>
  ) : (
@@ -157,39 +157,39 @@ export function AdminBlog() {
  initial={{ opacity: 0, y: 16 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ delay: index * 0.04 }}
- className="bg-card rounded-xl border border-border shadow-md overflow-hidden flex flex-col"
+ className="bg-card rounded-md border border-border shadow-md overflow-hidden flex flex-col"
  >
  <div className="aspect-video relative overflow-hidden bg-secondary">
  {article.image ? (
  <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
  ) : (
- <div className="w-full h-full flex items-center justify-center text-text-secondary">
+ <div className="w-full h-full flex items-center justify-center text-muted-foreground">
  <ImageIcon className="w-10 h-10" />
  </div>
  )}
- <div className="absolute top-2 left-2 px-2 py-1 bg-white/90 text-foreground text-[10px] font-bold rounded uppercase">
+ <div className="absolute top-2 left-2 px-2 py-1 bg-card/90 text-foreground text-[10px] font-semibold rounded uppercase">
  {article.category || 'Без категории'}
  </div>
  </div>
  <div className="p-5 flex-1 flex flex-col">
  <div className="flex items-center gap-2 mb-2">
- <span className="text-[10px] uppercase tracking-widest text-text-secondary font-bold">
+ <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground font-semibold">
  {article.status === 'draft' ? 'Черновик' : 'Опубликовано'}
  </span>
  </div>
- <h3 className="text-lg font-bold text-foreground mb-2 line-clamp-2">{article.title}</h3>
- <p className="text-text-secondary text-sm mb-5 line-clamp-3 flex-1">{article.excerpt || 'Нет краткого описания'}</p>
+ <h3 className="text-lg font-semibold text-foreground mb-2 line-clamp-2">{article.title}</h3>
+ <p className="text-muted-foreground text-sm mb-5 line-clamp-3 flex-1">{article.excerpt || 'Нет краткого описания'}</p>
 
  <div className="flex items-center justify-between pt-4 border-t border-border">
  <div className="flex gap-2">
  <button onClick={() => handleOpenModal(article)} className="p-2 bg-secondary text-foreground rounded-lg hover:bg-primary hover:text-white transition-all" title="Редактировать">
  <Edit2 size={16} />
  </button>
- <button onClick={() => deleteArticle(article._id || article.id)} className="p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all" title="Удалить">
+ <button onClick={() => deleteArticle(article._id || article.id)} className="p-2 bg-destructive/10 text-destructive rounded-lg hover:bg-destructive/100 hover:text-white transition-all" title="Удалить">
  <Trash2 size={16} />
  </button>
  </div>
- <span className="text-xs text-text-secondary">
+ <span className="text-xs text-muted-foreground">
  {new Date(article.updatedAt || article.date || article.createdAt).toLocaleDateString('ru-RU')}
  </span>
  </div>
@@ -213,11 +213,11 @@ export function AdminBlog() {
  initial={{ opacity: 0, scale: 0.95, y: 20 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
  exit={{ opacity: 0, scale: 0.95, y: 20 }}
- className="relative w-full max-w-3xl bg-card rounded-xl shadow-2xl overflow-hidden"
+ className="relative w-full max-w-3xl bg-card rounded-md shadow-2xl overflow-hidden"
  >
  <div className="p-5 bg-secondary border-b border-border flex items-center justify-between">
- <h2 className="text-xl font-bold">{currentArticle ? 'Редактировать статью' : 'Новая статья'}</h2>
- <button onClick={() => setIsModalOpen(false)} className="p-2 text-text-secondary hover:text-foreground transition-colors">
+ <h2 className="text-xl font-semibold">{currentArticle ? 'Редактировать статью' : 'Новая статья'}</h2>
+ <button onClick={() => setIsModalOpen(false)} className="p-2 text-muted-foreground hover:text-foreground transition-colors">
  <X size={20} />
  </button>
  </div>
@@ -243,7 +243,7 @@ export function AdminBlog() {
  <label className="text-sm font-medium text-foreground">Изображение</label>
  <div className="flex flex-col sm:flex-row gap-3">
  <input value={formData.image} onChange={(e) => setFormData({ ...formData, image: e.target.value })} placeholder="/uploads/image.webp или URL" className="flex-1 px-4 py-2 rounded-lg border border-border outline-none bg-background" />
- <label className="h-10 px-4 rounded-lg bg-secondary border border-border text-foreground font-bold text-sm flex items-center justify-center gap-2 cursor-pointer hover:bg-muted">
+ <label className="h-10 px-4 rounded-lg bg-secondary border border-border text-foreground font-semibold text-sm flex items-center justify-center gap-2 cursor-pointer hover:bg-muted">
  {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4 text-primary" />}
  Загрузить
  <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={(event) => event.target.files?.[0] && uploadImage(event.target.files[0])} />
@@ -260,7 +260,7 @@ export function AdminBlog() {
  <Button type="button" variant="outline" onClick={() => setIsModalOpen(false)} className="flex-1 h-11 border-border">
  Отмена
  </Button>
- <Button disabled={saving || uploading} type="submit" className="flex-1 h-11 bg-primary text-white">
+ <Button disabled={saving || uploading} type="submit" className="flex-1 h-11 bg-primary text-primary-foreground">
  {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Сохранить'}
  </Button>
  </div>

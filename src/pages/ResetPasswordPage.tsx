@@ -44,47 +44,47 @@ export function ResetPasswordPage() {
 
  return (
  <div className="min-h-screen flex items-center justify-center bg-background p-4 pt-24">
- <div className="max-w-md w-full bg-white rounded-[40px] shadow-2xl p-12">
+ <div className="max-w-md w-full bg-card rounded-[40px] shadow-2xl p-12">
  {success ? (
  <div className="text-center space-y-6">
- <CheckCircle className="w-16 h-16 text-green-500 mx-auto" />
- <h1 className="text-2xl font-bold">Пароль изменен</h1>
- <p className="text-text-secondary">Вы будете перенаправлены на страницу входа через несколько секунд.</p>
- <Button onClick={() => navigate('/login')} className="w-full h-14 rounded-2xl bg-primary text-white">
+ <CheckCircle className="w-16 h-16 text-success mx-auto" />
+ <h1 className="text-2xl font-semibold">Пароль изменен</h1>
+ <p className="text-muted-foreground">Вы будете перенаправлены на страницу входа через несколько секунд.</p>
+ <Button onClick={() => navigate('/login')} className="w-full h-14 rounded-lg bg-primary text-primary-foreground">
  Войти сейчас
  </Button>
  </div>
  ) : (
  <>
- <h1 className="text-3xl font-black text-foreground mb-2">Новый пароль</h1>
- <p className="text-text-secondary mb-8 font-medium">Придумайте надежный пароль.</p>
+ <h1 className="text-3xl font-semibold text-foreground mb-2">Новый пароль</h1>
+ <p className="text-muted-foreground mb-8 font-medium">Придумайте надежный пароль.</p>
 
  <form onSubmit={handleSubmit} className="space-y-6">
  <div>
- <label className="text-xs font-bold text-text-secondary uppercase tracking-widest mb-3 block ml-1">Пароль</label>
+ <label className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.18em] mb-3 block ml-1">Пароль</label>
  <div className="relative">
- <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-text-secondary/30" />
+ <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground/30" />
  <input 
  type="password" required value={password} onChange={(e) => setPassword(e.target.value)}
- className="w-full h-14 pl-14 pr-6 rounded-2xl bg-secondary border-2 border-transparent focus:border-primary focus:bg-card transition-all outline-none font-medium"
+ className="w-full h-14 pl-14 pr-6 rounded-lg bg-secondary border-2 border-transparent focus:border-primary focus:bg-card transition-all outline-none font-medium"
  placeholder="••••••••"
  />
  </div>
  </div>
 
  <div>
- <label className="text-xs font-bold text-text-secondary uppercase tracking-widest mb-3 block ml-1">Подтверждение</label>
+ <label className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.18em] mb-3 block ml-1">Подтверждение</label>
  <div className="relative">
- <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-text-secondary/30" />
+ <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground/30" />
  <input 
  type="password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
- className="w-full h-14 pl-14 pr-6 rounded-2xl bg-secondary border-2 border-transparent focus:border-primary focus:bg-card transition-all outline-none font-medium"
+ className="w-full h-14 pl-14 pr-6 rounded-lg bg-secondary border-2 border-transparent focus:border-primary focus:bg-card transition-all outline-none font-medium"
  placeholder="••••••••"
  />
  </div>
  </div>
 
- <Button disabled={loading} type="submit" className="w-full h-14 rounded-2xl bg-primary text-white font-bold text-sm uppercase tracking-widest shadow-lg shadow-primary/20">
+ <Button disabled={loading} type="submit" className="w-full h-14 rounded-lg bg-primary text-primary-foreground font-semibold text-sm uppercase tracking-[0.18em] shadow-lg shadow-primary/20">
  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Сбросить пароль'}
  </Button>
  </form>

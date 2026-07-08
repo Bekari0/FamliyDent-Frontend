@@ -21,15 +21,15 @@
 }
 
 .logoBox {
- @apply w-12 h-12 rounded-[18px] bg-primary flex items-center justify-center text-white text-2xl font-display font-bold shadow-2xl transition-all;
+ @apply w-12 h-12 rounded-[18px] bg-primary flex items-center justify-center text-white text-2xl font-display font-semibold shadow-2xl transition-all;
 }
 
 .logoText {
- @apply text-2xl font-display font-bold text-primary tracking-tight transition-all;
+ @apply text-2xl font-display font-semibold text-primary tracking-tight transition-all;
 }
 
 .textHighlight {
- @apply text-text-secondary;
+ @apply text-muted-foreground;
 }
 
 .navDesktop {
@@ -41,11 +41,11 @@
 }
 
 .navLinkActive {
- @apply text-primary font-black text-[10px] uppercase tracking-[0.2em] italic;
+ @apply text-primary font-semibold text-[10px] uppercase tracking-[0.2em] italic;
 }
 
 .navLinkInactive {
- @apply text-text-secondary hover:text-primary font-black text-[10px] uppercase tracking-[0.2em];
+ @apply text-muted-foreground hover:text-primary font-semibold text-[10px] uppercase tracking-[0.2em];
 }
 
 .navLinkUnderline {
@@ -69,7 +69,7 @@
 }
 
 .phoneLink {
- @apply flex items-center gap-3 text-[10px] font-black text-primary uppercase tracking-[0.2em] hover:brightness-110 transition-all;
+ @apply flex items-center gap-3 text-[10px] font-semibold text-primary uppercase tracking-[0.2em] hover:brightness-110 transition-all;
 }
 
 .phoneIcon {
@@ -105,11 +105,11 @@
 }
 
 .mobileLogoBox {
- @apply w-12 h-12 rounded-[18px] bg-primary flex items-center justify-center text-white text-2xl font-display font-bold;
+ @apply w-12 h-12 rounded-[18px] bg-primary flex items-center justify-center text-white text-2xl font-display font-semibold;
 }
 
 .mobileLogoText {
- @apply text-xl font-display font-bold text-primary tracking-tight;
+ @apply text-xl font-display font-semibold text-primary tracking-tight;
 }
 
 .mobileNavLinks {
@@ -117,11 +117,11 @@
 }
 
 .mobileNavLink {
- @apply flex items-center justify-between p-5 rounded-[22px] text-[10px] font-black text-text-secondary uppercase tracking-[0.2em] hover:bg-secondary hover:text-primary transition-all;
+ @apply flex items-center justify-between p-5 rounded-[22px] text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.2em] hover:bg-secondary hover:text-primary transition-all;
 }
 
 .mobileNavChevron {
- @apply w-4 h-4 text-text-secondary/50;
+ @apply w-4 h-4 text-muted-foreground/50;
 }
 
 .mobileNavFooter {
@@ -133,13 +133,13 @@
 }
 
 .mobileContactLabel {
- @apply text-[10px] font-black text-text-secondary/50 uppercase tracking-[0.3em];
+ @apply text-[10px] font-semibold text-muted-foreground/50 uppercase tracking-[0.3em];
 }
 
 .mobileContactPhone {
- @apply text-2xl font-display font-bold text-primary italic;
+ @apply text-2xl font-display font-semibold text-primary italic;
 }
 
 .mobileContactAddress {
- @apply text-xs text-text-secondary font-medium;
+ @apply text-xs text-muted-foreground font-medium;
 }

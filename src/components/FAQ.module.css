@@ -17,27 +17,27 @@
 }
 
 .title {
- @apply text-3xl lg:text-4xl font-bold text-foreground mb-6;
+ @apply text-3xl lg:text-4xl font-semibold text-foreground mb-6;
 }
 
 .description {
- @apply text-lg text-text-secondary leading-relaxed mb-10;
+ @apply text-lg text-muted-foreground leading-relaxed mb-10;
 }
 
 .contactBox {
- @apply bg-secondary p-6 rounded-xl border border-border shadow-md;
+ @apply bg-secondary p-6 rounded-md border border-border shadow-md;
 }
 
 .contactTitle {
- @apply text-xl font-bold text-foreground mb-2;
+ @apply text-xl font-semibold text-foreground mb-2;
 }
 
 .contactText {
- @apply text-xs text-text-secondary mb-6;
+ @apply text-xs text-muted-foreground mb-6;
 }
 
 .contactPhone {
- @apply text-2xl font-bold text-primary hover:bg-primary/5 transition-all;
+ @apply text-2xl font-semibold text-primary hover:bg-primary/5 transition-all;
 }
 
 .accordionWrapper {
@@ -49,13 +49,13 @@
 }
 
 .accordionItem {
- @apply bg-card border border-border rounded-xl px-6 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300;
+ @apply bg-card border border-border rounded-md px-6 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300;
 }
 
 .accordionTrigger {
- @apply py-6 text-left text-lg font-bold text-foreground transition-all no-underline hover:no-underline;
+ @apply py-6 text-left text-lg font-semibold text-foreground transition-all no-underline hover:no-underline;
 }
 
 .accordionContent {
- @apply pb-6 text-text-secondary leading-relaxed;
+ @apply pb-6 text-muted-foreground leading-relaxed;
 }

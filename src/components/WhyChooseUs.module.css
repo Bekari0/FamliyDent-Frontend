@@ -21,11 +21,11 @@
 }
 
 .title {
- @apply text-3xl lg:text-4xl font-bold text-foreground mb-6;
+ @apply text-3xl lg:text-4xl font-semibold text-foreground mb-6;
 }
 
 .description {
- @apply text-lg text-text-secondary leading-relaxed;
+ @apply text-lg text-muted-foreground leading-relaxed;
 }
 
 .grid {
@@ -33,7 +33,7 @@
 }
 
 .card {
- @apply p-6 rounded-xl bg-card border border-border shadow-md hover:shadow-lg transition-all duration-300 flex flex-col items-center text-center;
+ @apply p-6 rounded-md bg-card border border-border shadow-md hover:shadow-lg transition-all duration-300 flex flex-col items-center text-center;
 }
 
 .iconWrapper {
@@ -41,9 +41,9 @@
 }
 
 .cardTitle {
- @apply text-xl font-bold text-foreground mb-3;
+ @apply text-xl font-semibold text-foreground mb-3;
 }
 
 .cardDescription {
- @apply text-text-secondary text-sm leading-relaxed;
+ @apply text-muted-foreground text-sm leading-relaxed;
 }

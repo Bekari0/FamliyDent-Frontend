@@ -33,7 +33,7 @@ import { getDisplayDoctorName } from '../utils/doctorName';
 const STATUS_MAP: Record<string, { label: string; color: string }> = {
  pending: { label: 'Ожидает', color: 'bg-warning/10 text-warning border-none shadow-sm' },
  confirmed: { label: 'Подтвержден', color: 'bg-success/10 text-success border-none shadow-sm' },
- completed: { label: 'Завершен', color: 'bg-secondary text-text-secondary border-none shadow-sm' },
+ completed: { label: 'Завершен', color: 'bg-secondary text-muted-foreground border-none shadow-sm' },
  cancelled: { label: 'Отменен', color: 'bg-error/10 text-error border-none shadow-sm' },
 };
 
@@ -127,37 +127,37 @@ export function AdminBookings() {
  <div className="container mx-auto px-4">
  <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
  <div>
- <h1 className="text-4xl lg:text-5xl font-display font-bold text-foreground mb-3 tracking-tight">
+ <h1 className="text-4xl lg:text-5xl font-display font-semibold text-foreground mb-3 tracking-tight">
  Менеджер записей
  </h1>
- <p className="text-text-secondary font-medium">
+ <p className="text-muted-foreground font-medium">
  Управление расписанием приемов и статусами медицинских услуг
  </p>
  </div>
  <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
  <button
  onClick={exportBookings}
- className="flex items-center justify-center gap-3 h-14 px-8 rounded-xl bg-card border border-border font-bold text-xs uppercase tracking-widest hover:bg-secondary transition-all text-foreground shadow-sm"
+ className="flex items-center justify-center gap-3 h-14 px-8 rounded-md bg-card border border-border font-semibold text-xs uppercase tracking-[0.18em] hover:bg-secondary transition-all text-foreground shadow-sm"
  >
  <Download className="w-4 h-4 text-primary" /> Экспорт в PDF
  </button>
  <button
  onClick={fetchBookings}
- className="flex items-center justify-center gap-3 h-14 px-8 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-widest hover:bg-primary-hover active:scale-95 transition-all shadow-md shadow-primary/20"
+ className="flex items-center justify-center gap-3 h-14 px-8 rounded-md bg-primary text-primary-foreground font-semibold text-xs uppercase tracking-[0.18em] hover:bg-primary-hover active:scale-95 transition-all shadow-md shadow-primary/20"
  >
  <Calendar size={18} /> Обновить список
  </button>
  </div>
  </div>
 
- <div className="bg-card rounded-xl border border-border shadow-md overflow-hidden">
+ <div className="bg-card rounded-md border border-border shadow-md overflow-hidden">
  <div className="p-6 lg:p-8 border-b border-border flex flex-col md:flex-row items-center justify-between gap-6">
  <div className="relative flex-1 max-w-lg w-full group">
  <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-primary/60 w-5 h-5 group-hover:text-primary transition-colors" />
  <input
  type="text"
  placeholder="Поиск по пациенту, врачу или номеру записи..."
- className="w-full h-14 pl-14 pr-6 bg-secondary border border-border rounded-xl text-sm focus:ring-4 focus:ring-primary/10 text-foreground placeholder:text-text-secondary font-medium transition-all"
+ className="w-full h-14 pl-14 pr-6 bg-secondary border border-border rounded-md text-sm focus:ring-4 focus:ring-primary/10 text-foreground placeholder:text-muted-foreground font-medium transition-all"
  value={searchTerm}
  onChange={(event) => setSearchTerm(event.target.value)}
  />
@@ -168,7 +168,7 @@ export function AdminBookings() {
  <select
  value={statusFilter}
  onChange={(event) => setStatusFilter(event.target.value)}
- className="h-14 px-6 bg-secondary border border-border rounded-xl text-sm font-bold text-foreground outline-none cursor-pointer focus:ring-4 focus:ring-primary/10 transition-all min-w-[220px] w-full"
+ className="h-14 px-6 bg-secondary border border-border rounded-md text-sm font-semibold text-foreground outline-none cursor-pointer focus:ring-4 focus:ring-primary/10 transition-all min-w-[220px] w-full"
  >
  <option value="all">Все статусы</option>
  <option value="pending">Ожидают подтверждения</option>
@@ -183,14 +183,14 @@ export function AdminBookings() {
  {loading ? (
  <div className="flex flex-col items-center justify-center py-24">
  <Loader2 className="w-12 h-12 text-primary animate-spin mb-6" />
- <p className="text-[10px] font-black uppercase tracking-[0.2em] text-text-secondary">
+ <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
  Синхронизация данных...
  </p>
  </div>
  ) : (
  <table className="w-full text-left">
  <thead>
- <tr className="bg-secondary text-[10px] font-black text-text-secondary uppercase tracking-[0.2em]">
+ <tr className="bg-secondary text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.2em]">
  <th className="px-8 py-6">Код</th>
  <th className="px-8 py-6">Клиент</th>
  <th className="px-8 py-6">Специалист / услуга</th>
@@ -207,38 +207,38 @@ export function AdminBookings() {
  animate={{ opacity: 1 }}
  className="hover:bg-secondary/60 transition-colors"
  >
- <td className="px-8 py-6 font-black text-primary text-sm tracking-tighter">
+ <td className="px-8 py-6 font-semibold text-primary text-sm tracking-tighter">
  #{String(booking.bookingNumber || '').padStart(4, '0')}
  </td>
  <td className="px-8 py-6">
  <button
  onClick={() => setSelectedPatient(booking.patientInfo || {})}
- className="font-bold text-foreground text-left outline-none border-b-2 border-primary/10 hover:border-primary transition-all leading-relaxed"
+ className="font-semibold text-foreground text-left outline-none border-b-2 border-primary/10 hover:border-primary transition-all leading-relaxed"
  >
  {booking.patientName || 'Пациент'}
  </button>
  </td>
  <td className="px-8 py-6">
- <div className="font-bold text-foreground leading-none mb-1.5">
+ <div className="font-semibold text-foreground leading-none mb-1.5">
  {getDoctorName(booking)}
  </div>
- <div className="text-[10px] font-black text-text-secondary uppercase tracking-widest">
+ <div className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.18em]">
  {booking.serviceId || 'Услуга не указана'}
  </div>
  </td>
  <td className="px-8 py-6">
- <div className="text-sm font-bold text-foreground mb-1">
+ <div className="text-sm font-semibold text-foreground mb-1">
  {booking.date
  ? new Date(booking.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })
  : 'Дата не указана'}
  </div>
- <div className="text-[10px] font-black text-text-secondary uppercase tracking-widest">
+ <div className="text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.18em]">
  {booking.time || 'Время не указано'}
  </div>
  </td>
  <td className="px-8 py-6">
  <Badge
- className={`${STATUS_MAP[booking.status]?.color || 'bg-muted text-muted-foreground'} px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm`}
+ className={`${STATUS_MAP[booking.status]?.color || 'bg-muted text-muted-foreground'} px-4 py-1.5 rounded-full text-[10px] font-semibold uppercase tracking-[0.18em] shadow-sm`}
  >
  {STATUS_MAP[booking.status]?.label || booking.status || 'Неизвестно'}
  </Badge>
@@ -248,7 +248,7 @@ export function AdminBookings() {
  {booking.status === 'pending' && (
  <button
  onClick={() => updateStatus(booking._id, 'confirmed')}
- className="w-12 h-12 text-success bg-success/10 hover:bg-success hover:text-white rounded-xl flex items-center justify-center transition-all shadow-sm"
+ className="w-12 h-12 text-success bg-success/10 hover:bg-success hover:text-white rounded-md flex items-center justify-center transition-all shadow-sm"
  title="Подтвердить прием"
  >
  <CheckCircle2 size={18} />
@@ -257,7 +257,7 @@ export function AdminBookings() {
  {booking.status !== 'cancelled' && booking.status !== 'completed' && (
  <button
  onClick={() => updateStatus(booking._id, 'cancelled')}
- className="w-12 h-12 text-error bg-error/10 hover:bg-error hover:text-white rounded-xl flex items-center justify-center transition-all shadow-sm"
+ className="w-12 h-12 text-error bg-error/10 hover:bg-error hover:text-white rounded-md flex items-center justify-center transition-all shadow-sm"
  title="Отменить запись"
  >
  <XCircle size={18} />
@@ -266,7 +266,7 @@ export function AdminBookings() {
  {booking.status === 'confirmed' && (
  <button
  onClick={() => updateStatus(booking._id, 'completed')}
- className="w-12 h-12 text-primary bg-primary/10 hover:bg-primary hover:text-white rounded-xl flex items-center justify-center transition-all shadow-sm"
+ className="w-12 h-12 text-primary bg-primary/10 hover:bg-primary hover:text-white rounded-md flex items-center justify-center transition-all shadow-sm"
  title="Завершить сеанс"
  >
  <Clock size={18} />
@@ -274,7 +274,7 @@ export function AdminBookings() {
  )}
  <button
  onClick={() => deleteBooking(booking._id)}
- className="w-12 h-12 text-error bg-error/10 hover:bg-error hover:text-white rounded-xl flex items-center justify-center transition-all shadow-sm"
+ className="w-12 h-12 text-error bg-error/10 hover:bg-error hover:text-white rounded-md flex items-center justify-center transition-all shadow-sm"
  title="Удалить запись"
  >
  <Trash2 size={18} />
@@ -285,7 +285,7 @@ export function AdminBookings() {
  ))}
  {filteredBookings.length === 0 && (
  <tr>
- <td colSpan={6} className="px-10 py-24 text-center text-text-secondary font-bold text-lg tracking-tight">
+ <td colSpan={6} className="px-10 py-24 text-center text-muted-foreground font-semibold text-lg tracking-tight">
  Архив записей пуст
  </td>
  </tr>
@@ -298,60 +298,60 @@ export function AdminBookings() {
  </div>
 
  <Dialog open={!!selectedPatient} onOpenChange={(open) => !open && setSelectedPatient(null)}>
- <DialogContent className="sm:max-w-md rounded-xl border border-border shadow-2xl p-0 overflow-hidden bg-card text-foreground">
+ <DialogContent className="sm:max-w-md rounded-md border border-border shadow-2xl p-0 overflow-hidden bg-card text-foreground">
  {selectedPatient && (
  <div className="p-8">
  <DialogHeader className="mb-6 text-left">
- <DialogTitle className="text-2xl font-bold font-display text-foreground">
+ <DialogTitle className="text-2xl font-semibold font-display text-foreground">
  Информация о пациенте
  </DialogTitle>
- <DialogDescription className="text-text-secondary">Детальные данные из профиля</DialogDescription>
+ <DialogDescription className="text-muted-foreground">Детальные данные из профиля</DialogDescription>
  </DialogHeader>
 
  <div className="space-y-4">
- <div className="flex items-center gap-4 p-4 rounded-xl bg-secondary border border-border">
- <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+ <div className="flex items-center gap-4 p-4 rounded-md bg-secondary border border-border">
+ <div className="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center text-primary">
  <User size={24} />
  </div>
  <div>
- <div className="text-[10px] text-text-secondary font-bold uppercase tracking-wider">ФИО</div>
- <div className="font-bold text-foreground">{selectedPatient.displayName || 'Не указано'}</div>
+ <div className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">ФИО</div>
+ <div className="font-semibold text-foreground">{selectedPatient.displayName || 'Не указано'}</div>
  </div>
  </div>
 
- <div className="flex items-center gap-4 p-4 rounded-xl bg-secondary border border-border">
- <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+ <div className="flex items-center gap-4 p-4 rounded-md bg-secondary border border-border">
+ <div className="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center text-primary">
  <Phone size={24} />
  </div>
  <div>
- <div className="text-[10px] text-text-secondary font-bold uppercase tracking-wider">Телефон</div>
- <div className="font-bold text-foreground">{selectedPatient.phoneNumber || 'Не указан'}</div>
+ <div className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">Телефон</div>
+ <div className="font-semibold text-foreground">{selectedPatient.phoneNumber || 'Не указан'}</div>
  </div>
  </div>
 
- <div className="flex items-center gap-4 p-4 rounded-xl bg-secondary border border-border">
- <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+ <div className="flex items-center gap-4 p-4 rounded-md bg-secondary border border-border">
+ <div className="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center text-primary">
  <Mail size={24} />
  </div>
  <div>
- <div className="text-[10px] text-text-secondary font-bold uppercase tracking-wider">Email</div>
- <div className="font-bold text-foreground">{selectedPatient.email || 'Не указан'}</div>
+ <div className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">Email</div>
+ <div className="font-semibold text-foreground">{selectedPatient.email || 'Не указан'}</div>
  </div>
  </div>
 
  <div className="grid grid-cols-2 gap-4">
- <div className="flex items-center gap-3 p-4 rounded-xl bg-secondary border border-border">
+ <div className="flex items-center gap-3 p-4 rounded-md bg-secondary border border-border">
  <CalendarDays className="text-primary w-5 h-5 flex-shrink-0" />
  <div>
- <div className="text-[10px] text-text-secondary font-bold uppercase tracking-wider">Рождение</div>
- <div className="font-bold text-sm text-foreground">{selectedPatient.birthDate || '—'}</div>
+ <div className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">Рождение</div>
+ <div className="font-semibold text-sm text-foreground">{selectedPatient.birthDate || '—'}</div>
  </div>
  </div>
- <div className="flex items-center gap-3 p-4 rounded-xl bg-secondary border border-border">
+ <div className="flex items-center gap-3 p-4 rounded-md bg-secondary border border-border">
  <User className="text-primary w-5 h-5 flex-shrink-0" />
  <div>
- <div className="text-[10px] text-text-secondary font-bold uppercase tracking-wider">Пол</div>
- <div className="font-bold text-sm text-foreground">
+ <div className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">Пол</div>
+ <div className="font-semibold text-sm text-foreground">
  {selectedPatient.gender === 'male'
  ? 'Мужской'
  : selectedPatient.gender === 'female'
@@ -365,7 +365,7 @@ export function AdminBookings() {
 
  {getPatientRecordId(selectedPatient) && (
  <div className="pt-6">
- <Button asChild className="w-full h-14 rounded-xl bg-primary text-white font-bold hover:bg-primary-hover transition-all">
+ <Button asChild className="w-full h-14 rounded-md bg-primary text-primary-foreground font-semibold hover:bg-primary-hover transition-all">
  <Link to={`/profile/records/${getPatientRecordId(selectedPatient)}`}>
  Перейти в медицинскую карту
  </Link>

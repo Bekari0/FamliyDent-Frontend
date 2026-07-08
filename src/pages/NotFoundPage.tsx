@@ -15,18 +15,18 @@ export function NotFoundPage() {
  animate={{ opacity: 1, scale: 1 }}
  className="relative mb-12"
  >
- <div className="text-[200px] font-display font-bold text-secondary leading-none select-none">404</div>
+ <div className="text-[200px] font-display font-semibold text-secondary leading-none select-none">404</div>
  <div className="absolute inset-0 flex items-center justify-center">
  <div className="w-32 h-32 bg-primary/10 rounded-[32px] flex items-center justify-center animate-pulse">
- <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center text-white text-4xl shadow-2xl shadow-primary/40">?</div>
+ <div className="w-20 h-20 bg-primary rounded-lg flex items-center justify-center text-white text-4xl shadow-2xl shadow-primary/40">?</div>
  </div>
  </div>
  </motion.div>
- <h1 className="text-4xl font-display font-bold text-foreground mb-4">Упс! Страница не найдена</h1>
- <p className="text-text-secondary mb-12 max-w-md mx-auto">Похоже, эта страница была удалена или никогда не существовала. Давайте вернемся к началу.</p>
+ <h1 className="text-4xl font-display font-semibold text-foreground mb-4">Упс! Страница не найдена</h1>
+ <p className="text-muted-foreground mb-12 max-w-md mx-auto">Похоже, эта страница была удалена или никогда не существовала. Давайте вернемся к началу.</p>
  <div className="flex gap-4">
  <Link to="/">
- <Button className="h-14 px-8 rounded-2xl bg-primary text-white font-bold group shadow-xl shadow-primary/20 hover:scale-105 transition-all">
+ <Button className="h-14 px-8 rounded-lg bg-primary text-primary-foreground font-semibold group shadow-xl shadow-primary/20 hover:scale-105 transition-all">
  <Home className="w-5 h-5 mr-3" />
  На главную
  </Button>
@@ -40,7 +40,7 @@ export function NotFoundPage() {
  navigate('/');
  }
  }} 
- className="h-14 px-8 rounded-2xl bg-card border border-border text-text-secondary font-bold hover:bg-secondary flex items-center justify-center gap-3 transition-all"
+ className="h-14 px-8 rounded-lg bg-card border border-border text-muted-foreground font-semibold hover:bg-secondary flex items-center justify-center gap-3 transition-all"
  >
  <ArrowLeft className="w-5 h-5" />
  Вернуться назад

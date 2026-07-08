@@ -96,17 +96,17 @@ export function AdminDashboard() {
  key={item.to}
  asChild
  variant="outline"
- className="justify-start h-20 rounded-xl shadow-sm bg-white border border-border hover:border-primary transition-all group px-6"
+ className="justify-start h-20 rounded-md shadow-sm bg-card border border-border hover:border-primary transition-all group px-6"
  >
  <Link to={item.to} className="flex items-center gap-4 w-full">
- <div className="p-3 bg-secondary text-primary rounded-xl group-hover:bg-primary group-hover:text-white transition-all">
+ <div className="p-3 bg-secondary text-primary rounded-md group-hover:bg-primary group-hover:text-white transition-all">
  <item.icon size={24} />
  </div>
  <div className="text-left">
- <p className="text-[10px] font-bold uppercase text-text-secondary leading-none mb-1 tracking-widest">
+ <p className="text-[10px] font-semibold uppercase text-muted-foreground leading-none mb-1 tracking-[0.18em]">
  {item.caption}
  </p>
- <p className="font-bold text-foreground text-base">{item.label}</p>
+ <p className="font-semibold text-foreground text-base">{item.label}</p>
  </div>
  <ChevronRight className="ml-auto text-muted-foreground/50 group-hover:text-primary transition-colors" />
  </Link>
@@ -116,24 +116,24 @@ export function AdminDashboard() {
 
  <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-8">
  <div>
- <h1 className="text-4xl lg:text-5xl font-display font-bold text-foreground mb-3">
+ <h1 className="text-4xl lg:text-5xl font-display font-semibold text-foreground mb-3">
  Монитор клиники
  </h1>
- <p className="text-text-secondary">
+ <p className="text-muted-foreground">
  Центральная панель управления{user?.displayName ? ` • ${user.displayName}` : ''}
  </p>
  </div>
  <div className="flex flex-col sm:flex-row gap-4">
  <button
  onClick={fetchStats}
- className="h-12 px-6 rounded-xl bg-white border border-border text-foreground font-bold text-sm hover:bg-secondary transition-all flex items-center justify-center gap-3 shadow-sm"
+ className="h-12 px-6 rounded-md bg-card border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-all flex items-center justify-center gap-3 shadow-sm"
  >
  <RefreshCcw size={18} className={loading ? 'animate-spin' : ''} />
  Обновить
  </button>
  <button
  onClick={exportReport}
- className="h-12 px-6 rounded-xl bg-primary text-white font-bold text-sm shadow-md hover:bg-primary-hover active:scale-95 transition-all flex items-center justify-center gap-3"
+ className="h-12 px-6 rounded-md bg-primary text-primary-foreground font-semibold text-sm shadow-md hover:bg-primary-hover active:scale-95 transition-all flex items-center justify-center gap-3"
  >
  <Download size={18} />
  Экспорт в PDF
@@ -148,44 +148,44 @@ export function AdminDashboard() {
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ delay: index * 0.1 }}
- className="bg-white p-6 rounded-xl border border-border shadow-md hover:shadow-lg transition-all"
+ className="bg-card p-6 rounded-md border border-border shadow-md hover:shadow-lg transition-all"
  >
- <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
+ <div className="w-12 h-12 rounded-md bg-primary/10 text-primary flex items-center justify-center mb-4">
  <stat.icon className="w-6 h-6" />
  </div>
- <div className="text-xs font-medium text-text-secondary uppercase tracking-wider mb-1">
+ <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">
  {stat.label}
  </div>
- <div className="text-2xl font-bold text-foreground">{loading ? '...' : stat.value}</div>
+ <div className="text-2xl font-semibold text-foreground">{loading ? '...' : stat.value}</div>
  </motion.div>
  ))}
  </div>
 
  <div className="grid lg:grid-cols-3 gap-8">
- <div className="lg:col-span-2 bg-white rounded-xl border border-border p-6 lg:p-8 shadow-md">
+ <div className="lg:col-span-2 bg-card rounded-md border border-border p-6 lg:p-8 shadow-md">
  <div className="flex items-center justify-between mb-8">
- <h3 className="text-xl font-bold flex items-center gap-3 text-foreground">
+ <h3 className="text-xl font-semibold flex items-center gap-3 text-foreground">
  <Activity className="text-primary" />
  Последние записи
  </h3>
- <Link to="/admin/bookings" className="text-primary font-bold text-sm underline hover:text-primary-hover transition-colors">
+ <Link to="/admin/bookings" className="text-primary font-semibold text-sm underline hover:text-primary-hover transition-colors">
  Все записи
  </Link>
  </div>
  <div className="space-y-4">
  {(!stats?.recentBookings || !Array.isArray(stats.recentBookings) || stats.recentBookings.length === 0) && (
- <p className="text-text-secondary text-center py-10 font-medium">Нет новых записей</p>
+ <p className="text-muted-foreground text-center py-10 font-medium">Нет новых записей</p>
  )}
  {Array.isArray(stats?.recentBookings) &&
  stats.recentBookings.map((booking, index) => (
- <div key={booking._id || index} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-secondary border border-border">
+ <div key={booking._id || index} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-md bg-secondary border border-border">
  <div className="flex items-center gap-4">
- <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center font-bold text-primary shadow-sm">
+ <div className="w-12 h-12 rounded-md bg-card flex items-center justify-center font-semibold text-primary shadow-sm">
  #{index + 1}
  </div>
  <div>
- <div className="font-bold text-foreground">Пациент: {booking.patientName || 'Не указан'}</div>
- <div className="text-xs text-text-secondary">
+ <div className="font-semibold text-foreground">Пациент: {booking.patientName || 'Не указан'}</div>
+ <div className="text-xs text-muted-foreground">
  {booking.date || 'Дата не указана'} в {booking.time || 'время не указано'}
  </div>
  </div>
@@ -208,8 +208,8 @@ export function AdminDashboard() {
  </div>
  </div>
 
- <div className="bg-white rounded-xl border border-border p-6 lg:p-8 shadow-md">
- <h3 className="text-xl font-bold mb-8 text-foreground">Управление</h3>
+ <div className="bg-card rounded-md border border-border p-6 lg:p-8 shadow-md">
+ <h3 className="text-xl font-semibold mb-8 text-foreground">Управление</h3>
  <div className="space-y-4">
  {[
  { to: '/admin/patients', icon: Users, label: 'Пациенты' },
@@ -218,10 +218,10 @@ export function AdminDashboard() {
  { to: '/admin/blog', icon: Newspaper, label: 'Статьи' },
  { to: '/admin/reviews', icon: MessageSquare, label: 'Отзывы' },
  ].map((item) => (
- <Link key={item.to} to={item.to} className="flex items-center justify-between p-4 rounded-xl bg-secondary hover:bg-muted transition-colors border border-border">
+ <Link key={item.to} to={item.to} className="flex items-center justify-between p-4 rounded-md bg-secondary hover:bg-muted transition-colors border border-border">
  <div className="flex items-center gap-3">
  <item.icon className="text-primary w-5 h-5" />
- <span className="font-bold text-foreground">{item.label}</span>
+ <span className="font-semibold text-foreground">{item.label}</span>
  </div>
  <ChevronRight size={16} className="text-muted-foreground" />
  </Link>

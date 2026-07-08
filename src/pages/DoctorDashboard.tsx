@@ -130,7 +130,7 @@ export function DoctorDashboard() {
 
  if (loading) {
  return (
- <div className="min-h-screen flex items-center justify-center bg-white">
+ <div className="min-h-screen flex items-center justify-center bg-card">
  <Loader2 className="w-10 h-10 animate-spin text-primary" />
  </div>
  );
@@ -157,8 +157,8 @@ export function DoctorDashboard() {
  <div className={styles.statsGrid}>
  {[
  { label: 'Всего записей', value: safeNumber(stats?.total), icon: CalendarCheck, color: 'text-primary', bg: 'bg-primary/5' },
- { label: 'Ожидают', value: safeNumber(stats?.pending), icon: Clock, color: 'text-amber-500', bg: 'bg-amber-50' },
- { label: 'Подтверждено', value: safeNumber(stats?.confirmed), icon: CheckCircle, color: 'text-green-500', bg: 'bg-green-50' },
+ { label: 'Ожидают', value: safeNumber(stats?.pending), icon: Clock, color: 'text-primary', bg: 'bg-warning/10' },
+ { label: 'Подтверждено', value: safeNumber(stats?.confirmed), icon: CheckCircle, color: 'text-success', bg: 'bg-success/10' },
  ].map((s, i) => (
  <motion.div 
  key={i} 
@@ -213,7 +213,7 @@ export function DoctorDashboard() {
  </div>
 
  <div className={styles.bookingActions}>
- <Link to={`/profile/records/${b.patientId}`} className="p-3 bg-primary/5 text-primary rounded-xl hover:bg-primary hover:text-white transition-all">
+ <Link to={`/profile/records/${b.patientId}`} className="p-3 bg-primary/5 text-primary rounded-md hover:bg-primary hover:text-white transition-all">
  <FileText className="w-5 h-5" />
  </Link>
  {b.status === 'pending' ? (
@@ -301,42 +301,42 @@ export function DoctorDashboard() {
  {/* Редактирование профиля */}
  {showEditProfile && (
  <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
- <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setShowEditProfile(false)} />
- <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl relative overflow-hidden z-10 p-8 sm:p-12">
+ <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0 bg-espresso/60 backdrop-blur-sm" onClick={() => setShowEditProfile(false)} />
+ <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-card w-full max-w-2xl rounded-lg shadow-2xl relative overflow-hidden z-10 p-8 sm:p-12">
  <form onSubmit={handleUpdateProfile} className="space-y-6 max-h-[85vh] overflow-y-auto pr-2 custom-scrollbar">
  <div className="flex justify-between items-center mb-8">
- <h2 className="text-3xl font-bold text-slate-900">Профиль специалиста</h2>
- <button type="button" onClick={() => setShowEditProfile(false)} className="w-12 h-12 rounded-2xl bg-slate-50 hover:bg-slate-100 flex items-center justify-center text-slate-400 transition-all active:scale-95"><XCircle className="w-6 h-6" /></button>
+ <h2 className="text-3xl font-semibold text-foreground">Профиль специалиста</h2>
+ <button type="button" onClick={() => setShowEditProfile(false)} className="w-12 h-12 rounded-lg bg-secondary hover:bg-secondary flex items-center justify-center text-muted-foreground transition-all active:scale-95"><XCircle className="w-6 h-6" /></button>
  </div>
 
  <div className="grid md:grid-cols-2 gap-6">
  <div className="space-y-2">
- <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">ФИО</label>
- <input required value={profileData?.name} onChange={e => setProfileData({...profileData, name: e.target.value})} className="w-full h-14 px-5 rounded-xl bg-slate-50 border border-slate-100 focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-900" />
+ <label className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground ml-1">ФИО</label>
+ <input required value={profileData?.name} onChange={e => setProfileData({...profileData, name: e.target.value})} className="w-full h-14 px-5 rounded-md bg-secondary border border-border focus:ring-2 focus:ring-primary/20 outline-none font-semibold text-foreground" />
  </div>
  <div className="space-y-2">
- <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Специализация</label>
- <input required value={profileData?.specialty} onChange={e => setProfileData({...profileData, specialty: e.target.value})} className="w-full h-14 px-5 rounded-xl bg-slate-50 border border-slate-100 focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-900" />
+ <label className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground ml-1">Специализация</label>
+ <input required value={profileData?.specialty} onChange={e => setProfileData({...profileData, specialty: e.target.value})} className="w-full h-14 px-5 rounded-md bg-secondary border border-border focus:ring-2 focus:ring-primary/20 outline-none font-semibold text-foreground" />
  </div>
  </div>
 
  <div className="space-y-2">
- <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">О себе</label>
- <textarea value={profileData?.description} onChange={e => setProfileData({...profileData, description: e.target.value})} className="w-full h-32 px-5 py-4 rounded-xl bg-slate-50 border border-slate-100 focus:ring-2 focus:ring-primary/20 outline-none resize-none text-slate-600 leading-relaxed" />
+ <label className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground ml-1">О себе</label>
+ <textarea value={profileData?.description} onChange={e => setProfileData({...profileData, description: e.target.value})} className="w-full h-32 px-5 py-4 rounded-md bg-secondary border border-border focus:ring-2 focus:ring-primary/20 outline-none resize-none text-muted-foreground leading-relaxed" />
  </div>
 
  <div className="grid md:grid-cols-2 gap-6">
  <div className="space-y-2">
- <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Образование</label>
- <textarea value={profileData?.education?.join('\n')} onChange={e => setProfileData({...profileData, education: e.target.value.split('\n')})} className="w-full h-32 px-5 py-4 rounded-xl bg-slate-50 border border-slate-100 focus:ring-2 focus:ring-primary/20 outline-none resize-none text-sm leading-relaxed" placeholder="По одной строке..." />
+ <label className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground ml-1">Образование</label>
+ <textarea value={profileData?.education?.join('\n')} onChange={e => setProfileData({...profileData, education: e.target.value.split('\n')})} className="w-full h-32 px-5 py-4 rounded-md bg-secondary border border-border focus:ring-2 focus:ring-primary/20 outline-none resize-none text-sm leading-relaxed" placeholder="По одной строке..." />
  </div>
  <div className="space-y-2">
- <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Достижения</label>
- <textarea value={profileData?.achievements?.join('\n')} onChange={e => setProfileData({...profileData, achievements: e.target.value.split('\n')})} className="w-full h-32 px-5 py-4 rounded-xl bg-slate-50 border border-slate-100 focus:ring-2 focus:ring-primary/20 outline-none resize-none text-sm leading-relaxed" placeholder="По одной строке..." />
+ <label className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground ml-1">Достижения</label>
+ <textarea value={profileData?.achievements?.join('\n')} onChange={e => setProfileData({...profileData, achievements: e.target.value.split('\n')})} className="w-full h-32 px-5 py-4 rounded-md bg-secondary border border-border focus:ring-2 focus:ring-primary/20 outline-none resize-none text-sm leading-relaxed" placeholder="По одной строке..." />
  </div>
  </div>
 
- <Button disabled={savingProfile} type="submit" className="w-full h-16 rounded-2xl bg-primary text-white font-bold text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all">
+ <Button disabled={savingProfile} type="submit" className="w-full h-16 rounded-lg bg-primary text-primary-foreground font-semibold text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all">
  {savingProfile ? <Loader2 className="animate-spin" /> : <><Save className="w-5 h-5 mr-3" /> Сохранить профиль</>}
  </Button>
  </form>

@@ -25,11 +25,11 @@
 }
 
 .subtitle {
- @apply text-primary font-bold uppercase tracking-widest text-xs;
+ @apply text-primary font-semibold uppercase tracking-[0.18em] text-xs;
 }
 
 .title {
- @apply text-4xl lg:text-5xl font-bold text-foreground leading-tight;
+ @apply text-4xl lg:text-5xl font-semibold text-foreground leading-tight;
 }
 
 .textHighlight {
@@ -37,7 +37,7 @@
 }
 
 .allBtn {
- @apply rounded-xl px-8 h-14 font-bold border-border text-foreground hidden md:flex items-center gap-3 hover:bg-secondary transition-all;
+ @apply rounded-md px-8 h-14 font-semibold border-border text-foreground hidden md:flex items-center gap-3 hover:bg-secondary transition-all;
 }
 
 .allBtnInner {
@@ -53,7 +53,7 @@
 }
 
 .card {
- @apply border border-border bg-card rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col;
+ @apply border border-border bg-card rounded-md shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col;
 }
 
 .iconHeader {
@@ -73,7 +73,7 @@
 }
 
 .cardTitle {
- @apply text-xl font-bold text-foreground leading-tight;
+ @apply text-xl font-semibold text-foreground leading-tight;
 }
 
 .cardContent {
@@ -85,7 +85,7 @@
 }
 
 .serviceItem {
- @apply flex items-center justify-center gap-3 text-sm text-text-secondary;
+ @apply flex items-center justify-center gap-3 text-sm text-muted-foreground;
 }
 
 .serviceDot {
@@ -93,7 +93,7 @@
 }
 
 .moreInfo {
- @apply text-xs text-text-secondary font-medium;
+ @apply text-xs text-muted-foreground font-medium;
 }
 
 .cardFooter {
@@ -101,15 +101,15 @@
 }
 
 .priceLabel {
- @apply text-[10px] font-bold text-text-secondary uppercase tracking-widest block mb-1;
+ @apply text-[10px] font-semibold text-muted-foreground uppercase tracking-[0.18em] block mb-1;
 }
 
 .priceValue {
- @apply text-base font-bold text-foreground;
+ @apply text-base font-semibold text-foreground;
 }
 
 .arrowBtn {
- @apply w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-text-secondary transition-all;
+ @apply w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground transition-all;
 }
 
 .arrowIcon {

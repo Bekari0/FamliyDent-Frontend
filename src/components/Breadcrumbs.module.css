@@ -9,7 +9,7 @@
 }
 
 .list {
- @apply flex items-center space-x-2 text-sm text-text-secondary;
+ @apply flex items-center space-x-2 text-sm text-muted-foreground;
 }
 
 .item {
@@ -25,11 +25,11 @@
 }
 
 .separator {
- @apply text-text-secondary/50;
+ @apply text-muted-foreground/50;
 }
 
 .current {
- @apply font-bold text-foreground truncate max-w-[150px] sm:max-w-none;
+ @apply font-semibold text-foreground truncate max-w-[150px] sm:max-w-none;
 }
 
 .breadcrumbLink {

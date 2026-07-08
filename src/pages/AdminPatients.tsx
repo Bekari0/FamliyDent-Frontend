@@ -123,13 +123,13 @@ export function AdminPatients() {
  <div className="container mx-auto px-4 max-w-7xl">
  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 mb-12">
  <div>
- <h1 className="text-4xl lg:text-5xl font-display font-bold text-foreground mb-4 flex items-center gap-4 tracking-tight">
- <div className="p-4 bg-primary text-white rounded-xl shadow-md shadow-primary/20">
+ <h1 className="text-4xl lg:text-5xl font-display font-semibold text-foreground mb-4 flex items-center gap-4 tracking-tight">
+ <div className="p-4 bg-primary text-primary-foreground rounded-md shadow-md shadow-primary/20">
  <Users className="w-9 h-9" />
  </div>
  База пациентов
  </h1>
- <p className="text-text-secondary text-lg font-medium max-w-2xl leading-relaxed">
+ <p className="text-muted-foreground text-lg font-medium max-w-2xl leading-relaxed">
  Управление профилями, контактами и медицинской историей пациентов Family Dent.
  </p>
  </div>
@@ -138,12 +138,12 @@ export function AdminPatients() {
  <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-primary/60 group-hover:text-primary transition-all" />
  <Input
  placeholder="Поиск по базе данных..."
- className="h-14 pl-14 pr-6 bg-white border-border rounded-xl text-base focus:ring-4 focus:ring-primary/10 text-foreground placeholder:text-text-secondary shadow-sm transition-all font-medium"
+ className="h-14 pl-14 pr-6 bg-card border-border rounded-md text-base focus:ring-4 focus:ring-primary/10 text-foreground placeholder:text-muted-foreground shadow-sm transition-all font-medium"
  value={searchTerm}
  onChange={(event) => setSearchTerm(event.target.value)}
  />
  </div>
- <div className="h-14 px-6 rounded-xl bg-secondary border border-border text-foreground font-bold text-xs uppercase tracking-[0.18em] flex items-center justify-center gap-3 shadow-sm">
+ <div className="h-14 px-6 rounded-md bg-secondary border border-border text-foreground font-semibold text-xs uppercase tracking-[0.18em] flex items-center justify-center gap-3 shadow-sm">
  <ShieldCheck className="w-5 h-5 text-primary" />
  Пациентов: {patients.length}
  </div>
@@ -155,7 +155,7 @@ export function AdminPatients() {
  Array(6)
  .fill(0)
  .map((_, index) => (
- <div key={index} className="h-80 bg-secondary animate-pulse rounded-xl border border-border" />
+ <div key={index} className="h-80 bg-secondary animate-pulse rounded-md border border-border" />
  ))
  ) : (
  filteredPatients.map((patient) => (
@@ -165,17 +165,17 @@ export function AdminPatients() {
  animate={{ opacity: 1, y: 0 }}
  className="group"
  >
- <Card className="rounded-2xl border-border shadow-sm hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 overflow-hidden bg-card border group-hover:border-primary/30">
+ <Card className="rounded-lg border-border shadow-sm hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 overflow-hidden bg-card border group-hover:border-primary/30">
  <CardContent className="p-5 sm:p-6">
  <div className="flex items-start justify-between gap-4 mb-6">
- <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-secondary border border-border flex items-center justify-center text-primary shrink-0">
+ <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg bg-secondary border border-border flex items-center justify-center text-primary shrink-0">
  <User className="w-8 h-8" />
  </div>
  <div className="flex gap-2 shrink-0">
  <Button
  variant="ghost"
  size="icon"
- className="h-11 w-11 rounded-xl !text-primary bg-primary/10 hover:!bg-primary hover:!text-white shadow-sm border border-primary/10"
+ className="h-11 w-11 rounded-md !text-primary bg-primary/10 hover:!bg-primary hover:!text-white shadow-sm border border-primary/10"
  onClick={() => fetchPatientDetails(patient)}
  title="Открыть карточку пациента"
  >
@@ -184,7 +184,7 @@ export function AdminPatients() {
  <Button
  variant="ghost"
  size="icon"
- className="h-11 w-11 rounded-xl !text-error bg-error/10 hover:!bg-error hover:!text-white shadow-sm border border-error/10"
+ className="h-11 w-11 rounded-md !text-error bg-error/10 hover:!bg-error hover:!text-white shadow-sm border border-error/10"
  onClick={() => handleDelete(patient)}
  title="Удалить пациента"
  >
@@ -194,24 +194,24 @@ export function AdminPatients() {
  </div>
 
  <div className="mb-6 min-w-0">
- <h3 className="text-xl sm:text-2xl font-display font-bold text-foreground mb-3 line-clamp-1 leading-tight">
+ <h3 className="text-xl sm:text-2xl font-display font-semibold text-foreground mb-3 line-clamp-1 leading-tight">
  {patient.displayName || 'Пациент без имени'}
  </h3>
- <div className="flex items-start gap-2 text-sm text-text-secondary font-semibold break-all leading-relaxed">
+ <div className="flex items-start gap-2 text-sm text-muted-foreground font-semibold break-all leading-relaxed">
  <Mail className="w-4 h-4 text-primary shrink-0" />
  {patient.email || 'Email не указан'}
  </div>
  </div>
 
  <div className="space-y-3 mb-6">
- <div className="flex items-center gap-3 text-sm sm:text-base text-text-secondary font-semibold">
- <span className="p-2.5 rounded-xl bg-secondary text-primary border border-border shrink-0">
+ <div className="flex items-center gap-3 text-sm sm:text-base text-muted-foreground font-semibold">
+ <span className="p-2.5 rounded-md bg-secondary text-primary border border-border shrink-0">
  <Phone className="w-5 h-5" />
  </span>
  <span className="min-w-0 break-words">{patient.phoneNumber || 'Без номера'}</span>
  </div>
- <div className="flex items-center gap-3 text-sm sm:text-base text-text-secondary font-semibold">
- <span className="p-2.5 rounded-xl bg-secondary text-primary border border-border shrink-0">
+ <div className="flex items-center gap-3 text-sm sm:text-base text-muted-foreground font-semibold">
+ <span className="p-2.5 rounded-md bg-secondary text-primary border border-border shrink-0">
  <Calendar className="w-5 h-5" />
  </span>
  <span className="min-w-0">С нами с{' '}
@@ -223,7 +223,7 @@ export function AdminPatients() {
  {getPatientId(patient) && (
  <Link
  to={`/profile/records/${getPatientId(patient)}`}
- className="w-full min-h-12 rounded-xl bg-primary/10 text-primary font-black text-xs uppercase tracking-[0.16em] flex items-center justify-center gap-3 hover:bg-primary hover:text-white transition-all active:scale-95 px-4 text-center"
+ className="w-full min-h-12 rounded-md bg-primary/10 text-primary font-semibold text-xs uppercase tracking-[0.16em] flex items-center justify-center gap-3 hover:bg-primary hover:text-white transition-all active:scale-95 px-4 text-center"
  >
  Медицинская карта
  <ChevronRight className="w-5 h-5" />
@@ -237,25 +237,25 @@ export function AdminPatients() {
  </div>
 
  {!loading && filteredPatients.length === 0 && (
- <div className="mt-10 text-center py-16 text-text-secondary font-bold border-2 border-dashed border-border rounded-xl">
+ <div className="mt-10 text-center py-16 text-muted-foreground font-semibold border-2 border-dashed border-border rounded-md">
  Пациенты не найдены
  </div>
  )}
 
  <Dialog open={isDetailModalOpen} onOpenChange={setIsDetailModalOpen}>
- <DialogContent className="max-w-6xl w-[calc(100vw-2rem)] rounded-2xl p-0 overflow-hidden border border-border shadow-2xl bg-card">
+ <DialogContent className="max-w-6xl w-[calc(100vw-2rem)] rounded-lg p-0 overflow-hidden border border-border shadow-2xl bg-card">
  {selectedPatient && (
  <div className="max-h-[88vh] overflow-y-auto no-scrollbar">
  <div className="bg-primary p-8 lg:p-10 text-white relative overflow-hidden">
  <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
- <div className="w-24 h-24 rounded-xl bg-white/20 backdrop-blur-xl flex items-center justify-center shadow-lg border border-white/20">
+ <div className="w-24 h-24 rounded-md bg-card/20 backdrop-blur-xl flex items-center justify-center shadow-lg border border-white/20">
  <User className="w-12 h-12" />
  </div>
  <div className="text-center md:text-left min-w-0">
- <h2 className="text-3xl lg:text-4xl font-display font-bold mb-4 tracking-tight">
+ <h2 className="text-3xl lg:text-4xl font-display font-semibold mb-4 tracking-tight">
  {selectedPatient.patient?.displayName || 'Пациент без имени'}
  </h2>
- <div className="flex flex-wrap justify-center md:justify-start items-center gap-5 text-white/85 font-bold text-xs uppercase tracking-[0.12em]">
+ <div className="flex flex-wrap justify-center md:justify-start items-center gap-5 text-white/85 font-semibold text-xs uppercase tracking-[0.12em]">
  <span className="flex items-center gap-2 break-all">
  <Mail className="w-4 h-4 shrink-0" /> {selectedPatient.patient?.email || 'Email не указан'}
  </span>
@@ -269,80 +269,80 @@ export function AdminPatients() {
 
  <div className="p-6 lg:p-10 space-y-10">
  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
- <div className="p-6 rounded-xl bg-secondary border border-border">
- <div className="text-xs font-black text-text-secondary uppercase tracking-[0.16em] mb-3">
+ <div className="p-6 rounded-md bg-secondary border border-border">
+ <div className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.16em] mb-3">
  Визитов в клинику
  </div>
- <div className="text-4xl font-display font-bold text-foreground">
+ <div className="text-4xl font-display font-semibold text-foreground">
  {selectedPatient.bookings?.length || 0}
  </div>
  </div>
- <div className="p-6 rounded-xl bg-secondary border border-border">
- <div className="text-xs font-black text-text-secondary uppercase tracking-[0.16em] mb-3">
+ <div className="p-6 rounded-md bg-secondary border border-border">
+ <div className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.16em] mb-3">
  Медицинских карт
  </div>
- <div className="text-4xl font-display font-bold text-foreground">
+ <div className="text-4xl font-display font-semibold text-foreground">
  {selectedPatient.records?.length || 0}
  </div>
  </div>
- <div className="p-6 rounded-xl bg-secondary border border-border">
- <div className="text-xs font-black text-text-secondary uppercase tracking-[0.16em] mb-3">
+ <div className="p-6 rounded-md bg-secondary border border-border">
+ <div className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.16em] mb-3">
  Последний прием
  </div>
- <div className="text-xl font-display font-bold text-foreground">
+ <div className="text-xl font-display font-semibold text-foreground">
  {selectedPatient.bookings?.[0]?.date || 'Нет данных'}
  </div>
  </div>
  </div>
 
  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
- <div className="p-5 rounded-xl bg-secondary border border-border">
- <div className="text-xs font-black text-text-secondary uppercase tracking-[0.16em] mb-2">
+ <div className="p-5 rounded-md bg-secondary border border-border">
+ <div className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.16em] mb-2">
  Дата создания
  </div>
- <div className="font-bold text-foreground">
+ <div className="font-semibold text-foreground">
  {selectedPatient.patient?.createdAt ? new Date(selectedPatient.patient.createdAt).toLocaleString('ru-RU') : 'Нет данных'}
  </div>
  </div>
- <div className="p-5 rounded-xl bg-secondary border border-border">
- <div className="text-xs font-black text-text-secondary uppercase tracking-[0.16em] mb-2">
+ <div className="p-5 rounded-md bg-secondary border border-border">
+ <div className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.16em] mb-2">
  Последнее обновление
  </div>
- <div className="font-bold text-foreground">
+ <div className="font-semibold text-foreground">
  {selectedPatient.patient?.updatedAt ? new Date(selectedPatient.patient.updatedAt).toLocaleString('ru-RU') : 'Нет данных'}
  </div>
  </div>
  </div>
 
  <div>
- <h4 className="text-xs font-black text-text-secondary uppercase tracking-[0.18em] mb-6 flex items-center gap-3">
+ <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.18em] mb-6 flex items-center gap-3">
  <Clock className="w-5 h-5 text-primary" />
  История посещений
  </h4>
  <div className="space-y-4">
  {(selectedPatient.bookings || []).length === 0 ? (
- <div className="text-center py-10 text-text-secondary font-bold border-2 border-dashed border-border rounded-xl">
+ <div className="text-center py-10 text-muted-foreground font-semibold border-2 border-dashed border-border rounded-md">
  История посещений пуста
  </div>
  ) : (
  selectedPatient.bookings.map((booking: any) => (
- <div key={booking._id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-xl bg-card border border-border shadow-sm">
+ <div key={booking._id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-md bg-card border border-border shadow-sm">
  <div className="flex items-center gap-5">
- <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center text-primary">
+ <div className="w-12 h-12 rounded-md bg-secondary flex items-center justify-center text-primary">
  <Calendar className="w-6 h-6" />
  </div>
  <div>
- <div className="text-lg font-display font-bold text-foreground">
+ <div className="text-lg font-display font-semibold text-foreground">
  {booking.date} в {booking.time}
  </div>
- <div className="text-xs font-black text-text-secondary uppercase tracking-[0.1em] mt-1">
+ <div className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.1em] mt-1">
  Доктор: {booking.doctorName || 'Не указан'}
  </div>
  </div>
  </div>
  <Badge
  className={cn(
- 'rounded-full px-5 py-2 border-none shadow-sm font-black text-[10px] uppercase tracking-widest',
+ 'rounded-full px-5 py-2 border-none shadow-sm font-semibold text-[10px] uppercase tracking-[0.18em]',
  booking.status === 'confirmed'
  ? 'bg-success/10 text-success'
  : booking.status === 'completed'
@@ -361,35 +361,35 @@ export function AdminPatients() {
  </div>
 
  <div>
- <h4 className="text-xs font-black text-text-secondary uppercase tracking-[0.18em] mb-6 flex items-center gap-3">
+ <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.18em] mb-6 flex items-center gap-3">
  <FileText className="w-5 h-5 text-primary" />
  Лечебная документация
  </h4>
  <div className="space-y-5">
  {(selectedPatient.records || []).length === 0 ? (
- <div className="text-center py-10 text-text-secondary font-bold border-2 border-dashed border-border rounded-xl">
+ <div className="text-center py-10 text-muted-foreground font-semibold border-2 border-dashed border-border rounded-md">
  Медицинская документация не найдена
  </div>
  ) : (
  selectedPatient.records.map((record: any) => (
- <div key={record._id} className="p-6 rounded-xl bg-secondary border border-border">
+ <div key={record._id} className="p-6 rounded-md bg-secondary border border-border">
  <div className="mb-5">
- <span className="text-xs font-black text-text-secondary uppercase tracking-[0.14em] block mb-2">
+ <span className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.14em] block mb-2">
  Заключение специалиста
  </span>
- <div className="text-2xl font-display font-bold text-foreground">
+ <div className="text-2xl font-display font-semibold text-foreground">
  {record.diagnosis || 'Диагноз не указан'}
  </div>
  </div>
  <div>
- <span className="text-xs font-black text-text-secondary uppercase tracking-[0.14em] block mb-2">
+ <span className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.14em] block mb-2">
  Назначенное лечение
  </span>
- <p className="text-text-secondary leading-relaxed font-semibold">
+ <p className="text-muted-foreground leading-relaxed font-semibold">
  {record.treatment || 'Лечение не указано'}
  </p>
  </div>
- <div className="mt-6 pt-5 border-t border-border text-xs font-black text-text-secondary uppercase tracking-[0.16em]">
+ <div className="mt-6 pt-5 border-t border-border text-xs font-semibold text-muted-foreground uppercase tracking-[0.16em]">
  Лечащий врач: {record.doctorName || 'Не указан'}
  </div>
  </div>
@@ -399,21 +399,21 @@ export function AdminPatients() {
  </div>
 
  <div>
- <h4 className="text-xs font-black text-text-secondary uppercase tracking-[0.18em] mb-6 flex items-center gap-3">
+ <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.18em] mb-6 flex items-center gap-3">
  <ImageIcon className="w-5 h-5 text-primary" />
  Прикрепленные снимки и файлы
  </h4>
  {(selectedPatient.scans || []).length === 0 ? (
- <div className="text-center py-10 text-text-secondary font-bold border-2 border-dashed border-border rounded-xl">
+ <div className="text-center py-10 text-muted-foreground font-semibold border-2 border-dashed border-border rounded-md">
  Файлы не прикреплены
  </div>
  ) : (
  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
  {selectedPatient.scans.map((scan: any) => (
- <a key={scan._id || scan.id} href={scan.imageUrl} target="_blank" rel="noreferrer" className="p-4 rounded-xl bg-secondary border border-border hover:border-primary transition-all flex items-center justify-between gap-4">
+ <a key={scan._id || scan.id} href={scan.imageUrl} target="_blank" rel="noreferrer" className="p-4 rounded-md bg-secondary border border-border hover:border-primary transition-all flex items-center justify-between gap-4">
  <div>
- <div className="font-bold text-foreground">{scan.description || scan.originalName || 'Файл медкарты'}</div>
- <div className="text-xs text-text-secondary mt-1">
+ <div className="font-semibold text-foreground">{scan.description || scan.originalName || 'Файл медкарты'}</div>
+ <div className="text-xs text-muted-foreground mt-1">
  {scan.createdAt ? new Date(scan.createdAt).toLocaleDateString('ru-RU') : 'Нет даты'} • {scan.type || scan.mimeType || 'file'}
  </div>
  </div>
@@ -429,7 +429,7 @@ export function AdminPatients() {
  <Button
  variant="outline"
  onClick={() => setIsDetailModalOpen(false)}
- className="h-14 px-10 rounded-xl border-border text-foreground font-black uppercase tracking-[0.14em] text-xs hover:bg-primary hover:text-white transition-all"
+ className="h-14 px-10 rounded-md border-border text-foreground font-semibold uppercase tracking-[0.14em] text-xs hover:bg-primary hover:text-white transition-all"
  >
  Закрыть медицинскую карту
  </Button>

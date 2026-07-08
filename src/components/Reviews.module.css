@@ -26,7 +26,7 @@
 }
 
 .statsText {
- @apply text-xs font-bold text-text-secondary uppercase tracking-widest;
+ @apply text-xs font-semibold text-muted-foreground uppercase tracking-[0.18em];
 }
 
 .grid {
@@ -34,7 +34,7 @@
 }
 
 .card {
- @apply h-full border border-border rounded-xl p-6 bg-card shadow-md hover:shadow-lg transition-all duration-300 relative;
+ @apply h-full border border-border rounded-md p-6 bg-card shadow-md hover:shadow-lg transition-all duration-300 relative;
 }
 
 .quoteIcon {
@@ -46,7 +46,7 @@
 }
 
 .text {
- @apply text-text-secondary leading-relaxed mb-8;
+ @apply text-muted-foreground leading-relaxed mb-8;
 }
 
 .footer {
@@ -66,7 +66,7 @@
 }
 
 .authorName {
- @apply text-lg font-bold text-foreground;
+ @apply text-lg font-semibold text-foreground;
 }
 
 .verifiedBadge {
@@ -74,19 +74,19 @@
 }
 
 .date {
- @apply text-xs text-text-secondary mt-1;
+ @apply text-xs text-muted-foreground mt-1;
 }
 
 .sectionTitle {
- @apply text-3xl lg:text-4xl font-bold text-foreground mb-6;
+ @apply text-3xl lg:text-4xl font-semibold text-foreground mb-6;
 }
 
 .sectionDescription {
- @apply text-lg text-text-secondary;
+ @apply text-lg text-muted-foreground;
 }
 
 .starIcon {
- @apply w-4 h-4 text-yellow-400 fill-yellow-400;
+ @apply w-4 h-4 text-primary fill-primary;
 }
 
 .verifiedSvg {
@@ -94,5 +94,5 @@
 }
 
 .textHighlight {
- @apply text-primary not-italic font-black underline decoration-primary/10 underline-offset-8;
+ @apply text-primary not-italic font-semibold underline decoration-primary/10 underline-offset-8;
 }

@@ -34,10 +34,10 @@ export function FAQPage() {
  animate={{ opacity: 1, x: 0 }}
  className="sticky top-32"
  >
- <h1 className="text-5xl font-display font-bold text-foreground mb-8 leading-tight">
+ <h1 className="text-5xl font-display font-semibold text-foreground mb-8 leading-tight">
  Часто задаваемые <span className="text-primary italic">вопросы</span>
  </h1>
- <p className="text-lg text-text-secondary mb-10 leading-relaxed">
+ <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
  Мы собрали ответы на самые популярные вопросы наших пациентов. Если вы не нашли нужную информацию, свяжитесь с нами.
  </p>
  
@@ -45,9 +45,9 @@ export function FAQPage() {
  <input 
  type="text" 
  placeholder="Поиск по вопросам..." 
- className="w-full h-16 pl-14 pr-6 rounded-2xl border-none shadow-xl focus:ring-2 focus:ring-primary/20 text-lg transition-all"
+ className="w-full h-16 pl-14 pr-6 rounded-lg border-none shadow-xl focus:ring-2 focus:ring-primary/20 text-lg transition-all"
  />
- <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-text-secondary w-6 h-6" />
+ <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-muted-foreground w-6 h-6" />
  </div>
  </motion.div>
  </div>
@@ -60,14 +60,14 @@ export function FAQPage() {
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ delay: idx * 0.1 }}
- className="bg-card rounded-3xl border border-border overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
+ className="bg-card rounded-lg border border-border overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
  >
  <button 
  onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
  className="w-full p-8 flex items-center justify-between text-left group"
  >
- <span className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">{faq.q}</span>
- <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${openIdx === idx ? 'bg-primary text-white rotate-180' : 'bg-secondary text-text-secondary'}`}>
+ <span className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">{faq.q}</span>
+ <div className={`w-10 h-10 rounded-md flex items-center justify-center transition-all ${openIdx === idx ? 'bg-primary text-primary-foreground rotate-180' : 'bg-secondary text-muted-foreground'}`}>
  {openIdx === idx ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
  </div>
  </button>
@@ -75,7 +75,7 @@ export function FAQPage() {
  <motion.div 
  initial={{ opacity: 0, height: 0 }}
  animate={{ opacity: 1, height: 'auto' }}
- className="px-8 pb-8 text-text-secondary leading-relaxed text-lg border-t border-border/50 pt-6"
+ className="px-8 pb-8 text-muted-foreground leading-relaxed text-lg border-t border-border/50 pt-6"
  >
  {faq.a}
  </motion.div>

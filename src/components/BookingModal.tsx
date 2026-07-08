@@ -336,7 +336,7 @@ export function BookingModal({
  placeholder="Алишер Ахмедов" 
  className={cn(
  styles.input,
- errors.name ? "ring-2 ring-red-500/50" : "focus:ring-2 focus:ring-primary/20"
+ errors.name ? "ring-2 ring-destructive/50" : "focus:ring-2 focus:ring-primary/20"
  )}
  />
  {errors.name && (
@@ -358,7 +358,7 @@ export function BookingModal({
  placeholder="+992 00 000 0000" 
  className={cn(
  styles.input,
- errors.phone ? "ring-2 ring-red-500/50" : "focus:ring-2 focus:ring-primary/20"
+ errors.phone ? "ring-2 ring-destructive/50" : "focus:ring-2 focus:ring-primary/20"
  )}
  />
  {errors.phone && (

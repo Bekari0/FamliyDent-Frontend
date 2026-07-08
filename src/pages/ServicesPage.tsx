@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -55,7 +55,7 @@ export function ServicesPage() {
  <div className={styles.page}>
  <div className="flex flex-col items-center justify-center py-40">
  <Loader2 className="w-12 h-12 animate-spin text-primary mb-4" />
- <p className="text-slate-400 font-black uppercase tracking-widest text-[10px]">Загрузка услуг...</p>
+ <p className="text-muted-foreground font-semibold uppercase tracking-[0.18em] text-[10px]">Загрузка услуг...</p>
  </div>
  </div>
  );
@@ -126,15 +126,11 @@ export function ServicesPage() {
 
  {/* Блок действия */}
  <div className={styles.ctaSection}>
- {/* Декоративные элементы */}
- <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] -mr-64 -mt-64" />
- <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[80px] -ml-48 -mb-48" />
-
  <div className={styles.ctaContent}>
  <div className={styles.ctaTextWrapper}>
  <h2 className={styles.ctaTitle}>
  Не знаете, какая процедура <br />
- <span className="text-primary italic">вам нужна?</span>
+ <span className="text-primary">вам нужна?</span>
  </h2>
  <p className={styles.ctaDesc}>
  Запишитесь на консультацию, и наши специалисты составят индивидуальный план лечения специально для вас.

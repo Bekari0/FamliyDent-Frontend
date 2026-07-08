@@ -1,7 +1,7 @@
 @reference "../index.css";
 
 .dashboard {
- @apply pt-24 pb-20 bg-slate-50 min-h-screen text-primary;
+ @apply pt-24 pb-20 bg-secondary min-h-screen text-primary;
 }
 
 .container {
@@ -13,7 +13,7 @@
 }
 
 .title {
- @apply text-4xl font-display font-bold text-primary mb-2 italic tracking-tight;
+ @apply text-4xl font-display font-semibold text-primary mb-2 italic tracking-tight;
 }
 
 .subtitle {
@@ -21,7 +21,7 @@
 }
 
 .userName {
- @apply text-primary font-black underline decoration-primary/20 underline-offset-4;
+ @apply text-primary font-semibold underline decoration-primary/20 underline-offset-4;
 }
 
 .actions {
@@ -29,7 +29,7 @@
 }
 
 .logoutBtn {
- @apply h-12 px-6 rounded-xl border border-primary/10 text-primary font-bold hover:bg-primary hover:text-white transition-all shadow-sm;
+ @apply h-12 px-6 rounded-md border border-primary/10 text-primary font-semibold hover:bg-primary hover:text-white transition-all shadow-sm;
 }
 
 .statsGrid {
@@ -37,19 +37,19 @@
 }
 
 .statCard {
- @apply bg-white p-6 rounded-xl border border-slate-200 shadow-md flex items-center gap-6 hover:shadow-lg transition-all duration-300;
+ @apply bg-card p-6 rounded-md border border-border shadow-md flex items-center gap-6 hover:shadow-lg transition-all duration-300;
 }
 
 .statIconBox {
- @apply w-16 h-16 rounded-xl flex items-center justify-center transition-transform;
+ @apply w-16 h-16 rounded-md flex items-center justify-center transition-transform;
 }
 
 .statValue {
- @apply text-3xl font-bold text-slate-900 leading-none;
+ @apply text-3xl font-semibold text-foreground leading-none;
 }
 
 .statLabel {
- @apply text-xs font-medium text-slate-500 uppercase tracking-wider mt-1;
+ @apply text-xs font-medium text-muted-foreground uppercase tracking-wider mt-1;
 }
 
 .mainGrid {
@@ -65,7 +65,7 @@
 }
 
 .sectionTitle {
- @apply text-2xl font-display font-bold text-primary flex items-center gap-4 italic mb-8 underline decoration-primary/5 underline-offset-[12px];
+ @apply text-2xl font-display font-semibold text-primary flex items-center gap-4 italic mb-8 underline decoration-primary/5 underline-offset-[12px];
 }
 
 .bookingList {
@@ -73,7 +73,7 @@
 }
 
 .bookingCard {
- @apply bg-white p-6 rounded-xl border border-slate-200 shadow-md flex flex-col sm:flex-row items-center justify-between gap-6 hover:border-primary/20 transition-all duration-300;
+ @apply bg-card p-6 rounded-md border border-border shadow-md flex flex-col sm:flex-row items-center justify-between gap-6 hover:border-primary/20 transition-all duration-300;
 }
 
 .bookingInfo {
@@ -81,23 +81,23 @@
 }
 
 .dateBadge {
- @apply w-16 h-16 rounded-xl bg-primary/5 flex flex-col items-center justify-center text-center;
+ @apply w-16 h-16 rounded-md bg-primary/5 flex flex-col items-center justify-center text-center;
 }
 
 .month {
- @apply text-[10px] font-black text-primary/30 uppercase tracking-[0.2em];
+ @apply text-[10px] font-semibold text-primary/30 uppercase tracking-[0.2em];
 }
 
 .day {
- @apply text-2xl font-black text-primary;
+ @apply text-2xl font-semibold text-primary;
 }
 
 .patientName {
- @apply text-xl font-bold text-slate-900 tracking-tight transition-all;
+ @apply text-xl font-semibold text-foreground tracking-tight transition-all;
 }
 
 .metaInfo {
- @apply flex items-center gap-6 mt-3 text-[10px] text-primary/40 font-black uppercase tracking-[0.2em];
+ @apply flex items-center gap-6 mt-3 text-[10px] text-primary/40 font-semibold uppercase tracking-[0.2em];
 }
 
 .metaItem {
@@ -109,15 +109,15 @@
 }
 
 .confirmBtn {
- @apply flex-1 sm:flex-none h-12 px-6 rounded-lg bg-primary text-white font-bold text-sm shadow-md transition-all;
+ @apply flex-1 sm:flex-none h-12 px-6 rounded-lg bg-primary text-primary-foreground font-semibold text-sm shadow-md transition-all;
 }
 
 .cancelBtn {
- @apply flex-1 sm:flex-none h-12 px-6 rounded-lg border border-slate-200 text-slate-400 hover:text-red-500 hover:border-red-500 hover:bg-red-50 transition-all;
+ @apply flex-1 sm:flex-none h-12 px-6 rounded-lg border border-border text-muted-foreground hover:text-destructive hover:border-destructive hover:bg-destructive/10 transition-all;
 }
 
 .statusBadge {
- @apply px-5 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-sm;
+ @apply px-5 py-2.5 rounded-lg text-[10px] font-semibold uppercase tracking-[0.2em] shadow-sm;
 }
 
 .statusConfirmed {
@@ -125,7 +125,7 @@
 }
 
 .statusCancelled {
- @apply bg-red-50 text-red-500 border border-red-100;
+ @apply bg-destructive/10 text-destructive border border-destructive/20;
 }
 
 .statusDefault {
@@ -133,11 +133,11 @@
 }
 
 .emptyState {
- @apply py-24 text-center bg-white rounded-[50px] border border-dashed border-primary/20 text-primary/30 font-bold italic;
+ @apply py-24 text-center bg-card rounded-[50px] border border-dashed border-primary/20 text-primary/30 font-semibold italic;
 }
 
 .profileCard {
- @apply bg-white p-8 rounded-xl border border-slate-200 shadow-md;
+ @apply bg-card p-8 rounded-md border border-border shadow-md;
 }
 
 .profileHeader {
@@ -149,7 +149,7 @@
 }
 
 .avatar {
- @apply w-24 h-24 rounded-full object-cover ring-4 ring-slate-50 transition-transform duration-500 shadow-lg;
+ @apply w-24 h-24 rounded-full object-cover ring-4 ring-border transition-transform duration-500 shadow-lg;
 }
 
 .avatarOverlay {
@@ -161,15 +161,15 @@
 }
 
 .profileName {
- @apply text-2xl font-display font-bold text-primary italic leading-tight;
+ @apply text-2xl font-display font-semibold text-primary italic leading-tight;
 }
 
 .profileSpecialty {
- @apply text-[10px] text-primary/40 font-black uppercase tracking-[0.2em] mt-1;
+ @apply text-[10px] text-primary/40 font-semibold uppercase tracking-[0.2em] mt-1;
 }
 
 .profileEmail {
- @apply text-[10px] text-primary/30 font-bold uppercase tracking-widest mt-2;
+ @apply text-[10px] text-primary/30 font-semibold uppercase tracking-[0.18em] mt-2;
 }
 
 .profileActions {
@@ -177,19 +177,19 @@
 }
 
 .profileBtn {
- @apply w-full h-12 rounded-lg border border-slate-200 text-slate-700 font-bold text-sm hover:bg-slate-50 transition-all;
+ @apply w-full h-12 rounded-lg border border-border text-foreground font-semibold text-sm hover:bg-secondary transition-all;
 }
 
 .ghostBtn {
- @apply w-full h-14 rounded-[22px] text-primary/30 font-black text-[10px] uppercase tracking-widest hover:text-primary transition-colors;
+ @apply w-full h-14 rounded-[22px] text-primary/30 font-semibold text-[10px] uppercase tracking-[0.18em] hover:text-primary transition-colors;
 }
 
 .dailyStatsCard {
- @apply bg-white p-8 rounded-xl border border-slate-200 shadow-md;
+ @apply bg-card p-8 rounded-md border border-border shadow-md;
 }
 
 .dailyStatsTitle {
- @apply text-[10px] font-black text-primary/40 uppercase tracking-[0.2em] mb-10 flex items-center gap-4;
+ @apply text-[10px] font-semibold text-primary/40 uppercase tracking-[0.2em] mb-10 flex items-center gap-4;
 }
 
 .dailyStatsList {
@@ -197,11 +197,11 @@
 }
 
 .dailyStatsItem {
- @apply flex items-center justify-between p-4 rounded-lg bg-slate-50 border border-slate-100;
+ @apply flex items-center justify-between p-4 rounded-lg bg-secondary border border-border;
 }
 
 .dailyStatsLabel {
- @apply text-[10px] font-black text-primary uppercase tracking-widest;
+ @apply text-[10px] font-semibold text-primary uppercase tracking-[0.18em];
 }
 
 .dailyStatsValueBox {
@@ -209,9 +209,9 @@
 }
 
 .dailyStatsValue {
- @apply text-xl font-display font-bold text-primary italic;
+ @apply text-xl font-display font-semibold text-primary italic;
 }
 
 .dailyStatsUnit {
- @apply text-[10px] font-black text-primary/20 uppercase tracking-widest;
+ @apply text-[10px] font-semibold text-primary/20 uppercase tracking-[0.18em];
 }

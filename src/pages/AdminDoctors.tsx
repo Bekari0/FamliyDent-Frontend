@@ -127,16 +127,16 @@ export function AdminDoctors() {
  };
 
  return (
- <div className="pt-24 pb-20 bg-slate-50 min-h-screen">
+ <div className="pt-24 pb-20 bg-secondary min-h-screen">
  <div className="container mx-auto px-4">
  <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
  <div>
- <h1 className="text-3xl font-bold text-slate-900">Управление персоналом</h1>
- <p className="text-slate-500">Редактирование профилей врачей и сотрудников</p>
+ <h1 className="text-3xl font-semibold text-foreground">Управление персоналом</h1>
+ <p className="text-muted-foreground">Редактирование профилей врачей и сотрудников</p>
  </div>
  <button 
  onClick={() => handleOpenModal()}
- className="px-6 py-3 rounded-lg bg-primary text-white font-bold flex items-center gap-2 hover:brightness-110 transition-all shadow-md"
+ className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold flex items-center gap-2 hover:brightness-110 transition-all shadow-md"
  >
  <Plus className="w-5 h-5" />
  Добавить врача
@@ -146,7 +146,7 @@ export function AdminDoctors() {
  {loading ? (
  <div className="flex flex-col items-center justify-center py-20">
  <Loader2 className="w-10 h-10 animate-spin text-primary mb-4" />
- <p className="text-slate-400">Загрузка...</p>
+ <p className="text-muted-foreground">Загрузка...</p>
  </div>
  ) : (
  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -156,28 +156,28 @@ export function AdminDoctors() {
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  transition={{ delay: i * 0.05 }}
- className="bg-white p-6 rounded-xl border border-slate-200 shadow-md flex flex-col"
+ className="bg-card p-6 rounded-md border border-border shadow-md flex flex-col"
  >
  <div className="flex items-center gap-4 mb-4">
  <img src={doctor.image || 'https://images.unsplash.com/photo-1559839734-2b71f1536780?q=80&w=2070'} alt={doctor.name} className="w-16 h-16 rounded-full object-cover" />
  <div>
- <h3 className="text-lg font-bold text-slate-900">{doctor.name}</h3>
+ <h3 className="text-lg font-semibold text-foreground">{doctor.name}</h3>
  <p className="text-primary text-sm font-medium">{doctor.specialty}</p>
  </div>
  </div>
 
- <p className="text-slate-600 text-sm mb-6 line-clamp-3 flex-1">{doctor.description}</p>
+ <p className="text-muted-foreground text-sm mb-6 line-clamp-3 flex-1">{doctor.description}</p>
 
  <div className="flex gap-2">
  <button 
  onClick={() => handleOpenModal(doctor)}
- className="flex-1 py-2 rounded-lg bg-slate-100 text-slate-600 font-bold text-sm hover:bg-slate-200 transition-all flex items-center justify-center gap-2"
+ className="flex-1 py-2 rounded-lg bg-secondary text-muted-foreground font-semibold text-sm hover:bg-secondary transition-all flex items-center justify-center gap-2"
  >
  <Edit2 className="w-4 h-4" /> Править
  </button>
  <button 
  onClick={() => deleteDoctor(doctor._id || doctor.id!)}
- className="p-2 rounded-lg bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-all border border-red-100"
+ className="p-2 rounded-lg bg-destructive/10 text-destructive hover:bg-destructive/100 hover:text-white transition-all border border-destructive/20"
  >
  <Trash2 className="w-5 h-5" />
  </button>
@@ -196,80 +196,80 @@ export function AdminDoctors() {
  animate={{ opacity: 1 }}
  exit={{ opacity: 0 }}
  onClick={() => setIsModalOpen(false)}
- className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+ className="absolute inset-0 bg-espresso/60 backdrop-blur-sm"
  />
  <motion.div 
  initial={{ opacity: 0, scale: 0.95, y: 20 }}
  animate={{ opacity: 1, scale: 1, y: 0 }}
  exit={{ opacity: 0, scale: 0.95, y: 20 }}
- className="relative w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden"
+ className="relative w-full max-w-2xl bg-card rounded-md shadow-2xl overflow-hidden"
  >
- <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50">
- <h2 className="text-xl font-bold">{currentDoctor ? 'Редактировать врача' : 'Добавить врача'}</h2>
- <button onClick={() => setIsModalOpen(false)} className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-400 hover:text-slate-600 transition-colors">
+ <div className="p-6 border-b border-border flex items-center justify-between bg-secondary">
+ <h2 className="text-xl font-semibold">{currentDoctor ? 'Редактировать врача' : 'Добавить врача'}</h2>
+ <button onClick={() => setIsModalOpen(false)} className="w-10 h-10 rounded-full bg-card flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
  <X size={20} />
  </button>
  </div>
  <form onSubmit={handleSubmit} className="p-6 max-h-[70vh] overflow-y-auto space-y-4">
  <div className="grid md:grid-cols-2 gap-4">
  <div className="space-y-1">
- <label className="text-sm font-medium text-slate-700">ФИО</label>
- <input required type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary/20 outline-none" />
+ <label className="text-sm font-medium text-foreground">ФИО</label>
+ <input required type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-2 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 outline-none" />
  </div>
  <div className="space-y-1">
- <label className="text-sm font-medium text-slate-700">Email</label>
- <input required type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary/20 outline-none" />
+ <label className="text-sm font-medium text-foreground">Email</label>
+ <input required type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-2 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 outline-none" />
  </div>
  </div>
 
  {!currentDoctor && (
  <div className="space-y-1">
- <label className="text-sm font-medium text-slate-700">Пароль</label>
- <input required type="password" value={formData.password} onChange={e => setFormData({...formData, password: e.target.value})} className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary/20 outline-none" />
+ <label className="text-sm font-medium text-foreground">Пароль</label>
+ <input required type="password" value={formData.password} onChange={e => setFormData({...formData, password: e.target.value})} className="w-full px-4 py-2 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 outline-none" />
  </div>
  )}
 
  <div className="grid md:grid-cols-2 gap-4">
  <div className="space-y-1">
- <label className="text-sm font-medium text-slate-700">Специализация</label>
- <input required type="text" value={formData.specialty} onChange={e => setFormData({...formData, specialty: e.target.value})} className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary/20 outline-none" />
+ <label className="text-sm font-medium text-foreground">Специализация</label>
+ <input required type="text" value={formData.specialty} onChange={e => setFormData({...formData, specialty: e.target.value})} className="w-full px-4 py-2 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 outline-none" />
  </div>
  <div className="space-y-1">
- <label className="text-sm font-medium text-slate-700">Опыт</label>
- <input required type="text" value={formData.experience} onChange={e => setFormData({...formData, experience: e.target.value})} className="w-full px-4 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary/20 outline-none" />
+ <label className="text-sm font-medium text-foreground">Опыт</label>
+ <input required type="text" value={formData.experience} onChange={e => setFormData({...formData, experience: e.target.value})} className="w-full px-4 py-2 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 outline-none" />
  </div>
  </div>
 
  <div className="space-y-1">
- <label className="text-sm font-medium text-slate-700">Фото (URL)</label>
+ <label className="text-sm font-medium text-foreground">Фото (URL)</label>
  <div className="flex gap-2">
- <input type="text" value={formData.image} onChange={e => setFormData({...formData, image: e.target.value})} className="flex-1 px-4 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary/20 outline-none" />
+ <input type="text" value={formData.image} onChange={e => setFormData({...formData, image: e.target.value})} className="flex-1 px-4 py-2 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 outline-none" />
  <input type="file" onChange={handleFileUpload} className="hidden" id="doctor-photo" accept="image/*" />
- <label htmlFor="doctor-photo" className="px-4 py-2 rounded-lg bg-slate-100 flex items-center justify-center cursor-pointer hover:bg-slate-200 transition-colors">
+ <label htmlFor="doctor-photo" className="px-4 py-2 rounded-lg bg-secondary flex items-center justify-center cursor-pointer hover:bg-secondary transition-colors">
  {uploading ? <Loader2 className="w-5 h-5 animate-spin" /> : <ImageIcon className="w-5 h-5" />}
  </label>
  </div>
  </div>
 
  <div className="space-y-1">
- <label className="text-sm font-medium text-slate-700">Описание</label>
- <textarea required value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} className="w-full h-24 px-4 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary/20 outline-none resize-none" />
+ <label className="text-sm font-medium text-foreground">Описание</label>
+ <textarea required value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} className="w-full h-24 px-4 py-2 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 outline-none resize-none" />
  </div>
 
  <div className="grid md:grid-cols-2 gap-4">
  <div className="space-y-1">
- <label className="text-sm font-medium text-slate-700">Образование</label>
- <textarea value={formData.education} onChange={e => setFormData({...formData, education: e.target.value})} className="w-full h-24 px-4 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary/20 outline-none resize-none" placeholder="По одной строке..." />
+ <label className="text-sm font-medium text-foreground">Образование</label>
+ <textarea value={formData.education} onChange={e => setFormData({...formData, education: e.target.value})} className="w-full h-24 px-4 py-2 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 outline-none resize-none" placeholder="По одной строке..." />
  </div>
  <div className="space-y-1">
- <label className="text-sm font-medium text-slate-700">Достижения</label>
- <textarea value={formData.achievements} onChange={e => setFormData({...formData, achievements: e.target.value})} className="w-full h-24 px-4 py-2 rounded-lg border border-slate-200 focus:ring-2 focus:ring-primary/20 outline-none resize-none" placeholder="По одной строке..." />
+ <label className="text-sm font-medium text-foreground">Достижения</label>
+ <textarea value={formData.achievements} onChange={e => setFormData({...formData, achievements: e.target.value})} className="w-full h-24 px-4 py-2 rounded-lg border border-border focus:ring-2 focus:ring-primary/20 outline-none resize-none" placeholder="По одной строке..." />
  </div>
  </div>
 
  <div className="pt-4 flex gap-3">
  <Button type="button" variant="outline" onClick={() => setIsModalOpen(false)} className="flex-1 py-3 rounded-lg">Отмена</Button>
- <Button type="submit" className="flex-1 py-3 rounded-lg bg-primary text-white">Сохранить</Button>
+ <Button type="submit" className="flex-1 py-3 rounded-lg bg-primary text-primary-foreground">Сохранить</Button>
  </div>
  </form>
  </motion.div>

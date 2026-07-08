@@ -209,7 +209,7 @@ export function BookingWizardPage() {
  <div className="min-h-[70vh] flex items-center justify-center bg-background">
  <div className="text-center">
  <Loader2 className="w-10 h-10 animate-spin text-primary mx-auto mb-4" />
- <p className="text-text-secondary font-medium">Подготовка системы записи...</p>
+ <p className="text-muted-foreground font-medium">Подготовка системы записи...</p>
  </div>
  </div>
  );
@@ -220,11 +220,11 @@ export function BookingWizardPage() {
  <div className="container mx-auto px-4 max-w-6xl">
  <div className="grid lg:grid-cols-[1fr_320px] gap-6 items-start">
  <main className="space-y-5">
- <header className="bg-white rounded-xl border border-border shadow-sm p-5">
+ <header className="bg-card rounded-md border border-border shadow-sm p-5">
  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
  <div>
- <h1 className="text-3xl font-display font-bold text-foreground">Онлайн запись</h1>
- <p className="text-text-secondary mt-1">Выберите услугу, врача и удобное время приема.</p>
+ <h1 className="text-3xl font-display font-semibold text-foreground">Онлайн запись</h1>
+ <p className="text-muted-foreground mt-1">Выберите услугу, врача и удобное время приема.</p>
  </div>
  <div className="flex gap-2">
  {[1, 2, 3].map((step) => (
@@ -241,12 +241,12 @@ export function BookingWizardPage() {
  <div className="space-y-5">
  {services.map((category) => (
  <section key={category._id || category.category}>
- <h3 className="text-xs font-black text-text-secondary uppercase tracking-widest mb-3">{category.category || 'Услуги'}</h3>
+ <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.18em] mb-3">{category.category || 'Услуги'}</h3>
  <div className="grid sm:grid-cols-2 gap-3">
  {(category.services || []).map((serviceName: string) => (
- <button key={serviceName} onClick={() => selectService(serviceName)} className="p-4 rounded-xl border border-border bg-white text-left hover:border-primary hover:bg-primary/5 transition-all">
- <div className="font-bold text-foreground">{serviceName}</div>
- <div className="text-xs text-text-secondary mt-1">Консультация и подбор плана лечения</div>
+ <button key={serviceName} onClick={() => selectService(serviceName)} className="p-4 rounded-md border border-border bg-card text-left hover:border-primary hover:bg-primary/5 transition-all">
+ <div className="font-semibold text-foreground">{serviceName}</div>
+ <div className="text-xs text-muted-foreground mt-1">Консультация и подбор плана лечения</div>
  </button>
  ))}
  </div>
@@ -258,17 +258,17 @@ export function BookingWizardPage() {
 
  <StepCard ref={doctorRef} icon={User} title="2. Врач" done={!!data.doctorId} muted={!data.serviceId}>
  {!data.serviceId ? (
- <p className="text-text-secondary">Сначала выберите услугу.</p>
+ <p className="text-muted-foreground">Сначала выберите услугу.</p>
  ) : data.doctorId ? (
  <SelectedRow label="Выбран врач" value={data.doctorName} onReset={() => setData({ ...data, doctorId: '', doctorName: '', date: '', time: '' })} />
  ) : (
  <div className="grid sm:grid-cols-2 gap-3">
  {doctors.map((doctor) => (
- <button key={doctor._id || doctor.id} onClick={() => selectDoctor(doctor)} className="flex items-center gap-4 p-4 rounded-xl border border-border bg-white text-left hover:border-primary hover:bg-primary/5 transition-all">
- <img src={doctor.image} alt={doctor.name} className="w-14 h-14 rounded-xl object-cover bg-secondary" loading="lazy" decoding="async" />
+ <button key={doctor._id || doctor.id} onClick={() => selectDoctor(doctor)} className="flex items-center gap-4 p-4 rounded-md border border-border bg-card text-left hover:border-primary hover:bg-primary/5 transition-all">
+ <img src={doctor.image} alt={doctor.name} className="w-14 h-14 rounded-md object-cover bg-secondary" loading="lazy" decoding="async" />
  <div>
- <div className="font-bold text-foreground">{doctor.name}</div>
- <div className="text-xs text-primary font-bold uppercase tracking-wider">{doctor.specialty}</div>
+ <div className="font-semibold text-foreground">{doctor.name}</div>
+ <div className="text-xs text-primary font-semibold uppercase tracking-wider">{doctor.specialty}</div>
  </div>
  </button>
  ))}
@@ -278,14 +278,14 @@ export function BookingWizardPage() {
 
  <StepCard ref={dateRef} icon={CalendarIcon} title="3. Дата и время" done={!!data.date && !!data.time} muted={!data.doctorId}>
  {!data.doctorId ? (
- <p className="text-text-secondary">Выберите врача, чтобы увидеть свободные слоты.</p>
+ <p className="text-muted-foreground">Выберите врача, чтобы увидеть свободные слоты.</p>
  ) : (
  <div className="grid md:grid-cols-2 gap-5">
  <div>
- <h3 className="text-xs font-black text-text-secondary uppercase tracking-widest mb-3">Доступные даты</h3>
+ <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.18em] mb-3">Доступные даты</h3>
  <div className="grid grid-cols-3 gap-2">
  {availableDates.map((date) => (
- <button key={date.value} onClick={() => selectDate(date.value)} className={`h-14 rounded-xl border font-bold text-sm transition-all ${data.date === date.value ? 'bg-primary text-white border-primary' : 'bg-white border-border text-foreground hover:border-primary'}`}>
+ <button key={date.value} onClick={() => selectDate(date.value)} className={`h-14 rounded-md border font-semibold text-sm transition-all ${data.date === date.value ? 'bg-primary text-primary-foreground border-primary' : 'bg-card border-border text-foreground hover:border-primary'}`}>
  <span className="block leading-none">{date.label}</span>
  <span className="block text-[10px] opacity-70 mt-1">{date.weekday}</span>
  </button>
@@ -293,14 +293,14 @@ export function BookingWizardPage() {
  </div>
  </div>
  <div>
- <h3 className="text-xs font-black text-text-secondary uppercase tracking-widest mb-3">Свободное время</h3>
+ <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.18em] mb-3">Свободное время</h3>
  <div className="grid grid-cols-3 gap-2">
  {timeSlots.map((time) => {
  const isBusy = busySlots.includes(time);
  const isPast = isPastSlot(data.date, time, now);
  const isDisabled = isBusy || isPast;
  return (
- <button key={time} disabled={isDisabled} onClick={() => data.date ? selectTime(time) : toast.error('Сначала выберите дату')} className={`h-14 rounded-xl border font-bold text-sm transition-all ${data.time === time ? 'bg-primary text-white border-primary' : isDisabled ? 'bg-secondary text-text-secondary/40 border-border cursor-not-allowed' : 'bg-white border-border text-foreground hover:border-primary'}`}>
+ <button key={time} disabled={isDisabled} onClick={() => data.date ? selectTime(time) : toast.error('Сначала выберите дату')} className={`h-14 rounded-md border font-semibold text-sm transition-all ${data.time === time ? 'bg-primary text-primary-foreground border-primary' : isDisabled ? 'bg-secondary text-muted-foreground/40 border-border cursor-not-allowed' : 'bg-card border-border text-foreground hover:border-primary'}`}>
  <Clock className="w-4 h-4 mx-auto mb-1" />
  {time}
  </button>
@@ -313,15 +313,15 @@ export function BookingWizardPage() {
  </StepCard>
  </main>
 
- <aside ref={confirmRef} className="lg:sticky lg:top-24 bg-white rounded-xl border border-border shadow-md p-5">
- <h2 className="text-xl font-bold text-foreground mb-4">Подтверждение</h2>
+ <aside ref={confirmRef} className="lg:sticky lg:top-24 bg-card rounded-md border border-border shadow-md p-5">
+ <h2 className="text-xl font-semibold text-foreground mb-4">Подтверждение</h2>
  <div className="space-y-3 text-sm">
  <SummaryRow label="Услуга" value={data.serviceName || 'Не выбрана'} />
  <SummaryRow label="Врач" value={data.doctorName || 'Не выбран'} />
  <SummaryRow label="Дата" value={data.date || 'Не выбрана'} />
  <SummaryRow label="Время" value={data.time || 'Не выбрано'} />
  </div>
- <Button disabled={isSubmitting || !data.doctorId || !data.serviceId || !data.date || !data.time} onClick={handleFinish} className="mt-5 w-full h-12 rounded-xl bg-primary text-white font-bold hover:bg-primary-hover">
+ <Button disabled={isSubmitting || !data.doctorId || !data.serviceId || !data.date || !data.time} onClick={handleFinish} className="mt-5 w-full h-12 rounded-md bg-primary text-primary-foreground font-semibold hover:bg-primary-hover">
  {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : (
  <>
  <Check className="w-5 h-5 mr-2" />
@@ -337,12 +337,12 @@ export function BookingWizardPage() {
 }
 
 const StepCard = React.forwardRef<HTMLDivElement, any>(({ icon: Icon, title, done, muted, children }, ref) => (
- <section ref={ref} className={`bg-white rounded-xl border shadow-sm p-5 scroll-mt-24 ${muted ? 'border-border opacity-75' : done ? 'border-primary/30' : 'border-border'}`}>
+ <section ref={ref} className={`bg-card rounded-md border shadow-sm p-5 scroll-mt-24 ${muted ? 'border-border opacity-75' : done ? 'border-primary/30' : 'border-border'}`}>
  <div className="flex items-center gap-3 mb-4">
- <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${done ? 'bg-primary text-white' : 'bg-secondary text-primary'}`}>
+ <div className={`w-10 h-10 rounded-md flex items-center justify-center ${done ? 'bg-primary text-primary-foreground' : 'bg-secondary text-primary'}`}>
  <Icon className="w-5 h-5" />
  </div>
- <h2 className="text-xl font-bold text-foreground">{title}</h2>
+ <h2 className="text-xl font-semibold text-foreground">{title}</h2>
  </div>
  {children}
  </section>
@@ -350,12 +350,12 @@ const StepCard = React.forwardRef<HTMLDivElement, any>(({ icon: Icon, title, don
 
 function SelectedRow({ label, value, onReset }: { label: string; value: string; onReset: () => void }) {
  return (
- <div className="p-4 rounded-xl bg-primary/5 border border-primary/20 flex items-center justify-between gap-4">
+ <div className="p-4 rounded-md bg-primary/5 border border-primary/20 flex items-center justify-between gap-4">
  <div>
- <div className="text-xs text-primary font-bold uppercase tracking-widest mb-1">{label}</div>
- <div className="text-lg font-bold text-foreground">{value}</div>
+ <div className="text-xs text-primary font-semibold uppercase tracking-[0.18em] mb-1">{label}</div>
+ <div className="text-lg font-semibold text-foreground">{value}</div>
  </div>
- <Button variant="outline" onClick={onReset} className="rounded-xl border-border">
+ <Button variant="outline" onClick={onReset} className="rounded-md border-border">
  Сменить
  <ChevronRight className="w-4 h-4 ml-1" />
  </Button>
@@ -366,8 +366,8 @@ function SelectedRow({ label, value, onReset }: { label: string; value: string; 
 function SummaryRow({ label, value }: { label: string; value: string }) {
  return (
  <div className="flex justify-between gap-4 py-2 border-b border-border last:border-0">
- <span className="text-text-secondary">{label}</span>
- <span className="font-bold text-foreground text-right">{value}</span>
+ <span className="text-muted-foreground">{label}</span>
+ <span className="font-semibold text-foreground text-right">{value}</span>
  </div>
  );
 }

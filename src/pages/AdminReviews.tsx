@@ -55,13 +55,13 @@ export function AdminReviews() {
  <div className="min-h-screen bg-[#f8fafc] py-8">
  <div className="container mx-auto px-4">
  <div className="mb-6">
- <h1 className="text-3xl font-bold text-slate-900">Модерация отзывов</h1>
- <p className="text-slate-600 mt-2">Одобренные отзывы появляются на сайте.</p>
+ <h1 className="text-3xl font-semibold text-foreground">Модерация отзывов</h1>
+ <p className="text-muted-foreground mt-2">Одобренные отзывы появляются на сайте.</p>
  </div>
 
  <div className="flex flex-wrap gap-2 mb-6">
  {filters.map((item) => (
- <button key={item.label} onClick={() => setStatus(item.value)} className={`h-10 px-4 rounded-xl text-sm font-bold border transition ${status === item.value ? 'bg-primary text-white border-primary' : 'bg-white text-slate-700 border-slate-200 hover:border-primary/40'}`}>
+ <button key={item.label} onClick={() => setStatus(item.value)} className={`h-10 px-4 rounded-md text-sm font-semibold border transition ${status === item.value ? 'bg-primary text-primary-foreground border-primary' : 'bg-card text-foreground border-border hover:border-primary/40'}`}>
  {item.label}
  </button>
  ))}
@@ -70,42 +70,42 @@ export function AdminReviews() {
  {loading ? (
  <div className="flex justify-center py-20"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>
  ) : reviews.length === 0 ? (
- <div className="rounded-xl bg-white border border-slate-200 p-8 text-center text-slate-600">Отзывов в этом разделе нет.</div>
+ <div className="rounded-md bg-card border border-border p-8 text-center text-muted-foreground">Отзывов в этом разделе нет.</div>
  ) : (
  <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
  {reviews.map((review) => (
- <article key={review._id || review.id} className="rounded-xl bg-white border border-slate-200 shadow-sm p-5 flex flex-col">
+ <article key={review._id || review.id} className="rounded-md bg-card border border-border shadow-sm p-5 flex flex-col">
  <div className="flex items-center justify-between gap-3 mb-4">
- <div className="flex gap-1 text-amber-400">
- {Array.from({ length: 5 }).map((_, i) => <Star key={i} className={`w-4 h-4 ${i < Number(review.rating || 0) ? 'fill-current' : 'text-slate-200'}`} />)}
+ <div className="flex gap-1 text-primary">
+ {Array.from({ length: 5 }).map((_, i) => <Star key={i} className={`w-4 h-4 ${i < Number(review.rating || 0) ? 'fill-current' : 'text-espresso-muted'}`} />)}
  </div>
- <span className="text-xs font-bold uppercase tracking-widest text-slate-500">{review.moderationStatus || review.status}</span>
+ <span className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">{review.moderationStatus || review.status}</span>
  </div>
  <div className="mb-4">
- <span className={`inline-flex rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest ${getReviewSourceClassName(review.source)}`}>
+ <span className={`inline-flex rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${getReviewSourceClassName(review.source)}`}>
  {getReviewSourceLabel(review.source)}
  </span>
  </div>
- <p className="text-slate-700 leading-relaxed flex-1">{review.text || review.comment || 'Нет текста'}</p>
+ <p className="text-foreground leading-relaxed flex-1">{review.text || review.comment || 'Нет текста'}</p>
  {(review.moderationReason || review.moderationScore !== undefined) && (
- <div className="mt-4 rounded-xl border border-slate-100 bg-slate-50 p-3 text-xs text-slate-600">
- <div className="font-bold text-slate-700">Модерация</div>
+ <div className="mt-4 rounded-md border border-border bg-secondary p-3 text-xs text-muted-foreground">
+ <div className="font-semibold text-foreground">Модерация</div>
  {review.moderationReason && <div className="mt-1">{review.moderationReason}</div>}
  {review.moderationScore !== undefined && <div className="mt-1">Score: {review.moderationScore}</div>}
  </div>
  )}
- <div className="mt-5 pt-4 border-t border-slate-100 text-sm text-slate-600">
- <div><span className="font-bold text-slate-900">Пациент:</span> {review.patientName || review.authorName || 'Пациент'}</div>
- <div className="mt-1"><span className="font-bold text-slate-900">Врач:</span> {getDisplayDoctorName(review)}</div>
+ <div className="mt-5 pt-4 border-t border-border text-sm text-muted-foreground">
+ <div><span className="font-semibold text-foreground">Пациент:</span> {review.patientName || review.authorName || 'Пациент'}</div>
+ <div className="mt-1"><span className="font-semibold text-foreground">Врач:</span> {getDisplayDoctorName(review)}</div>
  </div>
  <div className="flex gap-2 mt-5">
- <Button onClick={() => action(review._id || review.id, 'approve')} className="h-10 flex-1 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white">
+ <Button onClick={() => action(review._id || review.id, 'approve')} className="h-10 flex-1 rounded-md bg-success hover:bg-success/90 text-white">
  <Check className="w-4 h-4 mr-1" /> Одобрить
  </Button>
- <Button onClick={() => action(review._id || review.id, 'reject')} variant="outline" className="h-10 rounded-xl">
+ <Button onClick={() => action(review._id || review.id, 'reject')} variant="outline" className="h-10 rounded-md">
  <X className="w-4 h-4" />
  </Button>
- <Button onClick={() => action(review._id || review.id, 'delete')} variant="outline" className="h-10 rounded-xl text-red-600 hover:text-red-700">
+ <Button onClick={() => action(review._id || review.id, 'delete')} variant="outline" className="h-10 rounded-md text-destructive hover:text-destructive">
  <Trash2 className="w-4 h-4" />
  </Button>
  </div>
