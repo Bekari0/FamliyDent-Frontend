@@ -123,11 +123,33 @@ export function Doctors() {
           <div className="mt-8 md:hidden">
             <Link
               to="/doctors"
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-md border border-border text-sm font-medium text-foreground"
+              className="flex h-12 w-full items-center justify-center gap-2 rounded-full border border-border text-sm font-semibold text-foreground"
             >
               Посмотреть всех врачей
               <ArrowRight className="h-4 w-4" />
             </Link>
+          </div>
+
+          {/* Статистика клиники */}
+          <div className="mt-16 grid grid-cols-1 gap-10 border-t border-border pt-12 sm:grid-cols-3 lg:mt-20 lg:pt-16">
+            <div className="flex flex-col gap-2">
+              <span className="text-5xl font-semibold tracking-tight text-foreground lg:text-6xl">99%</span>
+              <span className="max-w-52 text-sm leading-snug text-muted-foreground">
+                пациентов довольны качеством лечения
+              </span>
+            </div>
+            <div className="flex flex-col gap-2">
+              <span className="text-5xl font-semibold tracking-tight text-foreground lg:text-6xl">10К+</span>
+              <span className="max-w-52 text-sm leading-snug text-muted-foreground">
+                пациентов успешно прошли лечение в клинике
+              </span>
+            </div>
+            <div className="flex flex-col gap-2">
+              <span className="text-5xl font-semibold tracking-tight text-foreground lg:text-6xl">400+</span>
+              <span className="max-w-52 text-sm leading-snug text-muted-foreground">
+                установленных имплантов с долговременным результатом
+              </span>
+            </div>
           </div>
         </div>
       </section>

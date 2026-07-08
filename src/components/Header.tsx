@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
   Menu, Phone, User,
-  LogOut, Settings, ClipboardList, Loader2, MapPin, Clock
+  LogOut, Settings, ClipboardList, Loader2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -133,52 +133,28 @@ export function Header() {
 
     return (
       <div className="hidden items-center gap-2 lg:flex">
-        <Button variant="ghost" asChild className="h-10 rounded-md px-4 text-sm font-medium text-foreground hover:bg-secondary">
+        <Button variant="ghost" asChild className="h-10 rounded-full px-4 text-sm font-medium text-foreground hover:bg-secondary">
           <Link to="/login">Войти</Link>
         </Button>
-        <Button asChild className="h-10 rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground hover:bg-primary-hover">
-          <Link to="/book">Записаться</Link>
+        <Button asChild className="h-11 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground hover:bg-primary-hover">
+          <Link to="/book">Записаться на приём</Link>
         </Button>
       </div>
     );
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40">
-      {/* Утилити-полоска */}
+    <header className="fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-4 lg:px-6">
+      {/* Плавающая пилюля */}
       <div
         className={cn(
-          'hidden border-b border-espresso-border bg-espresso text-espresso-foreground transition-all lg:block',
-          isScrolled && 'lg:hidden'
+          'mx-auto max-w-7xl rounded-full border bg-card/95 backdrop-blur-sm transition-shadow',
+          isScrolled ? 'border-border shadow-md' : 'border-border/60 shadow-sm'
         )}
       >
-        <div className="container mx-auto flex h-9 items-center justify-between px-4 text-xs sm:px-6 lg:px-8">
-          <div className="flex items-center gap-6 text-espresso-muted">
-            <span className="inline-flex items-center gap-1.5">
-              <MapPin className="h-3 w-3" />
-              г. Душанбе, ул. Айни 14а
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="h-3 w-3" />
-              Пн–Сб: 7:30–19:00
-            </span>
-          </div>
-          <a href="tel:+992446606600" className="font-medium tracking-wide text-espresso-foreground transition-colors hover:text-primary">
-            +992 446 60 66 00
-          </a>
-        </div>
-      </div>
-
-      {/* Основная шапка */}
-      <div
-        className={cn(
-          'border-b bg-background/95 backdrop-blur-sm transition-colors',
-          isScrolled ? 'border-border' : 'border-border/60'
-        )}
-      >
-        <div className="container mx-auto flex h-16 items-center justify-between gap-6 px-4 sm:px-6 lg:h-[72px] lg:px-8">
+        <div className="flex h-14 items-center justify-between gap-6 pl-5 pr-2 lg:h-16 lg:pl-7 lg:pr-2.5">
           <Link to="/" className="text-foreground" aria-label="FamilyDent — на главную">
-            <Logo className="h-8 w-auto lg:h-9" />
+            <Logo className="h-7 w-auto lg:h-8" />
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Основная навигация">
@@ -187,9 +163,9 @@ export function Header() {
                 key={item.label}
                 to={item.href}
                 className={cn(
-                  'rounded-md px-3 py-2 text-sm transition-colors',
+                  'rounded-full px-3.5 py-2 text-sm transition-colors',
                   isActive(item.href)
-                    ? 'font-semibold text-foreground'
+                    ? 'bg-secondary font-semibold text-foreground'
                     : 'font-medium text-muted-foreground hover:text-foreground'
                 )}
               >

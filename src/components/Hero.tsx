@@ -8,84 +8,76 @@ import { Button } from '@/components/ui/button';
 import * as styles from './Hero.styles';
 import { trackGoal } from './Analytics';
 
-const FACTS = [
-  { value: '12 лет', label: 'работаем в Душанбе' },
-  { value: '18', label: 'практикующих врачей' },
-  { value: '10 000+', label: 'пациентов доверяют нам' },
-  { value: '2', label: 'филиала рядом с вами' },
-];
-
 export function Hero() {
   const [urgentOpen, setUrgentOpen] = useState(false);
 
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <div className={styles.layout}>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className={styles.content}
-          >
-            <p className={styles.kicker}>
-              <span className={styles.kickerLine} aria-hidden="true" />
-              Семейная стоматология в Душанбе
-            </p>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className={styles.headlineWrap}
+        >
+          <h1 className={styles.title}>
+            Качественная стоматология
+            <span className={styles.titleLight}>для здоровой улыбки</span>
+          </h1>
+          <img
+            src="/images/crystal-tooth.png"
+            alt=""
+            aria-hidden="true"
+            className={styles.heroImage}
+            width={380}
+            height={380}
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
+        </motion.div>
 
-            <h1 className={styles.title}>
-              Заботимся о вашей <span className={styles.titleAccent}>улыбке</span> так, как о своей
-            </h1>
-
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className={styles.bottomRow}
+        >
+          <div className={styles.bottomLeft}>
             <p className={styles.desc}>
-              FamilyDent сочетает современные технологии, опыт врачей и внимательный
-              подход. Запишитесь на приём онлайн или оставьте срочную заявку на консультацию.
+              FamilyDent — семейная клиника в Душанбе. Современные технологии,
+              внимательные врачи и комфортная атмосфера для всей семьи.
             </p>
-
             <div className={styles.btnGroup}>
               <Link to="/book" className={styles.btnPrimary}>
                 <Calendar className="h-4 w-4" />
                 Записаться на приём
               </Link>
               <button onClick={() => setUrgentOpen(true)} className={styles.btnUrgent}>
-                <PhoneCall className="h-4 w-4 text-primary" />
+                <PhoneCall className="h-4 w-4 text-accent" />
                 Срочная консультация
               </button>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className={styles.imageWrap}
-          >
-            <div className={styles.imageContainer}>
+          <div className={styles.bottomRight}>
+            <div className={styles.statCard}>
+              <span className={styles.statCaption}>лет заботимся о здоровье пациентов</span>
+              <span className={styles.statValue}>12+</span>
+            </div>
+            <div className={styles.photoCard}>
               <img
                 src="/offerImage.jpg"
                 alt="Интерьер стоматологической клиники FamilyDent"
-                className={styles.image}
-                width={590}
-                height={420}
+                className={styles.photoImg}
+                width={240}
+                height={200}
                 loading="eager"
                 decoding="async"
-                fetchPriority="high"
               />
             </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Строка фактов */}
-      <div className={styles.factsBar}>
-        <div className={styles.factsGrid}>
-          {FACTS.map((fact) => (
-            <div key={fact.label} className={styles.factItem}>
-              <span className={styles.factValue}>{fact.value}</span>
-              <span className={styles.factLabel}>{fact.label}</span>
-            </div>
-          ))}
-        </div>
+          </div>
+        </motion.div>
       </div>
 
       {urgentOpen && <UrgentRequestModal onClose={() => setUrgentOpen(false)} />}
