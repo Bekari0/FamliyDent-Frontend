@@ -4,7 +4,7 @@ export const container = 'container mx-auto px-4 sm:px-6 lg:px-8';
 export const headlineWrap = 'relative';
 export const title = 'text-[clamp(2.4rem,6.5vw,5.25rem)] font-semibold tracking-tight text-foreground leading-[1.03] text-balance';
 export const titleLight = 'block text-accent/80 font-medium lg:text-right';
-export const heroImage = 'pointer-events-none mx-auto mt-6 w-64 select-none mix-blend-multiply sm:w-72 lg:absolute lg:right-8 lg:top-1/2 lg:mt-0 lg:w-[320px] lg:-translate-y-1/2 xl:w-[380px]';
+export const heroImage = 'pointer-events-none mx-auto mt-6 w-64 select-none mix-blend-multiply [mask-image:radial-gradient(ellipse_58%_58%_at_center,black_35%,transparent_78%)] sm:w-72 lg:absolute lg:right-8 lg:top-1/2 lg:mt-0 lg:w-[340px] lg:-translate-y-1/2 xl:w-[400px]';
 
 export const bottomRow = 'mt-10 flex flex-col gap-8 lg:mt-16 lg:flex-row lg:items-end lg:justify-between';
 export const bottomLeft = 'max-w-md';
