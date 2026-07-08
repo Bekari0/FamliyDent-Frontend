@@ -1,18 +1,17 @@
 export const section = 'bg-background py-16 lg:py-24';
 export const container = 'container mx-auto px-4 sm:px-6 lg:px-8';
 
-export const header = 'mx-auto mb-12 max-w-2xl text-center';
-export const kicker = 'mb-4 inline-flex items-center rounded-full border border-border bg-card px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground';
-export const title = 'text-3xl font-semibold leading-snug tracking-tight text-foreground text-balance lg:text-4xl';
+export const header = 'mx-auto mb-14 max-w-3xl text-center';
+export const kicker = 'mb-6 inline-flex items-center rounded-full border border-foreground/25 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground';
+export const title = 'text-3xl font-semibold leading-[1.15] tracking-tight text-foreground text-balance sm:text-4xl lg:text-5xl';
 
-export const cardsGrid = 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3';
-export const card = 'group flex flex-col rounded-lg border border-border bg-card p-6 transition-shadow hover:shadow-md';
-export const cardActive = 'group flex flex-col rounded-lg bg-secondary p-6 transition-shadow hover:shadow-md';
-export const cardNumber = 'mb-3 text-xs font-semibold text-muted-foreground';
-export const cardTitle = 'mb-4 text-lg font-semibold leading-snug text-foreground';
-export const cardImageWrap = 'mt-auto flex items-end justify-between gap-3';
-export const cardImage = 'h-36 w-auto max-w-[75%] object-contain';
-export const cardArrow = 'flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground transition-transform group-hover:-translate-y-0.5';
+export const cardsGrid = 'grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3';
+export const card = 'group relative flex min-h-[420px] flex-col overflow-hidden rounded-xl border border-primary/30 bg-transparent p-7 transition-shadow hover:shadow-md lg:min-h-[480px]';
+export const cardActive = 'group relative flex min-h-[420px] flex-col overflow-hidden rounded-xl bg-[#A8CBE4] p-7 transition-shadow hover:shadow-md lg:min-h-[480px]';
+export const cardNumber = 'mb-6 text-sm font-medium text-foreground/70';
+export const cardTitle = 'relative z-10 max-w-64 text-xl font-semibold leading-snug text-foreground lg:text-2xl';
+export const cardImage = 'pointer-events-none absolute -bottom-10 -right-8 h-72 w-auto select-none object-contain mix-blend-multiply [mask-image:radial-gradient(ellipse_60%_60%_at_center,black_40%,transparent_78%)] lg:h-80';
+export const cardArrow = 'absolute bottom-7 left-7 z-10 flex h-11 w-11 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-transform group-hover:-translate-y-0.5';
 
 /* Тёмная секция */
 export const darkSection = 'mt-16 overflow-hidden bg-espresso py-16 lg:mt-24 lg:py-20';

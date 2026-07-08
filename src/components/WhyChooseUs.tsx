@@ -58,19 +58,17 @@ export function WhyChooseUs() {
               >
                 <span className={styles.cardNumber}>{card.number}</span>
                 <h3 className={styles.cardTitle}>{card.title}</h3>
-                <div className={styles.cardImageWrap}>
-                  <img
-                    src={card.image || "/placeholder.svg"}
-                    alt={card.alt}
-                    className={styles.cardImage}
-                    loading="lazy"
-                    width={280}
-                    height={144}
-                  />
-                  <Link to="/services" className={styles.cardArrow} aria-label="Подробнее об услугах">
-                    <ArrowUpRight className="h-4 w-4" />
-                  </Link>
-                </div>
+                <img
+                  src={card.image || "/placeholder.svg"}
+                  alt={card.alt}
+                  className={styles.cardImage}
+                  loading="lazy"
+                  width={300}
+                  height={288}
+                />
+                <Link to="/services" className={styles.cardArrow} aria-label="Подробнее об услугах">
+                  <ArrowUpRight className="h-5 w-5" />
+                </Link>
               </motion.div>
             ))}
           </div>
