@@ -135,7 +135,7 @@ export function PatientMedicalCard({ patientId, isEditable = false }: PatientMed
  setNewAllergy('');
  }
  }}
- className="w-10 h-10 bg-error text-white rounded-xl flex items-center justify-center hover:bg-error/90 transition-colors"
+ className="w-10 h-10 bg-error text-primary-foreground rounded-xl flex items-center justify-center hover:bg-error/90 transition-colors"
  >
  <Plus size={18} />
  </button>

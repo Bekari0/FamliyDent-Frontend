@@ -83,7 +83,7 @@ export function ServiceDetailPage() {
  </div>
 
  <div className="lg:col-span-1">
- <div className="sticky top-32 bg-primary rounded-[40px] p-8 text-white shadow-2xl shadow-primary/30">
+ <div className="sticky top-32 bg-primary rounded-lg p-8 text-primary-foreground shadow-2xl shadow-primary/30">
  <h3 className="text-2xl font-semibold mb-4">Записаться на прием</h3>
  <p className="opacity-90 mb-8 text-sm">Оставьте заявку, и мы перезвоним вам в течение 15 минут для согласования времени.</p>
  <Link to="/book">

@@ -18,7 +18,7 @@ export function NotFoundPage() {
  <div className="text-[200px] font-display font-semibold text-secondary leading-none select-none">404</div>
  <div className="absolute inset-0 flex items-center justify-center">
  <div className="w-32 h-32 bg-primary/10 rounded-[32px] flex items-center justify-center animate-pulse">
- <div className="w-20 h-20 bg-primary rounded-lg flex items-center justify-center text-white text-4xl shadow-2xl shadow-primary/40">?</div>
+ <div className="w-20 h-20 bg-primary rounded-lg flex items-center justify-center text-primary-foreground text-4xl shadow-2xl shadow-primary/40">?</div>
  </div>
  </div>
  </motion.div>

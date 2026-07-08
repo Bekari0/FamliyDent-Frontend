@@ -248,7 +248,7 @@ export function AdminBookings() {
  {booking.status === 'pending' && (
  <button
  onClick={() => updateStatus(booking._id, 'confirmed')}
- className="w-12 h-12 text-success bg-success/10 hover:bg-success hover:text-white rounded-md flex items-center justify-center transition-all shadow-sm"
+ className="w-12 h-12 text-success bg-success/10 hover:bg-success hover:text-primary-foreground rounded-md flex items-center justify-center transition-all shadow-sm"
  title="Подтвердить прием"
  >
  <CheckCircle2 size={18} />
@@ -257,7 +257,7 @@ export function AdminBookings() {
  {booking.status !== 'cancelled' && booking.status !== 'completed' && (
  <button
  onClick={() => updateStatus(booking._id, 'cancelled')}
- className="w-12 h-12 text-error bg-error/10 hover:bg-error hover:text-white rounded-md flex items-center justify-center transition-all shadow-sm"
+ className="w-12 h-12 text-error bg-error/10 hover:bg-error hover:text-primary-foreground rounded-md flex items-center justify-center transition-all shadow-sm"
  title="Отменить запись"
  >
  <XCircle size={18} />
@@ -266,7 +266,7 @@ export function AdminBookings() {
  {booking.status === 'confirmed' && (
  <button
  onClick={() => updateStatus(booking._id, 'completed')}
- className="w-12 h-12 text-primary bg-primary/10 hover:bg-primary hover:text-white rounded-md flex items-center justify-center transition-all shadow-sm"
+ className="w-12 h-12 text-primary bg-primary/10 hover:bg-primary hover:text-primary-foreground rounded-md flex items-center justify-center transition-all shadow-sm"
  title="Завершить сеанс"
  >
  <Clock size={18} />
@@ -274,7 +274,7 @@ export function AdminBookings() {
  )}
  <button
  onClick={() => deleteBooking(booking._id)}
- className="w-12 h-12 text-error bg-error/10 hover:bg-error hover:text-white rounded-md flex items-center justify-center transition-all shadow-sm"
+ className="w-12 h-12 text-error bg-error/10 hover:bg-error hover:text-primary-foreground rounded-md flex items-center justify-center transition-all shadow-sm"
  title="Удалить запись"
  >
  <Trash2 size={18} />

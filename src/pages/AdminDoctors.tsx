@@ -177,7 +177,7 @@ export function AdminDoctors() {
  </button>
  <button 
  onClick={() => deleteDoctor(doctor._id || doctor.id!)}
- className="p-2 rounded-lg bg-destructive/10 text-destructive hover:bg-destructive/100 hover:text-white transition-all border border-destructive/20"
+ className="p-2 rounded-lg bg-destructive/10 text-destructive hover:bg-destructive/100 hover:text-primary-foreground transition-all border border-destructive/20"
  >
  <Trash2 className="w-5 h-5" />
  </button>

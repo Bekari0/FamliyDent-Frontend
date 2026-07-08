@@ -368,7 +368,7 @@ const HistoryItem = ({ record, onClick, index }: any) => (
  className="group cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 p-5 sm:p-6 rounded-lg bg-secondary border border-border hover:border-primary/30 transition-all hover:bg-card hover:shadow-lg hover:shadow-primary/10"
  >
  <div className="flex items-center gap-5 min-w-0">
- <div className="w-14 h-14 bg-card rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shadow-sm border border-border shrink-0">
+ <div className="w-14 h-14 bg-card rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all shadow-sm border border-border shrink-0">
  <FileText className="w-8 h-8" />
  </div>
  <div>
@@ -405,12 +405,12 @@ const ScanItem = ({ scan, index, canDelete, onDelete }: any) => (
  <div className="text-[9px] font-semibold text-muted-foreground uppercase tracking-[0.18em] mb-1">{new Date(scan.createdAt).toLocaleDateString('ru-RU')}</div>
  <h4 className="font-semibold text-foreground tracking-tight leading-tight mb-2">{scan.description || 'Диагностический снимок'}</h4>
  <div className="flex gap-2">
- <a href={scan.imageUrl} target="_blank" rel="noreferrer" className="flex-1 py-3 bg-card border border-primary/10 rounded-md text-[10px] font-semibold uppercase text-primary hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center justify-center gap-2">
+ <a href={scan.imageUrl} target="_blank" rel="noreferrer" className="flex-1 py-3 bg-card border border-primary/10 rounded-md text-[10px] font-semibold uppercase text-primary hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all flex items-center justify-center gap-2">
  <ExternalLink className="w-4 h-4" />
  Открыть
  </a>
  {canDelete && (
- <button onClick={() => onDelete(scan._id || scan.id)} className="w-11 bg-error/10 text-error rounded-md hover:bg-error hover:text-white transition-all flex items-center justify-center" title="Удалить файл">
+ <button onClick={() => onDelete(scan._id || scan.id)} className="w-11 bg-error/10 text-error rounded-md hover:bg-error hover:text-primary-foreground transition-all flex items-center justify-center" title="Удалить файл">
  <Trash2 className="w-4 h-4" />
  </button>
  )}

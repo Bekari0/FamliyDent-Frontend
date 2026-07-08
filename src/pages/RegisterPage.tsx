@@ -109,7 +109,7 @@ export function RegisterPage() {
  <div className="lg:w-1/2 p-10 lg:p-16 bg-primary text-primary-foreground">
  <div className="max-w-md">
  <h1 className="text-4xl lg:text-5xl font-display font-semibold mb-6 leading-tight">Присоединяйтесь к FamilyDent</h1>
- <p className="text-lg text-white/75 mb-10">Получите доступ к онлайн-записи, своей медицинской карте и истории посещений.</p>
+ <p className="text-lg text-primary-foreground/75 mb-10">Получите доступ к онлайн-записи, своей медицинской карте и истории посещений.</p>
 
  <div className="space-y-6">
  {[
@@ -122,7 +122,7 @@ export function RegisterPage() {
  </div>
  <div>
  <div className="font-semibold text-lg mb-1">{item.title}</div>
- <div className="text-sm text-white/65 leading-relaxed">{item.text}</div>
+ <div className="text-sm text-primary-foreground/65 leading-relaxed">{item.text}</div>
  </div>
  </div>
  ))}

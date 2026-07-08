@@ -182,10 +182,10 @@ export function AdminBlog() {
 
  <div className="flex items-center justify-between pt-4 border-t border-border">
  <div className="flex gap-2">
- <button onClick={() => handleOpenModal(article)} className="p-2 bg-secondary text-foreground rounded-lg hover:bg-primary hover:text-white transition-all" title="Редактировать">
+ <button onClick={() => handleOpenModal(article)} className="p-2 bg-secondary text-foreground rounded-lg hover:bg-primary hover:text-primary-foreground transition-all" title="Редактировать">
  <Edit2 size={16} />
  </button>
- <button onClick={() => deleteArticle(article._id || article.id)} className="p-2 bg-destructive/10 text-destructive rounded-lg hover:bg-destructive/100 hover:text-white transition-all" title="Удалить">
+ <button onClick={() => deleteArticle(article._id || article.id)} className="p-2 bg-destructive/10 text-destructive rounded-lg hover:bg-destructive/100 hover:text-primary-foreground transition-all" title="Удалить">
  <Trash2 size={16} />
  </button>
  </div>

@@ -175,7 +175,7 @@ export function AdminPatients() {
  <Button
  variant="ghost"
  size="icon"
- className="h-11 w-11 rounded-md !text-primary bg-primary/10 hover:!bg-primary hover:!text-white shadow-sm border border-primary/10"
+ className="h-11 w-11 rounded-md !text-primary bg-primary/10 hover:!bg-primary hover:!text-primary-foreground shadow-sm border border-primary/10"
  onClick={() => fetchPatientDetails(patient)}
  title="Открыть карточку пациента"
  >
@@ -184,7 +184,7 @@ export function AdminPatients() {
  <Button
  variant="ghost"
  size="icon"
- className="h-11 w-11 rounded-md !text-error bg-error/10 hover:!bg-error hover:!text-white shadow-sm border border-error/10"
+ className="h-11 w-11 rounded-md !text-error bg-error/10 hover:!bg-error hover:!text-primary-foreground shadow-sm border border-error/10"
  onClick={() => handleDelete(patient)}
  title="Удалить пациента"
  >
@@ -223,7 +223,7 @@ export function AdminPatients() {
  {getPatientId(patient) && (
  <Link
  to={`/profile/records/${getPatientId(patient)}`}
- className="w-full min-h-12 rounded-md bg-primary/10 text-primary font-semibold text-xs uppercase tracking-[0.16em] flex items-center justify-center gap-3 hover:bg-primary hover:text-white transition-all active:scale-95 px-4 text-center"
+ className="w-full min-h-12 rounded-md bg-primary/10 text-primary font-semibold text-xs uppercase tracking-[0.16em] flex items-center justify-center gap-3 hover:bg-primary hover:text-primary-foreground transition-all active:scale-95 px-4 text-center"
  >
  Медицинская карта
  <ChevronRight className="w-5 h-5" />
@@ -246,16 +246,16 @@ export function AdminPatients() {
  <DialogContent className="max-w-6xl w-[calc(100vw-2rem)] rounded-lg p-0 overflow-hidden border border-border shadow-2xl bg-card">
  {selectedPatient && (
  <div className="max-h-[88vh] overflow-y-auto no-scrollbar">
- <div className="bg-primary p-8 lg:p-10 text-white relative overflow-hidden">
+ <div className="bg-primary p-8 lg:p-10 text-primary-foreground relative overflow-hidden">
  <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
- <div className="w-24 h-24 rounded-md bg-card/20 backdrop-blur-xl flex items-center justify-center shadow-lg border border-white/20">
+ <div className="w-24 h-24 rounded-md bg-card/20 backdrop-blur-xl flex items-center justify-center shadow-lg border border-primary-foreground/20">
  <User className="w-12 h-12" />
  </div>
  <div className="text-center md:text-left min-w-0">
  <h2 className="text-3xl lg:text-4xl font-display font-semibold mb-4 tracking-tight">
  {selectedPatient.patient?.displayName || 'Пациент без имени'}
  </h2>
- <div className="flex flex-wrap justify-center md:justify-start items-center gap-5 text-white/85 font-semibold text-xs uppercase tracking-[0.12em]">
+ <div className="flex flex-wrap justify-center md:justify-start items-center gap-5 text-primary-foreground/85 font-semibold text-xs uppercase tracking-[0.12em]">
  <span className="flex items-center gap-2 break-all">
  <Mail className="w-4 h-4 shrink-0" /> {selectedPatient.patient?.email || 'Email не указан'}
  </span>
@@ -429,7 +429,7 @@ export function AdminPatients() {
  <Button
  variant="outline"
  onClick={() => setIsDetailModalOpen(false)}
- className="h-14 px-10 rounded-md border-border text-foreground font-semibold uppercase tracking-[0.14em] text-xs hover:bg-primary hover:text-white transition-all"
+ className="h-14 px-10 rounded-md border-border text-foreground font-semibold uppercase tracking-[0.14em] text-xs hover:bg-primary hover:text-primary-foreground transition-all"
  >
  Закрыть медицинскую карту
  </Button>

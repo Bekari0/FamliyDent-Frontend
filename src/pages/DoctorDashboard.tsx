@@ -213,7 +213,7 @@ export function DoctorDashboard() {
  </div>
 
  <div className={styles.bookingActions}>
- <Link to={`/profile/records/${b.patientId}`} className="p-3 bg-primary/5 text-primary rounded-md hover:bg-primary hover:text-white transition-all">
+ <Link to={`/profile/records/${b.patientId}`} className="p-3 bg-primary/5 text-primary rounded-md hover:bg-primary hover:text-primary-foreground transition-all">
  <FileText className="w-5 h-5" />
  </Link>
  {b.status === 'pending' ? (
@@ -260,7 +260,7 @@ export function DoctorDashboard() {
  <div className={cn(styles.avatarWrapper, "group")}>
  <img src={profileData?.image || user?.photoURL || 'https://via.placeholder.com/150'} alt="" className={styles.avatar} />
  <div className={styles.avatarOverlay}>
- <Camera className="w-6 h-6 text-white" />
+ <Camera className="w-6 h-6 text-primary-foreground" />
  <input type="file" onChange={handlePhotoUpload} className={styles.avatarInput} accept="image/*" />
  </div>
  </div>

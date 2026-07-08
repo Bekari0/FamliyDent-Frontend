@@ -131,7 +131,7 @@ export function ReviewsPage() {
  <textarea required value={form.text} onChange={(e) => setForm({ ...form, text: e.target.value })} className="mt-2 h-32 w-full resize-none rounded-md border border-border bg-card p-4 focus:ring-2 focus:ring-primary/20" placeholder="Расскажите о вашем впечатлении..." />
  </label>
 
- <Button disabled={submitting} type="submit" className="h-12 w-full rounded-md bg-primary font-semibold text-white">
+ <Button disabled={submitting} type="submit" className="h-12 w-full rounded-md bg-primary font-semibold text-primary-foreground">
  {submitting ? <Loader2 className="animate-spin" /> : <><Send className="mr-2 h-4 w-4" /> Отправить на модерацию</>}
  </Button>
  </>

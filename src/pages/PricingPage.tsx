@@ -1,4 +1,4 @@
-﻿
+
 import React from 'react';
 import { motion } from 'motion/react';
 import { MOCK_SERVICES } from '../data/mockData';
@@ -77,8 +77,6 @@ export function PricingPage() {
  </div>
 
  <div className={styles.ctaCard}>
- <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -mr-48 -mt-48" />
- 
  <div className={styles.ctaContent}>
  <h3 className={styles.ctaTitle}>Нужен точный <br /><span className="text-primary">расчет лечения?</span></h3>
  <p className={styles.ctaDesc}>Запишитесь на прием, и наши эксперты составят индивидуальный план лечения с учетом всех нюансов и точной стоимостью.</p>
@@ -90,11 +88,11 @@ export function PricingPage() {
  Записаться сейчас
  </button>
  <div className={styles.benefits}>
- <div className="flex items-center gap-3 text-muted-foreground">
+ <div className="flex items-center gap-3 text-espresso-muted">
  <Check className="w-4 h-4 text-primary" />
  <span className="text-[10px] font-semibold uppercase tracking-[0.18em]">План лечения</span>
  </div>
- <div className="flex items-center gap-3 text-muted-foreground">
+ <div className="flex items-center gap-3 text-espresso-muted">
  <Check className="w-4 h-4 text-primary" />
  <span className="text-[10px] font-semibold uppercase tracking-[0.18em]">Без скрытых платежей</span>
  </div>

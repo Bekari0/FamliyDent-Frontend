@@ -192,9 +192,9 @@ export function ProfilePage() {
  <section className="bg-card rounded-md shadow-md border border-border p-6 sm:p-8">
  <div className="relative w-28 h-28 mx-auto mb-6 cursor-pointer group" onClick={() => fileInputRef.current?.click()}>
  {user.photoURL ? (
- <img src={user.photoURL} alt={user.displayName} className="w-full h-full rounded-lg object-cover border-4 border-white shadow-lg" />
+ <img src={user.photoURL} alt={user.displayName} className="w-full h-full rounded-lg object-cover border-4 border-primary-foreground shadow-lg" />
  ) : (
- <div className="w-full h-full rounded-lg bg-secondary flex items-center justify-center text-primary text-4xl font-semibold border-4 border-white shadow-lg">
+ <div className="w-full h-full rounded-lg bg-secondary flex items-center justify-center text-primary text-4xl font-semibold border-4 border-primary-foreground shadow-lg">
  {user.displayName?.[0]?.toUpperCase() || 'F'}
  </div>
  )}
@@ -231,7 +231,7 @@ export function ProfilePage() {
  </select>
  </label>
  </div>
- <Button disabled={loading} type="submit" className="w-full h-12 rounded-md bg-primary hover:bg-primary-hover text-white font-semibold">
+ <Button disabled={loading} type="submit" className="w-full h-12 rounded-md bg-primary hover:bg-primary-hover text-primary-foreground font-semibold">
  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <><Save className="w-5 h-5 mr-2" /> Сохранить изменения</>}
  </Button>
  </form>
@@ -328,7 +328,7 @@ function Field({ label, value, onChange, type = 'text' }: any) {
 function QuickLink({ title, desc, icon: Icon, to }: any) {
  return (
  <Link to={to} className="p-5 bg-card rounded-md border border-border shadow-sm hover:shadow-lg transition-all group">
- <div className="w-12 h-12 rounded-md bg-secondary text-primary flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all">
+ <div className="w-12 h-12 rounded-md bg-secondary text-primary flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-all">
  <Icon className="w-6 h-6" />
  </div>
  <h3 className="text-xl font-semibold text-foreground mb-1">{title}</h3>

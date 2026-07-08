@@ -282,7 +282,7 @@ export function BookingModal({
  
  <div className={styles.leftContent}>
  <div className={styles.iconBox}>
- <Calendar className="w-6 h-6 text-white" />
+ <Calendar className="w-6 h-6 text-primary-foreground" />
  </div>
  <h2 className={styles.leftTitle}>Ваш путь к <br/>идеальной <br/><span className="text-accent underline decoration-2 underline-offset-4">улыбке</span></h2>
  <p className={styles.leftDesc}>

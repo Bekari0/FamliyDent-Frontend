@@ -63,11 +63,11 @@ export function DoctorDetailPage() {
  className="relative rounded-[40px] sm:rounded-[56px] overflow-hidden shadow-2xl border-[8px] sm:border-[12px] border-border"
  >
  <img src={doctor.image} alt={doctor.name} className="w-full aspect-[4/5] object-cover" loading="eager" decoding="async" />
- <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-espresso/80 via-espresso/40 to-transparent text-white">
+ <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-espresso/80 via-espresso/40 to-transparent text-primary-foreground">
  <div className="flex items-center gap-2 text-primary">
  <Star className="w-5 h-5 fill-current" />
  <span className="font-semibold text-lg">5.0 Рейтинг</span>
- <span className="text-white/60 text-sm ml-2">На основе отзывов</span>
+ <span className="text-primary-foreground/60 text-sm ml-2">На основе отзывов</span>
  </div>
  </div>
  </motion.div>

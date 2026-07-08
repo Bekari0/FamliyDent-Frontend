@@ -211,7 +211,7 @@ export function MyBookingsPage() {
  className="bg-card p-10 rounded-[50px] border border-border shadow-2xl shadow-primary/5 flex flex-col md:flex-row items-center gap-10 justify-between hover:shadow-primary/10 transition-all group"
  >
  <div className="flex flex-col md:flex-row items-center gap-8 text-center md:text-left w-full">
- <div className="w-24 h-24 bg-secondary rounded-[32px] flex flex-col items-center justify-center text-primary border border-border group-hover:bg-primary group-hover:text-white transition-all shadow-inner shrink-0">
+ <div className="w-24 h-24 bg-secondary rounded-lg flex flex-col items-center justify-center text-primary border border-border group-hover:bg-primary group-hover:text-primary-foreground transition-all shadow-inner shrink-0">
  {(() => {
  const d = b.date ? new Date(b.date) : new Date();
  return (
@@ -231,7 +231,7 @@ export function MyBookingsPage() {
  <span className="flex items-center gap-2 bg-secondary px-4 py-2 rounded-md border border-border/5"><Clock className="w-4 h-4 text-primary" /> {b.time}</span>
  <span className="flex items-center gap-2 bg-secondary px-4 py-2 rounded-md border border-border/5"><MapPin className="w-4 h-4 text-primary" /> Филиал "Айни"</span>
  <span className={`px-4 py-2 rounded-md text-[10px] font-semibold uppercase tracking-[0.18em] shadow-sm border ${
- b.status === 'confirmed' ? 'bg-success text-white border-success' : 
+ b.status === 'confirmed' ? 'bg-success text-primary-foreground border-success' : 
  b.status === 'pending' ? 'bg-warning/10 text-warning border-warning/20' : 'bg-muted text-muted-foreground border-transparent'
  }`}>
  {b.status === 'confirmed' ? 'Подтвержден' : b.status === 'pending' ? 'Ожидает' : b.status}
@@ -240,7 +240,7 @@ export function MyBookingsPage() {
  </div>
  </div>
  <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto shrink-0">
- <Button onClick={() => handleCancel(b._id || b.id)} variant="outline" className="h-14 px-8 rounded-lg text-[10px] font-semibold uppercase tracking-[0.2em] border-error/10 text-error hover:bg-error hover:text-white transition-all shadow-sm">Отменить</Button>
+ <Button onClick={() => handleCancel(b._id || b.id)} variant="outline" className="h-14 px-8 rounded-lg text-[10px] font-semibold uppercase tracking-[0.2em] border-error/10 text-error hover:bg-error hover:text-primary-foreground transition-all shadow-sm">Отменить</Button>
  <Button onClick={() => startReschedule(b)} className="h-14 px-8 rounded-lg text-[10px] font-semibold uppercase tracking-[0.2em] bg-primary text-primary-foreground shadow-xl shadow-primary/20 hover:bg-primary-hover transition-all">Перенести</Button>
  </div>
  </motion.div>
@@ -261,7 +261,7 @@ export function MyBookingsPage() {
  {pastBookings.map((b) => (
  <div key={b._id || b.id} className="p-8 flex items-center justify-between hover:bg-secondary transition-all group">
  <div className="flex items-center gap-8">
- <div className="w-14 h-14 rounded-lg bg-secondary flex items-center justify-center text-primary/40 group-hover:bg-primary group-hover:text-white transition-all shadow-inner">
+ <div className="w-14 h-14 rounded-lg bg-secondary flex items-center justify-center text-primary/40 group-hover:bg-primary group-hover:text-primary-foreground transition-all shadow-inner">
  <FileText className="w-6 h-6" />
  </div>
  <div>
@@ -299,7 +299,7 @@ export function MyBookingsPage() {
  />
  <motion.div 
  initial={{ opacity: 0, scale: 0.95, y: 30 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 30 }}
- className="relative w-full max-w-xl bg-card rounded-md shadow-2xl p-10 md:p-14 overflow-hidden border border-white/50"
+ className="relative w-full max-w-xl bg-card rounded-md shadow-2xl p-10 md:p-14 overflow-hidden border border-primary-foreground/50"
  >
  <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full -mr-24 -mt-24 blur-3xl" />
  

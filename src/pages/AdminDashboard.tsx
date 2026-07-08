@@ -99,7 +99,7 @@ export function AdminDashboard() {
  className="justify-start h-20 rounded-md shadow-sm bg-card border border-border hover:border-primary transition-all group px-6"
  >
  <Link to={item.to} className="flex items-center gap-4 w-full">
- <div className="p-3 bg-secondary text-primary rounded-md group-hover:bg-primary group-hover:text-white transition-all">
+ <div className="p-3 bg-secondary text-primary rounded-md group-hover:bg-primary group-hover:text-primary-foreground transition-all">
  <item.icon size={24} />
  </div>
  <div className="text-left">

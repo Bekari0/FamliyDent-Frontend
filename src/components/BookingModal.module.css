@@ -33,11 +33,11 @@
 }
 
 .leftTitle {
- @apply text-xl lg:text-2xl font-semibold text-white mb-3 leading-tight;
+ @apply text-xl lg:text-2xl font-semibold text-primary-foreground mb-3 leading-tight;
 }
 
 .leftDesc {
- @apply text-white/80 leading-relaxed text-xs;
+ @apply text-primary-foreground/80 leading-relaxed text-xs;
 }
 
 .statsList {
@@ -45,7 +45,7 @@
 }
 
 .statItem {
- @apply flex items-center gap-3 text-white/90;
+ @apply flex items-center gap-3 text-primary-foreground/90;
 }
 
 .statIcon {
@@ -53,7 +53,7 @@
 }
 
 .statLabel {
- @apply text-[9px] font-semibold uppercase tracking-wider text-white/40;
+ @apply text-[9px] font-semibold uppercase tracking-wider text-primary-foreground/40;
 }
 
 .statValue {
