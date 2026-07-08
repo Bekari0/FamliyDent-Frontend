@@ -1,25 +1,28 @@
-export const section = 'bg-card py-16 lg:py-24';
-export const container = 'container mx-auto px-4 sm:px-6 lg:px-8';
-export const header = 'mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between lg:mb-14';
-export const kicker = 'mb-4 inline-flex items-center rounded-full border border-border bg-secondary px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground';
-export const kickerLine = 'hidden';
-export const title = 'max-w-2xl text-3xl font-semibold leading-snug tracking-tight text-foreground text-balance lg:text-4xl';
-export const titleSpan = 'text-accent';
-export const seeAllBtn = 'inline-flex h-11 items-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-hover';
+export const section = 'overflow-hidden bg-card py-16 lg:py-24';
+export const container = 'container relative mx-auto px-4 sm:px-6 lg:px-8';
 
-export const list = 'border-t border-border';
-export const row = 'border-b border-border';
-export const rowButton = 'flex w-full items-center gap-4 py-5 text-left transition-colors hover:text-primary lg:py-6 lg:gap-8';
-export const rowNumber = 'w-10 shrink-0 text-base font-medium text-muted-foreground lg:text-lg';
-export const rowTitle = 'flex-1 text-lg font-semibold text-foreground lg:text-2xl';
-export const rowIcon = 'flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors';
-export const rowIconOpen = 'border-primary bg-primary text-primary-foreground';
+/* Центральный блок */
+export const centerCircle = 'pointer-events-none absolute left-1/2 top-1/2 -z-0 hidden h-[720px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary lg:block';
+export const layout = 'relative grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-8';
+export const centerCol = 'order-first flex flex-col items-center justify-center gap-8 py-6 text-center lg:order-none lg:py-20';
+export const kicker = 'inline-flex items-center rounded-full border border-foreground/25 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground';
+export const title = 'max-w-full text-[clamp(1.8rem,3.1vw,3rem)] font-semibold leading-[1.1] tracking-tight text-primary text-balance';
+export const btnSplit = 'group inline-flex items-stretch';
+export const btnSplitMain = 'inline-flex h-12 items-center rounded-l-lg bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors group-hover:bg-primary-hover';
+export const btnSplitChip = 'ml-px inline-flex h-12 w-12 items-center justify-center rounded-r-lg bg-primary text-primary-foreground transition-colors group-hover:bg-primary-hover';
 
-export const panel = 'overflow-hidden';
-export const panelInner = 'grid grid-cols-1 gap-6 pb-8 pl-0 md:grid-cols-[1fr_auto] md:items-start lg:pl-[4.5rem]';
-export const panelDesc = 'max-w-xl text-sm leading-relaxed text-muted-foreground lg:text-base';
-export const panelServices = 'mt-4 flex flex-wrap gap-x-6 gap-y-2';
-export const panelServiceItem = 'text-sm text-foreground';
-export const panelActions = 'flex flex-col gap-3 sm:flex-row md:flex-col';
-export const panelLink = 'inline-flex items-center gap-2 text-sm font-semibold text-accent transition-colors hover:text-primary';
-export const panelBookBtn = 'inline-flex h-11 items-center justify-center gap-2 rounded-full bg-accent px-6 text-sm font-semibold text-accent-foreground transition-colors hover:bg-primary';
+/* Колонки карточек */
+export const sideCol = 'flex flex-col gap-8 lg:gap-12';
+export const sideColRight = 'flex flex-col gap-8 lg:gap-12 lg:pt-0';
+
+export const card = 'group relative z-10 flex flex-col overflow-hidden rounded-xl border border-primary/30 bg-card p-3 transition-shadow hover:shadow-md';
+export const cardActive = 'group relative z-10 flex flex-col overflow-hidden rounded-xl bg-[#A8CBE4] p-3 transition-shadow hover:shadow-md';
+export const cardImage = 'aspect-[4/3] w-full rounded-lg object-cover';
+export const cardBody = 'flex flex-col gap-1 px-2 pb-2 pt-4';
+export const cardTitle = 'text-lg font-semibold text-foreground';
+export const cardSub = 'text-sm text-muted-foreground';
+
+/* Смещения для «живой» раскладки как в макете */
+export const offsetNone = '';
+export const offsetMd = 'lg:mt-10';
+export const offsetLg = 'lg:mt-20';
