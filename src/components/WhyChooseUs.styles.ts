@@ -14,17 +14,32 @@ export const cardImage = 'pointer-events-none absolute -bottom-10 -right-8 h-72 
 export const cardArrow = 'absolute bottom-7 left-7 z-10 flex h-11 w-11 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-transform group-hover:-translate-y-0.5';
 
 /* Тёмная секция */
-export const darkSection = 'relative mt-16 overflow-hidden bg-espresso py-16 lg:mt-24 lg:py-20';
-export const marquee = 'relative z-10 mb-14 flex select-none gap-12 overflow-hidden whitespace-nowrap';
-export const marqueeText = 'text-[clamp(2.5rem,7vw,5rem)] font-semibold tracking-tight text-espresso-muted/40';
-export const marqueeAccent = 'text-espresso-foreground';
-export const darkLayout = 'container relative mx-auto grid grid-cols-1 items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-8 lg:px-8';
-export const darkKicker = 'mb-4 inline-flex items-center rounded-full border border-espresso-border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-espresso-muted';
-export const darkTitle = 'mb-8 text-3xl font-semibold leading-snug tracking-tight text-espresso-foreground text-balance lg:text-4xl';
-export const checkGrid = 'grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2';
-export const checkItem = 'flex items-start gap-3';
-export const checkIcon = 'mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded bg-accent text-accent-foreground';
-export const checkText = 'text-sm font-medium leading-snug text-espresso-foreground';
-export const darkDesc = 'mt-8 max-w-md border-t border-espresso-border pt-6 text-sm leading-relaxed text-espresso-muted';
-export const darkImageWrap = 'lg:absolute lg:inset-y-0 lg:left-[45%] lg:right-[calc((100%-100vw)/2)] lg:flex lg:items-center';
-export const darkImage = 'w-full object-cover mix-blend-lighten [mask-image:linear-gradient(to_right,transparent_0%,black_15%)] lg:h-full lg:min-h-[560px] lg:w-auto lg:min-w-full lg:object-left';
+export const darkSection =
+  'relative mt-16 overflow-hidden bg-[linear-gradient(180deg,#071018_0%,#060D14_100%)] py-20 lg:mt-24 lg:min-h-[1010px] lg:py-0';
+export const darkGlow =
+  'pointer-events-none absolute right-0 top-1/3 h-[600px] w-[700px] rounded-full bg-[radial-gradient(closest-side,rgba(70,130,180,0.12),transparent)]';
+export const marquee =
+  'pointer-events-none absolute -left-1 top-6 z-[1] select-none overflow-hidden whitespace-nowrap lg:top-[95px]';
+export const marqueeText =
+  'text-[clamp(3.4rem,7.5vw,7.75rem)] font-light leading-none tracking-[-0.04em] text-[rgba(125,150,185,0.48)]';
+export const marqueeAccent = 'text-[rgba(245,250,255,0.95)]';
+export const darkLayout =
+  'container relative z-[3] mx-auto grid grid-cols-1 gap-10 px-4 pt-28 sm:px-6 lg:block lg:min-h-[1010px] lg:px-8 lg:pt-0';
+export const darkContent = 'relative z-[3] lg:absolute lg:left-4 lg:top-[390px] lg:w-[640px] xl:left-8';
+export const darkKicker =
+  'mb-8 inline-flex h-[29px] items-center justify-center rounded-md border border-[rgba(230,240,250,0.85)] px-[22px] text-xs font-bold uppercase tracking-[0.08em] text-[rgba(245,250,255,0.92)]';
+export const darkTitle =
+  'mb-9 text-3xl font-normal leading-[1.25] tracking-[-1px] text-[rgba(255,255,255,0.95)] text-balance lg:text-[46px]';
+export const checkGrid = 'grid grid-cols-1 gap-y-[30px] sm:grid-cols-2 sm:gap-x-[74px]';
+export const checkItem = 'grid grid-cols-[32px_1fr] items-start gap-5';
+export const checkIcon =
+  'flex h-8 w-8 items-center justify-center rounded-[5px] bg-[#E8F2F8] text-[#1E3348]';
+export const checkText =
+  'text-[17px] font-medium leading-[1.65] tracking-[0.01em] text-[rgba(255,255,255,0.92)]';
+export const darkDivider = 'mt-[46px] h-px w-full bg-[rgba(255,255,255,0.16)]';
+export const darkDesc =
+  'mt-[38px] max-w-[625px] text-base font-normal leading-[1.65] text-[rgba(255,255,255,0.82)]';
+export const darkImageWrap =
+  'relative z-[2] -mx-4 mt-12 sm:-mx-6 lg:absolute lg:-right-[420px] lg:top-[300px] lg:m-0 lg:w-[1120px]';
+export const darkImage =
+  'w-full object-cover mix-blend-lighten saturate-[1.05] contrast-[1.08] [mask-image:radial-gradient(ellipse_72%_72%_at_center,black_45%,transparent_86%)]';

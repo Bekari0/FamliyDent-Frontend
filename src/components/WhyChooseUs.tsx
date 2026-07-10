@@ -75,17 +75,19 @@ export function WhyChooseUs() {
         </div>
       </section>
 
-      {/* Тёмная секция с маркизой */}
+      {/* Тёмная секция с декоративным фоновым текстом */}
       <section className={styles.darkSection}>
+        <div className={styles.darkGlow} aria-hidden="true" />
+
         <div className={styles.marquee} aria-hidden="true">
           <p className={styles.marqueeText}>
             Ваша улыбка, <span className={styles.marqueeAccent}>наш приоритет.</span>{' '}
-            Ваша улыбка, <span className={styles.marqueeAccent}>наш приоритет.</span>
+            Ваша улыбка, наш приоритет.
           </p>
         </div>
 
         <div className={styles.darkLayout}>
-          <div>
+          <div className={styles.darkContent}>
             <p className={styles.darkKicker}>Пациенты на первом месте</p>
             <h2 className={styles.darkTitle}>
               Технологии в сочетании с высоким качеством лечения
@@ -95,12 +97,14 @@ export function WhyChooseUs() {
               {CHECKS.map((check) => (
                 <div key={check} className={styles.checkItem}>
                   <span className={styles.checkIcon}>
-                    <Check className="h-3.5 w-3.5" />
+                    <Check className="h-4 w-4" strokeWidth={3} />
                   </span>
                   <span className={styles.checkText}>{check}</span>
                 </div>
               ))}
             </div>
+
+            <div className={styles.darkDivider} aria-hidden="true" />
 
             <p className={styles.darkDesc}>
               Мы объединяем клинический опыт с новейшими технологиями, чтобы
@@ -114,8 +118,8 @@ export function WhyChooseUs() {
               alt="Рентген-визуализация челюсти с дентальными имплантами"
               className={styles.darkImage}
               loading="lazy"
-              width={640}
-              height={480}
+              width={1120}
+              height={840}
             />
           </div>
         </div>
