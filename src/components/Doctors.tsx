@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { Card, CardContent } from '@/components/ui/card';
-import { ArrowRight, Loader2 } from 'lucide-react';
+import { ArrowUpRight, Loader2, Instagram, Facebook, Send } from 'lucide-react';
 import axios from 'axios';
 import { useBooking } from '@/context/BookingContext';
 import { DoctorDetailModal } from './DoctorDetailModal';
@@ -64,22 +63,19 @@ export function Doctors() {
         <div className={styles.container}>
           <div className={styles.headerRow}>
             <div className={styles.headerContent}>
-              <p className={styles.kicker}>
-                <span className={styles.kickerLine} aria-hidden="true" />
-                Наши врачи
-              </p>
+              <p className={styles.kicker}>Знакомьтесь — команда вашей улыбки</p>
               <h2 className={styles.title}>
-                Команда, которой доверяют семьи
+                Опытные стоматологи,
+                <br />
+                которым можно доверять
               </h2>
-              <p className={styles.desc}>
-                Врачи FamilyDent — специалисты высшей категории. Каждый ведёт свой
-                профиль и отвечает за результат лечения.
-              </p>
             </div>
 
-            <Link to="/doctors" className={`${styles.seeAllBtn} hidden md:inline-flex`}>
-              Все врачи
-              <ArrowRight className="h-4 w-4" />
+            <Link to="/doctors" className={`${styles.seeAllBtn} hidden md:inline-flex`} aria-label="Все врачи">
+              <span className={styles.seeAllMain}>Все врачи</span>
+              <span className={styles.seeAllChip} aria-hidden="true">
+                <ArrowUpRight className="h-4 w-4" />
+              </span>
             </Link>
           </div>
 
@@ -92,30 +88,57 @@ export function Doctors() {
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ delay: index * 0.08, duration: 0.4 }}
               >
-                <Card className={styles.card}>
-                  <div className={styles.imageWrapper} onClick={() => setSelectedDoctor(doctor)}>
+                <div className={index === doctors.length - 1 ? styles.cardActive : styles.card}>
+                  <h3 className={styles.cardTitle}>{doctor.name}</h3>
+                  <p className={styles.specialty}>{doctor.specialty}</p>
+
+                  <button
+                    type="button"
+                    className={styles.imageWrapper}
+                    onClick={() => setSelectedDoctor(doctor)}
+                    aria-label={`Подробнее о враче ${doctor.name}`}
+                  >
                     <img
-                      src={doctor.image}
+                      src={doctor.image || "/placeholder.svg"}
                       alt={doctor.name}
                       className={styles.imageStyle}
                       loading="lazy"
                       decoding="async"
+                      width={142}
+                      height={142}
                     />
+                  </button>
+
+                  <div className={styles.socialRow}>
+                    <a
+                      href="https://instagram.com/familydent.tj"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.socialBtn}
+                      aria-label={`Instagram — ${doctor.name}`}
+                    >
+                      <Instagram className="h-4 w-4" />
+                    </a>
+                    <a
+                      href="https://facebook.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.socialBtn}
+                      aria-label={`Facebook — ${doctor.name}`}
+                    >
+                      <Facebook className="h-4 w-4" />
+                    </a>
+                    <a
+                      href="https://t.me/familydent"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.socialBtn}
+                      aria-label={`Telegram — ${doctor.name}`}
+                    >
+                      <Send className="h-4 w-4" />
+                    </a>
                   </div>
-
-                  <CardContent className={styles.cardContent}>
-                    <p className={styles.specialty}>{doctor.specialty}</p>
-                    <h3 className={styles.cardTitle}>{doctor.name}</h3>
-                    <p className={styles.experienceStyle}>Стаж работы: {doctor.experience}</p>
-
-                    <div className={styles.actions}>
-                      <button onClick={() => setSelectedDoctor(doctor)} className={styles.buttonOutline}>
-                        Подробнее
-                        <ArrowRight className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </CardContent>
-                </Card>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -123,30 +146,30 @@ export function Doctors() {
           <div className="mt-8 md:hidden">
             <Link
               to="/doctors"
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-full border border-border text-sm font-semibold text-foreground"
+              className="flex h-12 w-full items-center justify-center gap-2 rounded-[7px] bg-[#334562] text-sm font-semibold text-primary-foreground"
             >
               Посмотреть всех врачей
-              <ArrowRight className="h-4 w-4" />
+              <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
 
           {/* Статистика клиники */}
-          <div className="mt-16 grid grid-cols-1 gap-10 border-t border-border pt-12 sm:grid-cols-3 lg:mt-20 lg:pt-16">
-            <div className="flex flex-col gap-2">
-              <span className="text-5xl font-semibold tracking-tight text-foreground lg:text-6xl">99%</span>
-              <span className="max-w-52 text-sm leading-snug text-muted-foreground">
-                пациентов довольны качеством лечения
+          <div className={styles.statsGrid}>
+            <div className="flex flex-col">
+              <span className={styles.statNumber}>99%</span>
+              <span className={styles.statCaption}>
+                пациентов довольны качеством лечения и сервиса
               </span>
             </div>
-            <div className="flex flex-col gap-2">
-              <span className="text-5xl font-semibold tracking-tight text-foreground lg:text-6xl">10К+</span>
-              <span className="max-w-52 text-sm leading-snug text-muted-foreground">
+            <div className="flex flex-col">
+              <span className={styles.statNumber}>30К+</span>
+              <span className={styles.statCaption}>
                 пациентов успешно прошли лечение в клинике
               </span>
             </div>
-            <div className="flex flex-col gap-2">
-              <span className="text-5xl font-semibold tracking-tight text-foreground lg:text-6xl">400+</span>
-              <span className="max-w-52 text-sm leading-snug text-muted-foreground">
+            <div className="flex flex-col">
+              <span className={styles.statNumber}>400+</span>
+              <span className={styles.statCaption}>
                 установленных имплантов с долговременным результатом
               </span>
             </div>

@@ -1,20 +1,44 @@
-export const section = 'scroll-mt-20 bg-background py-16 lg:py-24';
-export const container = 'container mx-auto px-4 sm:px-6 lg:px-8';
-export const headerRow = 'mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between lg:mb-14';
+export const section =
+  'scroll-mt-20 bg-[linear-gradient(180deg,#ffffff_0%,#f3f9fc_100%)] pb-16 pt-[115px] lg:pb-24';
+export const container = 'container relative mx-auto max-w-[940px] px-4 sm:px-6 lg:px-0';
+export const headerRow =
+  'mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between';
 export const headerContent = 'max-w-2xl';
-export const kicker = 'mb-4 inline-flex items-center rounded-full border border-border bg-card px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground';
+export const kicker =
+  'mb-[22px] inline-flex h-6 items-center justify-center rounded-md border border-[rgba(31,47,69,0.75)] px-3.5 text-[10px] font-bold uppercase tracking-[0.08em] text-[#1F2F45]';
 export const kickerLine = 'hidden';
-export const title = 'text-3xl font-semibold leading-snug tracking-tight text-foreground text-balance lg:text-4xl';
+export const title =
+  'text-3xl font-normal leading-[1.18] tracking-[-1px] text-[#111827] text-balance lg:text-4xl';
 export const titleSpan = 'text-accent';
-export const desc = 'mt-4 max-w-xl text-base leading-relaxed text-muted-foreground text-pretty';
-export const grid = 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6';
-export const card = 'group flex h-full flex-col overflow-hidden rounded-lg border-0 bg-card p-0 text-center shadow-none transition-shadow hover:shadow-md data-[variant=navy]:bg-primary';
-export const imageWrapper = 'mx-auto mt-8 h-40 w-40 cursor-pointer overflow-hidden rounded-full bg-secondary ring-4 ring-background';
+export const desc = 'sr-only';
+
+/* Составная кнопка "Все врачи" */
+export const seeAllBtn =
+  'group inline-flex items-stretch text-primary-foreground';
+export const seeAllMain =
+  'inline-flex h-11 items-center justify-center rounded-l-[7px] bg-[#334562] px-6 text-xs font-bold';
+export const seeAllChip =
+  'ml-px inline-flex h-11 w-11 items-center justify-center rounded-r-[7px] bg-[#334562] transition-transform group-hover:translate-x-0.5';
+
+/* Карточки врачей */
+export const grid = 'mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:gap-6';
+export const card =
+  'flex h-[355px] flex-col items-center rounded-[14px] border border-[rgba(31,47,69,0.65)] bg-transparent px-6 pb-6 pt-[22px] text-center shadow-none';
+export const cardActive =
+  'flex h-[355px] flex-col items-center rounded-[14px] border border-transparent bg-[#A8CFE3] px-6 pb-6 pt-[22px] text-center shadow-none';
+export const cardTitle = 'mb-2.5 text-[17px] font-semibold leading-tight text-[#111827]';
+export const specialty = 'text-[13px] font-normal text-[rgba(31,47,69,0.75)]';
+export const imageWrapper =
+  'mt-6 h-[142px] w-[142px] cursor-pointer overflow-hidden rounded-full bg-[#EAF4F8]';
 export const imageStyle = 'h-full w-full object-cover';
-export const cardContent = 'flex flex-1 flex-col items-center p-6 lg:p-7';
-export const specialty = 'mb-1 text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground';
-export const cardTitle = 'order-first mb-1 text-xl font-semibold text-foreground';
-export const experienceStyle = 'mt-1 text-sm text-muted-foreground';
-export const actions = 'mt-5 flex items-center justify-center';
-export const buttonOutline = 'inline-flex items-center gap-2 rounded-full border border-border px-5 py-2 text-sm font-semibold text-foreground transition-colors hover:border-accent hover:text-accent';
-export const seeAllBtn = 'inline-flex h-11 items-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-hover';
+export const socialRow = 'mt-auto flex justify-center gap-[5px]';
+export const socialBtn =
+  'grid h-[34px] w-[34px] place-items-center rounded-md bg-white text-[#334562] transition-colors hover:bg-[#334562] hover:text-white';
+
+/* Статистика */
+export const statsGrid =
+  'mt-20 grid grid-cols-1 gap-12 sm:grid-cols-3 sm:gap-x-20 lg:mt-28';
+export const statNumber =
+  'text-[64px] font-light leading-[0.9] tracking-[-4px] text-[#334562] lg:text-[88px]';
+export const statCaption =
+  'mt-3.5 max-w-56 text-[13px] font-medium leading-[1.35] text-[#334562]';
