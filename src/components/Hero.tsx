@@ -128,7 +128,7 @@ export function Hero() {
                 className={styles.playBtn}
                 aria-label="Срочная консультация"
               >
-                <Play className="h-5 w-5 fill-current" />
+                <Play className="h-6 w-6 fill-current" />
               </button>
             </div>
           </div>
