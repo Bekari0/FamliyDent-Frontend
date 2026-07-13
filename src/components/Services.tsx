@@ -1,121 +1,58 @@
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import * as styles from './Services.styles';
 
-interface ServiceCard {
-  title: string;
-  sub: string;
-  image: string;
-  alt: string;
-  highlighted?: boolean;
-  offset?: string;
-}
-
-const LEFT_CARDS: ServiceCard[] = [
-  {
-    title: 'Профилактика и гигиена',
-    sub: 'Осмотры, чистка, диагностика',
-    image: '/images/svc-preventive.png',
-    alt: 'Профессиональная чистка зубов пациенту',
-    highlighted: true,
-  },
-  {
-    title: 'Лечение и реставрация',
-    sub: 'Пломбы, коронки, протезы',
-    image: '/images/svc-restorative.png',
-    alt: 'Зубной техник работает с гипсовой моделью',
-    offset: styles.offsetMd,
-  },
-  {
-    title: 'Ортодонтия',
-    sub: 'Брекеты и элайнеры',
-    image: '/images/svc-ortho.png',
-    alt: 'Улыбка с керамическими брекетами',
-    offset: styles.offsetLg,
-  },
+const SERVICES = [
+  { title: 'Имплантация', text: 'Восстановление зубов с точным цифровым планированием.', icon: '/icons/icon-implantation.svg' },
+  { title: 'Протезирование', text: 'Коронки, виниры и конструкции с естественной эстетикой.', icon: '/icons/icon-prosthetics.svg' },
+  { title: 'Детская стоматология', text: 'Бережное знакомство с лечением без лишнего стресса.', icon: '/icons/icon-pediatric.svg' },
+  { title: 'Ортодонтия', text: 'Брекеты и элайнеры для ровной, здоровой улыбки.', icon: '/icons/icon-orthodontics.svg' },
+  { title: 'Хирургия', text: 'Безопасные операции и сложные удаления по показаниям.', icon: '/icons/icon-surgery.svg' },
+  { title: 'Эстетика улыбки', text: 'Реставрации, отбеливание и персональный дизайн улыбки.', icon: '/icons/icon-aesthetic.svg' },
 ];
-
-const RIGHT_CARDS: ServiceCard[] = [
-  {
-    title: 'Эстетическая стоматология',
-    sub: 'Отбеливание, виниры, дизайн улыбки',
-    image: '/images/svc-cosmetic.png',
-    alt: 'Осмотр улыбки пациентки стоматологом',
-  },
-  {
-    title: 'Имплантация',
-    sub: 'Постоянное восстановление зубов',
-    image: '/images/svc-implants.png',
-    alt: 'Модель зубного импланта с коронками',
-    offset: styles.offsetMd,
-  },
-  {
-    title: 'Сложное лечение',
-    sub: 'Каналы, хирургия, лечение дёсен',
-    image: '/images/svc-advanced.png',
-    alt: 'Врач демонстрирует чистку на модели челюсти',
-    offset: styles.offsetLg,
-  },
-];
-
-function Card({ card }: { card: ServiceCard }) {
-  return (
-    <Link
-      to="/services"
-      className={cn(card.highlighted ? styles.cardActive : styles.card, card.offset)}
-    >
-      <img
-        src={card.image || "/placeholder.svg"}
-        alt={card.alt}
-        className={styles.cardImage}
-        loading="lazy"
-        width={400}
-        height={300}
-      />
-      <div className={styles.cardBody}>
-        <h3 className={styles.cardTitle}>{card.title}</h3>
-        <p className={styles.cardSub}>{card.sub}</p>
-      </div>
-    </Link>
-  );
-}
 
 export function Services() {
   return (
-    <section id="services" className={styles.section}>
+    <section id="services" className={styles.section} aria-labelledby="services-title">
       <div className={styles.container}>
-        <div className={styles.centerCircle} aria-hidden="true" />
-
-        <div className={styles.layout}>
-          {/* Левая колонка */}
-          <div className={styles.sideCol}>
-            {LEFT_CARDS.map((card) => (
-              <Card key={card.title} card={card} />
-            ))}
+        <div className={styles.header}>
+          <div>
+            <p className={styles.kicker}>Направления лечения</p>
+            <h2 id="services-title" className={styles.title}>Стоматология для всей семьи</h2>
           </div>
+          <p className={styles.lead}>
+            От первого осмотра до сложной реабилитации — в одной клинике и с понятным планом лечения.
+          </p>
+        </div>
 
-          {/* Центр */}
-          <div className={styles.centerCol}>
-            <span className={styles.kicker}>Ваша улыбка — наш приоритет</span>
-            <h2 className={styles.title}>
-              Стоматологические
-              <br />
-              услуги
-            </h2>
-            <Link to="/services" className={styles.btnSplit} aria-label="Все услуги">
-              <span className={styles.btnSplitMain}>Все услуги</span>
-              <span className={styles.btnSplitChip} aria-hidden="true">
-                <ArrowUpRight className="h-4 w-4" />
-              </span>
+        <div className={styles.grid}>
+          {SERVICES.map((service, index) => (
+            <Link key={service.title} to="/services" className={styles.card}>
+              <span className={styles.index}>{String(index + 1).padStart(2, '0')}</span>
+              <img src={service.icon} alt="" aria-hidden="true" className={styles.icon} />
+              <div className={styles.cardCopy}>
+                <h3 className={styles.cardTitle}>{service.title}</h3>
+                <p className={styles.cardText}>{service.text}</p>
+              </div>
+              <ArrowUpRight className={styles.arrow} aria-hidden="true" />
             </Link>
-          </div>
+          ))}
+        </div>
 
-          {/* Правая колонка */}
-          <div className={styles.sideColRight}>
-            {RIGHT_CARDS.map((card) => (
-              <Card key={card.title} card={card} />
-            ))}
+        <div className={styles.feature}>
+          <img
+            src="/images/doctor-care.jpg"
+            alt="Врачи Family Dent проводят лечение пациента"
+            className={styles.featureImage}
+            loading="lazy"
+          />
+          <div className={styles.featureCopy}>
+            <p className={styles.kicker}>Командная работа</p>
+            <h3 className={styles.featureTitle}>Сложные случаи решаем вместе</h3>
+            <p className={styles.featureText}>
+              Врачи разных направлений обсуждают диагностику и создают единый план, чтобы результат был предсказуемым.
+            </p>
+            <Link to="/book" className={styles.featureButton}>Записаться на консультацию</Link>
           </div>
         </div>
       </div>

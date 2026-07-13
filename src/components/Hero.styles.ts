@@ -1,25 +1,22 @@
-export const section = 'relative overflow-hidden border-b border-border bg-background pb-16 pt-28 md:pt-36 lg:min-h-[860px]';
-export const container = 'container mx-auto px-4 sm:px-6 lg:px-8';
-export const headlineWrap = 'relative min-h-[400px] lg:min-h-[470px]';
-export const titleDark = 'relative z-[2] block max-w-4xl font-display text-[clamp(3rem,6.2vw,6.8rem)] font-medium leading-[0.92] tracking-[-0.055em] text-foreground text-balance';
-export const titleLight = 'relative z-[2] ml-auto mt-10 block max-w-3xl text-right font-display text-[clamp(2.1rem,4vw,4.8rem)] font-light leading-[1] tracking-[-0.045em] text-primary lg:-mt-12';
-export const heroImage = 'pointer-events-none absolute left-1/2 top-[48%] z-[1] w-[380px] -translate-x-1/2 -translate-y-1/2 select-none mix-blend-multiply opacity-75 [mask-image:radial-gradient(ellipse_58%_58%_at_center,black_40%,transparent_80%)] sm:w-[500px] lg:w-[670px]';
-export const bottomRow = 'relative z-[3] mt-4 flex flex-col gap-10 border-t border-border pt-8 lg:flex-row lg:items-end lg:justify-between';
-export const bottomLeft = 'max-w-xl';
-export const desc = 'text-lg font-normal leading-[1.6] text-muted-foreground text-pretty sm:text-xl';
-export const actionsRow = 'mt-8 flex flex-wrap items-center gap-4';
-export const btnSplit = 'group inline-flex items-stretch';
-export const btnSplitMain = 'inline-flex h-14 items-center rounded-l-lg bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors group-hover:bg-primary-hover';
-export const btnSplitChip = 'ml-px inline-flex h-14 w-14 items-center justify-center rounded-r-lg bg-primary text-primary-foreground transition-colors group-hover:bg-primary-hover';
-export const socialGroup = 'inline-flex items-center gap-2';
-export const socialBtn = 'inline-flex h-12 w-12 items-center justify-center rounded-lg border border-border bg-card text-foreground transition-all hover:-translate-y-0.5 hover:border-primary hover:text-primary';
-export const bottomRight = 'flex items-stretch gap-3';
-export const statCard = 'flex h-56 w-52 flex-col justify-between rounded-xl bg-espresso p-6 text-espresso-foreground sm:w-56';
-export const statCaption = 'text-sm font-normal leading-[1.45] text-espresso-muted';
-export const statValue = 'font-display text-6xl font-light leading-none tracking-[-0.05em] text-accent';
-export const photoCard = 'relative hidden h-56 w-80 overflow-hidden rounded-xl sm:block';
-export const photoImg = 'absolute inset-0 h-full w-full object-cover';
-export const playBtn = 'absolute left-6 top-6 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-card text-primary shadow-card transition-transform hover:scale-105';
-export const partnersStrip = 'mt-14 border-t border-border pt-8';
-export const partnersGrid = 'flex flex-wrap items-center justify-between gap-x-10 gap-y-6';
-export const partnerItem = 'inline-flex items-center gap-2.5 font-mono text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground';
+export const section =
+  'relative min-h-[100svh] overflow-hidden border-b border-white/10 bg-[#0B2024] text-[#F7FAF9]';
+export const container =
+  'relative mx-auto grid min-h-[100svh] w-full max-w-[1965px] grid-cols-1 px-5 pb-20 pt-28 sm:px-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(300px,0.8fr)_minmax(0,1.05fr)] lg:items-center lg:px-20 lg:pb-24 lg:pt-36 xl:px-24';
+export const leftColumn = 'relative z-[2] flex flex-col items-start lg:self-center';
+export const mainTitle =
+  'font-display text-[clamp(4rem,6.2vw,7.6rem)] font-bold leading-[0.99] tracking-[-0.06em] text-[#F7FAF9]';
+export const description =
+  'mt-8 max-w-[420px] text-base font-medium leading-[1.55] text-[#B9C5C5] sm:text-lg lg:mt-10';
+export const familyMark =
+  'relative z-[1] mx-auto my-14 w-[min(58vw,390px)] select-none brightness-0 invert-[76%] sepia-[29%] saturate-[1020%] hue-rotate-[128deg] lg:my-0 lg:w-[min(28vw,420px)] lg:self-center';
+export const rightColumn =
+  'relative z-[2] flex flex-col items-start lg:justify-self-end lg:self-center';
+export const sideTitle =
+  'font-display text-[clamp(3.2rem,5vw,6rem)] font-bold leading-[1.02] tracking-[-0.055em] text-[#F7FAF9]';
+export const actions = 'mt-10 flex flex-wrap items-center gap-3';
+export const primaryAction =
+  'inline-flex h-14 items-center justify-center rounded-lg bg-[#0A9F92] px-6 text-sm font-bold text-[#F7FAF9] transition-colors hover:bg-[#0B8D83]';
+export const secondaryAction =
+  'inline-flex h-14 items-center justify-center rounded-lg bg-[#F7FAF9] px-6 text-sm font-bold text-[#0B2024] transition-colors hover:bg-[#DDE9E7]';
+export const watermark =
+  'pointer-events-none absolute bottom-[-0.13em] left-1/2 z-0 w-max -translate-x-1/2 font-display text-[clamp(3.5rem,7.5vw,9rem)] font-bold leading-none tracking-[-0.06em] text-[#123237]';

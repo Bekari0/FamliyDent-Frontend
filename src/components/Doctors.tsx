@@ -18,6 +18,11 @@ interface Doctor {
 }
 
 const API_URL = '/api';
+const SPECIALIST_IMAGES = [
+  '/images/specialist-sobirov-ulugbek.jpg',
+  '/images/specialist-usupova-esuman.jpg',
+  '/images/specialist-mahmudov-hakim.jpg',
+];
 import { FALLBACK_DOCTORS } from '@/fallbackData';
 import * as styles from './Doctors.styles';
 
@@ -99,7 +104,7 @@ export function Doctors() {
                     aria-label={`Подробнее о враче ${doctor.name}`}
                   >
                     <img
-                      src={doctor.image || "/placeholder.svg"}
+                      src={SPECIALIST_IMAGES[index] || doctor.image || "/placeholder.svg"}
                       alt={doctor.name}
                       className={styles.imageStyle}
                       loading="lazy"

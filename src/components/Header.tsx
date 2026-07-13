@@ -20,12 +20,11 @@ import {
 
 const NAV_ITEMS = [
   { label: 'Главная', href: '/' },
-  { label: 'Услуги', href: '/services' },
-  { label: 'Врачи', href: '/doctors' },
-  { label: 'Цены', href: '/pricing' },
-  { label: 'Блог', href: '/blog' },
   { label: 'О нас', href: '/about' },
-  { label: 'Контакты', href: '/#contacts' },
+  { label: 'Специалисты', href: '/doctors' },
+  { label: 'Услуги', href: '/services' },
+  { label: 'Стомтуризм', href: '/tourism' },
+  { label: 'Запись', href: '/book' },
 ];
 
 export function Header() {
@@ -133,18 +132,18 @@ export function Header() {
 
     return (
       <div className="hidden items-center gap-2 lg:flex">
-        <Button variant="ghost" asChild className="h-10 rounded-lg px-4 font-mono text-xs font-medium uppercase tracking-[0.08em] text-foreground hover:bg-secondary">
+        <Button variant="ghost" asChild className="h-11 rounded-lg border border-white/25 px-5 text-sm font-bold text-[#F7FAF9] hover:bg-white/10 hover:text-[#F7FAF9]">
           <Link to="/login">Войти</Link>
         </Button>
-        <Button asChild className="h-11 rounded-lg bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-[0_12px_28px_oklch(58%_0.125_185/0.22)] hover:bg-primary-hover">
-          <Link to="/book">Записаться на приём</Link>
+        <Button asChild className="h-11 rounded-lg bg-[#F7FAF9] px-6 text-sm font-bold text-[#0B2024] hover:bg-[#DDE9E7]">
+          <Link to="/book">Записаться</Link>
         </Button>
       </div>
     );
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 border-b border-border/80 bg-background/92 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[#0B2024]/95 text-[#F7FAF9] backdrop-blur-xl">
       <div
         className={cn(
           'mx-auto max-w-7xl transition-shadow',
@@ -152,7 +151,7 @@ export function Header() {
         )}
       >
         <div className="flex h-16 items-center justify-between gap-6 px-4 sm:px-6 lg:h-[76px] lg:px-8">
-          <Link to="/" className="text-foreground" aria-label="FamilyDent — на главную">
+          <Link to="/" className="text-[#F7FAF9]" aria-label="FamilyDent — на главную">
             <Logo className="h-7 w-auto lg:h-8" />
           </Link>
 
@@ -162,10 +161,10 @@ export function Header() {
                 key={item.label}
                 to={item.href}
                 className={cn(
-                  'border-b-2 border-transparent px-3 py-2 font-mono text-xs font-medium uppercase tracking-[0.08em] transition-colors',
+                  'px-3 py-2 text-sm font-bold uppercase tracking-[0.07em] transition-colors',
                   isActive(item.href)
-                    ? 'border-primary text-foreground'
-                    : 'text-muted-foreground hover:text-foreground'
+                    ? 'text-[#11A89B]'
+                    : 'text-[#F7FAF9] hover:text-[#11A89B]'
                 )}
               >
                 {item.label}
