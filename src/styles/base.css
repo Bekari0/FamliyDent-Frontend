@@ -1,17 +1,58 @@
 @layer base {
- * {
- @apply border-border outline-ring/50;
- }
- html {
- @apply bg-background font-sans;
- }
- body {
- @apply bg-background text-foreground font-sans antialiased;
- }
- h1, h2, h3 {
- @apply font-display font-medium tracking-normal;
- }
- h4, h5, h6 {
- @apply font-sans font-semibold tracking-tight;
- }
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply scroll-smooth bg-background font-sans;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    min-width: 320px;
+  }
+  h1, h2, h3 {
+    @apply font-display font-medium tracking-[-0.035em];
+    text-wrap: balance;
+  }
+  h4, h5, h6 {
+    @apply font-display font-semibold tracking-tight;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: oklch(72% 0.105 190 / 0.38);
+  }
+  :focus-visible {
+    outline: 2px solid oklch(58% 0.15 185);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  main > section:not([class*="bg-espresso"]):not([class*="section--ink"]) {
+    @apply bg-background;
+  }
+  main input:not([type="checkbox"]):not([type="radio"]),
+  main textarea,
+  main select {
+    @apply rounded-lg border-border bg-card text-foreground shadow-none;
+  }
+  main table {
+    @apply overflow-hidden rounded-xl border border-border bg-card;
+  }
+  main th {
+    @apply bg-muted font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground;
+  }
+  main [class*="shadow-lg"], main [class*="shadow-xl"] {
+    box-shadow: 0 1.75rem 4rem oklch(19% 0.018 215 / 0.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

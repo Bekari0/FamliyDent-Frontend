@@ -133,10 +133,10 @@ export function Header() {
 
     return (
       <div className="hidden items-center gap-2 lg:flex">
-        <Button variant="ghost" asChild className="h-10 rounded-full px-4 text-sm font-medium text-foreground hover:bg-secondary">
+        <Button variant="ghost" asChild className="h-10 rounded-lg px-4 font-mono text-xs font-medium uppercase tracking-[0.08em] text-foreground hover:bg-secondary">
           <Link to="/login">Войти</Link>
         </Button>
-        <Button asChild className="h-11 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground hover:bg-primary-hover">
+        <Button asChild className="h-11 rounded-lg bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-[0_12px_28px_oklch(58%_0.125_185/0.22)] hover:bg-primary-hover">
           <Link to="/book">Записаться на приём</Link>
         </Button>
       </div>
@@ -144,15 +144,14 @@ export function Header() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-4 lg:px-6">
-      {/* Плавающая пилюля */}
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-border/80 bg-background/92 backdrop-blur-xl">
       <div
         className={cn(
-          'mx-auto max-w-7xl rounded-full border bg-card/95 backdrop-blur-sm transition-shadow',
-          isScrolled ? 'border-border shadow-md' : 'border-border/60 shadow-sm'
+          'mx-auto max-w-7xl transition-shadow',
+          isScrolled ? 'shadow-[0_12px_32px_oklch(19%_0.018_215/0.05)]' : 'shadow-none'
         )}
       >
-        <div className="flex h-14 items-center justify-between gap-6 pl-5 pr-2 lg:h-16 lg:pl-7 lg:pr-2.5">
+        <div className="flex h-16 items-center justify-between gap-6 px-4 sm:px-6 lg:h-[76px] lg:px-8">
           <Link to="/" className="text-foreground" aria-label="FamilyDent — на главную">
             <Logo className="h-7 w-auto lg:h-8" />
           </Link>
@@ -163,10 +162,10 @@ export function Header() {
                 key={item.label}
                 to={item.href}
                 className={cn(
-                  'rounded-full px-3.5 py-2 text-sm transition-colors',
+                  'border-b-2 border-transparent px-3 py-2 font-mono text-xs font-medium uppercase tracking-[0.08em] transition-colors',
                   isActive(item.href)
-                    ? 'bg-secondary font-semibold text-foreground'
-                    : 'font-medium text-muted-foreground hover:text-foreground'
+                    ? 'border-primary text-foreground'
+                    : 'text-muted-foreground hover:text-foreground'
                 )}
               >
                 {item.label}

@@ -1,33 +1,25 @@
-export const section = 'relative overflow-hidden bg-[radial-gradient(ellipse_90%_70%_at_50%_30%,#DCEEF8_0%,#CFE5F1_100%)] pt-28 pb-10 md:pt-32';
+export const section = 'relative overflow-hidden border-b border-border bg-background pb-16 pt-28 md:pt-36 lg:min-h-[860px]';
 export const container = 'container mx-auto px-4 sm:px-6 lg:px-8';
-
-/* Заголовок: тёмная часть слева, светлая справа, кристальный зуб по центру */
-export const headlineWrap = 'relative';
-export const titleDark = 'relative block max-w-3xl text-[clamp(2.6rem,6.4vw,6rem)] font-light tracking-[-0.04em] text-foreground leading-[1.05] text-balance';
-export const titleLight = 'relative block text-right text-[clamp(2.2rem,5.4vw,5.25rem)] font-light tracking-[-0.03em] text-white/80 leading-[1.05] lg:-mt-24';
-export const heroImage = 'pointer-events-none relative z-10 mx-auto -mt-6 w-72 select-none mix-blend-multiply [mask-image:radial-gradient(ellipse_58%_58%_at_center,black_40%,transparent_80%)] sm:w-96 lg:absolute lg:left-1/2 lg:top-1/2 lg:mt-0 lg:w-[620px] lg:-translate-x-[46%] lg:-translate-y-[46%] xl:w-[720px]';
-
-/* Нижний ряд */
-export const bottomRow = 'mt-10 flex flex-col gap-10 lg:mt-24 lg:flex-row lg:items-end lg:justify-between';
+export const headlineWrap = 'relative min-h-[400px] lg:min-h-[470px]';
+export const titleDark = 'relative z-[2] block max-w-4xl font-display text-[clamp(3rem,6.2vw,6.8rem)] font-medium leading-[0.92] tracking-[-0.055em] text-foreground text-balance';
+export const titleLight = 'relative z-[2] ml-auto mt-10 block max-w-3xl text-right font-display text-[clamp(2.1rem,4vw,4.8rem)] font-light leading-[1] tracking-[-0.045em] text-primary lg:-mt-12';
+export const heroImage = 'pointer-events-none absolute left-1/2 top-[48%] z-[1] w-[380px] -translate-x-1/2 -translate-y-1/2 select-none mix-blend-multiply opacity-75 [mask-image:radial-gradient(ellipse_58%_58%_at_center,black_40%,transparent_80%)] sm:w-[500px] lg:w-[670px]';
+export const bottomRow = 'relative z-[3] mt-4 flex flex-col gap-10 border-t border-border pt-8 lg:flex-row lg:items-end lg:justify-between';
 export const bottomLeft = 'max-w-xl';
-export const desc = 'text-lg font-normal leading-[1.55] text-foreground text-pretty sm:text-[22px]';
-export const actionsRow = 'mt-10 flex flex-wrap items-center gap-[18px]';
+export const desc = 'text-lg font-normal leading-[1.6] text-muted-foreground text-pretty sm:text-xl';
+export const actionsRow = 'mt-8 flex flex-wrap items-center gap-4';
 export const btnSplit = 'group inline-flex items-stretch';
-export const btnSplitMain = 'inline-flex h-14 items-center rounded-l-[7px] bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors group-hover:bg-primary-hover';
-export const btnSplitChip = 'ml-px inline-flex h-14 w-14 items-center justify-center rounded-r-[7px] bg-primary text-primary-foreground transition-colors group-hover:bg-primary-hover';
-export const socialGroup = 'inline-flex items-center gap-1';
-export const socialBtn = 'inline-flex h-14 w-14 items-center justify-center rounded-[7px] bg-card text-foreground shadow-sm transition-colors hover:bg-secondary';
-
-/* Правый блок: стат-карточка + фото с play */
-export const bottomRight = 'flex items-stretch gap-3.5';
-export const statCard = 'flex h-[275px] w-56 flex-col justify-between rounded-[14px] bg-primary p-6 text-primary-foreground sm:w-[275px]';
-export const statCaption = 'text-[15px] font-normal leading-[1.45] text-primary-foreground/95';
-export const statValue = 'text-[clamp(4rem,6vw,6rem)] font-light leading-[0.9] tracking-[-0.04em]';
-export const photoCard = 'relative hidden h-[275px] w-[375px] overflow-hidden rounded-[14px] sm:block';
+export const btnSplitMain = 'inline-flex h-14 items-center rounded-l-lg bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors group-hover:bg-primary-hover';
+export const btnSplitChip = 'ml-px inline-flex h-14 w-14 items-center justify-center rounded-r-lg bg-primary text-primary-foreground transition-colors group-hover:bg-primary-hover';
+export const socialGroup = 'inline-flex items-center gap-2';
+export const socialBtn = 'inline-flex h-12 w-12 items-center justify-center rounded-lg border border-border bg-card text-foreground transition-all hover:-translate-y-0.5 hover:border-primary hover:text-primary';
+export const bottomRight = 'flex items-stretch gap-3';
+export const statCard = 'flex h-56 w-52 flex-col justify-between rounded-xl bg-espresso p-6 text-espresso-foreground sm:w-56';
+export const statCaption = 'text-sm font-normal leading-[1.45] text-espresso-muted';
+export const statValue = 'font-display text-6xl font-light leading-none tracking-[-0.05em] text-accent';
+export const photoCard = 'relative hidden h-56 w-80 overflow-hidden rounded-xl sm:block';
 export const photoImg = 'absolute inset-0 h-full w-full object-cover';
-export const playBtn = 'absolute left-9 top-12 z-10 flex h-[72px] w-[72px] items-center justify-center rounded-full bg-card text-primary shadow-md transition-transform hover:scale-105';
-
-/* Полоса партнёров */
-export const partnersStrip = 'mt-16 pt-10 lg:mt-24';
+export const playBtn = 'absolute left-6 top-6 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-card text-primary shadow-card transition-transform hover:scale-105';
+export const partnersStrip = 'mt-14 border-t border-border pt-8';
 export const partnersGrid = 'flex flex-wrap items-center justify-between gap-x-10 gap-y-6';
-export const partnerItem = 'inline-flex items-center gap-2.5 text-sm font-semibold tracking-wide text-primary/80';
+export const partnerItem = 'inline-flex items-center gap-2.5 font-mono text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground';

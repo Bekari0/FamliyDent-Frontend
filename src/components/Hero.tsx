@@ -34,12 +34,14 @@ export function Hero() {
         >
           <h1>
             <span className={styles.titleDark}>
-              Качественная стоматология для здоровой
+              Не просто лечим зубы.
+              <br />
+              Заботимся о семье.
             </span>
             <span className={styles.titleLight}>
-              и красивой
+              Точная стоматология —
               <br />
-              улыбки
+              лично и бережно
             </span>
           </h1>
           <img
@@ -63,8 +65,8 @@ export function Hero() {
         >
           <div className={styles.bottomLeft}>
             <p className={styles.desc}>
-              FamilyDent — семейная клиника в Душанбе. Современные технологии,
-              внимательные врачи и комфортная атмосфера для всей семьи.
+              Современная семейная стоматология в Душанбе, где каждый этап лечения
+              объясняют спокойно и понятно.
             </p>
             <div className={styles.actionsRow}>
               <Link to="/book" className={styles.btnSplit} aria-label="Записаться на приём">

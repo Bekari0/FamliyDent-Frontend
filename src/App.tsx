@@ -120,7 +120,7 @@ function AppContent() {
   const shouldHideBreadcrumbs = isAuthPage || isNotFound;
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
       {!isAuthPage && <Header />}
       {!shouldHideBreadcrumbs && <Breadcrumbs />}
       <main className="flex-1">
