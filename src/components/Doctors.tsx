@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { ArrowLeft, ArrowRight, Loader2 } from 'lucide-react';
 import axios from 'axios';
@@ -41,6 +41,8 @@ export function Doctors() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reduceMotion = useReducedMotion();
   const { openBooking } = useBooking();
 
@@ -59,8 +61,28 @@ export function Doctors() {
     fetchDoctors();
   }, []);
 
-  const move = (step: number) => {
+  useEffect(() => {
+    if (reduceMotion || isPaused || doctors.length < 2) return;
+    const interval = window.setInterval(() => {
+      setDirection(1);
+      setActiveIndex((current) => (current + 1) % doctors.length);
+    }, 4200);
+    return () => window.clearInterval(interval);
+  }, [doctors.length, isPaused, reduceMotion]);
+
+  useEffect(() => () => {
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+  }, []);
+
+  const pauseTemporarily = () => {
+    setIsPaused(true);
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => setIsPaused(false), 6500);
+  };
+
+  const move = (step: number, manual = true) => {
     if (doctors.length < 2) return;
+    if (manual) pauseTemporarily();
     setDirection(step);
     setActiveIndex((current) => (current + step + doctors.length) % doctors.length);
   };
@@ -101,7 +123,15 @@ export function Doctors() {
           </div>
         </div>
 
-        <div className={styles.carouselViewport}>
+        <div
+          className={styles.carouselViewport}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocusCapture={() => setIsPaused(true)}
+          onBlurCapture={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) setIsPaused(false);
+          }}
+        >
           <motion.div
             className={styles.carouselStage}
             drag={doctors.length > 1 ? 'x' : false}

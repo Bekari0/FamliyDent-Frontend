@@ -29,8 +29,11 @@
 }
 
 @layer components {
-  main > section:not([class*="bg-espresso"]):not([class*="section--ink"]) {
-    @apply bg-background;
+  main > section {
+    @apply border-border bg-background text-foreground;
+  }
+  main > section:nth-of-type(even):not([class*="bg-"]) {
+    @apply bg-card;
   }
   main input:not([type="checkbox"]):not([type="radio"]),
   main textarea,
@@ -44,7 +47,20 @@
     @apply bg-muted font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground;
   }
   main [class*="shadow-lg"], main [class*="shadow-xl"] {
-    box-shadow: 0 1.75rem 4rem oklch(19% 0.018 215 / 0.08);
+    box-shadow: 0 1.75rem 4rem oklch(4% 0.018 215 / 0.28);
+  }
+  main :is(article, [data-slot="card"]) {
+    border-color: color-mix(in oklab, var(--border), transparent 15%);
+  }
+  main :is(h1, h2) {
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+  }
+  main label {
+    @apply font-medium text-foreground;
+  }
+  main a {
+    text-underline-offset: 0.22em;
   }
 }
 
