@@ -123,14 +123,14 @@ export function Doctors() {
                     className={styles.card}
                     initial={false}
                     animate={{
-                      x: offset * 390,
-                      y: distance % 2 ? 58 : distance * 12,
-                      scale: Math.max(0.86, 1 - distance * 0.045),
-                      rotate: offset * 1.4,
+                      x: offset * 285,
+                      y: offset < 0 ? 54 : distance * 34,
+                      scale: Math.max(0.92, 1 - distance * 0.025),
+                      rotate: offset < 0 ? -1.5 : offset * 0.45,
                       opacity: distance > 2 ? 0 : 1,
                     }}
-                    transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 230, damping: 28 }}
-                    style={{ zIndex: 20 - distance }}
+                    transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 190, damping: 26, mass: 0.9 }}
+                    style={{ zIndex: offset === 0 ? 20 : offset < 0 ? 8 : 16 - distance }}
                     aria-hidden={!isActive && distance > 1}
                   >
                     <button type="button" className={styles.photoButton} onClick={() => setSelectedDoctor(doctor)} aria-label={`Подробнее о враче ${doctor.name}`}>
