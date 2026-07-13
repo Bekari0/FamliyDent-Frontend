@@ -1,44 +1,38 @@
 export const section =
-  'scroll-mt-20 bg-[linear-gradient(180deg,#ffffff_0%,#f3f9fc_100%)] pb-16 pt-[115px] lg:pb-24';
-export const container = 'container relative mx-auto max-w-[940px] px-4 sm:px-6 lg:px-0';
-export const headerRow =
-  'mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between';
-export const headerContent = 'max-w-2xl';
-export const kicker =
-  'mb-[22px] inline-flex h-6 items-center justify-center rounded-md border border-[rgba(31,47,69,0.75)] px-3.5 text-[10px] font-bold uppercase tracking-[0.08em] text-[#1F2F45]';
-export const kickerLine = 'hidden';
+  'relative flex min-h-[920px] scroll-mt-20 overflow-hidden bg-[#0B2024] px-5 py-24 text-[#F7FAF9] sm:px-8 lg:min-h-[1010px] lg:px-[4vw] lg:py-28';
+export const intro =
+  'relative z-30 flex w-full shrink-0 flex-col lg:w-[420px] xl:w-[470px]';
+export const eyebrow =
+  'mb-5 font-mono text-xs font-bold uppercase tracking-[0.14em] text-[#12A99B]';
 export const title =
-  'text-3xl font-normal leading-[1.18] tracking-[-1px] text-[#111827] text-balance lg:text-4xl';
-export const titleSpan = 'text-accent';
-export const desc = 'sr-only';
+  'max-w-[760px] text-[clamp(3.5rem,6vw,6.3rem)] font-semibold leading-[0.94] tracking-[-0.055em] text-[#F7FAF9]';
+export const description =
+  'mt-12 max-w-[390px] text-xl font-medium leading-[1.6] text-[#B9C6C7]';
+export const matchButton =
+  'mt-7 h-14 max-w-[390px] rounded-lg bg-[#0EA89B] px-6 text-sm font-bold text-white transition-colors hover:bg-[#18B8AA] focus-visible:outline-white';
+export const controls = 'mt-8 flex items-center gap-4';
+export const controlButton =
+  'grid h-12 w-12 place-items-center rounded-full border border-white/25 text-white transition-colors hover:border-[#12A99B] hover:bg-[#12A99B]';
+export const counter = 'min-w-16 text-center font-mono text-xs tracking-[0.12em] text-[#B9C6C7]';
 
-/* Составная кнопка "Все врачи" */
-export const seeAllBtn =
-  'group inline-flex items-stretch text-primary-foreground';
-export const seeAllMain =
-  'inline-flex h-11 items-center justify-center rounded-l-[7px] bg-[#334562] px-6 text-xs font-bold';
-export const seeAllChip =
-  'ml-px inline-flex h-11 w-11 items-center justify-center rounded-r-[7px] bg-[#334562] transition-transform group-hover:translate-x-0.5';
-
-/* Карточки врачей */
-export const grid = 'mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:gap-6';
+export const carouselViewport =
+  'relative mt-14 min-h-[720px] w-full cursor-grab overflow-visible active:cursor-grabbing lg:-mr-[18vw] lg:ml-10 lg:mt-24 lg:min-h-[760px] lg:flex-1';
+export const carouselStage =
+  'relative h-[700px] w-full touch-pan-y select-none lg:h-[760px]';
 export const card =
-  'flex h-[355px] flex-col items-center rounded-[14px] border border-[rgba(31,47,69,0.65)] bg-transparent px-6 pb-6 pt-[22px] text-center shadow-none';
-export const cardActive =
-  'flex h-[355px] flex-col items-center rounded-[14px] border border-transparent bg-[#A8CFE3] px-6 pb-6 pt-[22px] text-center shadow-none';
-export const cardTitle = 'mb-2.5 text-[17px] font-semibold leading-tight text-[#111827]';
-export const specialty = 'text-[13px] font-normal text-[rgba(31,47,69,0.75)]';
-export const imageWrapper =
-  'mt-6 h-[142px] w-[142px] cursor-pointer overflow-hidden rounded-full bg-[#EAF4F8]';
-export const imageStyle = 'h-full w-full object-cover';
-export const socialRow = 'mt-auto flex justify-center gap-[5px]';
-export const socialBtn =
-  'grid h-[34px] w-[34px] place-items-center rounded-md bg-white text-[#334562] transition-colors hover:bg-[#334562] hover:text-white';
-
-/* Статистика */
-export const statsGrid =
-  'mt-20 grid grid-cols-1 gap-12 sm:grid-cols-3 sm:gap-x-20 lg:mt-28';
-export const statNumber =
-  'text-[64px] font-light leading-[0.9] tracking-[-4px] text-[#334562] lg:text-[88px]';
-export const statCaption =
-  'mt-3.5 max-w-56 text-[13px] font-medium leading-[1.35] text-[#334562]';
+  'absolute left-[calc(50%_-_155px)] top-0 flex h-[650px] w-[310px] origin-center flex-col overflow-hidden rounded-[30px] border border-white/10 bg-[#10262B] shadow-[0_32px_80px_rgba(0,0,0,0.35)] sm:left-[calc(50%_-_175px)] sm:w-[350px] lg:left-[12%] lg:h-[720px] lg:w-[390px]';
+export const photoButton =
+  'block h-[390px] w-full shrink-0 cursor-pointer overflow-hidden bg-[#C8AA7A] lg:h-[470px]';
+export const photo =
+  'h-full w-full object-cover object-top transition-transform duration-700 hover:scale-[1.035]';
+export const cardBody = 'flex min-h-0 flex-1 flex-col px-5 pb-5 pt-6 lg:px-6';
+export const specialty =
+  'text-sm font-bold text-[#12A99B]';
+export const cardTitle =
+  'mt-2 text-3xl font-semibold leading-[1.02] tracking-[-0.04em] text-white';
+export const cardDescription =
+  'mt-3 line-clamp-2 text-base leading-relaxed text-[#B9C6C7]';
+export const bookButton =
+  'mt-auto h-14 w-full rounded-lg bg-[#0EA89B] text-base font-bold text-white transition-colors hover:bg-[#18B8AA]';
+export const swipeHint =
+  'absolute bottom-0 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[11px] uppercase tracking-[0.12em] text-white/45 lg:left-[12%] lg:translate-x-0';

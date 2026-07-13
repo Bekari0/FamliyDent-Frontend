@@ -1,10 +1,13 @@
+'use client';
+
 import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
-import { ArrowUpRight, Loader2, Instagram, Facebook, Send } from 'lucide-react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { ArrowLeft, ArrowRight, Loader2 } from 'lucide-react';
 import axios from 'axios';
 import { useBooking } from '@/context/BookingContext';
 import { DoctorDetailModal } from './DoctorDetailModal';
-import { Link } from 'react-router-dom';
+import { FALLBACK_DOCTORS } from '@/fallbackData';
+import * as styles from './Doctors.styles';
 
 interface Doctor {
   _id: string;
@@ -19,28 +22,36 @@ interface Doctor {
 
 const API_URL = '/api';
 const SPECIALIST_IMAGES = [
-  '/images/specialist-sobirov-ulugbek.jpg',
-  '/images/specialist-usupova-esuman.jpg',
+  '/images/specialist-nuros-dylshod.jpg',
   '/images/specialist-mahmudov-hakim.jpg',
+  '/images/specialist-usupova-esuman.jpg',
+  '/images/specialist-sobirov-ulugbek.jpg',
 ];
-import { FALLBACK_DOCTORS } from '@/fallbackData';
-import * as styles from './Doctors.styles';
+
+const SPECIALIST_COPY = [
+  'Координирует маршрут лечения и командную работу клиники.',
+  'Помогает с диагностикой, лечением и первичной консультацией.',
+  'Ведёт терапевтический приём и объясняет пациенту следующие шаги.',
+  'Работает с планом лечения и контрольными визитами пациента.',
+];
 
 export function Doctors() {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
+  const reduceMotion = useReducedMotion();
   const { openBooking } = useBooking();
 
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
         const response = await axios.get(`${API_URL}/doctors`);
-        const doctorsData = Array.isArray(response.data) ? response.data : FALLBACK_DOCTORS;
-        setDoctors(doctorsData.slice(0, 3) as any);
-      } catch (err) {
-        console.error('Ошибка загрузки врачей, используем резервные данные:', err);
-        setDoctors(FALLBACK_DOCTORS.slice(0, 3) as any);
+        const data = Array.isArray(response.data) && response.data.length ? response.data : FALLBACK_DOCTORS;
+        setDoctors(data.slice(0, 4) as unknown as Doctor[]);
+      } catch {
+        setDoctors(FALLBACK_DOCTORS.slice(0, 4) as unknown as Doctor[]);
       } finally {
         setLoading(false);
       }
@@ -48,143 +59,108 @@ export function Doctors() {
     fetchDoctors();
   }, []);
 
-  if (loading) {
-    return (
-      <section id="doctors" className={styles.section}>
-        <div className={styles.container}>
-          <div className="flex items-center justify-center py-20">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const move = (step: number) => {
+    if (doctors.length < 2) return;
+    setDirection(step);
+    setActiveIndex((current) => (current + step + doctors.length) % doctors.length);
+  };
 
-  if (doctors.length === 0) return null;
+  const getOffset = (index: number) => {
+    let offset = index - activeIndex;
+    const half = doctors.length / 2;
+    if (offset > half) offset -= doctors.length;
+    if (offset < -half) offset += doctors.length;
+    return offset;
+  };
+
+  if (loading) {
+    return <section id="doctors" className={styles.section}><Loader2 className="h-9 w-9 animate-spin text-[#12A99B]" /></section>;
+  }
+  if (!doctors.length) return null;
 
   return (
     <>
-      <section id="doctors" className={styles.section}>
-        <div className={styles.container}>
-          <div className={styles.headerRow}>
-            <div className={styles.headerContent}>
-              <p className={styles.kicker}>Знакомьтесь — команда вашей улыбки</p>
-              <h2 className={styles.title}>
-                Опытные стоматологи,
-                <br />
-                которым можно доверять
-              </h2>
-            </div>
-
-            <Link to="/doctors" className={`${styles.seeAllBtn} hidden md:inline-flex`} aria-label="Все врачи">
-              <span className={styles.seeAllMain}>Все врачи</span>
-              <span className={styles.seeAllChip} aria-hidden="true">
-                <ArrowUpRight className="h-4 w-4" />
-              </span>
-            </Link>
+      <section id="doctors" className={styles.section} aria-labelledby="doctors-title">
+        <div className={styles.intro}>
+          <p className={styles.eyebrow}>Команда Family Dent</p>
+          <h2 id="doctors-title" className={styles.title}>Наши специалисты</h2>
+          <p className={styles.description}>
+            Врачи Family Dent ведут пациента командой: от первичной диагностики до контрольного визита.
+          </p>
+          <button type="button" className={styles.matchButton} onClick={() => openBooking()}>
+            Подобрать специалиста
+          </button>
+          <div className={styles.controls} aria-label="Управление каруселью">
+            <button type="button" className={styles.controlButton} onClick={() => move(-1)} aria-label="Предыдущий специалист">
+              <ArrowLeft className="h-5 w-5" />
+            </button>
+            <span className={styles.counter}>{String(activeIndex + 1).padStart(2, '0')} / {String(doctors.length).padStart(2, '0')}</span>
+            <button type="button" className={styles.controlButton} onClick={() => move(1)} aria-label="Следующий специалист">
+              <ArrowRight className="h-5 w-5" />
+            </button>
           </div>
+        </div>
 
-          <div className={styles.grid}>
-            {doctors.map((doctor, index) => (
-              <motion.div
-                key={doctor._id}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ delay: index * 0.08, duration: 0.4 }}
-              >
-                <div className={index === doctors.length - 1 ? styles.cardActive : styles.card}>
-                  <h3 className={styles.cardTitle}>{doctor.name}</h3>
-                  <p className={styles.specialty}>{doctor.specialty}</p>
-
-                  <button
-                    type="button"
-                    className={styles.imageWrapper}
-                    onClick={() => setSelectedDoctor(doctor)}
-                    aria-label={`Подробнее о враче ${doctor.name}`}
+        <div className={styles.carouselViewport}>
+          <motion.div
+            className={styles.carouselStage}
+            drag={doctors.length > 1 ? 'x' : false}
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.16}
+            onDragEnd={(_, info) => {
+              if (info.offset.x < -65 || info.velocity.x < -450) move(1);
+              else if (info.offset.x > 65 || info.velocity.x > 450) move(-1);
+            }}
+          >
+            <AnimatePresence initial={false} custom={direction}>
+              {doctors.map((doctor, index) => {
+                const offset = getOffset(index);
+                const distance = Math.abs(offset);
+                const isActive = offset === 0;
+                return (
+                  <motion.article
+                    key={doctor._id}
+                    className={styles.card}
+                    initial={false}
+                    animate={{
+                      x: offset * 390,
+                      y: distance % 2 ? 58 : distance * 12,
+                      scale: Math.max(0.86, 1 - distance * 0.045),
+                      rotate: offset * 1.4,
+                      opacity: distance > 2 ? 0 : 1,
+                    }}
+                    transition={reduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 230, damping: 28 }}
+                    style={{ zIndex: 20 - distance }}
+                    aria-hidden={!isActive && distance > 1}
                   >
-                    <img
-                      src={SPECIALIST_IMAGES[index] || doctor.image || "/placeholder.svg"}
-                      alt={doctor.name}
-                      className={styles.imageStyle}
-                      loading="lazy"
-                      decoding="async"
-                      width={142}
-                      height={142}
-                    />
-                  </button>
-
-                  <div className={styles.socialRow}>
-                    <a
-                      href="https://instagram.com/familydent.tj"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.socialBtn}
-                      aria-label={`Instagram — ${doctor.name}`}
-                    >
-                      <Instagram className="h-4 w-4" />
-                    </a>
-                    <a
-                      href="https://facebook.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.socialBtn}
-                      aria-label={`Facebook — ${doctor.name}`}
-                    >
-                      <Facebook className="h-4 w-4" />
-                    </a>
-                    <a
-                      href="https://t.me/familydent"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.socialBtn}
-                      aria-label={`Telegram — ${doctor.name}`}
-                    >
-                      <Send className="h-4 w-4" />
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="mt-8 md:hidden">
-            <Link
-              to="/doctors"
-              className="flex h-12 w-full items-center justify-center gap-2 rounded-[7px] bg-[#334562] text-sm font-semibold text-primary-foreground"
-            >
-              Посмотреть всех врачей
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </div>
-
-          {/* Статистика клиники */}
-          <div className={styles.statsGrid}>
-            <div className="flex flex-col">
-              <span className={styles.statNumber}>99%</span>
-              <span className={styles.statCaption}>
-                пациентов довольны качеством лечения и сервиса
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <span className={styles.statNumber}>30К+</span>
-              <span className={styles.statCaption}>
-                пациентов успешно прошли лечение в клинике
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <span className={styles.statNumber}>400+</span>
-              <span className={styles.statCaption}>
-                установленных имплантов с долговременным результатом
-              </span>
-            </div>
-          </div>
+                    <button type="button" className={styles.photoButton} onClick={() => setSelectedDoctor(doctor)} aria-label={`Подробнее о враче ${doctor.name}`}>
+                      <img
+                        src={SPECIALIST_IMAGES[index] || doctor.image || '/placeholder.svg'}
+                        alt={doctor.name}
+                        className={styles.photo}
+                        draggable={false}
+                      />
+                    </button>
+                    <div className={styles.cardBody}>
+                      <p className={styles.specialty}>{index === 0 ? 'Заведующий' : doctor.specialty}</p>
+                      <h3 className={styles.cardTitle}>{doctor.name}</h3>
+                      <p className={styles.cardDescription}>{doctor.description || SPECIALIST_COPY[index]}</p>
+                      <button type="button" className={styles.bookButton} onClick={() => openBooking(doctor._id)}>
+                        Записаться
+                      </button>
+                    </div>
+                  </motion.article>
+                );
+              })}
+            </AnimatePresence>
+          </motion.div>
+          <p className={styles.swipeHint}>Свайпните карточки или используйте стрелки</p>
         </div>
       </section>
 
       <DoctorDetailModal
         doctor={selectedDoctor}
-        isOpen={!!selectedDoctor}
+        isOpen={Boolean(selectedDoctor)}
         onClose={() => setSelectedDoctor(null)}
         onBooking={(doctorId) => {
           setSelectedDoctor(null);
