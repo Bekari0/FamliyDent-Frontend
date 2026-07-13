@@ -2,7 +2,6 @@ import { Hero } from '@/components/Hero';
 import { Services } from '@/components/Services';
 import { Gallery } from '@/components/Gallery';
 import { FAQ } from '@/components/FAQ';
-import { BigCta } from '@/components/BigCta';
 import { Contact } from '@/components/Contact';
 
 export function HomePage() {
@@ -11,7 +10,6 @@ export function HomePage() {
  <Hero />
  <Gallery />
  <Services />
- <BigCta />
  <FAQ />
  <Contact />
  </>
