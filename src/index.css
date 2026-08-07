@@ -1,27 +1,187 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap");
 @import "tailwindcss";
 
-/* Theme and Base */
-@import "./styles/theme.css";
-@import "./styles/base.css";
-@import "./styles/utilities.css";
+/*
+ * Каноническая Tailwind-тема Family Dent.
+ * Значения синхронизированы с корневым tokens.css.
+ */
+@theme {
+  --color-paper: oklch(100% 0 0);
+  --color-paper-2: oklch(97.8% 0.006 85);
+  --color-paper-3: oklch(94.5% 0.012 85);
+  --color-surface: oklch(100% 0 0);
+  --color-surface-raised: oklch(100% 0 0);
+  --color-ink: oklch(23% 0 0);
+  --color-ink-2: oklch(31% 0.01 165);
+  --color-muted: oklch(49% 0.012 85);
+  --color-rule: oklch(89% 0.009 85);
+  --color-rule-2: oklch(76% 0.024 85);
+  --color-accent: oklch(78% 0.055 82);
+  --color-accent-2: oklch(86% 0.035 82);
+  --color-accent-soft: oklch(95% 0.022 82);
+  --color-accent-ink: oklch(23% 0 0);
+  --color-trust: oklch(36% 0.047 174);
+  --color-trust-soft: oklch(92% 0.022 174);
+  --color-warn: oklch(70% 0.13 72);
+  --color-warn-soft: oklch(94% 0.045 72);
+  --color-error: oklch(58% 0.18 25);
+  --color-error-soft: oklch(94% 0.035 25);
+  --color-success: oklch(53% 0.13 160);
+  --color-success-soft: oklch(92% 0.04 160);
+  --color-focus: oklch(48% 0.085 174);
+  --color-shadow: oklch(23% 0 0 / 0.1);
+  --color-shadow-soft: oklch(23% 0 0 / 0.05);
 
-/* Components */
-@import "./styles/components/header.css";
-@import "./styles/components/hero.css";
-@import "./styles/components/services.css";
-@import "./styles/components/doctors.css";
-@import "./styles/components/why-choose-us.css";
-@import "./styles/components/faq.css";
-@import "./styles/components/chat-widget.css";
-@import "./styles/components/contact.css";
-@import "./styles/components/footer.css";
-@import "./styles/components/reviews.css";
+  --font-display: "Geologica", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Golos Text", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: var(--font-body);
 
-/* Pages */
-@import "./styles/pages/services-page.css";
+  /* Исходные имена сохраняются для прямого доступа через var(). */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
 
-/* Third-party and Global */
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
+  /* Явные размеры для контейнеров max-w-* в Tailwind v4 */
+  --container-3xs: 16rem;
+  --container-2xs: 18rem;
+  --container-xs: 20rem;
+  --container-sm: 24rem;
+  --container-md: 28rem;
+  --container-lg: 32rem;
+  --container-xl: 36rem;
+  --container-2xl: 42rem;
+  --container-3xl: 48rem;
+  --container-4xl: 56rem;
+  --container-5xl: 64rem;
+  --container-6xl: 72rem;
+  --container-7xl: 80rem;
+
+  --text-xs: clamp(0.72rem, calc(0.66rem + 0.14vw), 0.88rem);
+  --text-sm: clamp(0.84rem, calc(0.74rem + 0.18vw), 1rem);
+  --text-base: clamp(0.96rem, calc(0.82rem + 0.28vw), 1.18rem);
+  --text-md: clamp(1.04rem, calc(0.88rem + 0.36vw), 1.34rem);
+  --text-lg: clamp(1.18rem, calc(0.94rem + 0.52vw), 1.55rem);
+  --text-xl: clamp(1.5rem, calc(1.05rem + 1vw), 2.25rem);
+  --text-2xl: clamp(1.9rem, calc(1.2rem + 1.7vw), 3.4rem);
+  --text-3xl: clamp(2.35rem, calc(1.35rem + 2.6vw), 4.8rem);
+  --text-display-s: clamp(2.6rem, calc(1.5rem + 3.4vw), 5.8rem);
+  --text-display: clamp(3rem, calc(1.4rem + 4.8vw), 7.2rem);
+
+  --radius-xs: 0.375rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.125rem;
+  --radius-xl: 1.75rem;
+  --radius-pill: 999rem;
+
+  --rule-thin: 1px;
+  --rule-strong: 2px;
+  --shadow-whisper: 0 0.5rem 1.5rem var(--color-shadow-soft);
+  --shadow-card: 0 1.75rem 4rem var(--color-shadow);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+  --dur-section: 680ms;
+}
+
+:root {
+  --gradient-dark: linear-gradient(
+    145deg,
+    var(--color-ink) 0%,
+    color-mix(in oklch, var(--color-ink-2) 76%, var(--color-ink)) 62%,
+    color-mix(in oklch, var(--color-trust) 22%, var(--color-ink)) 100%
+  );
+}
+
+@layer utilities {
+  .liquid-glass {
+    position: relative;
+    overflow: hidden;
+    border: 0;
+    background: rgba(255, 255, 255, 0.08);
+    background-blend-mode: luminosity;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  }
+
+  .liquid-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1.4px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.45) 0%,
+      rgba(255, 255, 255, 0.15) 20%,
+      transparent 40%,
+      transparent 60%,
+      rgba(255, 255, 255, 0.15) 80%,
+      rgba(255, 255, 255, 0.45) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+  }
+
+  .emerald-gradient-text {
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-trust) 50%, var(--color-ink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .accent-gradient-text {
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-trust) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .green-shimmer-bg {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+}
+
+@keyframes greenPulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.08);
+  }
+}
+
+.animate-green-pulse {
+  animation: greenPulse 8s ease-in-out infinite;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  min-height: 100%;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+}

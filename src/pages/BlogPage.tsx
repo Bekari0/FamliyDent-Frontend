@@ -1,107 +1,79 @@
-﻿import React, { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
-import { Link } from 'react-router-dom';
-import { Calendar, User, ArrowRight, ChevronRight, Loader2 } from 'lucide-react';
-import { Button } from '../components/ui/button';
-import axios from 'axios';
-import * as styles from './BlogPage.styles';
-
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { EditorialPageHero } from "../components/shared/editorial-page-hero";
+import { Calendar, User, ArrowRight } from "lucide-react";
+import { getBlogPosts } from "../lib/data/blog";
+import type { BlogPost } from "../lib/data/types";
 
 export function BlogPage() {
- const [articles, setArticles] = useState<any[]>([]);
- const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
 
- useEffect(() => {
- const fetchArticles = async () => {
- try {
- const response = await axios.get('/api/articles');
- setArticles(Array.isArray(response.data) ? response.data : []);
- } catch (error) {
- console.error('Error fetching articles:', error);
- } finally {
- setLoading(false);
- }
- };
- fetchArticles();
- }, []);
+  useEffect(() => {
+    document.title = "Блог и статьи — Family Dent Душанбе";
+    async function loadPosts() {
+      const data = await getBlogPosts();
+      setPosts(data);
+    }
+    loadPosts();
+  }, []);
 
- return (
- <div className={styles.page}>
- <div className={styles.container}>
- <div className={styles.header}>
- <motion.div
- initial={{ opacity: 0, scale: 0.9 }}
- animate={{ opacity: 1, scale: 1 }}
- className={styles.badge}
- >
- Наш блог
- </motion.div>
- <motion.h1 
- initial={{ opacity: 0, y: 20 }}
- animate={{ opacity: 1, y: 0 }}
- className={styles.title}
- >
- Полезные советы от <span className={styles.titleSpan}>FamilyDent</span>
- </motion.h1>
- <p className={styles.desc}>
- Интересные статьи о новинках стоматологии, секреты красивой улыбки и профессиональные советы наших врачей.
- </p>
- </div>
+  return (
+    <div className="w-full flex flex-col min-h-screen bg-paper text-ink">
+      <EditorialPageHero
+        badge="Полезные материалы"
+        title="Блог и советы стоматологов"
+        description="Экспертные статьи наших врачей о гигиене, винирах, брекетах, имплантации и детской стоматологии."
+      />
 
- {loading ? (
- <div className="flex justify-center py-20">
- <Loader2 className="w-12 h-12 animate-spin text-primary" />
- </div>
- ) : (
- <div className={styles.grid}>
- {articles.map((post, idx) => (
- <motion.article 
- key={post._id || post.id}
- initial={{ opacity: 0, y: 30 }}
- whileInView={{ opacity: 1, y: 0 }}
- viewport={{ once: true }}
- transition={{ delay: (idx % 3) * 0.1 }}
- className={styles.card}
- >
- <div className={styles.imageWrapper}>
- <img 
- src={post.image || 'https://images.unsplash.com/photo-1559839734-2b71f1536780?q=80&w=2070'} 
- alt={post.title} 
- className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
- />
- </div>
- <div className={styles.cardContent}>
- <div className={styles.meta}>
- <div className="flex items-center gap-2">
- <Calendar className="w-3.5 h-3.5 text-primary" />
- {new Date(post.date).toLocaleDateString()}
- </div>
- <div className="flex items-center gap-2">
- <User className="w-3.5 h-3.5 text-primary" />
- {post.author}
- </div>
- </div>
- <h2 className={styles.cardTitle}>
- {post.title}
- </h2>
- <p className={styles.cardDesc}>
- {post.excerpt}
- </p>
- <Link 
- to={`/blog/${post._id || post.id}`}
- className={styles.link}
- >
- Читать статью
- <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
- </Link>
- </div>
- </motion.article>
- ))}
- </div>
- )}
- </div>
- </div>
- );
+      <div className="max-w-7xl mx-auto px-5 my-8 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {posts.map((post) => (
+            <Link
+              key={post.id}
+              to={`/blog/${post.slug}`}
+              className="bg-surface border border-rule rounded-3xl overflow-hidden shadow-card flex flex-col group hover:border-accent/40 transition-colors"
+            >
+              <div className="aspect-[16/9] w-full overflow-hidden bg-paper">
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+
+              <div className="p-6 flex flex-col justify-between flex-1">
+                <div>
+                  <span className="text-[10px] uppercase font-semibold text-accent tracking-wider block mb-2 font-mono">
+                    {post.category}
+                  </span>
+                  <h2 className="font-display text-lg sm:text-xl font-bold text-ink mb-2 group-hover:text-accent transition-colors">
+                    {post.title}
+                  </h2>
+                  <p className="text-xs sm:text-sm text-muted font-normal leading-relaxed mb-4">
+                    {post.excerpt}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between text-xs text-muted border-t border-rule pt-4">
+                  <div className="flex items-center gap-3">
+                    <span className="flex items-center gap-1">
+                      <User className="w-3.5 h-3.5 text-accent" />
+                      <span>{post.author}</span>
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-3.5 h-3.5" />
+                      <span>{post.date}</span>
+                    </span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
-
-

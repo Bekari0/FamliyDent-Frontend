@@ -1,5 +1,6 @@
 {
-  "name": "FamilyDent - Стоматологическая клиника",
-  "description": "Современная стоматология в Душанбе. Забота о вашей улыбке с использованием AI-технологий.",
-  "requestFramePermissions": []
+  "name": "Family Dent - Семейная стоматология",
+  "description": "Современная семейная стоматология в Душанбе. Интерактивный лендинг с динамическим 3D логотипом Family Dent и возможностью онлайн-записи.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

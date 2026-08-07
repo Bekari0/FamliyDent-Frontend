@@ -1,109 +1,59 @@
-﻿
-import React from 'react';
-import { motion } from 'motion/react';
-import { MOCK_SERVICES } from '../data/mockData';
-import { Check, ChevronRight, Calendar } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useBooking } from '@/context/BookingContext';
-import * as styles from './PricingPage.styles';
+import React, { useEffect, useState } from "react";
+import { EditorialPageHero } from "../components/shared/editorial-page-hero";
+import { Calendar, Tag } from "lucide-react";
+import { getPricingItems } from "../lib/data/pricing";
+import type { PricingItem } from "../lib/data/types";
 
-
-export function PricingPage() {
- const categories = Array.from(new Set(MOCK_SERVICES.map(s => s.category)));
- const { openBooking } = useBooking();
-
- return (
- <div className={styles.page}>
- <div className={styles.container}>
- <div className={styles.backWrapper}>
- <Link to="/" className={styles.backBtn}>
- <ChevronRight className="w-4 h-4 rotate-180" />
- Вернуться на главную
- </Link>
- </div>
-
- <div className={styles.header}>
- <div className={styles.badge}>Клинические услуги</div>
- <motion.h1 
- initial={{ opacity: 0, y: 20 }}
- animate={{ opacity: 1, y: 0 }}
- className={styles.title}
- >
- Прозрачное <span className={styles.titleSpan}>ценообразование</span>
- </motion.h1>
- <p className={styles.desc}>
- Мы предлагаем честный подход к лечению. Все цены указаны в сомони (TJS) и включают стоимость основных расходных материалов.
- </p>
- </div>
-
- <div className="space-y-12">
- {categories.map((cat, idx) => (
- <motion.div 
- key={cat}
- initial={{ opacity: 0, y: 20 }}
- whileInView={{ opacity: 1, y: 0 }}
- viewport={{ once: true }}
- transition={{ delay: idx * 0.1 }}
- className={styles.categoryCard}
- >
- <div className={styles.categoryHeader}>
- <h2 className={styles.categoryTitle}>{cat}</h2>
- <div className={styles.categoryBadge}>
- {MOCK_SERVICES.filter(s => s.category === cat).length} процедур
- </div>
- </div>
- <div className={styles.listWrapper}>
- <div className="space-y-2">
- {MOCK_SERVICES.filter(s => s.category === cat).map((service) => (
- <div key={service.id} className={styles.serviceItem}>
- <div className="flex items-center gap-5">
- <div className="w-2 h-2 rounded-full bg-primary/40 shrink-0" />
- <div>
- <span className={styles.serviceTitle}>{service.title}</span>
- <span className={styles.serviceMeta}>Длительность: {service.duration} мин • Гарантия FamilyDent</span>
- </div>
- </div>
- <div className={styles.priceRow}>
- <span className="text-slate-400 text-xs font-bold mr-1">от</span>
- <span className={styles.priceValue}>{service.price}</span>
- <span className={styles.priceCurrency}>TJS</span>
- </div>
- </div>
- ))}
- </div>
- </div>
- </motion.div>
- ))}
- </div>
-
- <div className={styles.ctaCard}>
- <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -mr-48 -mt-48" />
- 
- <div className={styles.ctaContent}>
- <h3 className={styles.ctaTitle}>Нужен точный <br /><span className="text-primary">расчет лечения?</span></h3>
- <p className={styles.ctaDesc}>Запишитесь на прием, и наши эксперты составят индивидуальный план лечения с учетом всех нюансов и точной стоимостью.</p>
- </div>
-
- <div className={styles.ctaActions}>
- <button onClick={() => openBooking()} className={styles.ctaBtn}>
- <Calendar className="w-5 h-5" />
- Записаться сейчас
- </button>
- <div className={styles.benefits}>
- <div className="flex items-center gap-3 text-slate-400">
- <Check className="w-4 h-4 text-primary" />
- <span className="text-[10px] font-black uppercase tracking-widest">План лечения</span>
- </div>
- <div className="flex items-center gap-3 text-slate-400">
- <Check className="w-4 h-4 text-primary" />
- <span className="text-[10px] font-black uppercase tracking-widest">Без скрытых платежей</span>
- </div>
- </div>
- </div>
- </div>
- </div>
- </div>
- );
+interface PricingPageProps {
+  onOpenBooking: () => void;
 }
 
+export function PricingPage({ onOpenBooking }: PricingPageProps) {
+  const [pricing, setPricing] = useState<PricingItem[]>([]);
 
+  useEffect(() => {
+    document.title = "Цены на услуги — Family Dent Душанбе";
+    async function loadPricing() {
+      const data = await getPricingItems();
+      setPricing(data);
+    }
+    loadPricing();
+  }, []);
+
+  const categories = Array.from(new Set(pricing.map((p) => p.category)));
+
+  return (
+    <div className="w-full flex flex-col min-h-screen bg-paper text-ink">
+      <EditorialPageHero
+        badge="Прозрачная стоимость"
+        title="Цены на лечение"
+        description="Фиксированные расценки без скрытых доплат. Точную стоимость план лечения указывает доктор после бесплатного первичного осмотра."
+      />
+
+      <div className="max-w-5xl mx-auto px-5 my-8 w-full flex flex-col gap-8">
+        {categories.map((cat) => {
+          const items = pricing.filter((p) => p.category === cat);
+          return (
+            <div key={cat} className="bg-surface border border-rule rounded-3xl p-6 sm:p-8 shadow-card">
+              <h2 className="font-display text-lg sm:text-xl font-bold text-ink mb-4 border-b border-rule pb-2 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-accent" />
+                <span>{cat}</span>
+              </h2>
+
+              <div className="divide-y divide-rule">
+                {items.map((item) => (
+                  <div key={item.id} className="py-3.5 flex items-center justify-between gap-4">
+                    <span className="text-xs sm:text-sm text-ink font-medium">{item.name}</span>
+                    <span className="text-xs sm:text-sm text-accent font-bold whitespace-nowrap bg-accent/15 px-3 py-1 rounded-lg border border-accent/25 font-mono">
+                      {item.price}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
