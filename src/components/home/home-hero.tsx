@@ -34,10 +34,9 @@ export function HomeHero({ onOpenBooking, onOpenAuth }: HomeHeroProps) {
           className="lg:col-span-4 flex flex-col items-start text-left"
         >
           <h1 className="font-display text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-black leading-[1.08] text-white tracking-tight">
-            Семейная<br />
+            Современная<br />
             стоматология<br />
-            премиального<br />
-            уровня
+            для всей семьи<br />
           </h1>
 
           <p className="mt-6 text-sm sm:text-base text-white/70 max-w-sm font-light leading-relaxed">
@@ -71,12 +70,14 @@ export function HomeHero({ onOpenBooking, onOpenAuth }: HomeHeroProps) {
               Записаться
             </button>
 
+            {/*
             <button
               onClick={onOpenAuth ? onOpenAuth : onOpenBooking}
               className="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-[#1A1A1A] font-extrabold text-sm tracking-tight shadow-lg transition-all duration-200 transform hover:scale-[1.03] active:scale-[0.97] cursor-pointer"
             >
               Регистрация
             </button>
+            */}
           </div>
         </motion.div>
       </div>

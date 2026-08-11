@@ -2,28 +2,65 @@ import React, { useEffect, useState, useRef } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
 import { getClinicMetrics, type ClinicMetric } from "../../lib/data/metrics";
 
+const VIDEO_SRC = "/videos/familydent.mp4";
+const VIDEO_POSTER = "/images/clinic_about.jpg";
+const VIDEO_DELAY_MS = 1200;
+const SLOW_CONNECTION_TYPES = ["slow-2g", "2g", "3g"];
+
 export function ClinicMetricsSection() {
   const [metrics, setMetrics] = useState<ClinicMetric[]>([]);
+  const [isVideoMounted, setIsVideoMounted] = useState(false);
+  const [isVideoVisible, setIsVideoVisible] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+  const [saveData, setSaveData] = useState(false);
+  const [effectiveType, setEffectiveType] = useState<string | undefined>(undefined);
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.25 });
   const shouldReduceMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(false);
+  const timeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
+    const updateConnectionState = () => {
+      const connection = (navigator as any).connection as { saveData?: boolean; effectiveType?: string } | undefined;
+      setSaveData(connection?.saveData === true);
+      setEffectiveType(connection?.effectiveType);
+    };
+
     async function loadMetrics() {
       const data = await getClinicMetrics();
       setMetrics(data);
     }
-    loadMetrics();
 
-    // Optimize mobile performance by detecting smaller viewports
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    loadMetrics();
+    updateConnectionState();
+
+    const connection = (navigator as any).connection as { addEventListener?: Function; removeEventListener?: Function } | undefined;
+    connection?.addEventListener?.("change", updateConnectionState);
+
+    return () => {
+      connection?.removeEventListener?.("change", updateConnectionState);
+      if (timeoutRef.current !== null) {
+        window.clearTimeout(timeoutRef.current);
+      }
     };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+  const isSlowConnection = effectiveType ? SLOW_CONNECTION_TYPES.includes(effectiveType) : false;
+  const shouldLoadVideo = !saveData && !isSlowConnection;
+
+  useEffect(() => {
+    if (!shouldLoadVideo || !isInView || isVideoMounted) return;
+
+    timeoutRef.current = window.setTimeout(() => {
+      setIsVideoMounted(true);
+    }, VIDEO_DELAY_MS);
+
+    return () => {
+      if (timeoutRef.current !== null) {
+        window.clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [isInView, isVideoMounted, shouldLoadVideo]);
 
   return (
     <section
@@ -32,18 +69,28 @@ export function ClinicMetricsSection() {
     >
       {/* 1. FULL-SCREEN BACKGROUND VIDEO / POSTER WITH OVERLAY */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/images/clinic_about.jpg"
-          src="/videos/familydent.mp4"
-          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
-        />
+        <div className="absolute inset-0 bg-[url('/images/clinic_about.jpg')] bg-cover bg-center" />
 
-        {/* SEMI-TRANSPARENT OVERLAY FOR OPTIMAL CONTRAST & LEGIBILITY */}
+        {isVideoMounted && !videoError && (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            poster={VIDEO_POSTER}
+            src={VIDEO_SRC}
+            onCanPlay={() => setIsVideoVisible(true)}
+            onLoadedData={() => setIsVideoVisible(true)}
+            onError={() => setVideoError(true)}
+            className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
+            style={{
+              opacity: isVideoVisible ? 1 : 0,
+              transition: "opacity 0.6s ease-in-out",
+            }}
+          />
+        )}
+
         <div className="absolute inset-0 bg-black/30 pointer-events-none z-[1]" />
       </div>
 

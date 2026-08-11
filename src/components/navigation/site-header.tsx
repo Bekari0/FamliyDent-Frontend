@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, Calendar, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
@@ -41,19 +41,49 @@ export function SiteHeader({
   onToggleColorMode,
 }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const location = useLocation();
   const currentPath = location.pathname;
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY <= 0) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY.current) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const isPeopleActive = currentPath === "/people" || currentPath === "/doctors";
   const isAboutActive = currentPath.startsWith("/about");
   const isMoreActive = ["/reviews", "/blog", "/tourism", "/academy", "/faq"].includes(currentPath);
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-ink/95 backdrop-blur-xl border-b border-rule/20 transition-all text-paper">
+    <motion.header
+      initial={false}
+      animate={{ y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0 }}
+      transition={{ duration: 0.25, ease: "easeInOut" }}
+      className="fixed inset-x-0 top-0 z-[60] w-full bg-ink/95 backdrop-blur-xl border-b border-rule/20 shadow-[0_8px_30px_rgba(0,0,0,0.2)] text-paper"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between gap-4">
         {/* Logo */}
         <Link
           to="/"
+          onClick={() => {
+            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            setMenuOpen(false);
+          }}
           className="flex items-center group focus:outline-none focus-visible:ring-1 focus-visible:ring-white/30 rounded-lg p-1 flex-shrink-0"
           aria-label="Family Dent Главная"
         >
@@ -226,6 +256,6 @@ export function SiteHeader({
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }

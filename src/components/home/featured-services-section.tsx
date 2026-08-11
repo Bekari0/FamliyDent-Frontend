@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight, CheckCircle2, Clock, ChevronRight, Sparkles } from "lucide-react";
@@ -24,6 +24,8 @@ interface FeaturedServicesSectionProps {
 export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSectionProps) {
   const [services, setServices] = useState<Service[]>([]);
   const [activeServiceId, setActiveServiceId] = useState<string>("");
+  const [pendingScrollId, setPendingScrollId] = useState<string | null>(null);
+  const serviceRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   useEffect(() => {
     async function load() {
@@ -35,6 +37,36 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
     }
     load();
   }, []);
+
+  useEffect(() => {
+    if (!pendingScrollId) return;
+    if (activeServiceId !== pendingScrollId) return;
+    if (typeof window === "undefined") return;
+
+    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+    if (isDesktop) {
+      setPendingScrollId(null);
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const target = serviceRefs.current[pendingScrollId];
+        if (target) {
+          const header = document.querySelector("header");
+          const headerHeight = header?.getBoundingClientRect().height ?? 0;
+          const desiredOffset = Math.max(90, Math.min(110, headerHeight + 30));
+          const top = target.getBoundingClientRect().top + window.scrollY - desiredOffset;
+
+          window.scrollTo({
+            top,
+            behavior: "smooth",
+          });
+        }
+        setPendingScrollId(null);
+      });
+    });
+  }, [activeServiceId, pendingScrollId]);
 
   const activeService = services.find((s) => s.id === activeServiceId) || services[0];
 
@@ -192,9 +224,18 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
                 className="bg-[var(--color-paper)] border border-[var(--color-rule)] rounded-2xl overflow-hidden transition-all"
               >
                 <button
-                  onClick={() =>
-                    setActiveServiceId(isOpen ? "" : service.id)
-                  }
+                  ref={(el) => {
+                    serviceRefs.current[service.id] = el;
+                  }}
+                  onClick={() => {
+                    if (isOpen) {
+                      setActiveServiceId("");
+                      setPendingScrollId(null);
+                    } else {
+                      setActiveServiceId(service.id);
+                      setPendingScrollId(service.id);
+                    }
+                  }}
                   className="w-full text-left p-4 flex items-center justify-between font-bold text-[var(--color-ink)] cursor-pointer"
                 >
                   <div className="flex items-center gap-3">

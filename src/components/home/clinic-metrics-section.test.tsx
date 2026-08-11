@@ -12,10 +12,7 @@ test("renders the existing clinic video below one translucent overlay", () => {
     /<section[^>]*class="[^"]*relative[^"]*overflow-hidden[^"]*"/,
   );
   assert.doesNotMatch(markup, /<section[^>]*class="[^"]*bg-\[#1A1A1A\][^"]*"/);
-  assert.match(
-    markup,
-    /<video[^>]*autoPlay=""[^>]*muted=""[^>]*loop=""[^>]*playsInline=""[^>]*preload="metadata"[^>]*src="\/videos\/familydent\.mp4"[^>]*class="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"/,
-  );
+  assert.doesNotMatch(markup, /<video[^>]*>/);
   assert.match(
     markup,
     /<div class="absolute inset-0 bg-black\/30 pointer-events-none z-\[1\]"><\/div>/,

@@ -10,17 +10,17 @@ export interface ClinicMetric {
 export const clinicMetrics = [
   {
     id: "experience",
-    value: 15,
+    value: 8,
     suffix: "+",
-    label: "Лет опыта",
-    description: "Международные стандарты качества",
+    label: "Лет работы клиники",
+    description: "Стабильный опыт и доверие пациентов",
   },
   {
-    id: "satisfaction",
-    value: 98,
-    suffix: "%",
-    label: "Уровень удовлетворенности",
-    description: "Доверие и высокие оценки пациентов",
+    id: "expert-experience",
+    value: 30,
+    suffix: "+",
+    label: "Лет опыта у ведущего врача",
+    description: "Многолетняя практическая экспертиза",
   },
   {
     id: "smiles",
@@ -31,9 +31,10 @@ export const clinicMetrics = [
   },
   {
     id: "doctors",
-    value: 17,
-    label: "Сертифицированных экспертов",
-    description: "Врачи высшей категории",
+    value: 20,
+    suffix: "+",
+    label: "Сертифицированных специалистов",
+    description: "Команда экспертов с высоким уровнем подготовки",
   },
 ] satisfies readonly ClinicMetric[];
 
