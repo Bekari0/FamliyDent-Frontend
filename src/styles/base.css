@@ -3,12 +3,42 @@
  @apply border-border outline-ring/50;
  }
  body {
- @apply bg-background text-foreground font-sans antialiased;
+ @apply bg-paper text-ink font-body antialiased;
  }
  h1, h2, h3, h4, h5, h6 {
  @apply font-display tracking-tight;
  }
  html {
  @apply font-sans;
+ }
+}
+
+html, body {
+ margin: 0;
+ padding: 0;
+ overflow-x: hidden;
+ min-height: 100%;
+ background: var(--color-paper);
+ color: var(--color-ink);
+ font-family: var(--font-body);
+ scroll-behavior: smooth;
+}
+
+::selection {
+ background: var(--color-accent);
+ color: var(--color-accent-ink);
+}
+
+:focus-visible {
+ outline: 2px solid var(--color-focus);
+ outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+ *, *::before, *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+  transition-duration: 0.01ms !important;
  }
 }
