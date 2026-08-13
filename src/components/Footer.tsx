@@ -1,128 +1,84 @@
-﻿import { motion } from 'motion/react';
-import { Link } from 'react-router-dom';
-import * as styles from './Footer.styles';
-import { 
- Instagram, Facebook, Mail, MapPin, Phone, 
- ArrowRight, Heart 
-} from 'lucide-react';
+import { Link } from "react-router-dom";
+import { Clock, Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
+import * as styles from "./Footer.styles";
+
+const siteLinks = [
+  { label: "Услуги клиники", href: "/services" },
+  { label: "Наши врачи", href: "/doctors" },
+  { label: "Цены", href: "/pricing" },
+  { label: "О клинике", href: "/about" },
+  { label: "Результаты лечения", href: "/results" },
+  { label: "Экскурсия по клинике", href: "/about/clinic-tour" },
+  { label: "Оборудование", href: "/about/equipment" },
+] as const;
+
+const patientLinks = [
+  { label: "Стоматологический туризм", href: "/tourism" },
+  { label: "Академия FamilyDent", href: "/academy" },
+  { label: "Отзывы пациентов", href: "/reviews" },
+  { label: "Полезные статьи", href: "/blog" },
+  { label: "Частые вопросы", href: "/faq" },
+] as const;
 
 export function Footer() {
- const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear();
 
- return (
- <footer className={styles.footer}>
- <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -mr-64 -mt-64" />
- <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] -ml-64 -mb-64" />
+  return (
+    <footer className={styles.footer}>
+      <div className={styles.container}>
+        <div className={styles.grid}>
+          <div className={styles.brandCol}>
+            <Link to="/" className={styles.logo} aria-label="FamilyDent — на главную">
+              <img src="/Logo.svg" alt="FamilyDent" className={styles.logoImage} />
+            </Link>
+            <p className={styles.tagline}>
+              Современная семейная стоматология в Душанбе. Цифровая диагностика,
+              передовые технологии и бережная забота о каждом пациенте.
+            </p>
+            <div className={styles.socials}>
+              <a href="https://www.instagram.com/familydent.tj/" target="_blank" rel="noreferrer" aria-label="FamilyDent в Instagram" className={styles.socialBtn}><Instagram /></a>
+              <a href="https://www.facebook.com/familydentdushanbe" target="_blank" rel="noreferrer" aria-label="FamilyDent в Facebook" className={styles.socialBtn}><Facebook /></a>
+              <a href="mailto:familydent.tj@gmail.com" aria-label="Написать FamilyDent" className={styles.socialBtn}><Mail /></a>
+            </div>
+          </div>
 
- <div className={styles.container}>
- <div className={styles.grid}>
- <div className={styles.brandCol}>
- <Link to="/" className={styles.logo}>
- <img src="/Logo.svg" alt="FamilyDent" className={styles.logoImage} />
- </Link>
- <p className={styles.tagline}>
- Создаем здоровые и красивые улыбки с использованием передовых технологий и искренней заботой о каждом пациенте.
- </p>
- <div className={styles.socials}>
- <a href="https://www.instagram.com/familydent.tj/" target="_blank" rel="noreferrer" aria-label="Instagram FamilyDent" className={styles.socialBtn}><Instagram className="w-5 h-5" /></a>
- <a href="https://www.facebook.com/familydentdushanbe" target="_blank" rel="noreferrer" aria-label="Facebook FamilyDent" className={styles.socialBtn}><Facebook className="w-5 h-5" /></a>
- <a href="mailto:familydent.tj@gmail.com" aria-label="Email FamilyDent" className={styles.socialBtn}><Mail className="w-5 h-5" /></a>
- </div>
- </div>
+          <div>
+            <h2 className={styles.navTitle}>Разделы сайта</h2>
+            <ul className={styles.navList}>
+              {siteLinks.map((link) => <li key={link.href}><Link to={link.href} className={styles.navLink}>{link.label}</Link></li>)}
+            </ul>
+          </div>
 
- <div>
- <h4 className={styles.navTitle}>
- <div className={styles.navDot} />
- Навигация
- </h4>
- <ul className={styles.navList}>
- {[
- { label: 'Главная', href: '/' },
- { label: 'Услуги', href: '/services' },
- { label: 'Врачи', href: '/doctors' },
- { label: 'Цены', href: '/pricing' },
- { label: 'О нас', href: '/about' },
- { label: 'Блог', href: '/blog' },
- { label: 'Контакты', href: '/contact' }
- ].map((link) => (
- <li key={link.label}>
- <Link to={link.href} className={styles.navLink}>
- <ArrowRight className={styles.navArrow} />
- {link.label}
- </Link>
- </li>
- ))}
- </ul>
- </div>
+          <div>
+            <h2 className={styles.navTitle}>Пациентам</h2>
+            <ul className={styles.navList}>
+              {patientLinks.map((link) => <li key={link.href}><Link to={link.href} className={styles.navLink}>{link.label}</Link></li>)}
+            </ul>
+          </div>
 
- <div>
- <h4 className={styles.navTitle}>
- <div className={styles.navDot} />
- Услуги
- </h4>
- <ul className={styles.navList}>
- {[
- 'Терапия',
- 'Имплантация',
- 'Ортодонтия',
- 'Гигиена',
- 'Отбеливание',
- 'Детский прием'
- ].map((item) => (
- <li key={item}>
- <Link to="/services" className={styles.navLink}>
- <ArrowRight className={styles.navArrow} />
- {item}
- </Link>
- </li>
- ))}
- </ul>
- </div>
+          <div>
+            <h2 className={styles.navTitle}>Адреса и контакты</h2>
+            <div className={styles.contactList}>
+              <div className={styles.contactItem}>
+                <MapPin />
+                <span>Улица Айни, 45<br />Улица Немат Карабаева, 29</span>
+              </div>
+              <a href="tel:+992446606600" className={styles.contactItem}><Phone /><span>+992 446 60 66 00</span></a>
+              <a href="mailto:familydent.tj@gmail.com" className={styles.contactItem}><Mail /><span>familydent.tj@gmail.com</span></a>
+              <div className={styles.contactItem}><Clock /><span>Пн–Сб: 7:30–19:00</span></div>
+            </div>
+          </div>
+        </div>
 
- <div>
- <h4 className={styles.navTitle}>
- <div className={styles.navDot} />
- Контакты
- </h4>
- <div className="space-y-6">
- <div className={styles.contactItem}>
- <div className={styles.contactIcon}><MapPin className="w-5 h-5" /></div>
- <div className={styles.contactText}>
- г. Душанбе, <br />
- Улица Айни, 45<br />
- Улица Немат Карабаева, 29
- </div>
- </div>
- <a href="tel:+992446606600" className={styles.contactItem}>
- <div className={styles.contactIcon}><Phone className="w-5 h-5" /></div>
- <div className="font-bold text-lg text-white">+992 446 60 66 00</div>
- </a>
- <div className={styles.contactItem}>
- <div className={styles.contactIcon}><Mail className="w-5 h-5" /></div>
- <div className={styles.contactText}>familydent.tj@gmail.com</div>
- </div>
- </div>
- </div>
- </div>
-
- <div className={styles.bottom}>
- <div className={styles.copyright}>
- <span>© {currentYear} FamilyDent. Все права защищены.</span>
- <div className="flex items-center gap-2">
- <span className="text-slate-700">|</span>
- <span className="flex items-center gap-2">
- Сделано с любовью для вашей улыбки
- </span>
- </div>
- </div>
- <div className={styles.legal}>
- <span className={styles.legalLink}>Приватность</span>
- <span className={styles.legalLink}>Оферта</span>
- </div>
- </div>
- </div>
- </footer>
- );
+        <div className={styles.bottom}>
+          <span>© {currentYear} FamilyDent. Все права защищены.</span>
+          <div className={styles.legal}>
+            <span>Политика конфиденциальности</span>
+            <span aria-hidden="true">•</span>
+            <span>Лицензия №12834-ТМ</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 }
-
-

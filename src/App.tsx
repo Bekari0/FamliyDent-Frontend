@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import { Analytics } from "./components/Analytics";
 import { Seo } from "./components/Seo";
 import { isRenderedRoute } from "./lib/site-navigation";
+import { cn } from "./lib/utils";
 
 // Провайдеры контекста
 import { BookingProvider } from "./context/BookingContext";
@@ -99,10 +100,10 @@ function AppContent() {
   const shouldHideBreadcrumbs = isAuthPage || isNotFound;
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-paper text-ink flex flex-col">
       {!isAuthPage && <Header />}
-      {!shouldHideBreadcrumbs && <Breadcrumbs />}
-      <main className="flex-1">
+      <main className={cn("flex-1", !isAuthPage && "pt-16 sm:pt-[72px]")}>
+        {!shouldHideBreadcrumbs && <Breadcrumbs />}
         <Suspense fallback={<PageFallback />}>
         <Routes>
           {/* Публичные маршруты */}

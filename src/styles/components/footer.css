@@ -1,99 +1,72 @@
-/* Подвал */
+/* Dark editorial footer */
 .footer-main {
- @apply relative pt-24 pb-12 bg-foreground text-card overflow-hidden z-0;
+  @apply border-t border-rule/20 bg-ink px-5 py-12 text-paper/70 sm:px-8 sm:py-16;
 }
-.footer-bg-blob-1 {
- @apply absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] -z-10;
-}
-.footer-bg-blob-2 {
- @apply absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[120px] -z-10;
-}
+
 .footer-container {
- @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  @apply mx-auto max-w-7xl;
 }
+
 .footer-grid {
- @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20;
+  @apply grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8;
 }
+
 .footer-brand-section {
- @apply space-y-8;
+  @apply flex flex-col items-start;
 }
+
 .footer-logo-link {
- @apply flex items-center gap-3;
+  @apply inline-flex rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus;
 }
-.footer-logo-box {
- @apply w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-500;
+
+.footer-logo-image {
+  @apply h-8 w-auto sm:h-9;
 }
-.footer-logo-text {
- @apply text-2xl font-display font-bold tracking-tight;
-}
+
 .footer-tagline {
- @apply text-text-secondary text-sm leading-relaxed max-w-xs;
+  @apply mt-5 max-w-xs text-xs leading-relaxed text-paper/55;
 }
+
 .footer-social-wrapper {
- @apply flex gap-4;
+  @apply mt-6 flex gap-2;
 }
+
 .footer-social-btn {
- @apply w-11 h-11 rounded-2xl bg-white/5 border-none text-text-secondary hover:bg-primary hover:text-card transition-all duration-300;
+  @apply flex h-9 w-9 items-center justify-center rounded-full border border-rule/20 text-paper/60 transition-colors hover:border-accent hover:bg-accent/10 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus;
 }
+
+.footer-social-btn svg {
+  @apply h-4 w-4;
+}
+
 .footer-nav-title {
- @apply font-display font-bold text-lg mb-8 flex items-center gap-2;
+  @apply mb-4 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-accent;
 }
-.footer-nav-dot {
- @apply w-1.5 h-1.5 rounded-full bg-primary;
-}
+
 .footer-nav-list {
- @apply space-y-4;
+  @apply space-y-2.5;
 }
+
 .footer-nav-link {
- @apply text-text-secondary hover:text-primary transition-all duration-300 text-sm flex items-center;
+  @apply text-xs text-paper/65 transition-colors hover:text-paper focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-focus;
 }
-.footer-nav-arrow {
- @apply w-4 h-4 mr-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all;
-}
+
 .footer-contact-list {
- @apply space-y-6;
+  @apply space-y-3;
 }
+
 .footer-contact-item {
- @apply flex items-start gap-4;
+  @apply flex items-start gap-2.5 text-xs leading-relaxed text-paper/70 transition-colors hover:text-paper;
 }
-.footer-contact-icon-wrapper {
- @apply w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-white transition-colors;
+
+.footer-contact-item svg {
+  @apply mt-0.5 h-3.5 w-3.5 shrink-0 text-accent;
 }
-.footer-contact-text {
- @apply text-text-secondary text-sm leading-relaxed;
-}
-.footer-divider {
- @apply bg-white/10 mb-10;
-}
+
 .footer-bottom {
- @apply flex flex-col md:flex-row items-center justify-between gap-8 text-text-secondary/50 text-xs font-medium;
+  @apply mt-10 flex flex-col items-start justify-between gap-4 border-t border-rule/20 pt-6 text-[11px] text-paper/40 sm:flex-row sm:items-center;
 }
-.footer-copyright-wrapper {
- @apply flex items-center gap-2;
-}
+
 .footer-bottom-links {
- @apply flex gap-8;
-}
-.footer-bottom-link {
- @apply hover:text-card transition-colors;
-}
-
-.footer-contact-phone {
- @apply text-text-secondary text-sm leading-relaxed hover:text-primary transition-colors font-bold;
-}
-
-.footer-contact-email {
- @apply text-text-secondary text-sm leading-relaxed hover:text-primary transition-colors;
-}
-
-.footer-bottom-divider {
- @apply hidden md:inline;
-}
-
-.footer-made-with {
- @apply flex items-center gap-1;
-}
-
-.footer-heart-icon {
- @apply w-3 h-3 text-red-500 fill-red-500;
+  @apply flex flex-wrap items-center gap-3;
 }

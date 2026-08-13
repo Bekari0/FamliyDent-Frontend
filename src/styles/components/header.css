@@ -1,139 +1,211 @@
-/* Шапка */
+/* Global editorial header */
 .header-main {
- @apply fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-white/50 shadow-sm;
+  @apply w-full shadow-[0_8px_30px_rgba(0,0,0,0.14)];
 }
-.header-scrolled {
- @apply bg-slate-200/80 backdrop-blur-xl py-2;
-}
+
 .header-transparent {
- @apply bg-slate-200/60 backdrop-blur-lg py-4;
+  @apply bg-ink/95;
 }
+
+.header-scrolled {
+  @apply bg-ink shadow-[0_12px_36px_rgba(0,0,0,0.22)];
+}
+
 .header-container {
- @apply container mx-auto px-4 flex items-center justify-between;
+  @apply mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:h-[72px] sm:px-6 lg:px-8;
 }
-.header-logo-link {
- @apply inline-flex items-center text-white;
-}
-.header-logo-mark {
- @apply h-8 w-auto;
- filter:
-  drop-shadow(0 0 1px rgba(15, 23, 42, 0.95))
-  drop-shadow(0 2px 3px rgba(15, 23, 42, 0.55));
-}
+
+.header-logo-link,
 .mobile-sheet-logo-link {
- @apply inline-flex items-center text-white;
+  @apply inline-flex shrink-0 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus;
 }
+
+.header-logo-mark {
+  @apply h-7 w-auto sm:h-8;
+}
+
 .mobile-sheet-logo-mark {
- @apply h-8 w-auto max-w-[180px];
- filter:
-  drop-shadow(0 0 0.75px rgba(71, 85, 105, 0.95))
-  drop-shadow(0 1px 1px rgba(71, 85, 105, 0.45));
+  @apply h-7 w-auto;
 }
-.header-logo-box {
- @apply w-9 h-9 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300;
-}
-.header-logo-text {
- @apply text-xl font-display font-bold text-foreground tracking-tight;
-}
+
 .header-nav-desktop {
- @apply hidden lg:flex items-center gap-8;
+  @apply hidden items-center gap-0.5 rounded-full border border-paper/10 bg-paper/[0.04] p-1 xl:gap-1 lg:flex;
 }
-.nav-link {
- @apply text-xs font-bold transition-all duration-300 relative;
+
+.nav-link,
+.header-nav-group {
+  @apply inline-flex h-8 items-center gap-1 rounded-full px-2.5 text-[11px] font-medium whitespace-nowrap text-paper/70 transition-colors hover:bg-paper/8 hover:text-paper focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus xl:px-3 xl:text-xs;
 }
-.nav-link-active {
- @apply text-primary;
+
+.nav-link-active,
+.header-nav-group-active {
+  @apply bg-paper/10 font-semibold text-paper;
 }
-.nav-link-inactive {
- @apply text-text-secondary hover:text-primary;
+
+.header-nav-group-icon {
+  @apply h-3 w-3 transition-transform;
 }
-.nav-link-underline {
- @apply absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300;
+
+.header-nav-group[data-popup-open] .header-nav-group-icon {
+  @apply rotate-180;
 }
+
+.header-nav-dropdown,
+.header-user-dropdown {
+  @apply min-w-56 rounded-xl border border-rule bg-paper p-2 text-ink shadow-card;
+}
+
+.header-nav-dropdown-item,
+.header-user-item {
+  @apply rounded-lg px-3 py-2 text-sm text-ink focus:bg-accent-soft focus:text-ink;
+}
+
 .header-actions-desktop {
- @apply hidden lg:flex items-center gap-5;
+  @apply hidden shrink-0 items-center gap-2 lg:flex;
 }
-.header-phone-container {
- @apply flex flex-col items-end;
-}
+
 .header-phone-link {
- @apply flex items-center gap-2 text-xs font-bold text-foreground hover:text-primary transition-colors;
-}
-.header-working-hours {
- @apply text-[9px] text-text-secondary font-medium uppercase tracking-tighter;
-}
-.header-cta-button {
- @apply rounded-xl px-6 py-4 text-xs shadow-xl shadow-primary/20 hover:scale-105 transition-transform duration-300;
-}
-.header-mobile-header {
- @apply lg:hidden flex items-center gap-3;
-}
-.header-mobile-phone-btn {
- @apply w-10 h-10 bg-white/60 rounded-xl flex items-center justify-center text-primary backdrop-blur-sm border border-white/50;
+  @apply hidden items-center gap-1.5 text-[11px] font-medium whitespace-nowrap text-paper/85 transition-colors hover:text-accent-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus xl:flex;
 }
 
-/* Мобильное меню */
-.mobile-nav-trigger {
- @apply w-11 h-11 rounded-xl bg-white/60 backdrop-blur-sm border border-white/50;
-}
-.mobile-nav-content {
- @apply w-full sm:w-[400px] p-0 border-none;
-}
-.mobile-nav-inner {
- @apply flex flex-col h-full bg-card;
-}
-.mobile-nav-header {
- @apply p-6 border-b border-border flex items-center justify-between;
-}
-.mobile-nav-links {
- @apply flex-1 px-6 py-10 flex flex-col gap-8;
-}
-.mobile-nav-link {
- @apply text-2xl font-display font-bold text-foreground hover:text-primary transition-colors flex items-center justify-between;
-}
-.mobile-nav-footer {
- @apply p-8 bg-secondary border-t border-border;
-}
-.mobile-nav-contact-label {
- @apply text-xs font-bold text-text-secondary uppercase tracking-widest mb-4;
-}
-.mobile-nav-contact-phone {
- @apply text-2xl font-display font-bold text-foreground block mb-2;
-}
-.mobile-nav-contact-address {
- @apply text-sm text-text-secondary;
-}
-.mobile-nav-cta {
- @apply w-full rounded-2xl py-8 text-lg shadow-xl shadow-primary/20;
+.header-phone-icon-wrap {
+  @apply flex h-7 w-7 items-center justify-center rounded-full bg-accent/20 text-accent;
 }
 
-.nav-link-underline-active {
- @apply w-full;
-}
-.nav-link-underline-inactive {
- @apply w-0 group-hover:w-full;
-}
 .header-phone-icon {
- @apply w-4 h-4 text-primary;
+  @apply h-3.5 w-3.5;
 }
-.header-btn-icon {
- @apply w-4 h-4 mr-2;
+
+.header-booking-button {
+  @apply h-9 rounded-full border border-paper bg-paper px-3 text-[11px] font-semibold text-ink shadow-md hover:border-accent hover:bg-accent focus-visible:ring-focus xl:px-4 xl:text-xs;
 }
-.header-mobile-phone-icon {
- @apply w-5 h-5;
+
+.header-auth-links {
+  @apply flex items-center gap-1;
 }
+
+.header-login-link,
+.header-register-link {
+  @apply rounded-full px-2.5 py-2 text-[11px] font-semibold text-paper/80 transition-colors hover:text-paper focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus xl:px-3 xl:text-xs;
+}
+
+.header-register-link {
+  @apply border border-paper/20 hover:border-paper/50;
+}
+
+.header-user-trigger,
+.header-user-loading {
+  @apply flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-paper/20 bg-paper/10 text-paper transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus;
+}
+
+.header-user-loading {
+  @apply pointer-events-none;
+}
+
+.header-user-item > a {
+  @apply flex w-full items-center gap-2;
+}
+
+.header-logout-item {
+  @apply cursor-pointer text-error focus:bg-error-soft focus:text-error;
+}
+
+.header-mobile-header {
+  @apply flex items-center gap-2 lg:hidden;
+}
+
+.header-mobile-phone-btn,
+.mobile-nav-trigger {
+  @apply flex h-10 w-10 items-center justify-center rounded-xl border border-paper/15 bg-paper/5 text-paper hover:bg-paper/10 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus;
+}
+
+.header-mobile-phone-icon,
 .mobile-nav-menu-icon {
- @apply w-6 h-6 text-foreground;
+  @apply h-5 w-5;
 }
-.header-mobile-logo-box {
- @apply h-10 w-10 text-xl rounded-xl bg-primary flex items-center justify-center text-white font-bold;
+
+.mobile-nav-content {
+  @apply w-[min(92vw,400px)] border-l border-rule/20 bg-ink p-0 text-paper;
 }
-.header-mobile-logo-text {
- @apply text-xl font-display font-bold text-foreground;
+
+.mobile-nav-inner {
+  @apply flex h-full min-h-0 flex-col bg-ink;
 }
-.mobile-nav-chevron {
- @apply w-5 h-5 -rotate-90 text-text-secondary/50 group-hover:text-primary transition-colors;
+
+.mobile-nav-header {
+  @apply flex h-16 shrink-0 items-center border-b border-rule/20 px-6 sm:h-[72px];
 }
-.mobile-nav-contact-wrapper {
- @apply mb-8;
+
+.mobile-nav-links {
+  @apply flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto px-6 py-6;
+}
+
+.mobile-nav-link,
+.mobile-nav-group-trigger {
+  @apply flex min-h-11 w-full cursor-pointer list-none items-center justify-between border-b border-rule/15 py-3 text-left font-display text-lg font-semibold text-paper transition-colors hover:text-accent;
+}
+
+.mobile-nav-group-trigger::-webkit-details-marker {
+  display: none;
+}
+
+.mobile-nav-group-icon {
+  @apply h-4 w-4 transition-transform;
+}
+
+.mobile-nav-group[open] .mobile-nav-group-icon {
+  @apply rotate-180;
+}
+
+.mobile-nav-group-links {
+  @apply flex flex-col gap-1 border-b border-rule/15 py-2 pl-3;
+}
+
+.mobile-nav-sub-link {
+  @apply rounded-lg px-3 py-2 text-sm text-paper/65 transition-colors hover:bg-paper/5 hover:text-paper focus-visible:outline-2 focus-visible:outline-focus;
+}
+
+.mobile-nav-account {
+  @apply mt-4 border-t border-rule/20 pt-4;
+}
+
+.mobile-nav-account-link {
+  @apply flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-paper/75 transition-colors hover:bg-paper/5 hover:text-paper;
+}
+
+.mobile-nav-account-link svg {
+  @apply h-4 w-4 text-accent;
+}
+
+.mobile-nav-logout {
+  @apply cursor-pointer text-error;
+}
+
+.mobile-nav-auth-links {
+  @apply grid grid-cols-2 gap-3;
+}
+
+.mobile-nav-login,
+.mobile-nav-register {
+  @apply flex min-h-11 items-center justify-center rounded-full border border-paper/25 px-4 text-sm font-semibold text-paper;
+}
+
+.mobile-nav-register {
+  @apply border-paper bg-paper text-ink;
+}
+
+.mobile-nav-footer {
+  @apply shrink-0 border-t border-rule/20 bg-ink-2/60 px-6 py-5;
+}
+
+.mobile-nav-cta {
+  @apply mb-4 h-11 w-full rounded-full bg-accent font-semibold text-accent-ink hover:bg-accent-2;
+}
+
+.mobile-nav-contact-phone {
+  @apply block text-sm font-semibold text-paper;
+}
+
+.mobile-nav-contact-address {
+  @apply mt-1 text-xs text-paper/50;
 }

@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { ChevronRight, Home } from 'lucide-react';
 import { motion } from 'motion/react';
 import styles from './Breadcrumbs.module.css';
-import { cn } from '@/lib/utils';
 
 const routeConfig: Record<string, string> = {
  'about': 'О клинике',
@@ -13,7 +12,14 @@ const routeConfig: Record<string, string> = {
  'pricing': 'Цены',
  'blog': 'Блог',
  'contact': 'Контакты',
+ 'contacts': 'Контакты',
  'faq': 'Вопросы и ответы',
+ 'people': 'Команда FamilyDent',
+ 'results': 'Результаты лечения',
+ 'tourism': 'Стоматологический туризм',
+ 'academy': 'Академия FamilyDent',
+ 'clinic-tour': 'Экскурсия по клинике',
+ 'equipment': 'Оборудование',
  'profile': 'Личный кабинет',
  'bookings': 'Мои записи',
  'records': 'Медицинская карта',
@@ -47,7 +53,7 @@ export function Breadcrumbs() {
  const label = routeConfig[value] || value;
 
  return (
- <li key={to} className={cn(styles.item, "space-x-2")}>
+ <li key={to} className={styles.item}>
  <ChevronRight size={14} className={styles.separator} />
  {last ? (
  <motion.span 
