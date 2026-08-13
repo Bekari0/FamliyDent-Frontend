@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/AuthContext';
+import { PRIMARY_NAV_ITEMS } from '@/lib/site-navigation';
 import {
  DropdownMenu,
  DropdownMenuContent,
@@ -17,16 +18,6 @@ import {
  DropdownMenuSeparator,
  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
-const NAV_ITEMS = [
- { label: 'Главная', href: '/' },
- { label: 'Услуги', href: '/services' },
- { label: 'Врачи', href: '/doctors' },
- { label: 'Цены', href: '/pricing' },
- { label: 'Блог', href: '/blog' },
- { label: 'О нас', href: '/about' },
- { label: 'Контакты', href: '/#contacts' },
-];
 
 function Logo({ className }: { className?: string }) {
  return (
@@ -172,7 +163,7 @@ export function Header() {
  </Link>
 
  <nav className="header-nav-desktop">
- {NAV_ITEMS.map((item) => (
+ {PRIMARY_NAV_ITEMS.map((item) => (
  <Link
  key={item.label}
  to={item.href}
@@ -222,7 +213,7 @@ export function Header() {
  </div>
  
  <nav className="mobile-nav-links">
- {NAV_ITEMS.map((item) => (
+ {PRIMARY_NAV_ITEMS.map((item) => (
  <Link
  key={item.label}
  to={item.href}

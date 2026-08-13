@@ -7,6 +7,7 @@ import { ChatWidget } from "./components/ChatWidget";
 import { Toaster } from "sonner";
 import { Analytics } from "./components/Analytics";
 import { Seo } from "./components/Seo";
+import { isKnownRoute } from "./lib/site-navigation";
 
 // Провайдеры контекста
 import { BookingProvider } from "./context/BookingContext";
@@ -92,29 +93,7 @@ function AppContent() {
   const noHeaderFooterPages = ["/login", "/register"];
   const isAuthPage = noHeaderFooterPages.includes(location.pathname);
 
-  // Список рабочих маршрутов для определения страницы 404
-  const validRoutes = [
-    "/",
-    "/about",
-    "/contact",
-    "/faq",
-    "/reviews",
-    "/pricing",
-    "/services",
-    "/doctors",
-    "/blog",
-    "/profile",
-    "/book",
-    "/admin",
-    "/doctor",
-  ];
-
-  const isNotFound =
-    !validRoutes.some(
-      (route) =>
-        location.pathname === route ||
-        location.pathname.startsWith(route + "/"),
-    ) && !isAuthPage;
+  const isNotFound = !isKnownRoute(location.pathname) && !isAuthPage;
 
   const shouldHideFooter = isAuthPage || isNotFound;
   const shouldHideBreadcrumbs = isAuthPage || isNotFound;
