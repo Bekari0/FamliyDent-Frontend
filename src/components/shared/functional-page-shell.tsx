@@ -27,7 +27,7 @@ export function FunctionalPageShell({
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-3xl">
               <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">{title}</h1>
-              {description && <p className="mt-3 text-base leading-relaxed text-muted">{description}</p>}
+              {description && <p className="mt-3 text-base leading-relaxed text-editorial-muted">{description}</p>}
             </div>
             {actions && <div className="flex shrink-0 flex-wrap items-center gap-3">{actions}</div>}
           </div>

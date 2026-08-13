@@ -20,7 +20,7 @@ export function EditorialPageHero({ badge, title, description, dark = false }: E
         <h1 className={`mb-4 font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl ${dark ? "text-white" : "text-ink"}`}>
           {title}
         </h1>
-        <p className={`max-w-2xl text-base font-normal leading-relaxed sm:text-lg ${dark ? "text-white/80" : "text-muted"}`}>
+        <p className={`max-w-2xl text-base font-normal leading-relaxed sm:text-lg ${dark ? "text-white/80" : "text-editorial-muted"}`}>
           {description}
         </p>
       </ScrollAnimate>

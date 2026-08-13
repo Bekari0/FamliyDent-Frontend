@@ -13,3 +13,9 @@ test("defines the canonical Family Dent visual tokens", () => {
     assert.match(theme, new RegExp(token.replaceAll("-", "\\-")));
   }
 });
+
+test("keeps the target muted surface separate from editorial muted text", () => {
+  assert.match(theme, /--color-editorial-muted:\s*oklch\(49% 0\.012 85\)/);
+  assert.match(theme, /--color-muted:\s*var\(--muted\)/);
+  assert.match(theme, /--muted:\s*oklch\(97\.8% 0\.006 85\)/);
+});
