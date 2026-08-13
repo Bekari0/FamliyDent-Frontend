@@ -38,8 +38,20 @@ export const PUBLIC_ROUTE_PATHS = [
   "/academy", "/profile", "/book", "/admin", "/doctor",
 ] as const;
 
+const RENDERED_ROUTE_PATHS = [
+  "/", "/about", "/contact", "/faq", "/reviews", "/pricing",
+  "/services", "/doctors", "/blog", "/profile", "/book",
+  "/admin", "/doctor",
+] as const;
+
 export function isKnownRoute(pathname: string): boolean {
   return PUBLIC_ROUTE_PATHS.some(
+    (route) => pathname === route || (route !== "/" && pathname.startsWith(`${route}/`)),
+  );
+}
+
+export function isRenderedRoute(pathname: string): boolean {
+  return RENDERED_ROUTE_PATHS.some(
     (route) => pathname === route || (route !== "/" && pathname.startsWith(`${route}/`)),
   );
 }

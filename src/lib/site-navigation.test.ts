@@ -3,6 +3,7 @@ import test from "node:test";
 import {
   PUBLIC_ROUTE_PATHS,
   PRIMARY_NAV_ITEMS,
+  isRenderedRoute,
   isKnownRoute,
 } from "./site-navigation";
 
@@ -28,4 +29,10 @@ test("primary navigation exposes booking-safe public destinations", () => {
   assert.ok(PRIMARY_NAV_ITEMS.some((item) => item.href === "/services"));
   assert.ok(PRIMARY_NAV_ITEMS.some((item) => item.href === "/doctors"));
   assert.ok(PRIMARY_NAV_ITEMS.some((item) => item.href === "/contacts"));
+});
+
+test("keeps reference-only routes in the 404 state until pages are rendered", () => {
+  assert.equal(isKnownRoute("/results"), true);
+  assert.equal(isRenderedRoute("/results"), false);
+  assert.equal(isRenderedRoute("/services/cleaning"), true);
 });
