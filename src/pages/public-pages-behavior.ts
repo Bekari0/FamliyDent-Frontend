@@ -49,8 +49,9 @@ export function getCollectionRenderState<T>({
   items: T[];
 }): CollectionRenderState {
   if (loading) return 'loading';
+  if (items.length > 0) return 'content';
   if (error) return 'error';
-  return items.length === 0 ? 'empty' : 'content';
+  return 'empty';
 }
 
 export function findServiceById<T extends { id: string }>(services: T[], id: string | undefined) {

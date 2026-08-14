@@ -38,9 +38,11 @@ test('public listing requests preserve their exact API endpoints and response da
   }
 });
 
-test('public listing render states prioritize loading and errors before empty and content', () => {
+test('public listing render states keep loading first and retain content through refresh errors', () => {
   assert.equal(getCollectionRenderState({ loading: true, error: true, items: [] }), 'loading');
-  assert.equal(getCollectionRenderState({ loading: false, error: true, items: [{ id: '1' }] }), 'error');
+  assert.equal(getCollectionRenderState({ loading: true, error: true, items: [{ id: '1' }] }), 'loading');
+  assert.equal(getCollectionRenderState({ loading: false, error: true, items: [{ id: '1' }] }), 'content');
+  assert.equal(getCollectionRenderState({ loading: false, error: true, items: [] }), 'error');
   assert.equal(getCollectionRenderState({ loading: false, error: false, items: [] }), 'empty');
   assert.equal(getCollectionRenderState({ loading: false, error: false, items: [{ id: '1' }] }), 'content');
 });
