@@ -58,15 +58,13 @@ export function ClinicMetricsSection() {
       <dl className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-2 gap-3 pt-10 sm:gap-4 lg:grid-cols-4">
         {clinicMetrics.map((metric) => (
           <div key={metric.id} className="flex min-h-40 flex-col justify-between rounded-2xl border border-white/15 bg-white/10 p-5 text-white shadow-xl backdrop-blur-md transition-colors hover:bg-white/15 sm:p-6">
-            <div>
-              <dt className="mt-3 font-display text-sm font-medium leading-snug text-white/85 sm:text-base">{metric.label}</dt>
-              <dd className="mt-3">
-                <span className="flex items-baseline gap-1 font-mono text-3xl font-bold tracking-tight sm:text-4xl lg:text-[2.85rem]">
-                  {metric.prefix}{metric.value}<span className="text-accent-2">{metric.suffix}</span>
-                </span>
-                {metric.description ? <span className="mt-4 block text-xs leading-relaxed text-white/60">{metric.description}</span> : null}
-              </dd>
-            </div>
+            <dt className="mt-3 font-display text-sm font-medium leading-snug text-white/85 sm:text-base">{metric.label}</dt>
+            <dd className="mt-3">
+              <span className="flex items-baseline gap-1 font-mono text-3xl font-bold tracking-tight sm:text-4xl lg:text-[2.85rem]">
+                {metric.prefix}{metric.value}<span className="text-accent-2">{metric.suffix}</span>
+              </span>
+              {metric.description ? <span className="mt-4 block text-xs leading-relaxed text-white/60">{metric.description}</span> : null}
+            </dd>
           </div>
         ))}
       </dl>

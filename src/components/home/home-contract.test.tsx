@@ -16,3 +16,12 @@ test("home page includes reference section order", () => {
     cursor = next;
   }
 });
+
+test("clinic metric groups directly contain their term and definition", () => {
+  const metrics = source("./clinic-metrics-section.tsx");
+
+  assert.match(
+    metrics,
+    /<div key=\{metric\.id\}[^>]*>\s*<dt\b[\s\S]*?<\/dt>\s*<dd\b[\s\S]*?<\/dd>\s*<\/div>/,
+  );
+});
