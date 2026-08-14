@@ -4,6 +4,8 @@ import { readFileSync } from "node:fs";
 import {
   buildBreadcrumbItems,
   getAccountNavigationItems,
+  performMobileBooking,
+  performMobileNavigation,
   performShellLogout,
 } from "./application-shell-model";
 
@@ -83,4 +85,23 @@ test("logout closes mobile navigation before auth and navigation effects", async
   });
 
   assert.deepEqual(effects, ["close", "logout", "navigate"]);
+});
+
+test("mobile booking closes navigation before opening booking", () => {
+  const effects: string[] = [];
+
+  performMobileBooking({
+    closeMenu: () => effects.push("close"),
+    openBooking: () => effects.push("booking"),
+  });
+
+  assert.deepEqual(effects, ["close", "booking"]);
+});
+
+test("mobile link selection closes navigation", () => {
+  let menuOpen = true;
+
+  performMobileNavigation({ closeMenu: () => { menuOpen = false; } });
+
+  assert.equal(menuOpen, false);
 });

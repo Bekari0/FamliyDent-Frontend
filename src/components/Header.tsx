@@ -19,6 +19,8 @@ import { useAuth } from "@/context/AuthContext";
 import { useBooking } from "@/context/BookingContext";
 import {
   getAccountNavigationItems,
+  performMobileBooking,
+  performMobileNavigation,
   performShellLogout,
 } from "@/components/application-shell-model";
 import {
@@ -148,9 +150,19 @@ export function Header() {
     });
   };
 
+  const handleMobileNavigation = () => {
+    performMobileNavigation({ closeMenu: () => setMobileMenuOpen(false) });
+  };
+
   const handleBooking = () => {
-    setMobileMenuOpen(false);
     openBooking();
+  };
+
+  const handleMobileBooking = () => {
+    performMobileBooking({
+      closeMenu: () => setMobileMenuOpen(false),
+      openBooking,
+    });
   };
 
   const renderUserSection = () => {
@@ -273,24 +285,24 @@ export function Header() {
               <SheetTitle className="sr-only">Меню</SheetTitle>
               <div className="mobile-nav-inner">
                 <div className="mobile-nav-header">
-                  <Link to="/" className="mobile-sheet-logo-link" aria-label="FamilyDent — на главную" onClick={() => setMobileMenuOpen(false)}>
+                  <Link to="/" className="mobile-sheet-logo-link" aria-label="FamilyDent — на главную" onClick={handleMobileNavigation}>
                     <Logo className="mobile-sheet-logo-mark" />
                   </Link>
                 </div>
                 <nav className="mobile-nav-links" aria-label="Мобильная навигация">
                   {PRIMARY_NAV_ITEMS.filter((item) => LEADING_NAV_PATHS.has(item.href)).map((item) => (
-                    <Link key={item.href} to={item.href} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>{item.label}</Link>
+                    <Link key={item.href} to={item.href} className="mobile-nav-link" onClick={handleMobileNavigation}>{item.label}</Link>
                   ))}
-                  <MobileNavigationGroup label="Люди" items={PEOPLE_NAV_ITEMS} onNavigate={() => setMobileMenuOpen(false)} />
-                  <MobileNavigationGroup label="О нас" items={ABOUT_NAV_ITEMS} onNavigate={() => setMobileMenuOpen(false)} />
-                  {CONTACT_NAV_ITEM && <Link to={CONTACT_NAV_ITEM.href} className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>{CONTACT_NAV_ITEM.label}</Link>}
-                  <MobileNavigationGroup label="Ещё" items={MORE_NAV_ITEMS} onNavigate={() => setMobileMenuOpen(false)} />
+                  <MobileNavigationGroup label="Люди" items={PEOPLE_NAV_ITEMS} onNavigate={handleMobileNavigation} />
+                  <MobileNavigationGroup label="О нас" items={ABOUT_NAV_ITEMS} onNavigate={handleMobileNavigation} />
+                  {CONTACT_NAV_ITEM && <Link to={CONTACT_NAV_ITEM.href} className="mobile-nav-link" onClick={handleMobileNavigation}>{CONTACT_NAV_ITEM.label}</Link>}
+                  <MobileNavigationGroup label="Ещё" items={MORE_NAV_ITEMS} onNavigate={handleMobileNavigation} />
 
                   <div className="mobile-nav-account">
                     {user ? (
                       <>
                         {accountNavigationItems.map((item) => (
-                          <Link key={item.href} to={item.href} className="mobile-nav-account-link" onClick={() => setMobileMenuOpen(false)}>
+                          <Link key={item.href} to={item.href} className="mobile-nav-account-link" onClick={handleMobileNavigation}>
                             {item.href === "/profile" ? <User /> : item.href === "/admin" ? <Settings /> : <ClipboardList />}
                             {item.label}
                           </Link>
@@ -299,14 +311,14 @@ export function Header() {
                       </>
                     ) : (
                       <div className="mobile-nav-auth-links">
-                        <Link to="/login" className="mobile-nav-login" onClick={() => setMobileMenuOpen(false)}>Войти</Link>
-                        <Link to="/register" className="mobile-nav-register" onClick={() => setMobileMenuOpen(false)}>Регистрация</Link>
+                        <Link to="/login" className="mobile-nav-login" onClick={handleMobileNavigation}>Войти</Link>
+                        <Link to="/register" className="mobile-nav-register" onClick={handleMobileNavigation}>Регистрация</Link>
                       </div>
                     )}
                   </div>
                 </nav>
                 <div className="mobile-nav-footer">
-                  <Button type="button" onClick={handleBooking} className="mobile-nav-cta">
+                  <Button type="button" onClick={handleMobileBooking} className="mobile-nav-cta">
                     <Calendar className="h-4 w-4" />Записаться на приём
                   </Button>
                   <a href="tel:+992446606600" className="mobile-nav-contact-phone">+992 446 60 66 00</a>

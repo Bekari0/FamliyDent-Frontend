@@ -92,3 +92,22 @@ export async function performShellLogout({
   await logout();
   navigateHome();
 }
+
+export function performMobileNavigation({
+  closeMenu,
+}: {
+  closeMenu: () => void;
+}): void {
+  closeMenu();
+}
+
+export function performMobileBooking({
+  closeMenu,
+  openBooking,
+}: {
+  closeMenu: () => void;
+  openBooking: () => void;
+}): void {
+  performMobileNavigation({ closeMenu });
+  openBooking();
+}
