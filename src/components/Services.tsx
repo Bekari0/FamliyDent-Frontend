@@ -80,6 +80,10 @@ export function Services() {
  <div className="py-20 flex justify-center items-center">
  <Loader2 className="w-10 h-10 animate-spin text-primary" />
  </div>
+ ) : services.length === 0 ? (
+ <div className="rounded-2xl border border-rule bg-paper p-8 text-center text-muted shadow-whisper">
+ Услуги временно недоступны. Пожалуйста, попробуйте обновить страницу позже.
+ </div>
  ) : (
  <div className={styles.grid}>
  {services.map((cat, index) => {
@@ -92,7 +96,7 @@ export function Services() {
  viewport={{ once: true }}
  transition={{ delay: index * 0.1 }}
  >
- <Link to={`/pricing`} className={styles.card}>
+ <Link to="/pricing" className={styles.card}>
  <div className={styles.iconWrapper}>
  <Icon className="w-8 h-8" />
  </div>

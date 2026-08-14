@@ -1,6 +1,7 @@
 /* Вопросы и ответы */
 .faq-section {
  @apply py-24 lg:py-32 bg-white;
+ background: var(--color-paper-2);
 }
 .faq-container {
  @apply container mx-auto px-4;

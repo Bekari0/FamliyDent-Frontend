@@ -34,9 +34,6 @@ const FAQS = [
 export function FAQ() {
  return (
  <section className={styles.section}>
- {/* Фоновые элементы */}
- <div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -ml-32 -mt-32" />
- 
  <div className={styles.container}>
  <div className={styles.layout}>
  <div className={styles.sidebar}>
@@ -46,7 +43,7 @@ export function FAQ() {
  viewport={{ once: true }}
  className={styles.title}
  >
- Часто задаваемые <span className="text-primary">вопросы</span>
+ Часто задаваемые <span className="text-accent">вопросы</span>
  </motion.h2>
  <motion.p 
  initial={{ opacity: 0, x: -20 }}

@@ -1,8 +1,8 @@
 /* Первый экран */
 .hero-section {
  @apply relative pt-20 pb-12 lg:pt-24 lg:pb-20 overflow-hidden;
- background: radial-gradient(circle at top left, rgba(198, 161, 91, 0.05), transparent 40%),
- radial-gradient(circle at bottom right, rgba(198, 161, 91, 0.05), transparent 40%);
+ background: var(--gradient-dark);
+ color: var(--color-paper);
 }
 .hero-container {
  @apply container mx-auto px-4;

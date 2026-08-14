@@ -22,7 +22,7 @@
 }
 .review-card {
  @apply h-full border-none rounded-[40px] p-8 lg:p-10 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 overflow-hidden bg-card border border-border relative;
- box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+ box-shadow: var(--shadow-whisper);
 }
 .review-quote-icon {
  @apply absolute top-8 right-8 w-12 h-12 text-primary/5 group-hover:text-primary/10 transition-colors;

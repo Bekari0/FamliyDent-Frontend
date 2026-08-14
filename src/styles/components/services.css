@@ -4,7 +4,7 @@
 }
 .service-card {
  @apply h-full border-none rounded-[24px] hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 overflow-hidden bg-card border border-border;
- box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+ box-shadow: var(--shadow-whisper);
 }
 .service-image-wrapper {
  @apply relative h-44 overflow-hidden;

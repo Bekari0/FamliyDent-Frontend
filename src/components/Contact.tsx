@@ -46,10 +46,6 @@ export function Contact() {
 
   return (
     <section id="contacts" className={styles.section}>
-      {/* Фоновые элементы */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] -mr-48 -mt-48" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-accent/5 rounded-full blur-[80px] -ml-36 -mb-36" />
-
       <div className={styles.container}>
         <div className={styles.flexWrapper}>
           <div className={styles.contentContainer}>
@@ -114,9 +110,9 @@ export function Contact() {
                   Онлайн-консультант доступен 24/7 и готов ответить на вопросы о
                   лечении, ценах и графике работы специалистов.
                 </p>
-                <button className="h-12 px-8 rounded-xl bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-all active:scale-95 shadow-lg shadow-primary/20">
-                  Открыть чат
-                </button>
+                <a href="tel:+992446606600" className="inline-flex h-12 items-center justify-center rounded-xl bg-accent px-8 text-sm font-bold text-accent-ink shadow-lg transition-colors hover:bg-accent-2">
+                  Позвонить в клинику
+                </a>
               </motion.div>
             </div>
           </div>

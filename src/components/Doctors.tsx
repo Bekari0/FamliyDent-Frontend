@@ -4,7 +4,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Award, ArrowRight, Plus, Star } from 'lucide-react';
 import axios from 'axios';
-import { cn } from '@/lib/utils';
 import { useBooking } from '@/context/BookingContext';
 import { DoctorDetailModal } from './DoctorDetailModal';
 import { Link } from 'react-router-dom';
@@ -60,7 +59,15 @@ export function Doctors() {
  );
  }
 
- if (doctors.length === 0) return null;
+ if (doctors.length === 0) {
+ return (
+ <section id="doctors" className={styles.section}>
+ <div className={styles.container}>
+ <div className="rounded-2xl border border-white/10 bg-white/5 p-8 text-center text-white/70">Специалисты пока не опубликованы.</div>
+ </div>
+ </section>
+ );
+ }
 
  return (
  <>
@@ -121,9 +128,11 @@ export function Doctors() {
  transition={{ delay: index * 0.1 }}
  >
  <Card className={styles.card}>
- <div 
+ <button
+ type="button"
  className={styles.imageWrapper}
  onClick={() => setSelectedDoctor(doctor)}
+ aria-label={`Открыть профиль врача ${doctor.name}`}
  >
  <img 
  src={doctor.image} 
@@ -148,7 +157,7 @@ export function Doctors() {
  <div className="absolute top-4 left-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-primary shadow-lg opacity-0 group-hover:opacity-100 transition-all transform scale-90 group-hover:scale-100">
  <Plus className="w-5 h-5" />
  </div>
- </div>
+ </button>
 
  <CardContent className={styles.cardContent}>
  <div className={styles.specialtyBadge}>
@@ -167,6 +176,12 @@ export function Doctors() {
  className={styles.buttonOutline}
  >
  Подробнее
+ </button>
+ <button
+ onClick={() => openBooking(doctor._id)}
+ className={styles.buttonPrimary}
+ >
+ Записаться
  </button>
  </div>
  </CardContent>

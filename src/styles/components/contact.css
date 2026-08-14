@@ -1,7 +1,7 @@
 /* Контакты */
 .contact-section {
  @apply py-16 lg:py-24 scroll-mt-20 relative overflow-hidden;
- background-color: var(--secondary);
+ background-color: var(--color-paper);
 }
 .contact-container {
  @apply container mx-auto px-4 sm:px-6 lg:px-8 relative z-10;
