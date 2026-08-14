@@ -18,6 +18,10 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 import { useBooking } from "@/context/BookingContext";
 import {
+  getAccountNavigationItems,
+  performShellLogout,
+} from "@/components/application-shell-model";
+import {
   ABOUT_NAV_ITEMS,
   MORE_NAV_ITEMS,
   PEOPLE_NAV_ITEMS,
@@ -103,6 +107,7 @@ export function Header() {
   const { user, isAdmin, logout, loading } = useAuth();
   const isDoctor = user?.role === "doctor";
   const isHome = location.pathname === "/";
+  const accountNavigationItems = getAccountNavigationItems({ isDoctor, isAdmin });
 
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -136,9 +141,11 @@ export function Header() {
     items.some((item) => isActive(item.href));
 
   const handleLogout = async () => {
-    setMobileMenuOpen(false);
-    await logout();
-    navigate("/");
+    await performShellLogout({
+      closeMenu: () => setMobileMenuOpen(false),
+      logout,
+      navigateHome: () => navigate("/"),
+    });
   };
 
   const handleBooking = () => {
@@ -173,23 +180,14 @@ export function Header() {
               <p className="truncate text-xs text-editorial-muted">{user.email}</p>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild className="header-user-item">
-              <Link to="/profile"><User />Профиль</Link>
-            </DropdownMenuItem>
-            {isDoctor ? (
-              <DropdownMenuItem asChild className="header-user-item">
-                <Link to="/doctor/dashboard"><ClipboardList />Кабинет врача</Link>
+            {accountNavigationItems.map((item) => (
+              <DropdownMenuItem key={item.href} asChild className="header-user-item">
+                <Link to={item.href}>
+                  {item.href === "/profile" ? <User /> : item.href === "/admin" ? <Settings /> : <ClipboardList />}
+                  {item.label}
+                </Link>
               </DropdownMenuItem>
-            ) : (
-              <DropdownMenuItem asChild className="header-user-item">
-                <Link to="/profile/bookings"><ClipboardList />Мои записи</Link>
-              </DropdownMenuItem>
-            )}
-            {isAdmin && (
-              <DropdownMenuItem asChild className="header-user-item">
-                <Link to="/admin"><Settings />Админ-панель</Link>
-              </DropdownMenuItem>
-            )}
+            ))}
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout} className="header-user-item header-logout-item">
               <LogOut />Выйти
@@ -291,13 +289,12 @@ export function Header() {
                   <div className="mobile-nav-account">
                     {user ? (
                       <>
-                        <Link to="/profile" className="mobile-nav-account-link" onClick={() => setMobileMenuOpen(false)}><User />Профиль</Link>
-                        {isDoctor ? (
-                          <Link to="/doctor/dashboard" className="mobile-nav-account-link" onClick={() => setMobileMenuOpen(false)}><ClipboardList />Кабинет врача</Link>
-                        ) : (
-                          <Link to="/profile/bookings" className="mobile-nav-account-link" onClick={() => setMobileMenuOpen(false)}><ClipboardList />Мои записи</Link>
-                        )}
-                        {isAdmin && <Link to="/admin" className="mobile-nav-account-link" onClick={() => setMobileMenuOpen(false)}><Settings />Админ-панель</Link>}
+                        {accountNavigationItems.map((item) => (
+                          <Link key={item.href} to={item.href} className="mobile-nav-account-link" onClick={() => setMobileMenuOpen(false)}>
+                            {item.href === "/profile" ? <User /> : item.href === "/admin" ? <Settings /> : <ClipboardList />}
+                            {item.label}
+                          </Link>
+                        ))}
                         <button type="button" onClick={handleLogout} className="mobile-nav-account-link mobile-nav-logout"><LogOut />Выйти</button>
                       </>
                     ) : (

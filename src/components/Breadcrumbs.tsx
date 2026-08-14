@@ -1,82 +1,49 @@
-﻿
-import { Link, useLocation } from 'react-router-dom';
-import { ChevronRight, Home } from 'lucide-react';
-import { motion } from 'motion/react';
-import styles from './Breadcrumbs.module.css';
-
-const routeConfig: Record<string, string> = {
- 'about': 'О клинике',
- 'services': 'Услуги',
- 'doctors': 'Наши врачи',
- 'reviews': 'Отзывы',
- 'pricing': 'Цены',
- 'blog': 'Блог',
- 'contact': 'Контакты',
- 'contacts': 'Контакты',
- 'faq': 'Вопросы и ответы',
- 'people': 'Команда FamilyDent',
- 'results': 'Результаты лечения',
- 'tourism': 'Стоматологический туризм',
- 'academy': 'Академия FamilyDent',
- 'clinic-tour': 'Экскурсия по клинике',
- 'equipment': 'Оборудование',
- 'profile': 'Личный кабинет',
- 'bookings': 'Мои записи',
- 'records': 'Медицинская карта',
- 'book': 'Запись на прием',
- 'admin': 'Панель управления',
-};
+import { Link, useLocation } from "react-router-dom";
+import { ChevronRight, Home } from "lucide-react";
+import { motion } from "motion/react";
+import { buildBreadcrumbItems } from "./application-shell-model";
+import styles from "./Breadcrumbs.module.css";
 
 export function Breadcrumbs() {
- const location = useLocation();
- const pathnames = location.pathname.split('/').filter((x) => x);
+  const location = useLocation();
 
- if (location.pathname === '/') return null;
+  if (location.pathname === "/") return null;
 
- return (
- <nav aria-label="Breadcrumb" className={styles.nav}>
- <div className={styles.container}>
- <ol className={styles.list}>
- <li className={styles.item}>
- <Link 
- to="/" 
- className={styles.link}
- >
- <Home size={14} />
- <span className={styles.homeLabel}>Главная</span>
- </Link>
- </li>
- 
- {pathnames.map((value, index) => {
- const last = index === pathnames.length - 1;
- const to = `/${pathnames.slice(0, index + 1).join('/')}`;
- const label = routeConfig[value] || value;
+  const items = buildBreadcrumbItems(location.pathname);
 
- return (
- <li key={to} className={styles.item}>
- <ChevronRight size={14} className={styles.separator} />
- {last ? (
- <motion.span 
- initial={{ opacity: 0, x: -5 }}
- animate={{ opacity: 1, x: 0 }}
- className={styles.current}
- >
- {label}
- </motion.span>
- ) : (
- <Link 
- to={to} 
- className={styles.breadcrumbLink}
- >
- {label}
- </Link>
- )}
- </li>
- );
- })}
- </ol>
- </div>
- </nav>
- );
+  return (
+    <nav aria-label="Breadcrumb" className={styles.nav}>
+      <div className={styles.container}>
+        <ol className={styles.list}>
+          {items.map((item, index) => (
+            <li key={`${index}-${item.label}`} className={styles.item}>
+              {index > 0 && <ChevronRight size={14} className={styles.separator} />}
+              {item.current ? (
+                <motion.span
+                  initial={{ opacity: 0, x: -5 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className={styles.current}
+                  aria-current="page"
+                >
+                  {item.label}
+                </motion.span>
+              ) : item.href ? (
+                <Link
+                  to={item.href}
+                  className={index === 0 ? styles.link : styles.breadcrumbLink}
+                >
+                  {index === 0 && <Home size={14} />}
+                  <span className={index === 0 ? styles.homeLabel : undefined}>
+                    {item.label}
+                  </span>
+                </Link>
+              ) : (
+                <span className={styles.intermediate}>{item.label}</span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </nav>
+  );
 }
-

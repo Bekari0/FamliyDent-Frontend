@@ -36,3 +36,7 @@
 .breadcrumbLink {
   @apply max-w-28 sm:max-w-none;
 }
+
+.intermediate {
+  @apply max-w-28 truncate text-editorial-muted sm:max-w-none;
+}
