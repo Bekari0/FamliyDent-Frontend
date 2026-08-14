@@ -6,6 +6,7 @@ import {
   getAccountNavigationItems,
   performMobileBooking,
   performMobileNavigation,
+  performRouteChange,
   performShellLogout,
 } from "./application-shell-model";
 
@@ -102,6 +103,14 @@ test("mobile link selection closes navigation", () => {
   let menuOpen = true;
 
   performMobileNavigation({ closeMenu: () => { menuOpen = false; } });
+
+  assert.equal(menuOpen, false);
+});
+
+test("route changes close mobile navigation", () => {
+  let menuOpen = true;
+
+  performRouteChange({ closeMenu: () => { menuOpen = false; } });
 
   assert.equal(menuOpen, false);
 });

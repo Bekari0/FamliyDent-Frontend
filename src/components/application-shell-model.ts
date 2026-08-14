@@ -101,6 +101,14 @@ export function performMobileNavigation({
   closeMenu();
 }
 
+export function performRouteChange({
+  closeMenu,
+}: {
+  closeMenu: () => void;
+}): void {
+  closeMenu();
+}
+
 export function performMobileBooking({
   closeMenu,
   openBooking,

@@ -21,6 +21,7 @@ import {
   getAccountNavigationItems,
   performMobileBooking,
   performMobileNavigation,
+  performRouteChange,
   performShellLogout,
 } from "@/components/application-shell-model";
 import {
@@ -112,7 +113,7 @@ export function Header() {
   const accountNavigationItems = getAccountNavigationItems({ isDoctor, isAdmin });
 
   useEffect(() => {
-    setMobileMenuOpen(false);
+    performRouteChange({ closeMenu: () => setMobileMenuOpen(false) });
   }, [location.pathname]);
 
   useEffect(() => {
