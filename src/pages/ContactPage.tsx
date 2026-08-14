@@ -1,98 +1,23 @@
-﻿import React from 'react';
-import { Contact as ContactComponent } from '../components/Contact';
-import { motion } from 'motion/react';
-import { Phone, Mail, MapPin, Clock, MessageCircle, ChevronRight, Navigation, Bus, Car, Train } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Bus, Car, Clock, Navigation } from 'lucide-react';
+import { Contact as ContactComponent } from '@/components/Contact';
+import { EditorialPageHero } from '@/components/shared/editorial-page-hero';
 
 export function ContactPage() {
- return (
- <div className="pb-20 bg-background">
- <div className="container mx-auto px-4">
- <div className="mb-8">
- <Button variant="ghost" asChild className="hover:bg-secondary rounded-xl">
- <Link to="/" className="flex items-center gap-2 text-text-secondary font-bold text-xs uppercase tracking-widest">
- <ChevronRight className="w-4 h-4 rotate-180" />
- Вернуться на главную
- </Link>
- </Button>
- </div>
+  return (
+    <main className="min-h-screen bg-paper text-ink" data-ui="editorial-page">
+      <EditorialPageHero
+        badge="Связь с нами"
+        title="Контакты клиники FamilyDent"
+        description="Два филиала в Душанбе, удобная парковка и администраторы, которые помогут подобрать время приема."
+      />
 
- {/* Верхний блок страницы контактов */}
- <div className="mb-16">
- <div className="bg-card rounded-[48px] p-12 border border-border shadow-xl shadow-foreground/5 flex flex-col lg:flex-row gap-12">
- <div className="flex-1">
- <h1 className="text-4xl lg:text-6xl font-display font-bold text-foreground mb-6 leading-tight">
- Мы всегда <br />
- ряду с <span className="text-primary italic">вами</span>
- </h1>
- <p className="text-lg text-text-secondary mb-10 max-w-md">
- Наши клиники расположены в центре города с удобным подъездом и парковкой.
- </p>
- 
- <div className="grid grid-cols-2 gap-4">
- <a 
- href="https://yandex.tj/maps/" 
- target="_blank" 
- rel="noreferrer"
- className="h-16 px-6 bg-primary text-white rounded-2xl flex items-center justify-center gap-3 font-bold hover:scale-105 transition-all shadow-lg shadow-primary/20"
- >
- <Navigation className="w-5 h-5" />
- Проложить маршрут
- </a>
- <button className="h-16 px-6 bg-foreground text-card rounded-2xl flex items-center justify-center gap-3 font-bold hover:scale-105 transition-all shadow-lg shadow-foreground/10">
- <Clock className="w-5 h-5 text-primary" />
- Все филиалы
- </button>
- </div>
- </div>
- 
- <div className="lg:w-1/3 space-y-4">
- <div className="p-6 rounded-3xl bg-secondary border border-border">
- <h3 className="text-sm font-bold text-text-secondary uppercase tracking-widest mb-4 flex items-center gap-2">
- <Clock className="w-4 h-4" />
- Часы работы
- </h3>
- <div className="space-y-2">
- <div className="flex justify-between items-center text-sm">
- <span className="text-text-secondary">Пн - Сб:</span>
- <span className="font-bold text-foreground">7:30 - 19:00</span>
- </div>
- <div className="flex justify-between items-center text-sm">
- <span className="text-text-secondary">Вс:</span>
- <span className="font-bold text-foreground">Выходной</span>
- </div>
- </div>
- </div>
- 
- <div className="p-6 rounded-3xl bg-secondary border border-border">
- <h3 className="text-sm font-bold text-text-secondary uppercase tracking-widest mb-4 flex items-center gap-2">
- <Bus className="w-4 h-4" />
- Как добраться
- </h3>
- <ul className="space-y-3">
- <li className="flex gap-3 text-sm">
- <Bus className="w-4 h-4 text-primary shrink-0 mt-1" />
- <div>
- <div className="font-bold">Автобус №2, №10</div>
- <div className="text-text-secondary">Остановка «Центральная клиника»</div>
- </div>
- </li>
- <li className="flex gap-3 text-sm">
- <Car className="w-4 h-4 text-primary shrink-0 mt-1" />
- <div>
- <div className="font-bold">Парковка</div>
- <div className="text-text-secondary">Бесплатная стоянка перед входом</div>
- </div>
- </li>
- </ul>
- </div>
- </div>
- </div>
- </div>
- </div>
- <ContactComponent />
- </div>
- );
+      <section className="mx-auto grid w-full max-w-5xl gap-5 px-5 pb-4 sm:px-8 md:grid-cols-3" aria-label="Информация для визита">
+        <div className="rounded-2xl border border-rule bg-surface p-5 shadow-whisper"><Clock className="h-5 w-5 text-accent" /><h2 className="mt-4 font-display text-base font-bold">Часы работы</h2><p className="mt-2 text-sm text-editorial-muted">Пн–Сб: 7:30–19:00<br />Вс: выходной</p></div>
+        <div className="rounded-2xl border border-rule bg-surface p-5 shadow-whisper"><Bus className="h-5 w-5 text-accent" /><h2 className="mt-4 font-display text-base font-bold">Общественный транспорт</h2><p className="mt-2 text-sm text-editorial-muted">Автобусы №2 и №10, остановка «Центральная клиника».</p></div>
+        <div className="rounded-2xl border border-rule bg-surface p-5 shadow-whisper"><Car className="h-5 w-5 text-accent" /><h2 className="mt-4 font-display text-base font-bold">Парковка и маршрут</h2><p className="mt-2 text-sm text-editorial-muted">Бесплатная стоянка перед входом.</p><a href="https://yandex.tj/maps/" target="_blank" rel="noreferrer" className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-pill bg-ink px-5 text-xs font-bold text-paper"><Navigation className="h-4 w-4 text-accent" />Проложить маршрут</a></div>
+      </section>
+
+      <ContactComponent />
+    </main>
+  );
 }
-

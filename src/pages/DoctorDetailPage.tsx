@@ -1,156 +1,64 @@
-﻿
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { motion } from 'motion/react';
-import { Button } from '../components/ui/button';
-import { ChevronRight, Award, GraduationCap, Calendar, Star, Loader2, Home, History } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Award, Calendar, ChevronLeft, GraduationCap, History, Loader2, Star } from 'lucide-react';
+import { Link, useParams } from 'react-router-dom';
+import { EditorialPageHero } from '@/components/shared/editorial-page-hero';
 import * as styles from './DoctorDetailPage.styles';
 
-
 export function DoctorDetailPage() {
- const { id } = useParams();
- const [doctor, setDoctor] = useState<any>(null);
- const [loading, setLoading] = useState(true);
+  const { id } = useParams();
+  const [doctor, setDoctor] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
- useEffect(() => {
- const fetchDoctor = async () => {
- try {
- const response = await axios.get(`/api/doctors/${id}`);
- setDoctor(response.data);
- } catch (error) {
- console.error('Error fetching doctor:', error);
- } finally {
- setLoading(false);
- }
- };
- fetchDoctor();
- }, [id]);
+  useEffect(() => {
+    const fetchDoctor = async () => {
+      try {
+        const response = await axios.get(`/api/doctors/${id}`);
+        setDoctor(response.data);
+      } catch (error) {
+        console.error('Error fetching doctor:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDoctor();
+  }, [id]);
 
- if (loading) return (
- <div className="min-h-screen pt-40 flex items-center justify-center">
- <Loader2 className="w-10 h-10 animate-spin text-primary" />
- </div>
- );
+  if (loading) return <main className={styles.loading} role="status"><Loader2 className={styles.loader} aria-hidden="true" /><span className="sr-only">Загрузка данных врача...</span></main>;
+  if (!doctor) return <main className={styles.notFound}><h1 className="font-display text-2xl font-bold">Врач не найден</h1><Link to="/doctors" className={styles.backButton}><ChevronLeft className="h-4 w-4" />Ко всем врачам</Link></main>;
 
- if (!doctor) return <div className="py-20 text-center">Врач не найден</div>;
+  const education = Array.isArray(doctor.education) ? doctor.education : [doctor.education].filter(Boolean);
+  const achievements = Array.isArray(doctor.achievements) ? doctor.achievements : [];
 
- return (
- <div className={styles.page}>
- <div className={styles.container}>
- <div className={styles.breadcrumbWrapper}>
- <div className={styles.breadcrumb}>
- <Link to="/" className={styles.breadcrumbLink}>
- <Home className="w-3.5 h-3.5" />
- Главная
- </Link>
- <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
- <Link to="/doctors" className={styles.breadcrumbLink}>
- Наши врачи
- </Link>
- <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
- <span className={styles.breadcrumbActive}>{doctor.name}</span>
- </div>
- </div>
- </div>
+  return (
+    <main className={styles.page} data-ui="editorial-page">
+      <EditorialPageHero dark badge={doctor.specialty} title={doctor.name} description={`Опыт работы: ${doctor.experience || 'информация уточняется'}`} />
+      <div className={styles.container}>
+        <Link to="/doctors" className={styles.backLink}><ChevronLeft className="h-4 w-4" />Ко всем врачам</Link>
+        <div className={styles.layout}>
+          <div className={styles.mediaColumn}>
+            <div className={styles.imageFrame}>
+              <img src={doctor.image} alt={doctor.name} className={styles.image} loading="eager" decoding="async" />
+              <div className={styles.rating}><Star className="h-4 w-4 fill-current" aria-hidden="true" /><span>5.0</span><span className="text-white/55">по отзывам пациентов</span></div>
+            </div>
+            <Link to={`/book?doctorId=${doctor._id || doctor.id}`} className={styles.bookButton}><Calendar className="h-4 w-4" aria-hidden="true" />Записаться на прием</Link>
+            <Link to="/contact" className={styles.questionButton}>Задать вопрос</Link>
+          </div>
 
- <div className={styles.container}>
- <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start py-8">
- <div className="lg:col-span-4">
- <motion.div 
- initial={{ opacity: 0, scale: 0.95 }}
- animate={{ opacity: 1, scale: 1 }}
- className="relative rounded-[40px] sm:rounded-[56px] overflow-hidden shadow-2xl border-[8px] sm:border-[12px] border-slate-50"
- >
- <img src={doctor.image} alt={doctor.name} className="w-full aspect-[4/5] object-cover" loading="eager" decoding="async" />
- <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-slate-900/80 via-slate-900/40 to-transparent text-white">
- <div className="flex items-center gap-2 text-amber-400">
- <Star className="w-5 h-5 fill-current" />
- <span className="font-bold text-lg">5.0 Рейтинг</span>
- <span className="text-white/60 text-sm ml-2">На основе отзывов</span>
- </div>
- </div>
- </motion.div>
- </div>
-
- <div className="lg:col-span-8">
- <motion.div
- initial={{ opacity: 0, x: 20 }}
- animate={{ opacity: 1, x: 0 }}
- >
- <div className="flex flex-wrap gap-4 mb-6">
- <span className={styles.specialtyBadge}>
- {doctor.specialty}
- </span>
- <span className="px-5 py-2 rounded-full bg-slate-50 text-slate-500 font-bold uppercase tracking-wider text-[10px] flex items-center gap-2">
- <History className="w-4 h-4 text-primary" />
- Опыт работы: {doctor.experience}
- </span>
- </div>
- 
- <h1 className={styles.title}>
- {doctor.name}
- </h1>
- 
- <div className={styles.descBlock}>
- <p className={styles.descText}>
- "{doctor.description}"
- </p>
- </div>
-
- <div className="grid sm:grid-cols-2 gap-8 mb-12">
- <div className={styles.infoCard}>
- <div className={styles.infoHeader}>
- <div className={styles.infoIcon}>
- <GraduationCap className="w-6 h-6" />
- </div>
- <h3 className={styles.infoTitle}>Образование</h3>
- </div>
- <ul className="space-y-4">
- {(Array.isArray(doctor.education) ? doctor.education : [doctor.education]).map((item: string, i: number) => (
- <li key={i} className={styles.infoItem}>
- <span className={styles.infoBullet} />
- <span className={styles.infoContent}>{item}</span>
- </li>
- ))}
- </ul>
- </div>
- 
- <div className={styles.infoCard}>
- <div className={styles.infoHeader}>
- <div className={styles.infoIcon}>
- <Award className="w-6 h-6 text-accent" />
- </div>
- <h3 className={styles.infoTitle}>Достижения</h3>
- </div>
- <ul className="space-y-4">
- {doctor.achievements?.map((item: string, i: number) => (
- <li key={i} className={styles.infoItem}>
- <span className="w-2 h-2 rounded-full bg-accent mt-2.5 shrink-0" />
- <span className="font-medium leading-relaxed">{item}</span>
- </li>
- ))}
- </ul>
- </div>
- </div>
-
- <div className={styles.buttonGroup}>
- <Button asChild className={styles.bookButton}>
- <Link to={`/book?doctorId=${doctor._id || doctor.id}`}>
- <Calendar className="w-6 h-6 mr-3" />
- Записаться на прием
- </Link>
- </Button>
- <Button variant="outline" asChild className="h-14 sm:h-18 px-10 rounded-2xl sm:rounded-3xl border-slate-100 text-lg font-bold hover:bg-slate-50 transition-all">
- <Link to="/contact">Задать вопрос</Link>
- </Button>
- </div>
- </motion.div>
- </div>
- </div>
- </div>
- </div>
- );
+          <article className={styles.content}>
+            <div className={styles.metaRow}><span>{doctor.specialty}</span><span><History className="h-4 w-4" />Стаж: {doctor.experience}</span></div>
+            <blockquote className={styles.description}>«{doctor.description}»</blockquote>
+            <section className={styles.infoCard} aria-labelledby="education-title">
+              <h2 id="education-title" className={styles.infoTitle}><GraduationCap className="h-5 w-5 text-accent" />Образование</h2>
+              {education.length > 0 ? <ul className={styles.infoList}>{education.map((item: string, index: number) => <li key={index}>{item}</li>)}</ul> : <p className={styles.infoEmpty}>Информация не указана</p>}
+            </section>
+            <section className={styles.infoCard} aria-labelledby="achievements-title">
+              <h2 id="achievements-title" className={styles.infoTitle}><Award className="h-5 w-5 text-accent" />Достижения</h2>
+              {achievements.length > 0 ? <ul className={styles.infoList}>{achievements.map((item: string, index: number) => <li key={index}>{item}</li>)}</ul> : <p className={styles.infoEmpty}>Информация не указана</p>}
+            </section>
+          </article>
+        </div>
+      </div>
+    </main>
+  );
 }
-
-

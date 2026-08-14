@@ -1,247 +1,119 @@
-﻿import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Link } from 'react-router-dom';
-import { cn } from '@/lib/utils';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { useBooking } from '@/context/BookingContext';
-import { Badge } from '@/components/ui/badge';
-import { Sparkles, Calendar, Phone,
- GraduationCap, Award, CheckCircle2, Star, History, Plus
-} from 'lucide-react';
+import { Award, Calendar, CheckCircle2, GraduationCap, History, Loader2, Phone, Star } from 'lucide-react';
 import { DoctorDetailModal } from '@/components/DoctorDetailModal';
-
-interface Doctor {
- _id: string;
- name: string;
- specialty: string;
- experience: string;
- image: string;
- description: string;
- education: string;
- achievements: string[];
-}
-
+import { EditorialPageHero } from '@/components/shared/editorial-page-hero';
+import { ScrollAnimate } from '@/components/shared/scroll-animate';
+import { useBooking } from '@/context/BookingContext';
 import { FALLBACK_DOCTORS } from '@/fallbackData';
-import { DbService } from '@/services/dbService';
 import * as styles from './DoctorsPage.styles';
 
-
-export function DoctorsPage() {
- const [doctors, setDoctors] = useState<Doctor[]>([]);
- const [loading, setLoading] = useState(true);
- const [error, setError] = useState<string | null>(null);
- const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
- const { openBooking } = useBooking();
-
- useEffect(() => {
- const fetchDoctors = async () => {
- try {
- setLoading(true);
- const data = await DbService.getAll<Doctor>('doctors');
- if (data.length > 0) {
- setDoctors(data);
- } else {
- setDoctors(FALLBACK_DOCTORS as unknown as Doctor[]);
- }
- } catch (err) {
- console.error('Ошибка загрузки врачей, используем резервные данные:', err);
- setDoctors(FALLBACK_DOCTORS as unknown as Doctor[]);
- } finally {
- setLoading(false);
- }
- };
- fetchDoctors();
- }, []);
-
- if (loading) {
- return (
- <div className={styles.page}>
- <div className={styles.container}>
- <div className={styles.loaderWrapper}>
- <div className={styles.loader} />
- <p className="mt-4 text-slate-600 text-sm sm:text-base">Загрузка врачей...</p>
- </div>
- </div>
- </div>
- );
- }
-
- if (error) {
- return (
- <div className={styles.page}>
- <div className={styles.container}>
- <div className={styles.loaderWrapper}>
- <p className="text-red-500 text-sm sm:text-base">{error}</p>
- <Button onClick={() => window.location.reload()} className="mt-4">
- Попробовать снова
- </Button>
- </div>
- </div>
- </div>
- );
- }
-
- return (
- <div className={styles.page}>
- <div className={styles.container}>
- <div className={styles.headerSection}>
- <div className={styles.headerInner}>
- <Badge className={styles.headerBadge}>
- Наши эксперты
- </Badge>
- <h1 className={styles.headerTitle}>
- Познакомьтесь с <span className={styles.headerTitleSpan}>профессионалами</span>
- </h1>
- <p className={styles.headerDesc}>
- Команда FamilyDent — это врачи высшей категории, которые любят свою работу и постоянно совершенствуют свои навыки.
- </p>
- </div>
- </div>
- </div>
-
- <div className={styles.container}>
- <div className={styles.gridSection}>
- <div className={styles.grid}>
- {doctors.map((doctor, index) => (
- <motion.div
- key={doctor._id}
- initial={{ opacity: 0, y: 30 }}
- whileInView={{ opacity: 1, y: 0 }}
- viewport={{ once: true }}
- transition={{ delay: index * 0.1 }}
- className="h-full"
- >
- <Card className={styles.card}>
- <div 
- className={styles.imageWrapper}
- onClick={() => setSelectedDoctor(doctor)}
- >
- <img 
- src={doctor.image} 
- alt={doctor.name}
- className={styles.imageStyle}
- />
- <div className={styles.ratingBadge}>
- <Star className="w-3 h-3 text-yellow-400 fill-current" />
- <span>5.0</span>
- </div>
- <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-4 sm:p-6">
- <div className="translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
- <div className="text-white/80 text-[10px] font-bold uppercase tracking-widest">Нажмите для подробностей</div>
- <div className="w-10 h-0.5 bg-primary rounded-full mt-2" />
- </div>
- </div>
- </div>
-
- <CardContent className={styles.cardContent}>
- <div className={styles.specialtyBadge}>
- {doctor.specialty}
- </div>
- 
- <h3 className={styles.cardTitle}>{doctor.name}</h3>
- 
- <div className={styles.experienceStyle}>
- Стаж работы: {doctor.experience}
- </div>
-
- <p className={styles.descriptionStyle}>
- {doctor.description}
- </p>
-
- <div className={styles.infoBlock}>
- <div className={styles.infoHeader}>
- <GraduationCap className={styles.infoIcon} />
- <span>Образование</span>
- </div>
- <p className={styles.infoText}>{doctor.education || 'Информация не указана'}</p>
- </div>
-
- {doctor.achievements && doctor.achievements.length > 0 && (
- <div className={styles.infoBlock}>
- <div className={styles.infoHeader}>
- <Award className={styles.infoIcon} />
- <span>Достижения</span>
- </div>
- <ul className={styles.achievementsList}>
- {doctor.achievements.slice(0, 2).map((item, idx) => (
- <li key={idx} className={styles.achievementItem}>
- <CheckCircle2 className={styles.achievementIcon} />
- <span className="line-clamp-1">{item}</span>
- </li>
- ))}
- </ul>
- </div>
- )}
-
- </CardContent>
- </Card>
- </motion.div>
- ))}
- </div>
- </div>
- </div>
-
- {/* Информация о враче */}
- <DoctorDetailModal 
- doctor={selectedDoctor}
- isOpen={!!selectedDoctor}
- onClose={() => setSelectedDoctor(null)}
- onBooking={(doctorId) => {
- setSelectedDoctor(null);
- openBooking(doctorId);
- }}
- />
-
- <div className={styles.container}>
- <div className={styles.ctaSection}>
- <div className={styles.ctaInner}>
- <div className={styles.ctaBlur1} />
- <div className={styles.ctaBlur2} />
- <div className={styles.ctaContent}>
- <motion.div
- initial={{ opacity: 0, scale: 0.9 }}
- whileInView={{ opacity: 1, scale: 1 }}
- viewport={{ once: true }}
- >
- <div className={styles.ctaBadge}>
- <Sparkles className={styles.ctaBadgeIcon} />
- <span className={styles.ctaBadgeText}>Забота о вашей улыбке</span>
- </div>
-
- <h2 className={styles.ctaTitle}>
- Доверьте свою улыбку <br />
- <span className={styles.ctaTitleSpan}>команде профессионалов</span>
- </h2>
-
- <p className={styles.ctaDesc}>
- Запишитесь на первичный осмотр уже сегодня
- </p>
-
- <div className={styles.ctaButtons}>
- <Button onClick={() => openBooking()} className={styles.buttonWhite}>
- <Calendar className="w-4 h-4 mr-2" />
- Записаться сейчас
- </Button>
-
- <a href="tel:+992446606600" className={styles.ctaPhone}>
- <div className={styles.ctaPhoneIcon}>
- <Phone className={styles.ctaPhoneIconInner} />
- </div>
- <div className={styles.ctaPhoneText}>
- <div className={styles.ctaPhoneLabel}>Позвоните нам</div>
- <div className={styles.ctaPhoneNumber}>+992 446 60 66 00</div>
- </div>
- </a>
- </div>
- </motion.div>
- </div>
- </div>
- </div>
- </div>
- </div>
- );
+interface Doctor {
+  _id: string;
+  name: string;
+  specialty: string;
+  experience: string;
+  image: string;
+  description: string;
+  education: string;
+  achievements: string[];
 }
 
+export function DoctorsPage() {
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
+  const { openBooking } = useBooking();
 
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await axios.get<Doctor[]>('/api/doctors');
+        const data = Array.isArray(response.data) ? response.data : [];
+        setDoctors(data.length > 0 ? data : FALLBACK_DOCTORS as unknown as Doctor[]);
+      } catch (error) {
+        console.error('Ошибка загрузки врачей, используем резервные данные:', error);
+        const fallback = FALLBACK_DOCTORS as unknown as Doctor[];
+        setDoctors(fallback);
+        if (fallback.length === 0) setError('Не удалось загрузить список врачей.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDoctors();
+  }, []);
+
+  return (
+    <main className={styles.page} data-ui="editorial-page">
+      <EditorialPageHero
+        dark
+        badge="Врачи клиники"
+        title="Наши врачи-стоматологи"
+        description="Команда специалистов FamilyDent сочетает клинический опыт, бережный подход и постоянное профессиональное развитие."
+      />
+
+      <div className={styles.container}>
+        {loading ? (
+          <div className={styles.state} role="status"><Loader2 className={styles.loader} aria-hidden="true" /><span>Загрузка врачей...</span></div>
+        ) : error ? (
+          <div className={styles.state} role="alert"><span>{error}</span><button type="button" onClick={() => window.location.reload()} className={styles.retryButton}>Попробовать снова</button></div>
+        ) : doctors.length === 0 ? (
+          <div className={styles.state}>Информация о врачах пока не опубликована.</div>
+        ) : (
+          <section className={styles.grid} aria-label="Команда врачей FamilyDent">
+            {doctors.map((doctor, index) => (
+              <ScrollAnimate key={doctor._id} className={styles.card}>
+                <button type="button" onClick={() => setSelectedDoctor(doctor)} className={styles.imageButton} aria-label={`Подробнее о враче ${doctor.name}`}>
+                  <img src={doctor.image} alt={doctor.name} className={styles.imageStyle} loading={index < 3 ? 'eager' : 'lazy'} decoding="async" />
+                  <span className={styles.ratingBadge}><Star className="h-3.5 w-3.5 fill-current" aria-hidden="true" />5.0</span>
+                </button>
+                <div className={styles.cardContent}>
+                  <span className={styles.specialtyBadge}>{doctor.specialty}</span>
+                  <h2 className={styles.cardTitle}>{doctor.name}</h2>
+                  <p className={styles.experienceStyle}><History className="h-4 w-4" aria-hidden="true" />Стаж работы: {doctor.experience}</p>
+                  <p className={styles.descriptionStyle}>{doctor.description}</p>
+                  <div className={styles.infoBlock}>
+                    <h3 className={styles.infoHeader}><GraduationCap className={styles.infoIcon} aria-hidden="true" />Образование</h3>
+                    <p className={styles.infoText}>{doctor.education || 'Информация не указана'}</p>
+                  </div>
+                  {doctor.achievements?.length > 0 && (
+                    <div className={styles.infoBlock}>
+                      <h3 className={styles.infoHeader}><Award className={styles.infoIcon} aria-hidden="true" />Достижения</h3>
+                      <ul className={styles.achievementsList}>
+                        {doctor.achievements.slice(0, 2).map((item, itemIndex) => (
+                          <li key={itemIndex} className={styles.achievementItem}><CheckCircle2 className={styles.achievementIcon} aria-hidden="true" /><span>{item}</span></li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </ScrollAnimate>
+            ))}
+          </section>
+        )}
+
+        <section className={styles.ctaSection} aria-labelledby="doctor-cta-title">
+          <div>
+            <span className={styles.ctaBadge}>Забота о вашей улыбке</span>
+            <h2 id="doctor-cta-title" className={styles.ctaTitle}>Доверьте здоровье команде профессионалов</h2>
+            <p className={styles.ctaDesc}>Запишитесь на первичный осмотр — врач ответит на вопросы и составит понятный план лечения.</p>
+          </div>
+          <div className={styles.ctaButtons}>
+            <button type="button" onClick={() => openBooking()} className={styles.buttonWhite}><Calendar className="h-4 w-4" aria-hidden="true" />Записаться</button>
+            <a href="tel:+992446606600" className={styles.ctaPhone}><Phone className="h-4 w-4" aria-hidden="true" />+992 446 60 66 00</a>
+          </div>
+        </section>
+      </div>
+
+      <DoctorDetailModal
+        doctor={selectedDoctor}
+        isOpen={Boolean(selectedDoctor)}
+        onClose={() => setSelectedDoctor(null)}
+        onBooking={(doctorId) => { setSelectedDoctor(null); openBooking(doctorId); }}
+      />
+    </main>
+  );
+}

@@ -1,95 +1,65 @@
-﻿import React from 'react';
-import { motion } from 'motion/react';
-import { Award, CheckCircle2, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Award, CheckCircle2 } from 'lucide-react';
+import { EditorialPageHero } from '@/components/shared/editorial-page-hero';
+import { ScrollAnimate } from '@/components/shared/scroll-animate';
 import * as styles from './AboutPage.styles';
 
 const VALUES = [
- { title: 'Комфорт', desc: 'Создаем спокойную атмосферу и подбираем лечение так, чтобы пациенту было удобно на каждом этапе.' },
- { title: 'Точность', desc: 'Используем современную диагностику и внимательно контролируем все этапы лечения.' },
- { title: 'Честность', desc: 'Объясняем план лечения простым языком и не навязываем лишние услуги.' },
+  { title: 'Комфорт', desc: 'Создаем спокойную атмосферу и подбираем лечение так, чтобы пациенту было удобно на каждом этапе.' },
+  { title: 'Точность', desc: 'Используем современную диагностику и внимательно контролируем все этапы лечения.' },
+  { title: 'Честность', desc: 'Объясняем план лечения простым языком и не навязываем лишние услуги.' },
 ];
 
 export function AboutPage() {
- return (
- <div className={styles.page}>
- <div className={styles.container}>
- <div className={styles.backWrapper}>
- <Link to="/" className={styles.backButton}>
- <ChevronRight className={styles.backIcon} />
- Вернуться на главную
- </Link>
- </div>
+  return (
+    <main className={styles.page} data-ui="editorial-page">
+      <EditorialPageHero
+        badge="Миссия клиники"
+        title="О клинике FamilyDent"
+        description="Современная семейная стоматология в Душанбе, где точная диагностика сочетается с внимательным и честным отношением к каждому пациенту."
+      />
 
- <div className={styles.mainGrid}>
- <motion.div
- initial={{ opacity: 0, x: -30 }}
- animate={{ opacity: 1, x: 0 }}
- >
- <div className={styles.badge}>Миссия клиники</div>
- <h1 className={styles.title}>
- Создаем улыбки, <br />
- <span className={styles.titleAccent}>которым доверяют</span>
- </h1>
- <p className={styles.description}>
- FamilyDent - современная стоматологическая клиника в Душанбе. Мы объединяем опыт врачей, точную диагностику и внимательное отношение к каждому пациенту, чтобы лечение было понятным, комфортным и эффективным.
- </p>
- <div className={styles.statsGrid}>
- <div>
- <div className={styles.statValue}>12+</div>
- <div className={styles.statLabel}>Лет опыта</div>
- </div>
- <div>
- <div className={styles.statValue}>15к+</div>
- <div className={styles.statLabel}>Довольных пациентов</div>
- </div>
- </div>
- </motion.div>
+      <div className={styles.container}>
+        <section className={styles.storyGrid} aria-labelledby="about-story-title">
+          <ScrollAnimate className={styles.storyContent}>
+            <span className={styles.eyebrow}>Забота на каждом этапе</span>
+            <h2 id="about-story-title" className={styles.storyTitle}>Создаем улыбки, которым доверяют</h2>
+            <p className={styles.description}>
+              FamilyDent объединяет опыт врачей, современную диагностику и понятный план лечения, чтобы каждый визит был спокойным, комфортным и результативным.
+            </p>
+            <dl className={styles.statsGrid}>
+              <div className={styles.statItem}><dt className={styles.statLabel}>Лет опыта</dt><dd className={styles.statValue}>12+</dd></div>
+              <div className={styles.statItem}><dt className={styles.statLabel}>Довольных пациентов</dt><dd className={styles.statValue}>15к+</dd></div>
+            </dl>
+          </ScrollAnimate>
 
- <motion.div
- initial={{ opacity: 0, scale: 0.9 }}
- animate={{ opacity: 1, scale: 1 }}
- className={styles.imageBox}
- >
- <div className={styles.imageWrapper}>
- <img
- src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=1000"
- alt="FamilyDent Clinic"
- className={styles.image}
- />
- </div>
- <div className={styles.infoCard}>
- <div className={styles.iconBox}>
- <Award className={styles.infoIcon} />
- </div>
- <div>
- <div className={styles.infoCardTitle}>Клиника FamilyDent</div>
- <div className={styles.infoCardDescription}>Забота, точность и честный подход</div>
- </div>
- </div>
- </motion.div>
- </div>
+          <ScrollAnimate className={styles.imageBox}>
+            <div className={styles.imageWrapper}>
+              <img
+                src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=1000"
+                alt="Интерьер клиники FamilyDent"
+                className={styles.image}
+              />
+            </div>
+            <div className={styles.infoCard}>
+              <div className={styles.iconBox}><Award className={styles.infoIcon} aria-hidden="true" /></div>
+              <div><div className={styles.infoCardTitle}>Клиника FamilyDent</div><div className={styles.infoCardDescription}>Забота, точность и честный подход</div></div>
+            </div>
+          </ScrollAnimate>
+        </section>
 
- <div className={styles.valuesSection}>
- <div className={styles.valuesInner}>
- <h2 className={styles.valuesTitle}>
- Наши основные <span className={styles.valuesTitleAccent}>принципы</span>
- </h2>
- <div className={styles.valuesGrid}>
- {VALUES.map((item) => (
- <div key={item.title} className={styles.valueItem}>
- <div className={styles.valueIcon}>
- <CheckCircle2 className={styles.valueIconInner} />
- </div>
- <h4 className={styles.valueTitle}>{item.title}</h4>
- <p className={styles.valueDescription}>{item.desc}</p>
- </div>
- ))}
- </div>
- </div>
- </div>
- </div>
- </div>
- );
+        <section className={styles.valuesSection} aria-labelledby="values-title">
+          <h2 id="values-title" className={styles.valuesTitle}>Наши основные принципы</h2>
+          <div className={styles.valuesGrid}>
+            {VALUES.map((item) => (
+              <article key={item.title} className={styles.valueItem}>
+                <CheckCircle2 className={styles.valueIconInner} aria-hidden="true" />
+                <h3 className={styles.valueTitle}>{item.title}</h3>
+                <p className={styles.valueDescription}>{item.desc}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+  );
 }
-
