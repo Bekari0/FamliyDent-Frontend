@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { treatmentCases } from '@/lib/reference-content/treatment-cases';
 import type { TreatmentCase } from '@/lib/reference-content/types';
+import { clampComparisonPosition, getAfterRevealPercent } from './home-behavior';
 
 const categoryLabels: Record<TreatmentCase['category'], string> = {
   veneers: 'Виниры', braces: 'Ортодонтия', implantation: 'Имплантация', restoration: 'Реставрация', orthodontics: 'Ортодонтия',
@@ -15,6 +16,7 @@ function useFallbackImage(event: SyntheticEvent<HTMLImageElement>) {
 
 function TreatmentCaseCard({ treatmentCase }: { treatmentCase: TreatmentCase }) {
   const [position, setPosition] = useState(50);
+  const afterReveal = getAfterRevealPercent(position);
 
   return (
     <article className="flex h-full flex-col rounded-3xl border border-rule bg-surface p-5 shadow-whisper sm:p-7">
@@ -27,13 +29,13 @@ function TreatmentCaseCard({ treatmentCase }: { treatmentCase: TreatmentCase }) 
 
       <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-rule bg-ink shadow-md">
         <img src={treatmentCase.beforeImage} alt={`До лечения: ${treatmentCase.title}`} loading="lazy" decoding="async" onError={useFallbackImage} className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-y-0 right-0 overflow-hidden" style={{ width: `${100 - position}%` }}>
-          <img src={treatmentCase.afterImage} alt={`После лечения: ${treatmentCase.title}`} loading="lazy" decoding="async" onError={useFallbackImage} className="absolute inset-y-0 right-0 h-full max-w-none object-cover" style={{ width: `${10000 / Math.max(1, 100 - position)}%` }} />
+        <div className="absolute inset-y-0 right-0 overflow-hidden" style={{ width: `${afterReveal}%` }}>
+          <img src={treatmentCase.afterImage} alt={`После лечения: ${treatmentCase.title}`} loading="lazy" decoding="async" onError={useFallbackImage} className="absolute inset-y-0 right-0 h-full max-w-none object-cover" style={{ width: `${10000 / Math.max(1, afterReveal)}%` }} />
         </div>
         <div className="pointer-events-none absolute inset-y-0 w-0.5 bg-accent shadow-[0_0_12px_rgba(216,200,163,0.8)]" style={{ left: `${position}%` }} />
         <span className="pointer-events-none absolute left-3 top-3 rounded-lg border border-white/20 bg-ink/75 px-2.5 py-1 font-mono text-[11px] font-bold uppercase text-paper backdrop-blur-md">До</span>
         <span className="pointer-events-none absolute right-3 top-3 rounded-lg border border-accent/30 bg-ink/75 px-2.5 py-1 font-mono text-[11px] font-bold uppercase text-accent-2 backdrop-blur-md">После</span>
-        <input type="range" min="0" max="100" value={position} onChange={(event) => setPosition(Number(event.target.value))} aria-label={`Сравнить результат: ${treatmentCase.title}`} className="absolute inset-x-4 bottom-4 z-10 cursor-ew-resize accent-[var(--color-accent)]" />
+        <input type="range" min="0" max="100" value={position} onChange={(event) => setPosition(clampComparisonPosition(Number(event.target.value)))} aria-label={`Сравнить результат: ${treatmentCase.title}`} className="absolute inset-x-4 bottom-4 z-10 cursor-ew-resize accent-[var(--color-accent)]" />
       </div>
       <p className="mt-2 px-1 text-[11px] italic leading-normal text-muted">{treatmentCase.disclaimer}</p>
     </article>

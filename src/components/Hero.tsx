@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { Calendar, PhoneCall, X, Loader2 } from 'lucide-react';
 import axios from 'axios';
@@ -9,20 +9,22 @@ import { BackgroundVideo } from './BackgroundVideo';
 import { CentralLogo } from './CentralLogo';
 import * as styles from './Hero.styles';
 import { trackGoal } from './Analytics';
+import { getHomeMotionProps, submitUrgentRequest, validateUrgentRequest } from './home/home-behavior';
+import { useAccessibleDialog } from './home/use-accessible-dialog';
 
 export function Hero() {
   const [urgentOpen, setUrgentOpen] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   const { openBooking } = useBooking();
-  const leftInitial = shouldReduceMotion ? false : { opacity: 0, x: -30 };
-  const rightInitial = shouldReduceMotion ? false : { opacity: 0, x: 30 };
+  const leftMotion = getHomeMotionProps(Boolean(shouldReduceMotion), { opacity: 0, x: -30 }, { duration: 0.8, ease: 'easeOut' as const });
+  const rightMotion = getHomeMotionProps(Boolean(shouldReduceMotion), { opacity: 0, x: 30 }, { duration: 0.8, ease: 'easeOut' as const, delay: 0.1 });
 
   return (
     <section className={styles.section}>
       <BackgroundVideo />
       <div className={styles.container}>
         <div className={styles.layout}>
-          <motion.div initial={leftInitial} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, ease: 'easeOut' }} className={styles.leftColumn}>
+          <motion.div {...leftMotion} animate={{ opacity: 1, x: 0 }} className={styles.leftColumn}>
             <h1 className={styles.title}>
               Современная<br />стоматология<br />для всей семьи
             </h1>
@@ -35,7 +37,7 @@ export function Hero() {
             <CentralLogo colorMode="glowing-white" />
           </div>
 
-          <motion.div initial={rightInitial} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, ease: 'easeOut', delay: shouldReduceMotion ? 0 : 0.1 }} className={styles.rightColumn}>
+          <motion.div {...rightMotion} animate={{ opacity: 1, x: 0 }} className={styles.rightColumn}>
             <h2 className={styles.promise}>
               <span className="block whitespace-nowrap">Без боли.</span>
               <span className="block whitespace-nowrap">Без спешки.</span>
@@ -64,20 +66,26 @@ export function Hero() {
 function UrgentRequestModal({ onClose }: { onClose: () => void }) {
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({ name: '', phone: '', branch: '', reason: '', preferredTime: '' });
+  const dialogRef = useRef<HTMLFormElement>(null);
+  const initialFocusRef = useRef<HTMLButtonElement>(null);
+  const handleDialogKeyDown = useAccessibleDialog(dialogRef, initialFocusRef, onClose);
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
-    if (!form.name.trim() || !form.phone.trim() || !form.reason.trim()) {
-      toast.error('Укажите имя, телефон и причину обращения');
+    const validationError = validateUrgentRequest(form);
+    if (validationError) {
+      toast.error(validationError);
       return;
     }
 
     setSubmitting(true);
     try {
-      await axios.post('/api/urgent-requests', form);
-      trackGoal('urgent_request_submit');
-      toast.success('Заявка отправлена. Мы свяжемся с вами в ближайшее время.');
-      onClose();
+      await submitUrgentRequest(form, {
+        post: (endpoint, payload) => axios.post(endpoint, payload),
+        track: trackGoal,
+        notifySuccess: () => toast.success('Заявка отправлена. Мы свяжемся с вами в ближайшее время.'),
+        close: onClose,
+      });
     } catch (error: any) {
       toast.error(error.response?.data?.error || 'Не удалось отправить заявку');
     } finally {
@@ -86,15 +94,15 @@ function UrgentRequestModal({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="urgent-request-title">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="urgent-request-title" onKeyDown={handleDialogKeyDown}>
       <button className="absolute inset-0 bg-ink/70 backdrop-blur-sm" onClick={onClose} aria-label="Закрыть" />
-      <form onSubmit={submit} className="relative w-full max-w-lg space-y-4 rounded-2xl border border-rule bg-surface p-6 text-ink shadow-2xl">
+      <form ref={dialogRef} onSubmit={submit} className="relative w-full max-w-lg space-y-4 rounded-2xl border border-rule bg-surface p-6 text-ink shadow-2xl">
         <div className="flex items-start justify-between gap-4">
           <div>
             <h2 id="urgent-request-title" className="font-display text-2xl font-bold">Срочная консультация</h2>
             <p className="mt-1 text-sm text-muted">Оставьте контакты, оператор подберёт ближайшее время без выбора врача.</p>
           </div>
-          <button type="button" onClick={onClose} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-paper-2 text-muted hover:text-ink" aria-label="Закрыть форму">
+          <button ref={initialFocusRef} type="button" onClick={onClose} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-paper-2 text-muted hover:text-ink" aria-label="Закрыть форму">
             <X className="h-5 w-5" />
           </button>
         </div>

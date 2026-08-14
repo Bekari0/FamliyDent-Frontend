@@ -1,30 +1,48 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import axios from 'axios';
 import { ArrowRight, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ReviewCard } from './ReviewCard';
+import {
+  createInitialReviewsState,
+  createReviewsErrorState,
+  createReviewsSuccessState,
+  getHomeMotionProps,
+  getHorizontalWheelDecision,
+  getReviewsFallback,
+  type ReviewsRequestState,
+} from './home/home-behavior';
 
 function scrollHorizontally(container: HTMLDivElement, event: WheelEvent) {
   const maxScrollLeft = container.scrollWidth - container.clientWidth;
   if (maxScrollLeft <= 0) return;
-  const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+  const decision = getHorizontalWheelDecision({
+    scrollLeft: container.scrollLeft,
+    maxScrollLeft,
+    deltaX: event.deltaX,
+    deltaY: event.deltaY,
+  });
+  if (!decision.consumed) return;
   event.preventDefault();
   event.stopPropagation();
-  container.scrollLeft = Math.max(0, Math.min(maxScrollLeft, container.scrollLeft + delta));
+  container.scrollLeft = decision.nextScrollLeft;
 }
 
 export function Reviews() {
-  const [reviews, setReviews] = useState<any[]>([]);
+  const [requestState, setRequestState] = useState<ReviewsRequestState<any>>(() => createInitialReviewsState<any>());
   const reviewsTrackRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = Boolean(useReducedMotion());
 
   useEffect(() => {
     axios.get('/api/reviews/public')
-      .then((res) => setReviews(Array.isArray(res.data) ? res.data : []))
-      .catch(() => setReviews([]));
+      .then((res) => setRequestState(createReviewsSuccessState(res.data)))
+      .catch(() => setRequestState(createReviewsErrorState()));
   }, []);
 
+  const reviews = requestState.reviews;
   const previewReviews = reviews.slice(0, 12);
+  const fallback = getReviewsFallback(requestState);
 
   useEffect(() => {
     const container = reviewsTrackRef.current;
@@ -55,13 +73,15 @@ export function Reviews() {
           </Link>
         </header>
 
-        {reviews.length === 0 ? (
-          <div className="mx-auto max-w-xl rounded-2xl border border-rule bg-paper-2 p-8 text-center text-muted shadow-whisper">Пока нет опубликованных отзывов.</div>
+        {fallback ? (
+          <div role={fallback.role} className={`mx-auto max-w-xl rounded-2xl border p-8 text-center shadow-whisper ${fallback.tone === 'error' ? 'border-error/25 bg-error-soft text-error' : 'border-rule bg-paper-2 text-muted'}`}>
+            {fallback.message}
+          </div>
         ) : (
           <div ref={reviewsTrackRef} aria-label="Отзывы пациентов" className="no-scrollbar -mx-5 cursor-grab touch-pan-x overflow-x-auto overflow-y-hidden px-5 pb-1 active:cursor-grabbing sm:-mx-8 sm:px-8">
             <div className="flex items-stretch gap-5">
               {previewReviews.map((review, index) => (
-                <motion.div key={review.id || review._id} className="w-[310px] shrink-0 sm:w-[360px] lg:w-[390px]" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.05 }}>
+                <motion.div key={review.id || review._id} className="w-[310px] shrink-0 sm:w-[360px] lg:w-[390px]" {...getHomeMotionProps(shouldReduceMotion, { opacity: 0, y: 20 }, { delay: index * 0.05 })} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                   <ReviewCard review={review} compact />
                 </motion.div>
               ))}

@@ -1,5 +1,5 @@
 ﻿import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { 
@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import * as styles from './Services.styles';
+import { getHomeMotionProps } from './home/home-behavior';
 
 
 const ICON_MAP: Record<string, any> = {
@@ -25,6 +26,7 @@ const ICON_MAP: Record<string, any> = {
 export function Services() {
  const [services, setServices] = useState<any[]>([]);
  const [loading, setLoading] = useState(true);
+ const shouldReduceMotion = Boolean(useReducedMotion());
 
  useEffect(() => {
  const fetchServices = async () => {
@@ -46,7 +48,7 @@ export function Services() {
  <div className={styles.header}>
  <div>
  <motion.div
- initial={{ opacity: 0, scale: 0.9 }}
+ {...getHomeMotionProps(shouldReduceMotion, { opacity: 0, scale: 0.9 }, {})}
  whileInView={{ opacity: 1, scale: 1 }}
  viewport={{ once: true }}
  className={styles.badge}
@@ -54,7 +56,7 @@ export function Services() {
  Наши услуги
  </motion.div>
  <motion.h2 
- initial={{ opacity: 0, y: 20 }}
+ {...getHomeMotionProps(shouldReduceMotion, { opacity: 0, y: 20 }, {})}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
  className={styles.title}
@@ -63,7 +65,7 @@ export function Services() {
  </motion.h2>
  </div>
  <motion.div
- initial={{ opacity: 0, x: 20 }}
+ {...getHomeMotionProps(shouldReduceMotion, { opacity: 0, x: 20 }, {})}
  whileInView={{ opacity: 1, x: 0 }}
  viewport={{ once: true }}
  >
@@ -91,10 +93,9 @@ export function Services() {
  return (
  <motion.div
  key={cat._id || index}
- initial={{ opacity: 0, y: 30 }}
+ {...getHomeMotionProps(shouldReduceMotion, { opacity: 0, y: 30 }, { delay: index * 0.1 })}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ delay: index * 0.1 }}
  >
  <Link to="/pricing" className={styles.card}>
  <div className={styles.iconWrapper}>

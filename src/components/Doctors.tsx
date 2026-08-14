@@ -1,5 +1,5 @@
 ﻿import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Award, ArrowRight, Plus, Star } from 'lucide-react';
@@ -22,6 +22,7 @@ interface Doctor {
 const API_URL = '/api';
 import { FALLBACK_DOCTORS } from '@/fallbackData';
 import * as styles from './Doctors.styles';
+import { getHomeMotionProps, openDoctorBooking } from './home/home-behavior';
 
 
 export function Doctors() {
@@ -29,6 +30,7 @@ export function Doctors() {
  const [loading, setLoading] = useState(true);
  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
  const { openBooking } = useBooking();
+ const shouldReduceMotion = Boolean(useReducedMotion());
 
  useEffect(() => {
  const fetchDoctors = async () => {
@@ -76,7 +78,7 @@ export function Doctors() {
  <div className={styles.headerRow}>
  <div className={styles.headerContent}>
  <motion.div
- initial={{ opacity: 0, scale: 0.9 }}
+ {...getHomeMotionProps(shouldReduceMotion, { opacity: 0, scale: 0.9 }, {})}
  whileInView={{ opacity: 1, scale: 1 }}
  viewport={{ once: true }}
  className={styles.badge}
@@ -85,7 +87,7 @@ export function Doctors() {
  Наши эксперты
  </motion.div>
  <motion.h2 
- initial={{ opacity: 0, y: 20 }}
+ {...getHomeMotionProps(shouldReduceMotion, { opacity: 0, y: 20 }, {})}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
  className={styles.title}
@@ -93,10 +95,9 @@ export function Doctors() {
  Познакомьтесь с <span className={styles.titleSpan}>профессионалами</span>
  </motion.h2>
  <motion.p 
- initial={{ opacity: 0, y: 20 }}
+ {...getHomeMotionProps(shouldReduceMotion, { opacity: 0, y: 20 }, { delay: 0.1 })}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ delay: 0.1 }}
  className={styles.desc}
  >
  Команда FamilyDent — это врачи высшей категории, которые любят свою работу и искренне заботятся о здоровье ваших зубов.
@@ -104,7 +105,7 @@ export function Doctors() {
  </div>
  
  <motion.div
- initial={{ opacity: 0, x: 20 }}
+ {...getHomeMotionProps(shouldReduceMotion, { opacity: 0, x: 20 }, {})}
  whileInView={{ opacity: 1, x: 0 }}
  viewport={{ once: true }}
  className="hidden md:block"
@@ -122,10 +123,9 @@ export function Doctors() {
  {doctors.map((doctor, index) => (
  <motion.div
  key={doctor._id}
- initial={{ opacity: 0, y: 30 }}
+ {...getHomeMotionProps(shouldReduceMotion, { opacity: 0, y: 30 }, { delay: index * 0.1 })}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
- transition={{ delay: index * 0.1 }}
  >
  <Card className={styles.card}>
  <button
@@ -191,7 +191,7 @@ export function Doctors() {
  </div>
 
  <motion.div 
- initial={{ opacity: 0, y: 20 }}
+ {...getHomeMotionProps(shouldReduceMotion, { opacity: 0, y: 20 }, {})}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={{ once: true }}
  className="mt-12 md:hidden"
@@ -210,8 +210,10 @@ export function Doctors() {
  isOpen={!!selectedDoctor}
  onClose={() => setSelectedDoctor(null)}
  onBooking={(doctorId) => {
- setSelectedDoctor(null);
- openBooking(doctorId);
+ openDoctorBooking(doctorId, {
+ closeDetail: () => setSelectedDoctor(null),
+ openBooking,
+ });
  }}
  />
  </>

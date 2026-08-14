@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useInView, useReducedMotion } from 'motion/react';
 import { ClinicBackgroundMedia } from '@/components/media/clinic-background-media';
 import { clinicMetrics } from '@/lib/reference-content/metrics';
+import { shouldMountClinicVideo } from './home-behavior';
 
 type NetworkInformation = {
   saveData?: boolean;
@@ -24,7 +25,12 @@ export function ClinicMetricsSection() {
     return () => connection?.removeEventListener?.('change', updateSaveData);
   }, []);
 
-  const shouldMountVideo = isInView && !shouldReduceMotion && !saveData && !mediaFailed;
+  const shouldMountVideo = shouldMountClinicVideo({
+    isInView,
+    reduceMotion: Boolean(shouldReduceMotion),
+    saveData,
+    mediaFailed,
+  });
 
   return (
     <section ref={sectionRef} className="relative flex min-h-[720px] w-full flex-col justify-between overflow-hidden bg-ink bg-[url('/images/clinic_about.jpg')] bg-cover bg-center px-5 py-12 text-white sm:px-8 sm:py-14 lg:min-h-[760px] lg:px-12 lg:py-16">
@@ -53,12 +59,14 @@ export function ClinicMetricsSection() {
         {clinicMetrics.map((metric) => (
           <div key={metric.id} className="flex min-h-40 flex-col justify-between rounded-2xl border border-white/15 bg-white/10 p-5 text-white shadow-xl backdrop-blur-md transition-colors hover:bg-white/15 sm:p-6">
             <div>
-              <dd className="flex items-baseline gap-1 font-mono text-3xl font-bold tracking-tight sm:text-4xl lg:text-[2.85rem]">
-                {metric.prefix}{metric.value}<span className="text-accent-2">{metric.suffix}</span>
-              </dd>
               <dt className="mt-3 font-display text-sm font-medium leading-snug text-white/85 sm:text-base">{metric.label}</dt>
+              <dd className="mt-3">
+                <span className="flex items-baseline gap-1 font-mono text-3xl font-bold tracking-tight sm:text-4xl lg:text-[2.85rem]">
+                  {metric.prefix}{metric.value}<span className="text-accent-2">{metric.suffix}</span>
+                </span>
+                {metric.description ? <span className="mt-4 block text-xs leading-relaxed text-white/60">{metric.description}</span> : null}
+              </dd>
             </div>
-            {metric.description ? <p className="mt-4 text-xs leading-relaxed text-white/60">{metric.description}</p> : null}
           </div>
         ))}
       </dl>
