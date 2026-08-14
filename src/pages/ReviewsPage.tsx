@@ -6,6 +6,7 @@ import { EditorialPageHero } from '@/components/shared/editorial-page-hero';
 import { ReviewCard } from '@/components/ReviewCard';
 import { useAuth } from '@/context/AuthContext';
 import { getDisplayDoctorName } from '@/utils/doctorName';
+import { getReviewSubmissionError, resolveAvailableReviewAppointments, submitReviewForModeration } from './public-pages-behavior';
 
 export function ReviewsPage() {
   const { user } = useAuth();
@@ -31,9 +32,9 @@ export function ReviewsPage() {
     if (!user) return;
     try {
       const response = await axios.get('/api/reviews/my-available-appointments');
-      const items = Array.isArray(response.data) ? response.data : [];
-      setAvailable(items);
-      if (items[0]) setForm((previous) => ({ ...previous, appointmentId: previous.appointmentId || items[0]._id || items[0].id }));
+      const result = resolveAvailableReviewAppointments(response.data, form.appointmentId);
+      setAvailable(result.appointments);
+      setForm((previous) => ({ ...previous, appointmentId: previous.appointmentId || result.appointmentId }));
     } catch {
       setAvailable([]);
     }
@@ -44,12 +45,12 @@ export function ReviewsPage() {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    if (!form.appointmentId) return toast.error('Выберите завершенный прием');
-    if (form.text.trim().length < 10) return toast.error('Напишите отзыв не короче 10 символов');
+    const validationError = getReviewSubmissionError(form);
+    if (validationError) return toast.error(validationError);
 
     setSubmitting(true);
     try {
-      await axios.post('/api/reviews', form);
+      await submitReviewForModeration(form, (endpoint, payload) => axios.post(endpoint, payload));
       toast.success('Спасибо! Ваш отзыв отправлен на модерацию.');
       setForm({ appointmentId: '', text: '', rating: 5 });
       await Promise.all([fetchAvailable(), fetchReviews()]);

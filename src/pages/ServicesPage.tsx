@@ -5,6 +5,7 @@ import { EditorialPageHero } from '@/components/shared/editorial-page-hero';
 import { ScrollAnimate } from '@/components/shared/scroll-animate';
 import { useBooking } from '@/context/BookingContext';
 import { FALLBACK_SERVICES } from '@/fallbackData';
+import { resolveFailedServices, resolveSuccessfulServices } from './public-pages-behavior';
 import * as styles from './ServicesPage.styles';
 
 interface CategoryService {
@@ -22,10 +23,10 @@ export function ServicesPage() {
     const fetchServices = async () => {
       try {
         const response = await axios.get('/api/services');
-        setCategories(Array.isArray(response.data) && response.data.length > 0 ? response.data : FALLBACK_SERVICES);
+        setCategories(resolveSuccessfulServices(response.data, FALLBACK_SERVICES));
       } catch (error) {
         console.error('Ошибка загрузки услуг, используем резервные данные:', error);
-        setCategories(FALLBACK_SERVICES);
+        setCategories(resolveFailedServices(FALLBACK_SERVICES));
       } finally {
         setLoading(false);
       }

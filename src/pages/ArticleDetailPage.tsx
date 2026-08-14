@@ -4,6 +4,7 @@ import { Calendar, ChevronLeft, Facebook, Link2, Loader2, Twitter, User } from '
 import { Link, useParams } from 'react-router-dom';
 import { EditorialPageHero } from '@/components/shared/editorial-page-hero';
 import { MOCK_ARTICLES } from '@/data/mockData';
+import { buildArticleEndpoint, buildArticleShareUrls, copyArticleUrl } from './public-pages-behavior';
 
 export function ArticleDetailPage() {
   const { id } = useParams();
@@ -16,7 +17,7 @@ export function ArticleDetailPage() {
     const fetchArticle = async () => {
       if (!id) { setNotFound(true); setLoading(false); return; }
       try {
-        const response = await axios.get(`/api/articles/${id}`);
+        const response = await axios.get(buildArticleEndpoint(id));
         setPost(response.data);
         setNotFound(false);
       } catch {
@@ -38,24 +39,27 @@ export function ArticleDetailPage() {
   const content = post.content || post.excerpt || '';
   const articleUrl = window.location.href;
   const shareTitle = post.title || 'Статья FamilyDent';
+  const shareUrls = buildArticleShareUrls(articleUrl, shareTitle);
   const openShareWindow = (url: string) => window.open(url, '_blank', 'noopener,noreferrer,width=640,height=520');
-  const shareOnFacebook = () => openShareWindow(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl)}`);
-  const shareOnTwitter = () => openShareWindow(`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(shareTitle)}`);
+  const shareOnFacebook = () => openShareWindow(shareUrls.facebook);
+  const shareOnTwitter = () => openShareWindow(shareUrls.twitter);
   const copyArticleLink = async () => {
     try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(articleUrl);
-      } else {
-        const textarea = document.createElement('textarea');
-        textarea.value = articleUrl;
-        textarea.setAttribute('readonly', '');
-        textarea.style.position = 'fixed';
-        textarea.style.left = '-9999px';
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-      }
+      await copyArticleUrl(articleUrl, {
+        secureContext: Boolean(navigator.clipboard && window.isSecureContext),
+        writeClipboard: (value) => navigator.clipboard.writeText(value),
+        fallbackCopy: (value) => {
+          const textarea = document.createElement('textarea');
+          textarea.value = value;
+          textarea.setAttribute('readonly', '');
+          textarea.style.position = 'fixed';
+          textarea.style.left = '-9999px';
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+        },
+      });
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
     } catch (error) {

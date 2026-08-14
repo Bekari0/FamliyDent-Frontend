@@ -3,17 +3,20 @@ import axios from 'axios';
 import { Award, Calendar, ChevronLeft, GraduationCap, History, Loader2, Star } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { EditorialPageHero } from '@/components/shared/editorial-page-hero';
+import { useBooking } from '@/context/BookingContext';
+import { bookDoctorDetail, buildDoctorEndpoint } from './public-pages-behavior';
 import * as styles from './DoctorDetailPage.styles';
 
 export function DoctorDetailPage() {
   const { id } = useParams();
   const [doctor, setDoctor] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const { openBooking } = useBooking();
 
   useEffect(() => {
     const fetchDoctor = async () => {
       try {
-        const response = await axios.get(`/api/doctors/${id}`);
+        const response = await axios.get(buildDoctorEndpoint(id || ''));
         setDoctor(response.data);
       } catch (error) {
         console.error('Error fetching doctor:', error);
@@ -41,7 +44,7 @@ export function DoctorDetailPage() {
               <img src={doctor.image} alt={doctor.name} className={styles.image} loading="eager" decoding="async" />
               <div className={styles.rating}><Star className="h-4 w-4 fill-current" aria-hidden="true" /><span>5.0</span><span className="text-white/55">по отзывам пациентов</span></div>
             </div>
-            <Link to={`/book?doctorId=${doctor._id || doctor.id}`} className={styles.bookButton}><Calendar className="h-4 w-4" aria-hidden="true" />Записаться на прием</Link>
+            <button type="button" onClick={() => bookDoctorDetail(doctor._id || doctor.id, openBooking)} className={styles.bookButton}><Calendar className="h-4 w-4" aria-hidden="true" />Записаться на прием</button>
             <Link to="/contact" className={styles.questionButton}>Задать вопрос</Link>
           </div>
 

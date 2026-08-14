@@ -30,7 +30,7 @@ export function PricingPage() {
                 <dl className={styles.listWrapper}>
                   {services.map((service) => (
                     <div key={service.id} className={styles.serviceItem}>
-                      <div><dt className={styles.serviceTitle}>{service.title}</dt><dd className={styles.serviceMeta}>Длительность: {service.duration} мин · Гарантия FamilyDent</dd></div>
+                      <dt><span className={styles.serviceTitle}>{service.title}</span><span className={styles.serviceMeta}>Длительность: {service.duration} мин · Гарантия FamilyDent</span></dt>
                       <dd className={styles.priceRow}><span className={styles.pricePrefix}>от</span><span className={styles.priceValue}>{service.price}</span><span className={styles.priceCurrency}>TJS</span></dd>
                     </div>
                   ))}

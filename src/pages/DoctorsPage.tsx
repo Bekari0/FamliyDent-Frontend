@@ -6,6 +6,7 @@ import { EditorialPageHero } from '@/components/shared/editorial-page-hero';
 import { ScrollAnimate } from '@/components/shared/scroll-animate';
 import { useBooking } from '@/context/BookingContext';
 import { FALLBACK_DOCTORS } from '@/fallbackData';
+import { openDoctorBooking } from '@/components/home/home-behavior';
 import * as styles from './DoctorsPage.styles';
 
 interface Doctor {
@@ -112,7 +113,7 @@ export function DoctorsPage() {
         doctor={selectedDoctor}
         isOpen={Boolean(selectedDoctor)}
         onClose={() => setSelectedDoctor(null)}
-        onBooking={(doctorId) => { setSelectedDoctor(null); openBooking(doctorId); }}
+        onBooking={(doctorId) => openDoctorBooking(doctorId, { closeDetail: () => setSelectedDoctor(null), openBooking })}
       />
     </main>
   );
