@@ -20,6 +20,55 @@ export interface ReviewSubmissionForm {
   rating: number;
 }
 
+export type PublicCollectionResource = 'doctors' | 'services' | 'reviews' | 'articles';
+export type CollectionRenderState = 'loading' | 'error' | 'empty' | 'content';
+export type DetailRenderState = 'loading' | 'not-found' | 'content';
+
+const PUBLIC_COLLECTION_ENDPOINTS: Record<PublicCollectionResource, string> = {
+  doctors: '/api/doctors',
+  services: '/api/services',
+  reviews: '/api/reviews/public',
+  articles: '/api/articles',
+};
+
+export async function fetchPublicCollection<T>(
+  resource: PublicCollectionResource,
+  get: (endpoint: string) => Promise<{ data: T }>,
+) {
+  const response = await get(PUBLIC_COLLECTION_ENDPOINTS[resource]);
+  return response.data;
+}
+
+export function getCollectionRenderState<T>({
+  loading,
+  error,
+  items,
+}: {
+  loading: boolean;
+  error: boolean;
+  items: T[];
+}): CollectionRenderState {
+  if (loading) return 'loading';
+  if (error) return 'error';
+  return items.length === 0 ? 'empty' : 'content';
+}
+
+export function findServiceById<T extends { id: string }>(services: T[], id: string | undefined) {
+  if (!id) return null;
+  return services.find((service) => service.id === id) ?? null;
+}
+
+export function getDetailRenderState<T>({
+  loading,
+  item,
+}: {
+  loading: boolean;
+  item: T | null | undefined;
+}): DetailRenderState {
+  if (loading) return 'loading';
+  return item ? 'content' : 'not-found';
+}
+
 export function resolveSuccessfulServices(data: unknown, _fallback: PublicServiceCategory[]) {
   return Array.isArray(data) ? data as PublicServiceCategory[] : [];
 }

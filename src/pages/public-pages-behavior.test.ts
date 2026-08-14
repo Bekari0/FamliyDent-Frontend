@@ -1,11 +1,16 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import * as pricingStyles from './PricingPage.styles';
 import {
   bookDoctorDetail,
   buildArticleEndpoint,
   buildArticleShareUrls,
   buildDoctorEndpoint,
   copyArticleUrl,
+  fetchPublicCollection,
+  findServiceById,
+  getCollectionRenderState,
+  getDetailRenderState,
   getReviewSubmissionError,
   resolveAvailableReviewAppointments,
   resolveFailedServices,
@@ -13,6 +18,48 @@ import {
   submitContactRequest,
   submitReviewForModeration,
 } from './public-pages-behavior';
+
+test('public listing requests preserve their exact API endpoints and response data', async () => {
+  const cases = [
+    ['doctors', '/api/doctors'],
+    ['services', '/api/services'],
+    ['reviews', '/api/reviews/public'],
+    ['articles', '/api/articles'],
+  ] as const;
+
+  for (const [resource, expectedEndpoint] of cases) {
+    let requestedEndpoint = '';
+    const result = await fetchPublicCollection(resource, async (endpoint: string) => {
+      requestedEndpoint = endpoint;
+      return { data: [{ resource }] };
+    });
+    assert.equal(requestedEndpoint, expectedEndpoint);
+    assert.deepEqual(result, [{ resource }]);
+  }
+});
+
+test('public listing render states prioritize loading and errors before empty and content', () => {
+  assert.equal(getCollectionRenderState({ loading: true, error: true, items: [] }), 'loading');
+  assert.equal(getCollectionRenderState({ loading: false, error: true, items: [{ id: '1' }] }), 'error');
+  assert.equal(getCollectionRenderState({ loading: false, error: false, items: [] }), 'empty');
+  assert.equal(getCollectionRenderState({ loading: false, error: false, items: [{ id: '1' }] }), 'content');
+});
+
+test('service detail lookup and detail render states preserve route-param not-found behavior', () => {
+  const services = [{ id: 'cleaning', title: 'Cleaning' }, { id: 'implant', title: 'Implant' }];
+
+  assert.equal(findServiceById(services, 'implant'), services[1]);
+  assert.equal(findServiceById(services, 'missing'), null);
+  assert.equal(findServiceById(services, undefined), null);
+  assert.equal(getDetailRenderState({ loading: true, item: null }), 'loading');
+  assert.equal(getDetailRenderState({ loading: false, item: null }), 'not-found');
+  assert.equal(getDetailRenderState({ loading: false, item: services[0] }), 'content');
+});
+
+test('pricing definition labels and metadata retain vertical block layout', () => {
+  assert.match(pricingStyles.serviceTitle, /(^|\s)block(\s|$)/);
+  assert.match(pricingStyles.serviceMeta, /(^|\s)block(\s|$)/);
+});
 
 test('successful empty services response stays empty while failure uses fallback', () => {
   const fallback = [{ _id: 'fallback', category: 'Fallback', services: ['Fallback'] }];

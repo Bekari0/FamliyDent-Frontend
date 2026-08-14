@@ -7,6 +7,7 @@ import { ScrollAnimate } from '@/components/shared/scroll-animate';
 import { useBooking } from '@/context/BookingContext';
 import { FALLBACK_DOCTORS } from '@/fallbackData';
 import { openDoctorBooking } from '@/components/home/home-behavior';
+import { fetchPublicCollection, getCollectionRenderState } from './public-pages-behavior';
 import * as styles from './DoctorsPage.styles';
 
 interface Doctor {
@@ -32,8 +33,8 @@ export function DoctorsPage() {
       try {
         setLoading(true);
         setError(null);
-        const response = await axios.get<Doctor[]>('/api/doctors');
-        const data = Array.isArray(response.data) ? response.data : [];
+        const responseData = await fetchPublicCollection<Doctor[]>('doctors', (endpoint) => axios.get<Doctor[]>(endpoint));
+        const data = Array.isArray(responseData) ? responseData : [];
         setDoctors(data.length > 0 ? data : FALLBACK_DOCTORS as unknown as Doctor[]);
       } catch (error) {
         console.error('Ошибка загрузки врачей, используем резервные данные:', error);
@@ -47,6 +48,8 @@ export function DoctorsPage() {
     fetchDoctors();
   }, []);
 
+  const renderState = getCollectionRenderState({ loading, error: Boolean(error), items: doctors });
+
   return (
     <main className={styles.page} data-ui="editorial-page">
       <EditorialPageHero
@@ -57,11 +60,11 @@ export function DoctorsPage() {
       />
 
       <div className={styles.container}>
-        {loading ? (
+        {renderState === 'loading' ? (
           <div className={styles.state} role="status"><Loader2 className={styles.loader} aria-hidden="true" /><span>Загрузка врачей...</span></div>
-        ) : error ? (
+        ) : renderState === 'error' ? (
           <div className={styles.state} role="alert"><span>{error}</span><button type="button" onClick={() => window.location.reload()} className={styles.retryButton}>Попробовать снова</button></div>
-        ) : doctors.length === 0 ? (
+        ) : renderState === 'empty' ? (
           <div className={styles.state}>Информация о врачах пока не опубликована.</div>
         ) : (
           <section className={styles.grid} aria-label="Команда врачей FamilyDent">

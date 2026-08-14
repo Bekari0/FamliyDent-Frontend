@@ -4,25 +4,31 @@ import { ArrowRight, Calendar, Loader2, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { EditorialPageHero } from '@/components/shared/editorial-page-hero';
 import { ScrollAnimate } from '@/components/shared/scroll-animate';
+import { fetchPublicCollection, getCollectionRenderState } from './public-pages-behavior';
 import * as styles from './BlogPage.styles';
 
 export function BlogPage() {
   const [articles, setArticles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await axios.get('/api/articles');
-        setArticles(Array.isArray(response.data) ? response.data : []);
+        setError(null);
+        const data = await fetchPublicCollection<unknown>('articles', (endpoint) => axios.get(endpoint));
+        setArticles(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error('Error fetching articles:', error);
+        setError('Не удалось загрузить статьи.');
       } finally {
         setLoading(false);
       }
     };
     fetchArticles();
   }, []);
+
+  const renderState = getCollectionRenderState({ loading, error: Boolean(error), items: articles });
 
   return (
     <main className={styles.page} data-ui="editorial-page">
@@ -33,9 +39,11 @@ export function BlogPage() {
       />
 
       <div className={styles.container}>
-        {loading ? (
+        {renderState === 'loading' ? (
           <div className={styles.state} role="status"><Loader2 className={styles.loader} aria-hidden="true" />Загрузка статей...</div>
-        ) : articles.length === 0 ? (
+        ) : renderState === 'error' ? (
+          <div className={styles.state} role="alert">{error}</div>
+        ) : renderState === 'empty' ? (
           <div className={styles.state}>Статьи пока не опубликованы.</div>
         ) : (
           <section className={styles.grid} aria-label="Статьи FamilyDent">

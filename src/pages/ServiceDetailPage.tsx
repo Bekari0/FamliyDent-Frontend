@@ -2,12 +2,14 @@ import { useParams, Link } from 'react-router-dom';
 import { Banknote, Calendar, CheckCircle2, ChevronLeft, Clock, ShieldCheck } from 'lucide-react';
 import { EditorialPageHero } from '@/components/shared/editorial-page-hero';
 import { MOCK_SERVICES } from '@/data/mockData';
+import { findServiceById, getDetailRenderState } from './public-pages-behavior';
 
 export function ServiceDetailPage() {
   const { id } = useParams();
-  const service = MOCK_SERVICES.find((item) => item.id === id);
+  const service = findServiceById(MOCK_SERVICES, id);
+  const renderState = getDetailRenderState({ loading: false, item: service });
 
-  if (!service) {
+  if (renderState === 'not-found' || !service) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center bg-paper px-5 text-center text-ink">
         <h1 className="font-display text-2xl font-bold">Услуга не найдена</h1>

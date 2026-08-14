@@ -6,22 +6,25 @@ import { EditorialPageHero } from '@/components/shared/editorial-page-hero';
 import { ReviewCard } from '@/components/ReviewCard';
 import { useAuth } from '@/context/AuthContext';
 import { getDisplayDoctorName } from '@/utils/doctorName';
-import { getReviewSubmissionError, resolveAvailableReviewAppointments, submitReviewForModeration } from './public-pages-behavior';
+import { fetchPublicCollection, getCollectionRenderState, getReviewSubmissionError, resolveAvailableReviewAppointments, submitReviewForModeration } from './public-pages-behavior';
 
 export function ReviewsPage() {
   const { user } = useAuth();
   const [reviews, setReviews] = useState<any[]>([]);
   const [available, setAvailable] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({ appointmentId: '', text: '', rating: 5 });
 
   const fetchReviews = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('/api/reviews/public');
-      setReviews(Array.isArray(response.data) ? response.data : []);
+      setLoadError(null);
+      const data = await fetchPublicCollection<unknown>('reviews', (endpoint) => axios.get(endpoint));
+      setReviews(Array.isArray(data) ? data : []);
     } catch {
+      setLoadError('Не удалось загрузить отзывы');
       toast.error('Не удалось загрузить отзывы');
     } finally {
       setLoading(false);
@@ -60,6 +63,8 @@ export function ReviewsPage() {
       setSubmitting(false);
     }
   };
+
+  const renderState = getCollectionRenderState({ loading, error: Boolean(loadError), items: reviews });
 
   return (
     <main className="min-h-screen bg-paper pb-20 text-ink" data-ui="editorial-page">
@@ -116,9 +121,11 @@ export function ReviewsPage() {
           </form>
         )}
 
-        {loading ? (
+        {renderState === 'loading' ? (
           <div className="flex min-h-64 items-center justify-center gap-3 rounded-3xl border border-rule bg-surface text-sm text-editorial-muted" role="status"><Loader2 className="h-8 w-8 animate-spin text-accent" />Загрузка отзывов...</div>
-        ) : reviews.length === 0 ? (
+        ) : renderState === 'error' ? (
+          <div className="rounded-3xl border border-rule bg-surface p-10 text-center text-sm text-editorial-muted" role="alert">{loadError}</div>
+        ) : renderState === 'empty' ? (
           <div className="rounded-3xl border border-rule bg-surface p-10 text-center text-sm text-editorial-muted">Пока нет опубликованных отзывов.</div>
         ) : (
           <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3" aria-label="Отзывы пациентов">
