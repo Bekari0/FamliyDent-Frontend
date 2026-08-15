@@ -31,8 +31,10 @@ test("primary navigation exposes booking-safe public destinations", () => {
   assert.ok(PRIMARY_NAV_ITEMS.some((item) => item.href === "/contacts"));
 });
 
-test("keeps reference-only routes in the 404 state until pages are rendered", () => {
+test("recognizes approved reference routes as rendered pages", () => {
   assert.equal(isKnownRoute("/results"), true);
-  assert.equal(isRenderedRoute("/results"), false);
+  for (const route of requiredReferenceRoutes) {
+    assert.equal(isRenderedRoute(route), true, route);
+  }
   assert.equal(isRenderedRoute("/services/cleaning"), true);
 });

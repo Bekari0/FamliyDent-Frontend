@@ -34,7 +34,7 @@ export function ForgotPasswordPage() {
 
  {sent ? (
  <div className="text-center space-y-6">
- <CheckCircle className="w-16 h-16 text-green-500 mx-auto" />
+ <CheckCircle className="w-16 h-16 text-accent mx-auto" />
  <h1 className="text-2xl font-bold">Проверьте почту</h1>
  <p className="text-text-secondary">Мы отправили ссылку для сброса пароля на <b>{email}</b></p>
  <Button asChild variant="outline" className="w-full h-14 rounded-2xl">

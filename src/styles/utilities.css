@@ -64,13 +64,13 @@
  }
 
  .emerald-gradient-text {
-  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-trust) 50%, var(--color-ink) 100%);
+  background: linear-gradient(135deg, var(--color-accent-2) 0%, var(--color-accent) 50%, var(--color-ink) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
  }
 
  .accent-gradient-text {
-  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-trust) 100%);
+  background: linear-gradient(135deg, var(--color-accent-2) 0%, var(--color-accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
  }

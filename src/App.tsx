@@ -26,6 +26,13 @@ const BlogPage = lazy(() => import("./pages/BlogPage").then((m) => ({ default: m
 const ArticleDetailPage = lazy(() => import("./pages/ArticleDetailPage").then((m) => ({ default: m.ArticleDetailPage })));
 const FAQPage = lazy(() => import("./pages/FAQPage").then((m) => ({ default: m.FAQPage })));
 const ContactPage = lazy(() => import("./pages/ContactPage").then((m) => ({ default: m.ContactPage })));
+const PeoplePage = lazy(() => import("./pages/PeoplePage").then((m) => ({ default: m.PeoplePage })));
+const ClinicTourPage = lazy(() => import("./pages/ClinicTourPage").then((m) => ({ default: m.ClinicTourPage })));
+const EquipmentPage = lazy(() => import("./pages/EquipmentPage").then((m) => ({ default: m.EquipmentPage })));
+const ResultsPage = lazy(() => import("./pages/ResultsPage").then((m) => ({ default: m.ResultsPage })));
+const TourismPage = lazy(() => import("./pages/TourismPage").then((m) => ({ default: m.TourismPage })));
+const AcademyPage = lazy(() => import("./pages/AcademyPage").then((m) => ({ default: m.AcademyPage })));
+const ContactsPage = lazy(() => import("./pages/ContactsPage").then((m) => ({ default: m.ContactsPage })));
 const LoginPage = lazy(() => import("./pages/LoginPage").then((m) => ({ default: m.LoginPage })));
 const RegisterPage = lazy(() => import("./pages/RegisterPage").then((m) => ({ default: m.RegisterPage })));
 const ProfilePage = lazy(() => import("./pages/ProfilePage").then((m) => ({ default: m.ProfilePage })));
@@ -110,6 +117,13 @@ function AppContent() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/people" element={<PeoplePage />} />
+          <Route path="/about/clinic-tour" element={<ClinicTourPage />} />
+          <Route path="/about/equipment" element={<EquipmentPage />} />
+          <Route path="/results" element={<ResultsPage />} />
+          <Route path="/tourism" element={<TourismPage />} />
+          <Route path="/academy" element={<AcademyPage />} />
+          <Route path="/contacts" element={<ContactsPage />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/reviews" element={<ReviewsPage />} />
           <Route path="/pricing" element={<PricingPage />} />

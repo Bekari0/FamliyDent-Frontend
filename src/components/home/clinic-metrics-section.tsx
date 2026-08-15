@@ -33,7 +33,7 @@ export function ClinicMetricsSection() {
   });
 
   return (
-    <section ref={sectionRef} className="relative flex min-h-[720px] w-full flex-col justify-between overflow-hidden bg-ink bg-[url('/images/clinic_about.jpg')] bg-cover bg-center px-5 py-12 text-white sm:px-8 sm:py-14 lg:min-h-[760px] lg:px-12 lg:py-16">
+    <section ref={sectionRef} className="relative flex min-h-[100svh] w-full flex-col justify-between overflow-hidden bg-ink bg-[url('/images/clinic_about.jpg')] bg-cover bg-center px-5 py-16 text-white sm:px-8 sm:py-20 lg:px-12 lg:py-24">
       {shouldMountVideo ? <ClinicBackgroundMedia visible onError={() => setMediaFailed(true)} /> : null}
       <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
 

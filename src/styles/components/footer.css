@@ -1,4 +1,4 @@
-/* Dark editorial footer */
+/* Подвал сайта */
 .footer-main {
   @apply border-t border-rule/20 bg-ink px-5 py-12 text-paper/70 sm:px-8 sm:py-16;
 }

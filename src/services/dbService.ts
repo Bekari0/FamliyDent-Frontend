@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_URL = '/api';
 
-// Создаем экземпляр axios с адресом относительно текущего домена
+// Создаём клиент Axios с адресом относительно текущего домена.
 const api = axios.create({
  baseURL: API_URL
 });

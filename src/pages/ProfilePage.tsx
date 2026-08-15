@@ -169,14 +169,14 @@ export function ProfilePage() {
  }
 
  return (
- <div className="min-h-screen bg-white pb-16">
- <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
- <div className="flex items-center justify-between mb-8">
+ <div className="min-h-screen bg-white pb-16 pt-24 sm:pt-28">
+ <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8 xl:px-10">
+ <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
  <Link to="/" className="inline-flex items-center gap-2 text-slate-500 hover:text-primary transition-colors text-sm font-medium px-4 py-2 rounded-xl hover:bg-slate-50">
  <ChevronRight className="w-4 h-4 rotate-180" />
  Вернуться на главную
  </Link>
- <div className="flex gap-3">
+ <div className="flex flex-wrap gap-3">
  {isAdmin && (
  <Link to="/admin" className="h-11 px-5 rounded-xl border border-primary/20 text-primary font-bold text-sm hover:bg-primary/5 transition-all flex items-center">
  Админ-панель
@@ -188,8 +188,8 @@ export function ProfilePage() {
  </div>
  </div>
 
- <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-6">
- <section className="bg-white rounded-xl shadow-md border border-slate-100 p-6 sm:p-8">
+ <div className="grid gap-6 lg:grid-cols-[minmax(360px,0.85fr)_minmax(0,1.75fr)] xl:gap-8">
+ <section className="min-w-0 bg-white rounded-xl shadow-md border border-slate-100 p-6 sm:p-8 lg:p-10">
  <div className="relative w-28 h-28 mx-auto mb-6 cursor-pointer group" onClick={() => fileInputRef.current?.click()}>
  {user.photoURL ? (
  <img src={user.photoURL} alt={user.displayName} className="w-full h-full rounded-2xl object-cover border-4 border-white shadow-lg" />
@@ -243,13 +243,13 @@ export function ProfilePage() {
  </button>
  </section>
 
- <div className="space-y-6">
+ <div className="min-w-0 space-y-6">
  <div className="grid sm:grid-cols-2 gap-4">
  <QuickLink title="Мои записи" desc="Все приемы" icon={CalendarDays} to="/profile/bookings" />
  <QuickLink title="Мед. карта" desc="История лечения" icon={Shield} to="/profile/records" />
  </div>
 
- <section className="bg-white rounded-xl shadow-md border border-slate-100 p-6">
+ <section className="bg-white rounded-xl shadow-md border border-slate-100 p-6 sm:p-8">
  <div className="flex items-center gap-3 mb-5">
  <div className="w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
  <MailCheck className="w-5 h-5" />
@@ -275,7 +275,7 @@ export function ProfilePage() {
  )}
  </section>
 
- <section className="bg-white rounded-xl shadow-md border border-slate-100 p-6">
+ <section className="bg-white rounded-xl shadow-md border border-slate-100 p-6 sm:p-8">
  <div className="flex items-center gap-3 mb-5">
  <div className="w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
  <Bell className="w-5 h-5" />

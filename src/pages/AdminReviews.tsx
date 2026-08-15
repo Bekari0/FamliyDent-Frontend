@@ -99,7 +99,7 @@ export function AdminReviews() {
  <div className="mt-1"><span className="font-bold text-slate-900">Врач:</span> {getDisplayDoctorName(review)}</div>
  </div>
  <div className="flex gap-2 mt-5">
- <Button onClick={() => action(review._id || review.id, 'approve')} className="h-10 flex-1 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white">
+ <Button onClick={() => action(review._id || review.id, 'approve')} className="h-10 flex-1 rounded-xl bg-accent text-accent-ink hover:bg-accent-2">
  <Check className="w-4 h-4 mr-1" /> Одобрить
  </Button>
  <Button onClick={() => action(review._id || review.id, 'reject')} variant="outline" className="h-10 rounded-xl">

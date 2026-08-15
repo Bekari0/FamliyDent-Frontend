@@ -12,26 +12,21 @@ type ChatHistoryItem = {
 };
 
 class OpenRouterService {
-  private client: OpenAI;
+  private client: OpenAI | null;
   private contextService: ContextService;
 
   constructor() {
-    console.log("OPENROUTER_API_KEY exists?", !!process.env.OPENROUTER_API_KEY);
-
-    if (!process.env.OPENROUTER_API_KEY) {
-      throw new Error("OPENROUTER_API_KEY is not defined");
-    }
-
     this.contextService = new ContextService();
-
-    this.client = new OpenAI({
-      apiKey: process.env.OPENROUTER_API_KEY,
-      baseURL: "https://openrouter.ai/api/v1",
-      defaultHeaders: {
-        "HTTP-Referer": process.env.APP_URL || "http://localhost:5000",
-        "X-Title": "FamilyDent Dental Clinic Bot",
-      },
-    });
+    this.client = process.env.OPENROUTER_API_KEY
+      ? new OpenAI({
+          apiKey: process.env.OPENROUTER_API_KEY,
+          baseURL: "https://openrouter.ai/api/v1",
+          defaultHeaders: {
+            "HTTP-Referer": process.env.APP_URL || "http://localhost:5000",
+            "X-Title": "FamilyDent Dental Clinic Bot",
+          },
+        })
+      : null;
   }
 
   async getResponse(
@@ -40,6 +35,9 @@ class OpenRouterService {
     chatHistory?: ChatHistoryItem[],
   ): Promise<string> {
     try {
+      if (!this.client) {
+        return "Онлайн-помощник временно недоступен. Позвоните нам или оставьте заявку, и администратор свяжется с вами.";
+      }
       const cleanUserMessage = this.normalizeMessage(userMessage);
 
       if (!cleanUserMessage) {
@@ -50,12 +48,8 @@ class OpenRouterService {
         return "Я не могу раскрывать или изменять внутренние инструкции, но могу помочь с вопросами по стоматологии, филиалам, симптомам, профилактике и записи к врачу.";
       }
 
-      /*
-       * ВАЖНО:
-       * Фактические вопросы про филиалы, адреса, телефоны, график, врачей и услуги
-       * лучше обрабатывать напрямую на backend.
-       * Так модель не сможет выдумать несуществующие адреса и номера.
-       */
+      // Сведения о филиалах, врачах и услугах берём с сервера,
+      // чтобы в ответ не попадали вымышленные адреса и номера телефонов.
 
       if (this.isClinicInfoQuestion(cleanUserMessage)) {
         return this.buildClinicsAnswer();
@@ -72,11 +66,6 @@ class OpenRouterService {
       const clinicContext =
         context?.trim() ||
         (await this.contextService.getContextByQuestion(cleanUserMessage));
-
-      if (process.env.DEBUG_CHAT_CONTEXT === "true") {
-        console.log("USER MESSAGE:", cleanUserMessage);
-        console.log("CLINIC CONTEXT:", clinicContext);
-      }
 
       const systemPrompt = this.buildSystemPrompt(clinicContext);
       const safeHistory = this.sanitizeChatHistory(chatHistory);

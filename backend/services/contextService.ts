@@ -1,4 +1,3 @@
-// backend/services/contextService.ts
 import { Doctor } from '../models/Doctor';
 import { Service } from '../models/Service';
 

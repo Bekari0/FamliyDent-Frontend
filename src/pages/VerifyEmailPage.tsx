@@ -42,7 +42,7 @@ export function VerifyEmailPage() {
 
  {status === 'success' && (
  <div className="space-y-6">
- <CheckCircle className="w-16 h-16 text-green-500 mx-auto" />
+ <CheckCircle className="w-16 h-16 text-accent mx-auto" />
  <h1 className="text-2xl font-bold">Email подтвержден!</h1>
  <p className="text-text-secondary">Теперь вы можете пользоваться всеми функциями клиники.</p>
  <Button asChild className="w-full h-14 rounded-2xl bg-primary text-white font-bold">

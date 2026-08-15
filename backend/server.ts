@@ -40,12 +40,16 @@ async function startServer() {
   console.log("Current working directory:", process.cwd());
   console.log("__dirname:", __dirname);
 
-  connectDB()
-    .then(async () => {
-      console.log("Database connection process completed");
-      await migrateReviewModerationStatuses();
-    })
-    .catch((err) => console.error("Database connection failed:", err));
+  let databaseReady = false;
+  try {
+    await connectDB();
+    databaseReady = true;
+    console.log("Database connection process completed");
+    await migrateReviewModerationStatuses();
+  } catch (err) {
+    const reason = err instanceof Error ? err.message : String(err);
+    console.warn(`Database is unavailable; MongoDB API routes will return 503. ${reason}`);
+  }
 
   // Маршруты API
   console.log("Configuring API routes...");
@@ -107,8 +111,8 @@ async function startServer() {
     res.sendFile(panelPath);
   });
 
-  // В разработке frontend запускается отдельно и проксирует /api на backend.
-  // Поэтому backend по умолчанию работает только с API.
+  // При разработке клиент запускается отдельно и перенаправляет запросы /api на сервер.
+  // Поэтому сервер по умолчанию обслуживает только API.
   const enableViteMiddleware = process.env.ENABLE_VITE_MIDDLEWARE === "true";
 
   if (process.env.NODE_ENV !== "production" && enableViteMiddleware) {
@@ -162,29 +166,33 @@ async function startServer() {
 
   const PORT = Number(process.env.PORT) || 3000;
 
-  // СОЗДАЕМ СЕРВЕР
+  // Создаём HTTP-сервер.
   const server = app.listen(PORT, "0.0.0.0", () => {
     console.log(`>>> Server running on http://localhost:${PORT}`);
   });
 
-  const stopReminderScheduler = startAppointmentReminderScheduler();
-  const stopExternalReviewsScheduler = startExternalReviewsSyncScheduler();
+  const stopReminderScheduler = databaseReady ? startAppointmentReminderScheduler() : () => undefined;
+  const stopExternalReviewsScheduler = databaseReady ? startExternalReviewsSyncScheduler() : () => undefined;
 
-  // ЗАПУСК ТЕЛЕГРАМ БОТА
+  // Запускаем Telegram-бота, если задан токен.
   let dentalBot: DentalBot | null = null;
-  try {
-    dentalBot = new DentalBot();
-    await dentalBot.launch();
-    console.log(" Telegram bot launched successfully");
-  } catch (error) {
-    console.error(" Failed to launch Telegram bot:", error);
-    dentalBot = null;
+  if (process.env.BOT_TOKEN) {
+    try {
+      dentalBot = new DentalBot();
+      await dentalBot.launch();
+      console.log(" Telegram bot launched successfully");
+    } catch (error) {
+      console.error(" Failed to launch Telegram bot:", error);
+      dentalBot = null;
+    }
+  } else {
+    console.log("Telegram bot disabled: BOT_TOKEN is not configured.");
   }
 
-  // ИНИЦИАЛИЗАЦИЯ WEBSOCKET (передаем бота)
+  // Подключаем WebSocket и передаём экземпляр бота.
   const io = initSocket(server, dentalBot);
 
-  // КОРРЕКТНОЕ ЗАВЕРШЕНИЕ
+  // Корректно завершаем фоновые задачи и соединения.
   process.once("SIGINT", () => {
     if (dentalBot) dentalBot.stop();
     stopReminderScheduler();

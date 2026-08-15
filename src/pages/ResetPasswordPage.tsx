@@ -47,7 +47,7 @@ export function ResetPasswordPage() {
  <div className="max-w-md w-full bg-white rounded-[40px] shadow-2xl p-12">
  {success ? (
  <div className="text-center space-y-6">
- <CheckCircle className="w-16 h-16 text-green-500 mx-auto" />
+ <CheckCircle className="w-16 h-16 text-accent mx-auto" />
  <h1 className="text-2xl font-bold">Пароль изменен</h1>
  <p className="text-text-secondary">Вы будете перенаправлены на страницу входа через несколько секунд.</p>
  <Button onClick={() => navigate('/login')} className="w-full h-14 rounded-2xl bg-primary text-white">

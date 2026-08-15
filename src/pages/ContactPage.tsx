@@ -78,7 +78,7 @@ export function ContactPage() {
             <textarea required value={form.reason} onChange={(event) => setForm({ ...form, reason: event.target.value })} className="min-h-28 resize-y rounded-xl border border-rule bg-paper p-4 text-sm font-normal text-ink focus:border-accent focus:outline-none" placeholder="Опишите, что вас беспокоит" />
           </label>
 
-          {submission.status === 'success' && <p className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800 sm:col-span-2" role="status">{submission.message}</p>}
+          {submission.status === 'success' && <p className="rounded-xl border border-accent/40 bg-accent-soft p-4 text-sm text-ink sm:col-span-2" role="status">{submission.message}</p>}
           {submission.status === 'error' && <p className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 sm:col-span-2" role="alert">{submission.message}</p>}
 
           <button disabled={submission.status === 'submitting'} type="submit" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-pill bg-accent px-6 text-xs font-bold text-accent-ink transition-colors hover:bg-accent-2 disabled:cursor-wait disabled:opacity-60 sm:col-span-2">

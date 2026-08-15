@@ -19,11 +19,11 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Устанавливаем базовый адрес для axios
+// Используем относительный адрес API для запросов через Axios.
 axios.defaults.baseURL = '';
 axios.defaults.withCredentials = true;
 
-// Токен передается через cookie, перехватчик остается для общих заголовков
+// Токен передаётся через файлы cookie, а перехватчик добавляет общие заголовки.
 axios.interceptors.request.use((config) => {
  return config;
 });

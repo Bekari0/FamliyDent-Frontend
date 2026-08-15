@@ -5,7 +5,7 @@ import {
   HarmBlockThreshold,
 } from "@google/generative-ai";
 
-// Загружаем переменные окружения
+// Загружаем переменные окружения.
 dotenv.config({ path: "../.env" });
 
 class GeminiService {
@@ -13,8 +13,6 @@ class GeminiService {
   private model: any;
 
   constructor() {
-    console.log("GEMINI_API_KEY exists?", !!process.env.GEMINI_API_KEY);
-
     if (!process.env.GEMINI_API_KEY) {
       throw new Error("GEMINI_API_KEY is not defined in environment variables");
     }

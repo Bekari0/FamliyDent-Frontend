@@ -1,4 +1,3 @@
-// backend/bot/bot.ts
 import { Telegraf, Markup, Context } from "telegraf";
 import { User } from "../models/User";
 import { Booking } from "../models/Booking";
@@ -269,7 +268,7 @@ export class DentalBot {
 
       if (text.startsWith("/")) return;
 
-      // 1. ПРОВЕРКА АКТИВНОГО ТИКЕТА
+      // Сначала продолжаем активный диалог с оператором.
       if (session.isAuthorized && session.userId) {
         const activeTicket = await Ticket.findOne({
           patientId: session.userId,
@@ -282,7 +281,7 @@ export class DentalBot {
         }
       }
 
-      // 2. ПРОВЕРКА ШАГОВ ЗАПИСИ
+      // Затем обрабатываем текущий шаг записи.
       if (session.bookingStep === "awaiting_date") {
         await this.processDate(ctx, text);
         return;
@@ -293,7 +292,7 @@ export class DentalBot {
         return;
       }
 
-      // 3. КНОПКИ МЕНЮ
+      // После этого проверяем команды главного меню.
       if (text === " Услуги и цены") {
         await this.showServices(ctx);
         return;
@@ -319,7 +318,7 @@ export class DentalBot {
         return;
       }
 
-      // 4. Ответ на вопрос пациента
+      // Остальные сообщения передаём консультанту.
       await this.handleChatQuestion(ctx, text);
     });
   }
@@ -663,7 +662,7 @@ export class DentalBot {
 
     try {
       const session = ctx.session;
-      // Ищем по patientId (строковый ID)
+      // Ищем записи по строковому идентификатору пациента.
       const bookings = await Booking.find({ patientId: session.userId }).sort({
         createdAt: -1,
       });
@@ -734,9 +733,9 @@ export class DentalBot {
     const now = new Date();
     const today = `${now.getDate().toString().padStart(2, "0")}.${(now.getMonth() + 1).toString().padStart(2, "0")}.${now.getFullYear()}`;
 
-    // Ищем по patientId (строковый ID)
+    // Ищем записи по строковому идентификатору пациента.
     const bookings = await Booking.find({
-      patientId: session.userId, // userId из сессии - это строка _id из User
+      patientId: session.userId, // В сессии хранится строковый идентификатор пользователя.
       status: { $in: ["pending", "confirmed"] },
       date: { $gte: today },
     });
@@ -754,7 +753,7 @@ export class DentalBot {
           0,
           60,
         ),
-        `cancel_${booking._id}`, // Используем _id, а не bookingNumber
+        `cancel_${booking._id}`, // Для отмены нужен внутренний идентификатор записи.
       ),
     ]);
 
@@ -770,7 +769,7 @@ export class DentalBot {
   }
 
   private async confirmCancelBooking(ctx: MyContext, bookingId: string) {
-    // bookingId здесь - это _id из MongoDB
+    // Здесь используется внутренний идентификатор записи из MongoDB.
     await ctx.editMessageText(" *Вы уверены, что хотите отменить запись?*", {
       parse_mode: "Markdown",
       ...Markup.inlineKeyboard([
@@ -784,7 +783,7 @@ export class DentalBot {
 
   private async executeCancelBooking(ctx: MyContext, bookingId: string) {
     try {
-      // Ищем по _id (UUID строка)
+      // Ищем запись по строковому идентификатору.
       const booking = await Booking.findById(bookingId);
 
       console.log("Looking for booking with _id:", bookingId);

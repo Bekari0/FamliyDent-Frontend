@@ -7,12 +7,6 @@ class GroqService {
   private client: any;
 
   constructor() {
-    console.log("GROQ_API_KEY exists?", !!process.env.GROQ_API_KEY);
-    console.log(
-      "GROQ_API_KEY starts with gsk_:",
-      process.env.GROQ_API_KEY?.startsWith("gsk_"),
-    );
-
     if (!process.env.GROQ_API_KEY) {
       throw new Error("GROQ_API_KEY is not defined");
     }
@@ -49,7 +43,7 @@ class GroqService {
       // Пробуем разные бесплатные модели
       const completion = await this.client.chat.completions.create({
         messages: messages,
-        model: "mixtral-8x7b-32768", // или 'llama3-8b-8192', 'gemma2-9b-it'
+        model: "mixtral-8x7b-32768", // При необходимости модель можно заменить другой доступной.
         temperature: 0.7,
         max_tokens: 500,
       });

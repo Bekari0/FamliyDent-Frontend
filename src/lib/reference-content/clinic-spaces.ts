@@ -1,0 +1,11 @@
+import type { ClinicSpace } from "./types";
+
+export const clinicSpaces = [
+  { id: "space-reception", slug: "reception", title: "Ресепшн и зона встреч", description: "Светлое пространство с вежливыми администраторами и системой быстрой регистрации.", image: "https://images.pexels.com/photos/6627618/pexels-photo-6627618.jpeg?auto=compress&cs=tinysrgb&w=1200", order: 1 },
+  { id: "space-treatment-room", slug: "treatment-room", title: "Лечебные кабинеты", description: "Эргономичные кабинеты с современными стоматологическими установками, микроскопами и климат-контролем.", image: "https://images.pexels.com/photos/3845766/pexels-photo-3845766.jpeg?auto=compress&cs=tinysrgb&w=1200", order: 2 },
+  { id: "space-equipment", slug: "equipment-room", title: "Зал цифровой диагностики", description: "3D-сканеры и диагностический комплекс помогают построить точную цифровую модель челюсти.", image: "https://images.pexels.com/photos/3845722/pexels-photo-3845722.jpeg?auto=compress&cs=tinysrgb&w=1200", order: 3 },
+  { id: "space-ct", slug: "ct-room", title: "Кабинет компьютерной томографии", description: "Высокоточный 3D-томограф выполняет панорамные снимки и трёхмерную реконструкцию с низкой дозой облучения.", image: "https://images.pexels.com/photos/4270371/pexels-photo-4270371.jpeg?auto=compress&cs=tinysrgb&w=1200", order: 4 },
+  { id: "space-sterilization", slug: "sterilization-room", title: "Стерилизационный блок", description: "Многоступенчатая автоматизированная стерилизация инструментов по международным протоколам.", image: "https://images.pexels.com/photos/3845736/pexels-photo-3845736.jpeg?auto=compress&cs=tinysrgb&w=1200", order: 5 },
+  { id: "space-pediatric", slug: "pediatric-room", title: "Детский кабинет", description: "Дружелюбное пространство с мультфильмами на потолочном экране помогает детям чувствовать себя спокойно.", image: "https://images.pexels.com/photos/3845625/pexels-photo-3845625.jpeg?auto=compress&cs=tinysrgb&w=1200", order: 6 },
+  { id: "space-waiting", slug: "waiting-area", title: "Зона ожидания и отдыха", description: "Мягкие кресла, шумоизоляция и бесплатный Wi-Fi делают ожидание комфортным.", image: "https://images.pexels.com/photos/7088530/pexels-photo-7088530.jpeg?auto=compress&cs=tinysrgb&w=1200", order: 7 },
+] as const satisfies readonly ClinicSpace[];

@@ -158,7 +158,7 @@ export function DoctorDashboard() {
  {[
  { label: 'Всего записей', value: safeNumber(stats?.total), icon: CalendarCheck, color: 'text-primary', bg: 'bg-primary/5' },
  { label: 'Ожидают', value: safeNumber(stats?.pending), icon: Clock, color: 'text-amber-500', bg: 'bg-amber-50' },
- { label: 'Подтверждено', value: safeNumber(stats?.confirmed), icon: CheckCircle, color: 'text-green-500', bg: 'bg-green-50' },
+ { label: 'Подтверждено', value: safeNumber(stats?.confirmed), icon: CheckCircle, color: 'text-accent', bg: 'bg-accent-soft' },
  ].map((s, i) => (
  <motion.div 
  key={i} 

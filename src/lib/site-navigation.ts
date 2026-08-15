@@ -39,9 +39,10 @@ export const PUBLIC_ROUTE_PATHS = [
 ] as const;
 
 const RENDERED_ROUTE_PATHS = [
-  "/", "/about", "/contact", "/faq", "/reviews", "/pricing",
-  "/services", "/doctors", "/blog", "/profile", "/book",
-  "/admin", "/doctor",
+  "/", "/about", "/contact", "/contacts", "/faq", "/reviews",
+  "/pricing", "/services", "/doctors", "/blog", "/people",
+  "/about/clinic-tour", "/about/equipment", "/results", "/tourism",
+  "/academy", "/profile", "/book", "/admin", "/doctor",
 ] as const;
 
 export function isKnownRoute(pathname: string): boolean {

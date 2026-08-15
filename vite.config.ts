@@ -18,9 +18,10 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
-      // HMR is disabled through DISABLE_HMR.
-      // File watching is disabled to keep the local preview stable.
-      hmr: false,
+      hmr: true,
+      headers: {
+        "Cache-Control": "no-store",
+      },
       proxy: {
         "/api": {
           target: "http://127.0.0.1:5000",

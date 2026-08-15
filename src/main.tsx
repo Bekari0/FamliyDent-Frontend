@@ -4,8 +4,8 @@ import App from './App.tsx';
 import './index.css';
 import { Toaster } from '@/components/ui/sonner';
 
-// Регистрируем Service Worker только в production.
-// В локальной разработке он может кешировать старые сборки.
+// Регистрируем сервис-воркер только в рабочей среде.
+// При локальной разработке он может сохранять устаревшую сборку.
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
  window.addEventListener('load', () => {
  navigator.serviceWorker.register('/sw.js').then(registration => {

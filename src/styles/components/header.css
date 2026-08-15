@@ -1,4 +1,4 @@
-/* Global editorial header */
+/* Шапка сайта */
 .header-main {
   @apply w-full shadow-[0_8px_30px_rgba(0,0,0,0.14)];
 }

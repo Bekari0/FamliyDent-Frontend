@@ -77,8 +77,8 @@ export function CentralLogo({ colorMode = "glowing-white", className = "" }: Cen
               {colorMode === "emerald-gradient" ? (
                 <defs>
                   <linearGradient id="family-dent-emerald-gradient" x1="0" y1="0" x2="27" y2="40" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#2CCB9A" />
-                    <stop offset="1" stopColor="#08795D" />
+                    <stop stopColor="#EBDDBe" />
+                    <stop offset="1" stopColor="#A08A5F" />
                   </linearGradient>
                 </defs>
               ) : null}

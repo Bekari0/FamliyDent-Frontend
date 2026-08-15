@@ -39,7 +39,7 @@ export function FAQPage() {
             return (
               <article key={faq.q} className="overflow-hidden rounded-2xl border border-rule bg-surface shadow-whisper transition-colors hover:border-accent/40">
                 <h2>
-                  <button type="button" onClick={() => setOpenIdx(isOpen ? null : index)} className="flex min-h-16 w-full items-center justify-between gap-4 p-5 text-left sm:p-6" aria-expanded={isOpen} aria-controls={answerId}>
+                  <button type="button" onClick={() => setOpenIdx(isOpen ? null : index)} className="flex min-h-16 w-full items-center justify-between gap-4 p-5 text-left outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ink/20 sm:p-6" aria-expanded={isOpen} aria-controls={answerId}>
                     <span className="font-display text-base font-bold text-ink sm:text-lg">{faq.q}</span>
                     <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${isOpen ? 'bg-accent text-accent-ink' : 'bg-paper-2 text-editorial-muted'}`}>{isOpen ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}</span>
                   </button>

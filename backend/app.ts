@@ -58,6 +58,9 @@ const allowedOrigins = new Set(
  [
  normalizeOrigin(process.env.CLIENT_URL),
  normalizeOrigin(process.env.APP_URL),
+ ...(process.env.NODE_ENV !== 'production'
+  ? ['http://localhost:3000', 'http://127.0.0.1:3000']
+  : []),
  ...String(process.env.CORS_ORIGINS || '')
  .split(',')
  .map((origin) => normalizeOrigin(origin))
