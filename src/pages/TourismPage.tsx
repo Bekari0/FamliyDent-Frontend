@@ -128,7 +128,20 @@ export function TourismPage() {
   return (
     <main className="tourism-page">
       <section ref={heroRef} className="tourism-hero" aria-labelledby="tourism-title">
-        <motion.img style={reduceMotion ? undefined : { scale: heroScale }} src="/images/tourism/dushanbe-hero.png" width="1536" height="1024" fetchPriority="high" alt="Душанбе на фоне гор" />
+        <motion.video
+          className="tourism-hero__video"
+          style={reduceMotion ? undefined : { scale: heroScale }}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/images/tourism/dushanbe-hero.png"
+          aria-hidden="true"
+        >
+          <source src="/videos/familydent.mp4" type="video/mp4" />
+        </motion.video>
+        <motion.img className="tourism-hero__poster" style={reduceMotion ? undefined : { scale: heroScale }} src="/images/tourism/dushanbe-hero.png" width="1536" height="1024" fetchPriority="high" alt="Душанбе на фоне гор" />
         <div className="tourism-hero__overlay" />
         <motion.div style={reduceMotion ? undefined : { y: heroTextY }} className="tourism-hero__content">
           <p className="tourism-eyebrow">FamilyDent · Dushanbe</p>
@@ -140,9 +153,13 @@ export function TourismPage() {
 
       <section id="intro" className="tourism-intro tourism-shell"><Reveal><p className="tourism-eyebrow tourism-eyebrow--dark">Стоматология без границ</p></Reveal><Reveal className="tourism-intro__statement" delay={0.08}><h2>Медицинская ясность — и время увидеть Таджикистан.</h2><p>Мы соединяем лечение и сопровождение в одном спокойном маршруте. Без обещаний до диагностики, без лишней суеты, с вниманием к каждому этапу поездки.</p></Reveal></section>
 
+      <section className="tourism-facts" aria-label="Ключевые принципы"><div className="tourism-shell tourism-facts__inner"><Reveal><strong>С 2018 года</strong><span>Family Dent работает в Душанбе</span></Reveal><Reveal delay={0.06}><strong>До поездки</strong><span>Обсуждаем задачу и доступные материалы</span></Reveal><Reveal delay={0.12}><strong>После диагностики</strong><span>Врач подтверждает план и сроки лечения</span></Reveal></div></section>
+
       <section className="tourism-services" aria-labelledby="services-title"><div className="tourism-shell tourism-section-heading"><p className="tourism-eyebrow tourism-eyebrow--dark">Направления лечения</p><h2 id="services-title">Главное — точная медицинская задача</h2></div><div className="tourism-services__layout tourism-shell">{editorialServices.map(({ service, image, className }, index) => <Reveal key={service.id} className={`tourism-service ${className}`} delay={index * 0.08}><div className="tourism-service__image"><img src={image} width="960" height="720" loading="lazy" alt="" /></div><div className="tourism-service__body"><span>{String(index + 1).padStart(2, "0")}</span><h3>{service.title}</h3><p>{service.slug === "implantation" ? "Восстановление утраченных зубов с предварительной цифровой диагностикой и индивидуальным планированием." : service.slug === "orthodontics" ? "Исправление прикуса и выравнивание зубов современными брекет-системами и прозрачными элайнерами." : "Эстетические решения обсуждаются после диагностики, оценки состояния зубов и согласования ожидаемого результата."}</p></div></Reveal>)}</div></section>
 
       <section ref={roadmapRef} className="tourism-roadmap" aria-labelledby="roadmap-title"><div className="tourism-shell"><div className="tourism-roadmap__head"><p className="tourism-eyebrow tourism-eyebrow--dark">Как это работает</p><h2 id="roadmap-title">От сообщения<br />до Душанбе</h2></div><div className="tourism-roadmap__track"><div className="tourism-roadmap__line"><motion.span style={reduceMotion ? { scaleX: 1 } : { scaleX: lineScale }} /></div>{tourismRoadmap.map((step) => <article key={step.number}><span className="tourism-roadmap__number">{step.number}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}</div><p className="tourism-roadmap__disclaimer">Окончательный план, объём и сроки лечения определяет врач после очной диагностики.</p></div></section>
+
+      <section className="tourism-visit" aria-labelledby="visit-title"><div className="tourism-shell tourism-visit__inner"><div><p className="tourism-eyebrow">Визит без неопределённости</p><h2 id="visit-title">До. Во время. После.</h2></div><div className="tourism-visit__steps"><Reveal><span>До визита</span><p>Собираем доступные снимки и уточняем медицинскую задачу.</p></Reveal><Reveal delay={0.07}><span>В Душанбе</span><p>Проводим очную диагностику и согласуем дальнейшие действия.</p></Reveal><Reveal delay={0.14}><span>После визита</span><p>Остаёмся на связи по вопросам согласованного лечения.</p></Reveal></div></div></section>
 
       <section className="tourism-manifesto" aria-label="FamilyDent и Таджикистан"><div className="tourism-manifesto__panel"><img src="/images/clinic_about.jpg" width="960" height="1080" loading="lazy" alt="Клиника Family Dent" /><strong>FamilyDent</strong></div><div className="tourism-manifesto__panel"><img src="/images/tourism/fann-mountains.png" width="1024" height="1280" loading="lazy" alt="Горы Таджикистана" /><strong>Tajikistan</strong></div><div className="tourism-manifesto__center">Точность<br />в лечении.<br /><em>Свобода</em> в пути.</div></section>
 
