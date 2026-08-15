@@ -1,7 +1,7 @@
 import type { Service } from "./types";
 
 /* Mock data for Family Dent services */
-const servicesData: Service[] = [
+export const servicesData: Service[] = [
   {
     id: "srv-therapy",
     slug: "therapy",

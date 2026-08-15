@@ -1,27 +1,35 @@
 import type { TourismFeature } from "./types";
 
-/* Mock data for Family Dent Dental Tourism Features */
+export const tourismRoadmap = [
+  { number: "01", title: "Знакомство", description: "Вы оставляете контакты и коротко описываете задачу." },
+  { number: "02", title: "Онлайн-разбор", description: "Мы уточняем данные и подбираем профильного специалиста." },
+  { number: "03", title: "Маршрут лечения", description: "Формируем предварительный порядок визитов и обсуждаем даты поездки." },
+  { number: "04", title: "Душанбе", description: "Проводим очную диагностику и начинаем согласованное лечение." },
+] as const;
+
+export const tourismPlaces = [
+  { name: "Памирский тракт", meta: "Дорога выше облаков", image: "/images/tourism/pamir-road.png", className: "place--dominant" },
+  { name: "Фанские горы", meta: "Высота и тишина", image: "/images/tourism/fann-mountains.png", className: "place--tall" },
+  { name: "Проспект Рудаки", meta: "Ритм столицы", image: "/images/tourism/dushanbe-architecture.png", className: "place--portrait" },
+  { name: "Таджикский орнамент", meta: "Детали культуры", image: "/images/tourism/cultural-detail.png", className: "place--square" },
+] as const;
+
 const tourismFeaturesData: TourismFeature[] = [
   {
     id: "tf-plan",
     title: "Индивидуальный план лечения",
-    description: "Наши врачи изучат ваши снимки КТ и подготовят точный предварительный план с прозрачной стоимостью еще до вашего вылета."
+    description: "Врач изучит доступные материалы и подготовит предварительный маршрут до вашего приезда.",
   },
   {
     id: "tf-consultation",
     title: "Онлайн-консультация до приезда",
-    description: "Видеовстреча с профильным специалистом или главным врачом для обсуждения вариантов лечения и ответов на вопросы."
+    description: "Разговор с профильным специалистом для обсуждения вариантов лечения и подготовки к очной диагностике.",
   },
   {
     id: "tf-schedule",
-    title: "Оптимизированный график приемов",
-    description: "Подбираем удобные даты и время процедур без долгого ожидания, чтобы вы максимально эффективно использовали время поездки."
+    title: "Согласованный график приёмов",
+    description: "После уточнения медицинской задачи команда обсудит подходящую последовательность визитов.",
   },
-  {
-    id: "tf-fast-track",
-    title: "Комплексное лечение за короткий срок",
-    description: "Применение цифровых технологий (DSD, CAD/CAM, экспресс-имплантация) позволяет пройти полный курс за 3–7 дней."
-  }
 ];
 
 export async function getTourismFeatures(): Promise<TourismFeature[]> {
