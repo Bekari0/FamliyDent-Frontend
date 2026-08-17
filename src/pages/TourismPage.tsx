@@ -172,7 +172,7 @@ export function TourismPage() {
 
           <div className="tourism-borderless__grid">
             <Reveal className="tourism-borderless__photo">
-              <img src="/images/clinic_about.jpg" width="960" height="1080" loading="lazy" alt="Интерьер клиники Family Dent в Душанбе" />
+              <img src="/images/clinic-exterior-poster.png" width="1536" height="882" loading="lazy" alt="Клиника Family Dent в центре Душанбе" />
               <div><span>Вас сопровождает</span><strong>Персональный<br />координатор</strong></div>
             </Reveal>
 
