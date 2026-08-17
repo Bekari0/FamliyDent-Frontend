@@ -1,10 +1,17 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { ArrowDown, ArrowRight, MapPin, X } from "lucide-react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { ArrowDown, ArrowLeft, ArrowRight, MapPin, X } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { servicesData } from "../lib/data/services";
 import { tourismComparison, tourismPackages, tourismPlaces, tourismRoadmap } from "../lib/data/tourism";
 import { submitTourismConsultation } from "../lib/tourism-consultation";
 import "./tourism-page.css";
+
+const heroSlides = [
+  { image: "/images/tourism/dushanbe-hero.png", eyebrow: "Душанбе · столица", title: "Таджикистан — путешествие, которое стоит открыть.", description: "Начните путешествие в Душанбе и совместите новые впечатления с заботой о здоровье в Family Dent." },
+  { image: "/images/tourism/fann-mountains.png", eyebrow: "Фанские горы", title: "Бирюзовые озёра среди величественных вершин.", description: "Спланируем стоматологические визиты так, чтобы в поездке осталось время увидеть настоящую природу Таджикистана." },
+  { image: "/images/tourism/pamir-road.png", eyebrow: "Памирский тракт", title: "Дорога, которая становится частью приключения.", description: "Лечение, отдых и знакомство с легендарным Памиром — в одном продуманном маршруте." },
+  { image: "/images/tourism/dushanbe-architecture.png", eyebrow: "Культура и гостеприимство", title: "Древняя история в ритме современного Душанбе.", description: "Откройте архитектуру, национальную кухню и искреннее гостеприимство между согласованными визитами в клинику." },
+] as const;
 
 const treatmentDirections = [
   { title: "Протезирование зубов", icon: "/icons/tourism-treatment-1.svg" },
@@ -111,6 +118,7 @@ function ConsultationDialog({ open, onClose }: { open: boolean; onClose: () => v
 
 export function TourismPage() {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const heroRef = useRef<HTMLElement>(null);
   const roadmapRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
@@ -119,6 +127,17 @@ export function TourismPage() {
   const heroScale = useTransform(heroProgress, [0, 1], [1, 1.07]);
   const heroTextY = useTransform(heroProgress, [0, 1], [0, -64]);
   const lineScale = useTransform(roadmapProgress, [0, 1], [0, 1]);
+  const activeSlide = heroSlides[activeHeroSlide];
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const interval = window.setInterval(() => setActiveHeroSlide((current) => (current + 1) % heroSlides.length), 6500);
+    return () => window.clearInterval(interval);
+  }, [reduceMotion]);
+
+  function changeHeroSlide(direction: -1 | 1) {
+    setActiveHeroSlide((current) => (current + direction + heroSlides.length) % heroSlides.length);
+  }
 
   useEffect(() => {
     document.title = "Стоматологический туризм в Душанбе | Family Dent";
@@ -131,26 +150,21 @@ export function TourismPage() {
   return (
     <main className="tourism-page">
       <section ref={heroRef} className="tourism-hero" aria-labelledby="tourism-title">
-        <motion.video
-          className="tourism-hero__video"
-          style={reduceMotion ? undefined : { scale: heroScale }}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/images/tourism/dushanbe-hero.png"
-          aria-hidden="true"
-        >
-          <source src="/videos/familydent.mp4" type="video/mp4" />
-        </motion.video>
-        <motion.img className="tourism-hero__poster" style={reduceMotion ? undefined : { scale: heroScale }} src="/images/tourism/dushanbe-hero.png" width="1536" height="1024" fetchPriority="high" alt="Душанбе на фоне гор" />
+        <AnimatePresence initial={false} mode="sync">
+          <motion.img key={activeSlide.image} className="tourism-hero__slide" style={reduceMotion ? undefined : { scale: heroScale }} src={activeSlide.image} width="1536" height="1024" fetchPriority={activeHeroSlide === 0 ? "high" : "auto"} alt="" initial={reduceMotion ? false : { opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ opacity: { duration: 1.1 }, scale: { duration: 6.5, ease: "linear" } }} />
+        </AnimatePresence>
         <div className="tourism-hero__overlay" />
         <motion.div style={reduceMotion ? undefined : { y: heroTextY }} className="tourism-hero__content">
-          <p className="tourism-eyebrow">FamilyDent · Dushanbe</p>
-          <h1 id="tourism-title"><span>Таджикистан —</span><span>путешествие,</span><span>которое стоит открыть.</span></h1>
-          <div className="tourism-hero__support"><p>Величественные горы, древняя культура и искреннее гостеприимство. Совместите путешествие с диагностикой и необходимым лечением в Family Dent — мы поможем выстроить визиты комфортно и удобно.</p><button className="tourism-button tourism-button--light" onClick={() => setDialogOpen(true)}>Обсудить поездку <ArrowRight /></button></div>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div key={activeHeroSlide} initial={reduceMotion ? false : { opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -18 }} transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}>
+              <p className="tourism-eyebrow">{activeSlide.eyebrow}</p>
+              <h1 id="tourism-title">{activeSlide.title}</h1>
+              <div className="tourism-hero__support"><p>{activeSlide.description}</p><button className="tourism-button tourism-button--light" onClick={() => setDialogOpen(true)}>Обсудить поездку <ArrowRight /></button></div>
+            </motion.div>
+          </AnimatePresence>
         </motion.div>
+        <div className="tourism-hero__navigation" aria-label="Переключение слайдов"><button type="button" onClick={() => changeHeroSlide(-1)} aria-label="Предыдущий слайд"><ArrowLeft /></button><span><b>{String(activeHeroSlide + 1).padStart(2, "0")}</b> / {String(heroSlides.length).padStart(2, "0")}</span><button type="button" onClick={() => changeHeroSlide(1)} aria-label="Следующий слайд"><ArrowRight /></button></div>
+        <div className="tourism-hero__dots" aria-label="Слайды">{heroSlides.map((slide, index) => <button key={slide.image} type="button" className={index === activeHeroSlide ? "is-active" : ""} onClick={() => setActiveHeroSlide(index)} aria-label={`Перейти к слайду ${index + 1}`} aria-current={index === activeHeroSlide ? "true" : undefined} />)}</div>
         <a href="#intro" className="tourism-hero__scroll" aria-label="Перейти к содержанию"><ArrowDown /></a>
       </section>
 
