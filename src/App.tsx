@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route, useLocation } from "react-router-dom";
 import { SiteHeader } from "./components/navigation/site-header";
 import { SiteFooter } from "./components/navigation/site-footer";
 import { BookingModal } from "./components/booking/booking-modal";
@@ -8,7 +8,6 @@ import { SocialContactLauncher } from "./components/shared/social-contact-launch
 import { OrbitalRings } from "./components/OrbitalRings";
 
 const HomePage = lazy(() => import("./pages/HomePage").then((m) => ({ default: m.HomePage })));
-const PeoplePage = lazy(() => import("./pages/PeoplePage").then((m) => ({ default: m.PeoplePage })));
 const DoctorsPage = lazy(() => import("./pages/DoctorsPage").then((m) => ({ default: m.DoctorsPage })));
 const AboutPage = lazy(() => import("./pages/AboutPage").then((m) => ({ default: m.AboutPage })));
 const ClinicTourPage = lazy(() => import("./pages/ClinicTourPage").then((m) => ({ default: m.ClinicTourPage })));
@@ -63,7 +62,7 @@ export default function App() {
           <Suspense fallback={<div className="min-h-screen bg-paper" /> }>
             <Routes>
               <Route path="/" element={<HomePage onOpenBooking={() => handleOpenBooking()} />} />
-              <Route path="/people" element={<PeoplePage onOpenBooking={handleOpenBooking} />} />
+              <Route path="/people" element={<Navigate to="/doctors" replace />} />
               <Route path="/doctors" element={<DoctorsPage onOpenBooking={handleOpenBooking} />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/about/clinic-tour" element={<ClinicTourPage />} />

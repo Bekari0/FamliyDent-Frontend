@@ -12,14 +12,6 @@ interface SiteHeaderProps {
   onToggleColorMode?: () => void;
 }
 
-const PEOPLE_ITEMS: NavDropdownItem[] = [
-  { label: "Врачи", href: "/doctors" },
-  { label: "Медсёстры", href: "/people#nurses" },
-  { label: "Администраторы", href: "/people#administrators" },
-  { label: "Руководство", href: "/people#management" },
-  { label: "Техническая и хозяйственная служба", href: "/people#technical" },
-];
-
 const ABOUT_ITEMS: NavDropdownItem[] = [
   { label: "О клинике", href: "/about" },
   { label: "Познакомьтесь с нашей клиникой", href: "/about/clinic-tour" },
@@ -65,7 +57,7 @@ export function SiteHeader({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isPeopleActive = currentPath === "/people" || currentPath === "/doctors";
+  const isPeopleActive = currentPath === "/doctors";
   const isAboutActive = currentPath.startsWith("/about");
   const isMoreActive = ["/reviews", "/blog", "/tourism", "/academy", "/faq"].includes(currentPath);
 
@@ -129,11 +121,15 @@ export function SiteHeader({
             Результаты лечения
           </Link>
 
-          <NavDropdown
-            label="Люди Family Dent"
-            items={PEOPLE_ITEMS}
-            isActive={isPeopleActive}
-          />
+          <Link
+            to="/doctors"
+            aria-current={isPeopleActive ? "page" : undefined}
+            className={`text-xs font-medium px-2.5 py-1 rounded transition-colors whitespace-nowrap ${
+              isPeopleActive ? "text-white font-semibold" : "text-white/70 hover:text-white"
+            }`}
+          >
+            Люди Family Dent
+          </Link>
 
           <NavDropdown
             label="О нас"
@@ -215,11 +211,13 @@ export function SiteHeader({
               Результаты лечения
             </Link>
 
-            <MobileNavGroup
-              label="Люди Family Dent"
-              items={PEOPLE_ITEMS}
-              onItemClick={() => setMenuOpen(false)}
-            />
+            <Link
+              to="/doctors"
+              onClick={() => setMenuOpen(false)}
+              className="text-lg font-medium text-paper hover:text-accent py-1"
+            >
+              Люди Family Dent
+            </Link>
 
             <MobileNavGroup
               label="О нас"

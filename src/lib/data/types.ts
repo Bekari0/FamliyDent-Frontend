@@ -90,11 +90,16 @@ export interface Doctor {
   slug: string;
   name: string;
   specialty: string;
-  experienceYears?: number | string;
-  bio: string;
-  image: string;
-  education?: string[];
-  specialties?: string[];
+  qualification?: string;
+  experienceYears?: string;
+  bio: string[];
+  image?: string;
+  imagePosition?: string;
+  education: string[];
+  specialties: string[];
+  training?: string[];
+  highlights?: string[];
+  commonQuestions?: string[];
 }
 
 export interface Service {
