@@ -28,10 +28,16 @@ export const tourismPackages = [
 ] as const;
 
 export const tourismPlaces = [
-  { name: "Памирский тракт", meta: "Дорога выше облаков", image: "/images/tourism/pamir-road.png", className: "place--dominant" },
-  { name: "Фанские горы", meta: "Высота и тишина", image: "/images/tourism/fann-mountains.png", className: "place--tall" },
-  { name: "Проспект Рудаки", meta: "Ритм столицы", image: "/images/tourism/dushanbe-architecture.png", className: "place--portrait" },
-  { name: "Таджикский орнамент", meta: "Детали культуры", image: "/images/tourism/cultural-detail.png", className: "place--square" },
+  { name: "Душанбе", meta: "Столица у подножия гор", image: "/images/tourism/hero-dushanbe.jpg", className: "place--wide" },
+  { name: "Искандеркуль", meta: "Легендарное горное озеро", image: "/images/tourism/hero-iskanderkul.jpg", className: "place--standard" },
+  { name: "Озеро Каракуль", meta: "Восточный Памир", image: "/images/tourism/hero-karakul.jpg", className: "place--standard" },
+  { name: "Худжанд", meta: "Сердце Согдийской области", image: "/images/tourism/hero-sughd.jpg", className: "place--wide" },
+  { name: "Фанские горы", meta: "Снежные вершины и озёра", image: "/images/tourism/hero-fann.jpg", className: "place--standard" },
+  { name: "Семь озёр", meta: "Долина Хафткуль", image: "/images/tourism/places/seven-lakes.png", className: "place--standard" },
+  { name: "Памирский тракт", meta: "Одна из самых высоких дорог мира", image: "/images/tourism/places/pamir-highway.png", className: "place--wide" },
+  { name: "Ваханская долина", meta: "Крепости и Гиндукуш", image: "/images/tourism/places/wakhan-valley.png", className: "place--standard" },
+  { name: "Древний Саразм", meta: "Объект Всемирного наследия ЮНЕСКО", image: "/images/tourism/places/sarazm.png", className: "place--standard" },
+  { name: "Озеро Сарез", meta: "Тайна центрального Памира", image: "/images/tourism/places/sarez-lake.png", className: "place--wide" },
 ] as const;
 
 const tourismFeaturesData: TourismFeature[] = [
