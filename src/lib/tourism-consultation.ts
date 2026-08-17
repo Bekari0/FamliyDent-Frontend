@@ -1,6 +1,8 @@
 export type TourismConsultationPayload = {
   name: string;
-  contact: string;
+  email: string;
+  phone: string;
+  telegram?: string;
   country: string;
   service: string;
   message?: string;

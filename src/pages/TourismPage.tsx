@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { ArrowRight, CalendarCheck, ClipboardCheck, MapPin, Route, X } from "lucide-react";
+import { ArrowRight, CalendarCheck, ClipboardCheck, Route, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { servicesData } from "../lib/data/services";
 import { tourismComparison, tourismPackages, tourismPlaces, tourismRoadmap } from "../lib/data/tourism";
@@ -44,7 +44,9 @@ function ConsultationForm({ idPrefix = "consultation", onSubmitted }: { idPrefix
     const values = Object.fromEntries(new FormData(form)) as Record<string, string>;
     const nextErrors: Record<string, string> = {};
     if (!values.name?.trim()) nextErrors.name = "Укажите имя.";
-    if (!values.contact?.trim()) nextErrors.contact = "Укажите телефон или Telegram.";
+    if (!values.email?.trim()) nextErrors.email = "Укажите email.";
+    else if (!/^\S+@\S+\.\S+$/.test(values.email.trim())) nextErrors.email = "Проверьте формат email.";
+    if (!values.phone?.trim()) nextErrors.phone = "Укажите номер телефона.";
     if (!values.country?.trim()) nextErrors.country = "Укажите страну.";
     if (!values.service) nextErrors.service = "Выберите направление.";
     setErrors(nextErrors);
@@ -53,7 +55,9 @@ function ConsultationForm({ idPrefix = "consultation", onSubmitted }: { idPrefix
     setStatus("loading");
     const result = await submitTourismConsultation({
       name: values.name.trim(),
-      contact: values.contact.trim(),
+      email: values.email.trim(),
+      phone: values.phone.trim(),
+      telegram: values.telegram?.trim(),
       country: values.country.trim(),
       service: values.service,
       message: values.message?.trim(),
@@ -64,32 +68,50 @@ function ConsultationForm({ idPrefix = "consultation", onSubmitted }: { idPrefix
 
   return (
     <form onSubmit={submit} className="tourism-form" noValidate>
-      <label htmlFor={fieldId("name")}>Ваше имя</label>
-      <input id={fieldId("name")} name="name" autoComplete="name" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? fieldId("name-error") : undefined} placeholder="Как к вам обращаться" />
-      {errors.name && <p id={fieldId("name-error")} className="tourism-form__error">{errors.name}</p>}
-
-      <label htmlFor={fieldId("contact")}>Телефон или Telegram</label>
-      <input id={fieldId("contact")} name="contact" autoComplete="tel" aria-invalid={Boolean(errors.contact)} aria-describedby={errors.contact ? fieldId("contact-error") : undefined} placeholder="+___ или @username" />
-      {errors.contact && <p id={fieldId("contact-error")} className="tourism-form__error">{errors.contact}</p>}
+      <div className="tourism-form__field">
+        <label htmlFor={fieldId("name")}>Ваше имя</label>
+        <input id={fieldId("name")} name="name" autoComplete="name" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? fieldId("name-error") : undefined} placeholder="Как к вам обращаться" />
+        {errors.name && <p id={fieldId("name-error")} className="tourism-form__error">{errors.name}</p>}
+      </div>
 
       <div className="tourism-form__row">
-        <div>
+        <div className="tourism-form__field">
+          <label htmlFor={fieldId("email")}>Email</label>
+          <input id={fieldId("email")} name="email" type="email" inputMode="email" autoComplete="email" aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? fieldId("email-error") : undefined} placeholder="name@example.com" />
+          {errors.email && <p id={fieldId("email-error")} className="tourism-form__error">{errors.email}</p>}
+        </div>
+        <div className="tourism-form__field">
+          <label htmlFor={fieldId("phone")}>Номер телефона</label>
+          <input id={fieldId("phone")} name="phone" type="tel" inputMode="tel" autoComplete="tel" aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? fieldId("phone-error") : undefined} placeholder="+992 00 000 00 00" />
+          {errors.phone && <p id={fieldId("phone-error")} className="tourism-form__error">{errors.phone}</p>}
+        </div>
+      </div>
+
+      <div className="tourism-form__row">
+        <div className="tourism-form__field">
+          <label htmlFor={fieldId("telegram")}>Telegram <span>необязательно</span></label>
+          <input id={fieldId("telegram")} name="telegram" autoComplete="off" placeholder="@username" />
+        </div>
+        <div className="tourism-form__field">
           <label htmlFor={fieldId("country")}>Страна</label>
           <input id={fieldId("country")} name="country" autoComplete="country-name" aria-invalid={Boolean(errors.country)} aria-describedby={errors.country ? fieldId("country-error") : undefined} placeholder="Откуда вы" />
           {errors.country && <p id={fieldId("country-error")} className="tourism-form__error">{errors.country}</p>}
         </div>
-        <div>
-          <label htmlFor={fieldId("service")}>Направление</label>
-          <select id={fieldId("service")} name="service" defaultValue="" aria-invalid={Boolean(errors.service)} aria-describedby={errors.service ? fieldId("service-error") : undefined}>
-            <option value="" disabled>Выберите услугу</option>
-            {servicesData.map((service) => <option key={service.id} value={service.slug}>{service.title}</option>)}
-          </select>
-          {errors.service && <p id={fieldId("service-error")} className="tourism-form__error">{errors.service}</p>}
-        </div>
       </div>
 
-      <label htmlFor={fieldId("message")}>Комментарий <span>необязательно</span></label>
-      <textarea id={fieldId("message")} name="message" rows={3} placeholder="Коротко опишите ситуацию" />
+      <div className="tourism-form__field">
+        <label htmlFor={fieldId("service")}>Направление</label>
+        <select id={fieldId("service")} name="service" defaultValue="" aria-invalid={Boolean(errors.service)} aria-describedby={errors.service ? fieldId("service-error") : undefined}>
+          <option value="" disabled>Выберите услугу</option>
+          {servicesData.map((service) => <option key={service.id} value={service.slug}>{service.title}</option>)}
+        </select>
+        {errors.service && <p id={fieldId("service-error")} className="tourism-form__error">{errors.service}</p>}
+      </div>
+
+      <div className="tourism-form__field">
+        <label htmlFor={fieldId("message")}>Комментарий <span>необязательно</span></label>
+        <textarea id={fieldId("message")} name="message" rows={3} placeholder="Коротко опишите ситуацию" />
+      </div>
       <button className="tourism-button tourism-button--dark" type="submit" disabled={status === "loading"}>{status === "loading" ? "Отправляем…" : "Отправить запрос"} <ArrowRight /></button>
       <p className="tourism-form__note">Нажимая кнопку, вы соглашаетесь на обработку данных.</p>
       <div className="tourism-form__status" role="status" aria-live="polite">
@@ -111,7 +133,7 @@ function ConsultationDialog({ open, onClose }: { open: boolean; onClose: () => v
   return (
     <dialog ref={dialogRef} className="tourism-dialog" onClose={onClose} onCancel={onClose} onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
       <div className="tourism-dialog__top"><div><p className="tourism-eyebrow tourism-eyebrow--dark">Персональная консультация</p><h2>Расскажите о задаче</h2></div><button className="tourism-dialog__close" onClick={onClose} aria-label="Закрыть форму"><X /></button></div>
-      <p className="tourism-dialog__intro">Координатор уточнит детали и поможет подготовить материалы для врача.</p>
+      <p className="tourism-dialog__intro">Координатор уточнит детали и поможет подготов��ть материалы для врача.</p>
       <ConsultationForm idPrefix="dialog" />
     </dialog>
   );
@@ -196,7 +218,7 @@ export function TourismPage() {
 
       <section className="tourism-services" aria-labelledby="services-title"><div className="tourism-shell tourism-services__inner"><div className="tourism-services__intro"><p className="tourism-eyebrow tourism-eyebrow--dark">Направления лечения</p><h2 id="services-title">Рекомендуемые процедуры</h2><p>От эстетических улучшений до функциональной стоматологии — подберём решение после диагностики и составим понятный план лечения.</p></div><div className="tourism-services__list">{treatmentDirections.map((item, index) => <Reveal key={item.title} className="tourism-service" delay={index * 0.05}><span className="tourism-service__icon" style={{ "--treatment-icon": `url("${item.icon}")` } as React.CSSProperties} aria-hidden="true" /><h3>{item.title}</h3><button type="button" onClick={() => setDialogOpen(true)} aria-label={`Обсудить направление: ${item.title}`}><ArrowRight /></button></Reveal>)}</div></div></section>
 
-      <section className="tourism-comparison" aria-labelledby="comparison-title"><div className="tourism-shell"><div className="tourism-comparison__head"><div><p className="tourism-eyebrow">Ориентир по стоимости</p><h2 id="comparison-title">Сравните —<br />и считайте всю поездку.</h2></div><p>Диапазоны из презентации Family Dent показывают порядок цен в долларах США. Это не публичная оферта: точная стоимость зависит от диагноза, материалов и плана врача.</p></div><div className="tourism-comparison__scroller" tabIndex={0} aria-label="Прокручиваемая таблица сравнения цен"><table><thead><tr><th scope="col">Услуга</th><th scope="col" className="is-featured">Таджикистан</th><th scope="col">Россия</th><th scope="col">Казахстан</th><th scope="col">Европа</th><th scope="col">США</th></tr></thead><tbody>{tourismComparison.map((row) => <tr key={row.service}><th scope="row">{row.service}</th><td className="is-featured">{row.tajikistan}</td><td>{row.russia}</td><td>{row.kazakhstan}</td><td>{row.europe}</td><td>{row.usa}</td></tr>)}</tbody></table></div><p className="tourism-comparison__note">Цены ориентировочные и приведены для сравнения. Финальную смету врач формирует после диагностики.</p></div></section>
+      <section className="tourism-comparison" aria-labelledby="comparison-title"><div className="tourism-shell"><div className="tourism-comparison__head"><div><p className="tourism-eyebrow">Ориентир по стоимости</p><h2 id="comparison-title">Сравните —<br />и считайте всю поездку.</h2></div><p>Диапазоны из презентации Family Dent показывают порядо�� цен в долларах США. Это не публичная оферта: точная стоимость зависит от диагноза, материалов и плана врача.</p></div><div className="tourism-comparison__scroller" tabIndex={0} aria-label="Прокручиваемая таблица сравнения цен"><table><thead><tr><th scope="col">Услуга</th><th scope="col" className="is-featured">Таджикистан</th><th scope="col">Россия</th><th scope="col">Казахстан</th><th scope="col">Европа</th><th scope="col">США</th></tr></thead><tbody>{tourismComparison.map((row) => <tr key={row.service}><th scope="row">{row.service}</th><td className="is-featured">{row.tajikistan}</td><td>{row.russia}</td><td>{row.kazakhstan}</td><td>{row.europe}</td><td>{row.usa}</td></tr>)}</tbody></table></div><p className="tourism-comparison__note">Цены ориентировочные и приведены для сравнения. Финальную смету врач формирует после диагностики.</p></div></section>
 
       <section className="tourism-packages" aria-labelledby="packages-title"><div className="tourism-shell"><div className="tourism-packages__head"><p className="tourism-eyebrow tourism-eyebrow--dark">Готовые форматы поездки</p><div><h2 id="packages-title">Выберите ритм.<br />Маршрут уточним вместе.</h2><p>Пакет задаёт длительность и логику поездки, но не заменяет медицинский план.</p></div></div><div className="tourism-local-options"><p>Если вы уже в Таджикистане</p><ul><li>Консультация + диагностика</li><li>Диагностика + профессиональная чистка</li><li>Диагностика + чистка + лечение кариеса</li></ul></div><div className="tourism-packages__list">{tourismPackages.map((item, index) => <Reveal key={item.number} className="tourism-package" delay={index * 0.06}><img className="tourism-package__background" src={item.image} width="991" height="661" loading="lazy" alt={item.imageAlt} /><span className="tourism-package__scrim" aria-hidden="true" /><span className="tourism-package__number">{item.number}</span><div><p>{item.audience}</p><h3>{item.name}</h3></div><strong>{item.duration}</strong><p className="tourism-package__description">{item.description}</p><button type="button" onClick={() => setDialogOpen(true)} aria-label={`Обсудить пакет ${item.name}`}><ArrowRight /></button></Reveal>)}</div></div></section>
 
@@ -211,8 +233,6 @@ export function TourismPage() {
       <section className="tourism-cinematic" aria-label="Пейзаж Памира"><img src="/images/tourism/pamir-road.png" width="1536" height="1024" loading="lazy" alt="Дорога через горы Памир��" /><div><p>Сменить привычный горизонт</p></div></section>
 
       <section className="tourism-conversion" aria-labelledby="consultation-title"><div className="tourism-shell tourism-conversion__inner"><Reveal className="tourism-conversion__copy"><p className="tourism-eyebrow">Следующий шаг</p><h2 id="consultation-title">Начните с разговора, а не с билета.</h2><p>Расскажите о задаче. Координатор поможет подготовить материалы для врача и обсудить дальнейший маршрут.</p></Reveal><Reveal className="tourism-conversion__form" delay={0.08}><ConsultationForm idPrefix="section" /></Reveal></div></section>
-
-      <section className="tourism-contacts tourism-shell" aria-labelledby="contacts-title"><div><p className="tourism-eyebrow tourism-eyebrow--dark">Family Dent · Душанбе</p><h2 id="contacts-title">Мы здесь,<br />когда вы готовы.</h2></div><address><a href="tel:+992446606600">+992 446 60 66 00</a><a href="mailto:familydent.tj@gmail.com">familydent.tj@gmail.com</a><p><MapPin /> Душанбе, улица Айни, 45</p><p><MapPin /> Душанбе, улица Немат Карабаева, 29</p></address><div className="tourism-contacts__map"><iframe title="Family Dent на карте" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=68.75%2C38.54%2C68.82%2C38.60&layer=mapnik" /></div></section>
 
       <ConsultationDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
     </main>
