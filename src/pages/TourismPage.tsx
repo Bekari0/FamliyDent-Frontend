@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { ArrowRight, Braces, CalendarCheck, ClipboardCheck, Crown, Droplets, Route, Smile, Sparkles, Stethoscope, X } from "lucide-react";
+import { ArrowRight, CalendarCheck, ClipboardCheck, Route, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { servicesData } from "../lib/data/services";
 import { tourismComparison, tourismPackages, tourismPlaces, tourismRoadmap } from "../lib/data/tourism";
@@ -15,12 +15,12 @@ const heroSlides = [
 ] as const;
 
 const treatmentDirections = [
-  { title: "Протезирование зубов", icon: Crown },
-  { title: "Имплантация", icon: Stethoscope },
-  { title: "Эстетическая стоматология", icon: Sparkles },
-  { title: "Лечение корневых каналов", icon: Braces },
-  { title: "Ортодонтия", icon: Smile },
-  { title: "Профессиональная гигиена и отбеливание", icon: Droplets },
+  { title: "Протезирование зубов", icon: "/icons/tourism-treatment-1.svg" },
+  { title: "Имплантация", icon: "/icons/tourism-treatment-2.svg" },
+  { title: "Эстетическая стоматология", icon: "/icons/tourism-treatment-3.svg" },
+  { title: "Лечение корневых каналов", icon: "/icons/tourism-treatment-4.svg" },
+  { title: "Ортодонтия", icon: "/icons/tourism-treatment-5.svg" },
+  { title: "Профессиональная гигиена и отбеливание", icon: "/icons/tourism-treatment-6.svg" },
 ] as const;
 
 function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -224,18 +224,19 @@ export function TourismPage() {
             <p>От эстетической до функциональной стоматологии — подберём решение после диагностики и составим понятный план лечения.</p>
           </div>
           <div className="tourism-services__list">
-            {treatmentDirections.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <Reveal key={item.title} className="tourism-service" delay={index * 0.05}>
-                  <Icon className="tourism-service__icon" aria-hidden="true" strokeWidth={1.5} />
-                  <h3>{item.title}</h3>
-                  <button type="button" onClick={() => setDialogOpen(true)} aria-label={`Обсудить направление: ${item.title}`}>
-                    <ArrowRight />
-                  </button>
-                </Reveal>
-              );
-            })}
+            {treatmentDirections.map((item, index) => (
+              <Reveal key={item.title} className="tourism-service" delay={index * 0.05}>
+                <span
+                  className="tourism-service__icon"
+                  style={{ maskImage: `url(${item.icon})`, WebkitMaskImage: `url(${item.icon})` }}
+                  aria-hidden="true"
+                />
+                <h3>{item.title}</h3>
+                <button type="button" onClick={() => setDialogOpen(true)} aria-label={`Обсудить направление: ${item.title}`}>
+                  <ArrowRight />
+                </button>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
