@@ -1,59 +1,63 @@
 import type { TreatmentCase } from "./types";
 
-/* Mock data for Family Dent before & after treatment cases */
 const DISCLAIMER = "Результат лечения индивидуален и зависит от клинической ситуации.";
 
 const treatmentCasesData: TreatmentCase[] = [
   {
-    id: "case-veneers-1",
-    slug: "estetika-ulibki-vinirami",
-    title: "Преображение улыбки керамическими винирами E.max",
-    category: "veneers",
-    shortDescription: "Коррекция формы, пропорций и цвета верхних 8 зубов керамическими винирами за 2 посещения.",
-    beforeImage: "https://images.pexels.com/photos/6627532/pexels-photo-6627532.jpeg?auto=compress&cs=tinysrgb&w=800",
-    afterImage: "https://images.pexels.com/photos/3762453/pexels-photo-3762453.jpeg?auto=compress&cs=tinysrgb&w=800",
-    disclaimer: DISCLAIMER
-  },
-  {
-    id: "case-braces-1",
-    slug: "исправление-прикуса-брекетами",
-    title: "Исправление скученности и глубокого прикуса",
-    category: "braces",
-    shortDescription: "Лечение самолигирующей брекет-системой Damon в течение 14 месяцев без удаления здоровых зубов.",
-    beforeImage: "https://images.pexels.com/photos/6812561/pexels-photo-6812561.jpeg?auto=compress&cs=tinysrgb&w=800",
-    afterImage: "https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg?auto=compress&cs=tinysrgb&w=800",
-    disclaimer: DISCLAIMER
-  },
-  {
-    id: "case-implantation-1",
-    slug: "имплантация-переднего-зуба",
-    title: "Одномоментная имплантация в эстетически значимой зоне",
+    id: "case-posterior-implants-24-25",
+    slug: "vosstanovlenie-zubov-24-25",
+    title: "Восстановление зубов 24 и 25",
     category: "implantation",
-    shortDescription: "Удаление разрушенного резца с одновременной установкой импланта и временной коронки в один день.",
-    beforeImage: "https://images.pexels.com/photos/6528859/pexels-photo-6528859.jpeg?auto=compress&cs=tinysrgb&w=800",
-    afterImage: "https://images.pexels.com/photos/3779705/pexels-photo-3779705.jpeg?auto=compress&cs=tinysrgb&w=800",
-    disclaimer: DISCLAIMER
+    shortDescription:
+      "Имплантация с периодом приживления 3 месяца, адаптация на временных коронках и финальная фиксация коронок из диоксида циркония.",
+    beforeImage: "/images/results/restoration-before.jpg",
+    afterImage: "/images/results/restoration-after.jpg",
+    disclaimer: DISCLAIMER,
   },
   {
-    id: "case-restoration-1",
-    slug: "художественная-реставрация",
-    title: "Художественная реставрация передних зубов под микроскопом",
+    id: "case-anterior-zirconia-11-21",
+    slug: "preobrazhenie-ulybki-11-21",
+    title: "Преображение улыбки: зона 11–21",
+    category: "veneers",
+    shortDescription:
+      "После лечения глубоких кариозных поражений фронтальная зона восстановлена циркониевыми коронками естественной формы и оттенка.",
+    beforeImage: "/images/results/transformation-before.jpg",
+    afterImage: "/images/results/transformation-after.jpg",
+    disclaimer: DISCLAIMER,
+  },
+  {
+    id: "case-all-on-4",
+    slug: "polnaya-perezagruzka-ulybki-all-on-4",
+    title: "Полная перезагрузка улыбки All-on-4",
+    category: "implantation",
+    shortDescription:
+      "Полное восстановление обеих челюстей: имплантация All-on-4, период приживления, временные коронки и постоянное протезирование на балочной фиксации.",
+    beforeImage: "/images/results/all-on-4-before.jpg",
+    afterImage: "/images/results/all-on-4-after.jpg",
+    disclaimer: DISCLAIMER,
+  },
+  {
+    id: "case-professional-hygiene",
+    slug: "professionalnaya-gigiena-polosti-rta",
+    title: "Профессиональная гигиена полости рта",
     category: "restoration",
-    shortDescription: "Восстановление скола и прозрачности эмали светоотверждаемым композитом с сохранением естественной анатомии.",
-    beforeImage: "https://images.pexels.com/photos/6528852/pexels-photo-6528852.jpeg?auto=compress&cs=tinysrgb&w=800",
-    afterImage: "https://images.pexels.com/photos/3779709/pexels-photo-3779709.jpeg?auto=compress&cs=tinysrgb&w=800",
-    disclaimer: DISCLAIMER
+    shortDescription:
+      "Удалили плотный налёт и зубной камень, вернув зубам естественную чистоту. Регулярная гигиена помогает поддерживать здоровье зубов и дёсен.",
+    beforeImage: "/images/results/hygiene-before.jpg",
+    afterImage: "/images/results/hygiene-after.jpg",
+    disclaimer: DISCLAIMER,
   },
   {
-    id: "case-orthodontics-1",
-    slug: "лечение-прозрачными-элайнерами",
-    title: "Выравнивание зубов элайнерами",
-    category: "orthodontics",
-    shortDescription: "Комфортное незаметное лечение дистального прикуса капами в течение 10 месяцев.",
-    beforeImage: "https://images.pexels.com/photos/6812555/pexels-photo-6812555.jpeg?auto=compress&cs=tinysrgb&w=800",
-    afterImage: "https://images.pexels.com/photos/3845806/pexels-photo-3845806.jpeg?auto=compress&cs=tinysrgb&w=800",
-    disclaimer: DISCLAIMER
-  }
+    id: "case-anterior-restoration",
+    slug: "kompleksnoe-vosstanovlenie-perednih-zubov",
+    title: "Комплексное восстановление передних зубов",
+    category: "restoration",
+    shortDescription:
+      "Восстановили сильно повреждённые зубы фронтальной зоны, вернув улыбке аккуратную форму, естественный оттенок и полноценную функцию.",
+    beforeImage: "/images/results/anterior-before.jpg",
+    afterImage: "/images/results/anterior-after.jpg",
+    disclaimer: DISCLAIMER,
+  },
 ];
 
 export async function getTreatmentCases(): Promise<TreatmentCase[]> {
