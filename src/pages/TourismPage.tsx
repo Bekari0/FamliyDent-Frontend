@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { ArrowDown, ArrowRight, MapPin, X } from "lucide-react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { servicesData } from "../lib/data/services";
-import { tourismPlaces, tourismRoadmap } from "../lib/data/tourism";
+import { tourismComparison, tourismPackages, tourismPlaces, tourismRoadmap } from "../lib/data/tourism";
 import { submitTourismConsultation } from "../lib/tourism-consultation";
 import "./tourism-page.css";
 
@@ -119,7 +119,7 @@ export function TourismPage() {
 
   useEffect(() => {
     document.title = "Стоматологический туризм в Душанбе | Family Dent";
-    const description = "Стоматологическое лечение в Family Dent в Душанбе: предварительная консультация, согласованный маршрут визитов и знакомство с Таджикистаном.";
+    const description = "Стоматологическое лечение в Family Dent в Душанбе: предварительная консультация, согласованный маршрут визитов и знако��ство с Таджикистаном.";
     let meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     if (!meta) { meta = document.createElement("meta"); meta.name = "description"; document.head.append(meta); }
     meta.content = description;
@@ -145,17 +145,21 @@ export function TourismPage() {
         <div className="tourism-hero__overlay" />
         <motion.div style={reduceMotion ? undefined : { y: heroTextY }} className="tourism-hero__content">
           <p className="tourism-eyebrow">FamilyDent · Dushanbe</p>
-          <h1 id="tourism-title"><span>Лечение.</span><span>Путешествие.</span><span>Одна забота.</span></h1>
-          <div className="tourism-hero__support"><p>Продуманный маршрут стоматологического лечения в Душанбе — от первой онлайн-консультации до возвращения домой.</p><button className="tourism-button tourism-button--light" onClick={() => setDialogOpen(true)}>Обсудить поездку <ArrowRight /></button></div>
+          <h1 id="tourism-title"><span>Таджикистан —</span><span>путешествие,</span><span>которое стоит открыть.</span></h1>
+          <div className="tourism-hero__support"><p>Величественные горы, древняя культура и искреннее гостеприимство. Совместите путешествие с диагностикой и необходимым лечением в Family Dent — мы поможем выстроить визиты комфортно и удобно.</p><button className="tourism-button tourism-button--light" onClick={() => setDialogOpen(true)}>Обсудить поездку <ArrowRight /></button></div>
         </motion.div>
         <a href="#intro" className="tourism-hero__scroll" aria-label="Перейти к содержанию"><ArrowDown /></a>
       </section>
 
-      <section id="intro" className="tourism-intro tourism-shell"><Reveal><p className="tourism-eyebrow tourism-eyebrow--dark">Стоматология без границ</p></Reveal><Reveal className="tourism-intro__statement" delay={0.08}><h2>Медицинская ясность — и время увидеть Таджикистан.</h2><p>Мы соединяем лечение и сопровождение в одном спокойном маршруте. Без обещаний до диагностики, без лишней суеты, с вниманием к каждому этапу поездки.</p></Reveal></section>
+      <section id="intro" className="tourism-intro tourism-shell"><Reveal><p className="tourism-eyebrow tourism-eyebrow--dark">Стоматология без границ</p></Reveal><Reveal className="tourism-intro__statement" delay={0.08}><h2>Медицинская ясность — и время увидеть Таджикистан.</h2><p>Начните путешествие в Душанбе, а затем отправьтесь к живописным озёрам, Фанским горам или легендарному Памиру. Стоматологические визиты можно совместить с отдыхом и новыми впечатлениями — мы поможем спланировать маршрут без лишней суеты, а медицинские решения врач подтвердит после диагностики.</p></Reveal></section>
 
-      <section className="tourism-facts" aria-label="Ключевые принципы"><div className="tourism-shell tourism-facts__inner"><Reveal><strong>С 2018 года</strong><span>Family Dent работает в Душанбе</span></Reveal><Reveal delay={0.06}><strong>До поездки</strong><span>Обсуждаем задачу и доступные материалы</span></Reveal><Reveal delay={0.12}><strong>После диагностики</strong><span>Врач подтверждает план и сроки лечения</span></Reveal></div></section>
+      <section className="tourism-facts" aria-label="О Family Dent"><div className="tourism-shell tourism-facts__inner"><Reveal><strong>8+ лет</strong><span>Успешной работы в Душанбе</span></Reveal><Reveal delay={0.06}><strong>2 филиала</strong><span>Клиники Family Dent в столице</span></Reveal><Reveal delay={0.12}><strong>50 000+</strong><span>Пациентов по данным презентации клиники</span></Reveal></div></section>
 
       <section className="tourism-services" aria-labelledby="services-title"><div className="tourism-shell tourism-section-heading"><p className="tourism-eyebrow tourism-eyebrow--dark">Направления лечения</p><h2 id="services-title">Главное — точная медицинская задача</h2></div><div className="tourism-services__layout tourism-shell">{editorialServices.map(({ service, image, className }, index) => <Reveal key={service.id} className={`tourism-service ${className}`} delay={index * 0.08}><div className="tourism-service__image"><img src={image} width="960" height="720" loading="lazy" alt="" /></div><div className="tourism-service__body"><span>{String(index + 1).padStart(2, "0")}</span><h3>{service.title}</h3><p>{service.slug === "implantation" ? "Восстановление утраченных зубов с предварительной цифровой диагностикой и индивидуальным планированием." : service.slug === "orthodontics" ? "Исправление прикуса и выравнивание зубов современными брекет-системами и прозрачными элайнерами." : "Эстетические решения обсуждаются после диагностики, оценки состояния зубов и согласования ожидаемого результата."}</p></div></Reveal>)}</div></section>
+
+      <section className="tourism-comparison" aria-labelledby="comparison-title"><div className="tourism-shell"><div className="tourism-comparison__head"><div><p className="tourism-eyebrow">Ориентир по стоимости</p><h2 id="comparison-title">Сравните —<br />и считайте всю поездку.</h2></div><p>Диапазоны из презентации Family Dent показывают порядок цен в долларах США. Это не публичная оферта: точная стоимость зависит от диагноза, материалов и плана врача.</p></div><div className="tourism-comparison__scroller" tabIndex={0} aria-label="Прокручиваемая таблица сравнения цен"><table><thead><tr><th scope="col">Услуга</th><th scope="col" className="is-featured">Таджикистан</th><th scope="col">Россия</th><th scope="col">Казахстан</th><th scope="col">Европа</th><th scope="col">США</th></tr></thead><tbody>{tourismComparison.map((row) => <tr key={row.service}><th scope="row">{row.service}</th><td className="is-featured">{row.tajikistan}</td><td>{row.russia}</td><td>{row.kazakhstan}</td><td>{row.europe}</td><td>{row.usa}</td></tr>)}</tbody></table></div><p className="tourism-comparison__note">Цены ориентировочные и приведены для сравнения. Финальную смету врач формирует после диагностики.</p></div></section>
+
+      <section className="tourism-packages" aria-labelledby="packages-title"><div className="tourism-shell"><div className="tourism-packages__head"><p className="tourism-eyebrow tourism-eyebrow--dark">Готовые форматы поездки</p><div><h2 id="packages-title">Выберите ритм.<br />Маршрут уточним вместе.</h2><p>Пакет задаёт длительность и логику поездки, но не заменяет медицинский план.</p></div></div><div className="tourism-local-options"><p>Если вы уже в Таджикистане</p><ul><li>Консультация + диагностика</li><li>Диагностика + профессиональная чистка</li><li>Диагностика + чистка + лечение кариеса</li></ul></div><div className="tourism-packages__list">{tourismPackages.map((item, index) => <Reveal key={item.number} className="tourism-package" delay={index * 0.06}><span className="tourism-package__number">{item.number}</span><div><p>{item.audience}</p><h3>{item.name}</h3></div><strong>{item.duration}</strong><p className="tourism-package__description">{item.description}</p><button type="button" onClick={() => setDialogOpen(true)} aria-label={`Обсудить пакет ${item.name}`}><ArrowRight /></button></Reveal>)}</div></div></section>
 
       <section ref={roadmapRef} className="tourism-roadmap" aria-labelledby="roadmap-title"><div className="tourism-shell"><div className="tourism-roadmap__head"><p className="tourism-eyebrow tourism-eyebrow--dark">Как это работает</p><h2 id="roadmap-title">От сообщения<br />до Душанбе</h2></div><div className="tourism-roadmap__track"><div className="tourism-roadmap__line"><motion.span style={reduceMotion ? { scaleX: 1 } : { scaleX: lineScale }} /></div>{tourismRoadmap.map((step) => <article key={step.number}><span className="tourism-roadmap__number">{step.number}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}</div><p className="tourism-roadmap__disclaimer">Окончательный план, объём и сроки лечения определяет врач после очной диагностики.</p></div></section>
 
@@ -165,7 +169,7 @@ export function TourismPage() {
 
       <section className="tourism-places tourism-shell" aria-labelledby="places-title"><div className="tourism-places__heading"><p className="tourism-eyebrow tourism-eyebrow--dark">Между визитами</p><h2 id="places-title">Места, которые остаются с вами</h2></div><div className="tourism-places__grid">{tourismPlaces.map((place, index) => <Reveal key={place.name} className={`tourism-place ${place.className}`} delay={index * 0.06}><img src={place.image} width="1200" height="900" loading="lazy" alt={place.name} /><div><span>{place.meta}</span><h3>{place.name}</h3></div></Reveal>)}</div></section>
 
-      <section className="tourism-cinematic" aria-label="Пейзаж Памира"><img src="/images/tourism/pamir-road.png" width="1536" height="1024" loading="lazy" alt="Дорога через горы Памира" /><div><p>Сменить привычный горизонт</p></div></section>
+      <section className="tourism-cinematic" aria-label="Пейзаж Памира"><img src="/images/tourism/pamir-road.png" width="1536" height="1024" loading="lazy" alt="Дорога через горы Памир��" /><div><p>Сменить привычный горизонт</p></div></section>
 
       <section className="tourism-conversion" aria-labelledby="consultation-title"><div className="tourism-shell tourism-conversion__inner"><Reveal className="tourism-conversion__copy"><p className="tourism-eyebrow">Следующий шаг</p><h2 id="consultation-title">Начните с разговора, а не с билета.</h2><p>Расскажите о задаче. Координатор поможет подготовить материалы для врача и обсудить дальнейший маршрут.</p></Reveal><Reveal className="tourism-conversion__form" delay={0.08}><ConsultationForm idPrefix="section" /></Reveal></div></section>
 
