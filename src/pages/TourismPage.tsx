@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { ArrowRight, CalendarCheck, ClipboardCheck, Route, X } from "lucide-react";
+import { ArrowRight, Braces, CalendarCheck, ClipboardCheck, Crown, Droplets, Route, Smile, Sparkles, Stethoscope, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { servicesData } from "../lib/data/services";
 import { tourismComparison, tourismPackages, tourismPlaces, tourismRoadmap } from "../lib/data/tourism";
@@ -15,12 +15,12 @@ const heroSlides = [
 ] as const;
 
 const treatmentDirections = [
-  { title: "Протезирование зубов", icon: "/icons/tourism-treatment-1.svg" },
-  { title: "Имплантация", icon: "/icons/tourism-treatment-2.svg" },
-  { title: "Эстетическая стоматология", icon: "/icons/tourism-treatment-3.svg" },
-  { title: "Лечение корневых каналов", icon: "/icons/tourism-treatment-4.svg" },
-  { title: "Ортодонтия", icon: "/icons/tourism-treatment-5.svg" },
-  { title: "Профессиональная гигиена и отбеливание", icon: "/icons/tourism-treatment-6.svg" },
+  { title: "Протезирование зубов", icon: Crown },
+  { title: "Имплантация", icon: Stethoscope },
+  { title: "Эстетическая стоматология", icon: Sparkles },
+  { title: "Лечение корневых каналов", icon: Braces },
+  { title: "Ортодонтия", icon: Smile },
+  { title: "Профессиональная гигиена и отбеливание", icon: Droplets },
 ] as const;
 
 function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -216,7 +216,29 @@ export function TourismPage() {
         </div>
       </section>
 
-      <section className="tourism-services" aria-labelledby="services-title"><div className="tourism-shell tourism-services__inner"><div className="tourism-services__intro"><p className="tourism-eyebrow tourism-eyebrow--dark">Направления лечения</p><h2 id="services-title">Рекомендуемые процедуры</h2><p>От эстетических улучшений до функциональн������й стоматологии — подберём решение после диагностики и составим понятный план лечения.</p></div><div className="tourism-services__list">{treatmentDirections.map((item, index) => <Reveal key={item.title} className="tourism-service" delay={index * 0.05}><span className="tourism-service__icon" style={{ "--treatment-icon": `url("${item.icon}")` } as React.CSSProperties} aria-hidden="true" /><h3>{item.title}</h3><button type="button" onClick={() => setDialogOpen(true)} aria-label={`Обсудить направление: ${item.title}`}><ArrowRight /></button></Reveal>)}</div></div></section>
+      <section className="tourism-services" aria-labelledby="services-title">
+        <div className="tourism-shell tourism-services__inner">
+          <div className="tourism-services__intro">
+            <p className="tourism-eyebrow tourism-eyebrow--dark">Направления лечения</p>
+            <h2 id="services-title">Рекомендуемые процедуры</h2>
+            <p>От эстетической до функциональной стоматологии — подберём решение после диагностики и составим понятный план лечения.</p>
+          </div>
+          <div className="tourism-services__list">
+            {treatmentDirections.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <Reveal key={item.title} className="tourism-service" delay={index * 0.05}>
+                  <Icon className="tourism-service__icon" aria-hidden="true" strokeWidth={1.5} />
+                  <h3>{item.title}</h3>
+                  <button type="button" onClick={() => setDialogOpen(true)} aria-label={`Обсудить направление: ${item.title}`}>
+                    <ArrowRight />
+                  </button>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       <section className="tourism-comparison" aria-labelledby="comparison-title"><div className="tourism-shell"><div className="tourism-comparison__head"><div><p className="tourism-eyebrow">Ориентир по стоимости</p><h2 id="comparison-title">Сравните —<br />и считайте всю поездку.</h2></div><p>Диапазоны из презентации Family Dent показывают порядо�� цен в долларах США. Это не публичная оферта: точная стоимость зависит от диагноза, материалов и плана врача.</p></div><div className="tourism-comparison__scroller" tabIndex={0} aria-label="Прокручиваемая таблица сравнения цен"><table><thead><tr><th scope="col">Услуга</th><th scope="col" className="is-featured">Таджикистан</th><th scope="col">Россия</th><th scope="col">Казахстан</th><th scope="col">Европа</th><th scope="col">США</th></tr></thead><tbody>{tourismComparison.map((row) => <tr key={row.service}><th scope="row">{row.service}</th><td className="is-featured">{row.tajikistan}</td><td>{row.russia}</td><td>{row.kazakhstan}</td><td>{row.europe}</td><td>{row.usa}</td></tr>)}</tbody></table></div><p className="tourism-comparison__note">Цены ориентировочные и приведены для сравнения. Финальную смету врач формирует после диагностики.</p></div></section>
 
