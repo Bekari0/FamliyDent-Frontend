@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { ArrowRight, CalendarCheck, ClipboardCheck, Route, X } from "lucide-react";
+import { ArrowRight, CalendarCheck, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { servicesData } from "../lib/data/services";
 import { tourismComparison, tourismPackages, tourismPlaces, tourismRoadmap } from "../lib/data/tourism";
@@ -186,43 +186,43 @@ export function TourismPage() {
 
       <section id="intro" className="tourism-borderless" aria-labelledby="borderless-title">
         <div className="tourism-shell tourism-borderless__inner">
-          <Reveal className="tourism-borderless__heading">
+          <Reveal className="tourism-borderless__lead">
             <p className="tourism-eyebrow">Стоматология без границ</p>
             <h2 id="borderless-title"><span>Лечение продумано.</span><br />Путешествие — тоже.</h2>
-            <p>Family Dent помогает собрать визит в Душанбе в понятный маршрут: от первого сообщения и подготовки снимков до очной диагностики и связи после приёма.</p>
+            <p>Family Dent помогает собрать визит в Душанбе в понятный маршрут — от первого сообщения до связи после приёма.</p>
+            <div className="tourism-borderless__actions">
+              <button type="button" className="tourism-button tourism-button--light" onClick={() => setDialogOpen(true)}>Обсудить поездку <ArrowRight aria-hidden="true" /></button>
+              <a href="#roadmap">Посмотреть этапы <span aria-hidden="true">↓</span></a>
+            </div>
           </Reveal>
 
-          <div className="tourism-borderless__grid">
-            <Reveal className="tourism-borderless__photo">
-              <img src="/images/clinic-exterior-poster.png" width="1536" height="882" loading="lazy" alt="Клиника Family Dent в центре Душанбе" />
-              <div><span>Вас сопровождает</span><strong>Персональный<br />координатор</strong></div>
-            </Reveal>
+          <Reveal className="tourism-borderless__photo" delay={0.06}>
+            <img src="/images/clinic-exterior-poster.png" width="1536" height="882" loading="lazy" alt="Клиника Family Dent в центре Душанбе" />
+            <div><span>Family Dent · Душанбе</span><strong>Персональный<br />координатор</strong><small>Один контакт для вопросов о подготовке и визите</small></div>
+          </Reveal>
 
-            <Reveal className="tourism-borderless__card tourism-borderless__card--route" delay={0.06}>
-              <Route aria-hidden="true" />
-              <div><span>План поездки</span><strong>Согласуем визиты с вашим маршрутом</strong></div>
+          <div className="tourism-borderless__journey" aria-label="Этапы сопровождения пациента">
+            <Reveal className="tourism-borderless__step" delay={0.08}>
+              <span>01</span><div><p>До приезда</p><h3>Подготовим материалы</h3><p>Соберём доступные снимки и уточним медицинскую задачу для первого разговора с врачом.</p></div>
             </Reveal>
-
-            <Reveal className="tourism-borderless__card tourism-borderless__card--support" delay={0.1}>
-              <ClipboardCheck aria-hidden="true" />
-              <div><span>До и после приёма</span><strong>Остаёмся на связи по плану лечения</strong></div>
+            <Reveal className="tourism-borderless__step" delay={0.13}>
+              <span>02</span><div><p>В Душанбе</p><h3>Скоординируем визиты</h3><p>Поможем встроить очную диагностику и согласованные приёмы в маршрут вашей поездки.</p></div>
             </Reveal>
-
-            <Reveal className="tourism-borderless__card tourism-borderless__card--clinic" delay={0.14}>
-              <CalendarCheck aria-hidden="true" />
-              <div><span>Family Dent</span><strong>Работаем в Душанбе<br />с 2018 года</strong><small>Два адреса в столице</small></div>
+            <Reveal className="tourism-borderless__step" delay={0.18}>
+              <span>03</span><div><p>После приёма</p><h3>Останемся на связи</h3><p>Координатор поможет с вопросами по согласованному плану лечения после визита.</p></div>
             </Reveal>
+            <Reveal className="tourism-borderless__since" delay={0.22}><CalendarCheck aria-hidden="true" /><p><strong>С 2018 года</strong><span>Family Dent работает в Душанбе</span></p></Reveal>
           </div>
         </div>
       </section>
 
-      <section className="tourism-services" aria-labelledby="services-title"><div className="tourism-shell tourism-services__inner"><div className="tourism-services__intro"><p className="tourism-eyebrow tourism-eyebrow--dark">Направления лечения</p><h2 id="services-title">Рекомендуемые процедуры</h2><p>От эстетических улучшений до функциональн����й стоматологии — подберём решение после диагностики и составим понятный план лечения.</p></div><div className="tourism-services__list">{treatmentDirections.map((item, index) => <Reveal key={item.title} className="tourism-service" delay={index * 0.05}><span className="tourism-service__icon" style={{ "--treatment-icon": `url("${item.icon}")` } as React.CSSProperties} aria-hidden="true" /><h3>{item.title}</h3><button type="button" onClick={() => setDialogOpen(true)} aria-label={`Обсудить направление: ${item.title}`}><ArrowRight /></button></Reveal>)}</div></div></section>
+      <section className="tourism-services" aria-labelledby="services-title"><div className="tourism-shell tourism-services__inner"><div className="tourism-services__intro"><p className="tourism-eyebrow tourism-eyebrow--dark">Направления лечения</p><h2 id="services-title">Рекомендуемые процедуры</h2><p>От эстетических улучшений до функциональн������й стоматологии — подберём решение после диагностики и составим понятный план лечения.</p></div><div className="tourism-services__list">{treatmentDirections.map((item, index) => <Reveal key={item.title} className="tourism-service" delay={index * 0.05}><span className="tourism-service__icon" style={{ "--treatment-icon": `url("${item.icon}")` } as React.CSSProperties} aria-hidden="true" /><h3>{item.title}</h3><button type="button" onClick={() => setDialogOpen(true)} aria-label={`Обсудить направление: ${item.title}`}><ArrowRight /></button></Reveal>)}</div></div></section>
 
       <section className="tourism-comparison" aria-labelledby="comparison-title"><div className="tourism-shell"><div className="tourism-comparison__head"><div><p className="tourism-eyebrow">Ориентир по стоимости</p><h2 id="comparison-title">Сравните —<br />и считайте всю поездку.</h2></div><p>Диапазоны из презентации Family Dent показывают порядо�� цен в долларах США. Это не публичная оферта: точная стоимость зависит от диагноза, материалов и плана врача.</p></div><div className="tourism-comparison__scroller" tabIndex={0} aria-label="Прокручиваемая таблица сравнения цен"><table><thead><tr><th scope="col">Услуга</th><th scope="col" className="is-featured">Таджикистан</th><th scope="col">Россия</th><th scope="col">Казахстан</th><th scope="col">Европа</th><th scope="col">США</th></tr></thead><tbody>{tourismComparison.map((row) => <tr key={row.service}><th scope="row">{row.service}</th><td className="is-featured">{row.tajikistan}</td><td>{row.russia}</td><td>{row.kazakhstan}</td><td>{row.europe}</td><td>{row.usa}</td></tr>)}</tbody></table></div><p className="tourism-comparison__note">Цены ориентировочные и приведены для сравнения. Финальную смету врач формирует после диагностики.</p></div></section>
 
       <section className="tourism-packages" aria-labelledby="packages-title"><div className="tourism-shell"><div className="tourism-packages__head"><p className="tourism-eyebrow tourism-eyebrow--dark">Готовые форматы поездки</p><div><h2 id="packages-title">Выберите ритм.<br />Маршрут уточним вместе.</h2><p>Пакет задаёт длительность и логику поездки, но не заменяет медицинский план.</p></div></div><div className="tourism-local-options"><p>Если вы уже в Таджикистане</p><ul><li>Консультация + диагностика</li><li>Диагностика + профессиональная чистка</li><li>Диагностика + чистка + лечение кариеса</li></ul></div><div className="tourism-packages__list">{tourismPackages.map((item, index) => <Reveal key={item.number} className="tourism-package" delay={index * 0.06}><img className="tourism-package__background" src={item.image} width="991" height="661" loading="lazy" alt={item.imageAlt} /><span className="tourism-package__scrim" aria-hidden="true" /><span className="tourism-package__number">{item.number}</span><div><p>{item.audience}</p><h3>{item.name}</h3></div><strong>{item.duration}</strong><p className="tourism-package__description">{item.description}</p><button type="button" onClick={() => setDialogOpen(true)} aria-label={`Обсудить пакет ${item.name}`}><ArrowRight /></button></Reveal>)}</div></div></section>
 
-      <section ref={roadmapRef} className="tourism-roadmap" aria-labelledby="roadmap-title"><div className="tourism-shell"><div className="tourism-roadmap__head"><p className="tourism-eyebrow tourism-eyebrow--dark">Как это работает</p><h2 id="roadmap-title">От сообщения<br />до Душанбе</h2></div><div className="tourism-roadmap__track"><div className="tourism-roadmap__line"><motion.span style={reduceMotion ? { scaleX: 1 } : { scaleX: lineScale }} /></div>{tourismRoadmap.map((step) => <article key={step.number}><span className="tourism-roadmap__number">{step.number}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}</div><p className="tourism-roadmap__disclaimer">Окончательный план, объём и сроки лечения определяет врач после очной диагностики.</p></div></section>
+      <section id="roadmap" ref={roadmapRef} className="tourism-roadmap" aria-labelledby="roadmap-title"><div className="tourism-shell"><div className="tourism-roadmap__head"><p className="tourism-eyebrow tourism-eyebrow--dark">Как это работает</p><h2 id="roadmap-title">От сообщения<br />до Душанбе</h2></div><div className="tourism-roadmap__track"><div className="tourism-roadmap__line"><motion.span style={reduceMotion ? { scaleX: 1 } : { scaleX: lineScale }} /></div>{tourismRoadmap.map((step) => <article key={step.number}><span className="tourism-roadmap__number">{step.number}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}</div><p className="tourism-roadmap__disclaimer">Окончательный план, объём и сроки лечения определяет врач после очной диагностики.</p></div></section>
 
       <section className="tourism-visit" aria-labelledby="visit-title"><div className="tourism-shell tourism-visit__inner"><div><p className="tourism-eyebrow">Визит без неопределённости</p><h2 id="visit-title">До. Во время. После.</h2></div><div className="tourism-visit__steps"><Reveal><span>До визита</span><p>Собираем доступные снимки и уточняем медицинскую задачу.</p></Reveal><Reveal delay={0.07}><span>В Душанбе</span><p>Проводим очную диагностику и согласуем дальнейшие действия.</p></Reveal><Reveal delay={0.14}><span>После визита</span><p>Остаёмся на связи по вопросам согласованного лечения.</p></Reveal></div></div></section>
 
