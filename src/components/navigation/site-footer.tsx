@@ -1,55 +1,48 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Phone, MapPin, Mail, Clock, ExternalLink, Shield } from "lucide-react";
+import { Phone, MapPin, Mail, Clock, Shield } from "lucide-react";
 
 export function SiteFooter() {
   return (
     <footer className="w-full bg-ink border-t border-rule/20 text-paper/70 py-12 px-5 sm:px-8">
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
         
-        {/* Map Section embedded inside Footer */}
-        <div className="w-full bg-ink-2/50 rounded-2xl border border-rule/20 overflow-hidden shadow-xl p-4 sm:p-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
-            <div>
-              <span className="text-[11px] uppercase font-bold text-accent tracking-wider block font-mono">
-                Локации клиники в Душанбе
-              </span>
-              <h3 className="text-base sm:text-lg font-bold text-paper flex flex-col gap-1.5 mt-1">
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-accent shrink-0" />
-                  <span>Улица Айни, 45</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-accent shrink-0" />
-                  <span>Улица Немат Карабаева, 29</span>
-                </div>
-              </h3>
-            </div>
-            <a
-              href="https://yandex.ru/maps/?text=Душанбе+Улица+Айни+45"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-accent/20 hover:bg-accent/30 text-accent-2 text-xs font-semibold border border-accent/30 transition-all shrink-0"
-            >
-              <span>Открыть на Яндекс Картах</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-          </div>
-
-          {/* Interactive Map Embed */}
-          <div className="w-full aspect-[16/6] sm:aspect-[21/7] rounded-xl overflow-hidden bg-slate-900 border border-rule/10 relative">
+        {/* Shared Yandex map and editorial contact panel */}
+        <section className="grid min-h-[34rem] w-full overflow-hidden rounded-[var(--radius-xl)] border border-rule/20 bg-ink-2 shadow-xl md:grid-cols-[minmax(0,2fr)_minmax(18rem,1fr)]" aria-labelledby="footer-contacts-title">
+          <div className="relative min-h-[24rem] bg-paper-3 md:min-h-[34rem]">
             <iframe
-              title="Интерактивная карта расположения клиники Family Dent"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12480.9507923707!2d68.7838!3d38.5601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38b5d160161d0f5f%3A0x2897dd6f4a383b1a!2z0L_RgC3Rgi4g0KDRg9C00LDQutC4IDQ1LCDQlNGD0YjQsNC90LHQ satirical!5e0!3m2!1sru!2s!4v1710000000000!5m2!1sru!2s"
+              title="Яндекс Карта с двумя филиалами Family Dent в Душанбе"
+              src="https://yandex.ru/map-widget/v1/?ll=68.782757%2C38.556142&z=13.6&l=map&pt=68.760889%2C38.548925%2Cpm2gnm~68.804625%2C38.563358%2Cpm2gnm"
               width="100%"
               height="100%"
-              style={{ border: 0, filter: "contrast(1.05) opacity(0.9)" }}
-              allowFullScreen={false}
+              className="absolute inset-0 h-full w-full border-0"
               loading="lazy"
-              referrerPolicy="no-referrer"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
-        </div>
+
+          <div className="flex flex-col justify-between gap-10 bg-ink-2 p-7 sm:p-10 md:p-8 lg:p-12">
+            <div>
+              <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-accent-2">Два филиала в Душанбе</span>
+              <h2 id="footer-contacts-title" className="mt-3 font-display text-3xl font-semibold tracking-[-0.04em] text-paper sm:text-4xl">FamilyDent</h2>
+            </div>
+
+            <div className="flex flex-col gap-7 border-t border-rule/20 pt-8">
+              <div className="flex items-start gap-4">
+                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-accent-2" aria-hidden="true" />
+                <div className="flex flex-col gap-2 text-sm leading-relaxed text-paper/85">
+                  <a href="https://yandex.ru/maps/org/femili_dent/16415187433/?ll=68.804625%2C38.563358&z=18.74" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent-2">Улица Айни, 45</a>
+                  <a href="https://yandex.ru/maps/10318/dushanbe/?ll=68.760865%2C38.548876&mode=poi&poi%5Bpoint%5D=68.760889%2C38.548925&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D46274680486&z=21" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent-2">Улица Немат Карабаева, 29</a>
+                </div>
+              </div>
+
+              <a href="tel:+992446606600" className="flex items-center gap-4 text-sm text-paper/85 transition-colors hover:text-accent-2"><Phone className="h-5 w-5 shrink-0 text-accent-2" aria-hidden="true" /><span>+992 446 60 66 00</span></a>
+              <a href="mailto:familydent.tj@gmail.com" className="flex items-center gap-4 break-all text-sm text-paper/85 transition-colors hover:text-accent-2"><Mail className="h-5 w-5 shrink-0 text-accent-2" aria-hidden="true" /><span>familydent.tj@gmail.com</span></a>
+              <div className="flex items-center gap-4 text-sm text-paper/85"><Clock className="h-5 w-5 shrink-0 text-accent-2" aria-hidden="true" /><span>Пн-Сб: 07:30 – 20:00</span></div>
+            </div>
+          </div>
+        </section>
 
         {/* Footer Navigation Columns */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -126,7 +119,7 @@ export function SiteFooter() {
             </a>
             <div className="flex items-center gap-2 text-xs text-paper/80">
               <Clock className="w-3.5 h-3.5 text-accent flex-shrink-0" />
-              <span>Пн-Сб: 08:00 – 20:00</span>
+              <span>Пн-Сб: 07:30 – 20:00</span>
             </div>
           </div>
         </div>
