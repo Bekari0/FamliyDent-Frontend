@@ -3,7 +3,7 @@ import { motion, useInView, useReducedMotion } from "motion/react";
 import { getClinicMetrics, type ClinicMetric } from "../../lib/data/metrics";
 
 const VIDEO_SRC = "/videos/familydent.mp4";
-const VIDEO_POSTER = "/images/clinic_about.jpg";
+const VIDEO_POSTER = "/images/clinic-exterior-poster.png";
 const VIDEO_DELAY_MS = 1200;
 const SLOW_CONNECTION_TYPES = ["slow-2g", "2g", "3g"];
 
@@ -69,7 +69,7 @@ export function ClinicMetricsSection() {
     >
       {/* 1. FULL-SCREEN BACKGROUND VIDEO / POSTER WITH OVERLAY */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
-        <div className="absolute inset-0 bg-[url('/images/clinic_about.jpg')] bg-cover bg-center" />
+        <div className="absolute inset-0 bg-[url('/images/clinic-exterior-poster.png')] bg-cover bg-center" />
 
         {isVideoMounted && !videoError && (
           <video
@@ -102,7 +102,7 @@ export function ClinicMetricsSection() {
             initial={{ opacity: 0, y: -10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] sm:text-xs font-mono uppercase tracking-[0.15em] font-medium text-white/90"
+            className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[11px] sm:text-xs font-mono uppercase tracking-[0.15em] font-medium text-white/90"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
             О КЛИНИКЕ
@@ -233,7 +233,7 @@ function StatGlassCard({
             {shouldReduceMotion ? metric.value : displayValue}
           </span>
           {metric.suffix && (
-            <span className="text-2xl sm:text-3xl lg:text-[34px] font-bold text-accent-soft leading-none self-baseline ml-0.5">
+            <span className="relative top-1 text-2xl sm:text-3xl lg:text-[34px] font-bold text-accent-soft leading-none self-baseline ml-0.5">
               {metric.suffix}
             </span>
           )}
