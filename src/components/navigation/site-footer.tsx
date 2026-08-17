@@ -12,7 +12,7 @@ export function SiteFooter() {
           <div className="relative min-h-[24rem] bg-paper-3 md:min-h-[34rem]">
             <iframe
               title="Яндекс Карта с двумя филиалами Family Dent в Душанбе"
-              src="https://yandex.ru/map-widget/v1/?ll=68.782757%2C38.556142&z=13.6&l=map&pt=68.760889%2C38.548925%2Cpm2gnm~68.804625%2C38.563358%2Cpm2gnm"
+              src="https://yandex.ru/map-widget/v1/?ll=68.782757%2C38.556142&z=13.6&l=map&pt=68.760889%2C38.548925%2Cpm2gnl~68.804625%2C38.563358%2Cpm2gnl"
               width="100%"
               height="100%"
               className="absolute inset-0 h-full w-full border-0"
@@ -26,6 +26,7 @@ export function SiteFooter() {
             <div>
               <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-accent-2">Два филиала в Душанбе</span>
               <h2 id="footer-contacts-title" className="mt-3 font-display text-3xl font-semibold tracking-[-0.04em] text-paper sm:text-4xl">FamilyDent</h2>
+              <p className="mt-4 max-w-xs text-sm leading-relaxed text-paper/70">Для посетителей клиники предусмотрена бесплатная парковка.</p>
             </div>
 
             <div className="flex flex-col gap-7 border-t border-rule/20 pt-8">
