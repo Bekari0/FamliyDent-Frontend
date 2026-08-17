@@ -4,6 +4,7 @@ import { SiteHeader } from "./components/navigation/site-header";
 import { SiteFooter } from "./components/navigation/site-footer";
 import { BookingModal } from "./components/booking/booking-modal";
 import { AuthDialog } from "./components/auth/auth-dialog";
+import { SocialContactLauncher } from "./components/shared/social-contact-launcher";
 import { OrbitalRings } from "./components/OrbitalRings";
 
 const HomePage = lazy(() => import("./pages/HomePage").then((m) => ({ default: m.HomePage })));
@@ -82,6 +83,8 @@ export default function App() {
         </main>
 
         <SiteFooter />
+
+        <SocialContactLauncher />
 
         <BookingModal
           isOpen={bookingOpen}
