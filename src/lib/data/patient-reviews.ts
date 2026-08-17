@@ -1,51 +1,70 @@
 import type { PatientReview } from "./types";
 
-/* Mock data for Family Dent patient reviews across channels */
+const yandexReviewsUrl =
+  "https://yandex.ru/maps/org/femili_dent/16415187433/reviews/?ll=68.804420%2C38.563485&tab=reviews&z=16.54";
+
+// Public reviews verified against the Family Dent listing on Yandex Maps.
 const patientReviewsData: PatientReview[] = [
   {
-    id: "rev-1",
-    authorName: "Азиз Касымов",
-    source: "google",
+    id: "yandex-manizha-t",
+    authorName: "Манижа Т.",
+    source: "yandex",
     rating: 5,
-    text: "Делал комплексную имплантацию All-on-4 у доктора Рахимова. Отличный сервис, внимательные администраторы и абсолютно безболезненно. Огромное спасибо всему коллективу Family Dent!",
-    publishedAt: "2 недели назад"
+    text: "Хочу отдельно поблагодарить сотрудника регистратуры Насиму за внимательное отношение! При записи на приём всё подробно объяснила, помогла выбрать удобное время и учла все мои пожелания.",
+    publishedAt: "13 июля 2026",
+    branch: "Family Dent",
+    sourceUrl: yandexReviewsUrl,
   },
   {
-    id: "rev-2",
-    authorName: "Зарина Шарипова",
-    source: "instagram",
+    id: "yandex-shakhnoza-khadzhibaeva",
+    authorName: "Шахноза Хаджибаева",
+    source: "yandex",
     rating: 5,
-    text: "Поставили виниры на верхнюю челюсть. Улыбка получилась настолько естественной и красивой! Все подруги спрашивают адрес клиники.",
-    publishedAt: "1 месяц назад"
+    text: "Приём проводится по новейшей технологии, быстро, качественно, вовремя и по доступной цене. Я получила все необходимые процедуры и ответы на свои вопросы.",
+    publishedAt: "1 июля 2024",
+    branch: "Family Dent",
+    sourceUrl: yandexReviewsUrl,
   },
   {
-    id: "rev-3",
-    authorName: "Махмуд Т.",
-    source: "whatsapp",
+    id: "yandex-natalya-n",
+    authorName: "Наталья Н.",
+    source: "yandex",
     rating: 5,
-    text: "Приводил сына на лечение кариеса к детскому врачу Малике Шариповой. Ребенок вышел из кабинета с подарком и счастливый, даже не плакал! Теперь только к вам.",
-    publishedAt: "3 недели назад"
+    text: "Дилшод Истамович, огромное вам спасибо, что вернули мне мою красивую улыбку. Никто не верит, что у меня импланты — настолько всё естественно.",
+    publishedAt: "2 декабря 2023",
+    branch: "Family Dent",
+    sourceUrl: yandexReviewsUrl,
   },
   {
-    id: "rev-4",
-    authorName: "Елена Смирнова",
-    source: "video",
+    id: "yandex-tatyana-lissitsyna",
+    authorName: "Tatyana Lissitsyna",
+    source: "yandex",
     rating: 5,
-    text: "Видеоотзыв о лечении и установке элайнеров в клинике Family Dent.",
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-    videoPoster: "https://images.pexels.com/photos/3762453/pexels-photo-3762453.jpeg?auto=compress&cs=tinysrgb&w=800",
-    publishedAt: "2 месяца назад"
+    text: "Была на консультации, всё понравилось. Видно, что специалисты своего дела. С удовольствием вернусь, если снова отправлюсь в Таджикистан.",
+    publishedAt: "21 августа 2023",
+    branch: "Family Dent",
+    sourceUrl: yandexReviewsUrl,
   },
   {
-    id: "rev-5",
-    authorName: "Фаррух Рустамов",
-    source: "video",
+    id: "yandex-ilyas-toktarov",
+    authorName: "Ильяс Токтаров",
+    source: "yandex",
     rating: 5,
-    text: "Впечатления о посещении клиники во время стоматологического тура из Алматы.",
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-    videoPoster: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=800",
-    publishedAt: "3 месяца назад"
-  }
+    text: "Доктор Сакина — лучший детский стоматолог!",
+    publishedAt: "17 сентября 2025",
+    branch: "Family Dent",
+    sourceUrl: yandexReviewsUrl,
+  },
+  {
+    id: "yandex-firdavs-turaev",
+    authorName: "Firdavs Turaev",
+    source: "yandex",
+    rating: 5,
+    text: "Классный коллектив, хороший сервис.",
+    publishedAt: "9 октября 2025",
+    branch: "Family Dent",
+    sourceUrl: yandexReviewsUrl,
+  },
 ];
 
 export async function getPatientReviews(): Promise<PatientReview[]> {

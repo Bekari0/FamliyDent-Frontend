@@ -56,12 +56,14 @@ export interface EquipmentItem {
 export interface PatientReview {
   id: string;
   authorName: string;
-  source: "google" | "instagram" | "whatsapp" | "video";
+  source: "google" | "yandex" | "2gis" | "instagram" | "whatsapp" | "video";
   rating?: number;
   text?: string;
   videoUrl?: string;
   videoPoster?: string;
   publishedAt?: string;
+  branch?: string;
+  sourceUrl?: string;
 }
 
 export interface ConcernItem {
