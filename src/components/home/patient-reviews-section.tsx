@@ -54,8 +54,8 @@ export function PatientReviewsSection() {
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const firstColumnY = useTransform(scrollYProgress, [0, 1], [48, -48]);
-  const secondColumnY = useTransform(scrollYProgress, [0, 1], [-48, 48]);
+  const firstColumnY = useTransform(scrollYProgress, [0, 1], [-112, 96]);
+  const secondColumnY = useTransform(scrollYProgress, [0, 1], [88, -128]);
 
   useEffect(() => {
     getPatientReviews().then(setReviews);
@@ -74,9 +74,9 @@ export function PatientReviewsSection() {
     <section
       ref={sectionRef}
       aria-labelledby="patient-reviews-title"
-      className="w-full overflow-hidden border-b border-[var(--color-rule)] bg-[var(--color-paper-2)] px-5 py-16 text-[var(--color-ink)] sm:px-8 sm:py-24 min-[900px]:py-28"
+      className="w-full overflow-hidden border-b border-[var(--color-rule)] bg-[var(--color-paper-2)] px-5 py-16 text-[var(--color-ink)] sm:px-8 sm:py-24 min-[900px]:min-h-[62rem] min-[900px]:py-28"
     >
-      <div className="mx-auto grid max-w-7xl gap-12 min-[900px]:grid-cols-[minmax(17rem,0.78fr)_minmax(0,1.45fr)] min-[900px]:gap-16">
+      <div className="mx-auto grid max-w-7xl gap-12 min-[900px]:grid-cols-[minmax(17rem,0.78fr)_minmax(0,1.45fr)] min-[900px]:items-start min-[900px]:gap-16">
         <ScrollAnimate className="flex flex-col items-start min-[900px]:sticky min-[900px]:top-24 min-[900px]:h-fit">
           <span className="mb-5 font-mono text-xs font-bold uppercase tracking-[0.16em] text-[var(--color-accent)]">
             Доверие пациентов
