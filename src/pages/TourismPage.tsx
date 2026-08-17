@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { ArrowRight, MapPin, X } from "lucide-react";
+import { ArrowRight, CalendarCheck, ClipboardCheck, MapPin, Route, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { servicesData } from "../lib/data/services";
 import { tourismComparison, tourismPackages, tourismPlaces, tourismRoadmap } from "../lib/data/tourism";
@@ -162,9 +162,37 @@ export function TourismPage() {
         </motion.div>
       </section>
 
-      <section id="intro" className="tourism-intro tourism-shell"><Reveal><p className="tourism-eyebrow tourism-eyebrow--dark">Стоматология без границ</p></Reveal><Reveal className="tourism-intro__statement" delay={0.08}><h2>Медицинская ясность — и время увидеть Таджикистан.</h2><p>Начните путешествие в Душанбе, а затем отправьтесь к живописным озёрам, Фанским горам или легендарному Памиру. Стоматологические визиты можно совместить с отдыхом и новыми впечатлениями — мы поможем спланировать маршрут без лишней суеты, а медицинские решения врач подтвердит после диагностики.</p></Reveal></section>
+      <section id="intro" className="tourism-borderless" aria-labelledby="borderless-title">
+        <div className="tourism-shell tourism-borderless__inner">
+          <Reveal className="tourism-borderless__heading">
+            <p className="tourism-eyebrow">Стоматология без границ</p>
+            <h2 id="borderless-title"><span>Лечение продумано.</span><br />Путешествие — тоже.</h2>
+            <p>Family Dent помогает собрать визит в Душанбе в понятный маршрут: от первого сообщения и подготовки снимков до очной диагностики и связи после приёма.</p>
+          </Reveal>
 
-      <section className="tourism-facts" aria-label="О Family Dent"><div className="tourism-shell tourism-facts__inner"><Reveal><strong>8+ лет</strong><span>Успешной работы в Душанбе</span></Reveal><Reveal delay={0.06}><strong>2 филиала</strong><span>Клиники Family Dent в столице</span></Reveal><Reveal delay={0.12}><strong>50 000+</strong><span>Пациентов по данным презентации клиники</span></Reveal></div></section>
+          <div className="tourism-borderless__grid">
+            <Reveal className="tourism-borderless__photo">
+              <img src="/images/clinic_about.jpg" width="960" height="1080" loading="lazy" alt="Интерьер клиники Family Dent в Душанбе" />
+              <div><span>Вас сопровождает</span><strong>Персональный<br />координатор</strong></div>
+            </Reveal>
+
+            <Reveal className="tourism-borderless__card tourism-borderless__card--route" delay={0.06}>
+              <Route aria-hidden="true" />
+              <div><span>План поездки</span><strong>Согласуем визиты с вашим маршрутом</strong></div>
+            </Reveal>
+
+            <Reveal className="tourism-borderless__card tourism-borderless__card--support" delay={0.1}>
+              <ClipboardCheck aria-hidden="true" />
+              <div><span>До и после приёма</span><strong>Остаёмся на связи по плану лечения</strong></div>
+            </Reveal>
+
+            <Reveal className="tourism-borderless__card tourism-borderless__card--clinic" delay={0.14}>
+              <CalendarCheck aria-hidden="true" />
+              <div><span>Family Dent</span><strong>Работаем в Душанбе<br />с 2018 года</strong><small>Два адреса в столице</small></div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
 
       <section className="tourism-services" aria-labelledby="services-title"><div className="tourism-shell tourism-services__inner"><div className="tourism-services__intro"><p className="tourism-eyebrow tourism-eyebrow--dark">Направления лечения</p><h2 id="services-title">Рекомендуемые процедуры</h2><p>От эстетических улучшений до функциональной стоматологии — подберём решение после диагностики и составим понятный план лечения.</p></div><div className="tourism-services__list">{treatmentDirections.map((item, index) => <Reveal key={item.title} className="tourism-service" delay={index * 0.05}><span className="tourism-service__icon" style={{ "--treatment-icon": `url("${item.icon}")` } as React.CSSProperties} aria-hidden="true" /><h3>{item.title}</h3><button type="button" onClick={() => setDialogOpen(true)} aria-label={`Обсудить направление: ${item.title}`}><ArrowRight /></button></Reveal>)}</div></div></section>
 
