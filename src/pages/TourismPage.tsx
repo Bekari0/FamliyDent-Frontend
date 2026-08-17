@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { ArrowDown, ArrowLeft, ArrowRight, MapPin, X } from "lucide-react";
+import { ArrowRight, MapPin, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { servicesData } from "../lib/data/services";
 import { tourismComparison, tourismPackages, tourismPlaces, tourismRoadmap } from "../lib/data/tourism";
@@ -7,10 +7,11 @@ import { submitTourismConsultation } from "../lib/tourism-consultation";
 import "./tourism-page.css";
 
 const heroSlides = [
-  { image: "/images/tourism/dushanbe-hero.png", eyebrow: "Душанбе · столица", title: "Таджикистан — путешествие, которое стоит открыть.", description: "Начните путешествие в Душанбе и совместите новые впечатления с заботой о здоровье в Family Dent." },
-  { image: "/images/tourism/fann-mountains.png", eyebrow: "Фанские горы", title: "Бирюзовые озёра среди величественных вершин.", description: "Спланируем стоматологические визиты так, чтобы в поездке осталось время увидеть настоящую природу Таджикистана." },
-  { image: "/images/tourism/pamir-road.png", eyebrow: "Памирский тракт", title: "Дорога, которая становится частью приключения.", description: "Лечение, отдых и знакомство с легендарным Памиром — в одном продуманном маршруте." },
-  { image: "/images/tourism/dushanbe-architecture.png", eyebrow: "Культура и гостеприимство", title: "Древняя история в ритме современного Душанбе.", description: "Откройте архитектуру, национальную кухню и искреннее гостеприимство между согласованными визитами в клинику." },
+  { image: "/images/tourism/hero-dushanbe.jpg", eyebrow: "Столица Таджикистана", title: "Душанбе", description: "Современная столица у подножия гор — отправная точка путешествия и место, где вас ждёт Family Dent." },
+  { image: "/images/tourism/hero-iskanderkul.jpg", eyebrow: "Фанские горы", title: "Искандеркуль", description: "Бирюзовое горное озеро среди скалистых вершин и один из самых узнаваемых природных символов страны." },
+  { image: "/images/tourism/hero-karakul.jpg", eyebrow: "Восточный Памир", title: "Озеро Каракуль", description: "Высокогорное озеро, окружённое суровыми памирскими ландшафтами и заснеженными хребтами." },
+  { image: "/images/tourism/hero-sughd.jpg", eyebrow: "Север Таджикистана", title: "Согдийская область", description: "Древние города, крепости и культурное наследие одного из самых исторически насыщенных регионов страны." },
+  { image: "/images/tourism/hero-fann.jpg", eyebrow: "Сердце горного Таджикистана", title: "Фанские горы", description: "Альпийские озёра, снежные вершины и маршруты для настоящего путешествия среди дикой природы." },
 ] as const;
 
 const treatmentDirections = [
@@ -135,10 +136,6 @@ export function TourismPage() {
     return () => window.clearInterval(interval);
   }, [reduceMotion]);
 
-  function changeHeroSlide(direction: -1 | 1) {
-    setActiveHeroSlide((current) => (current + direction + heroSlides.length) % heroSlides.length);
-  }
-
   useEffect(() => {
     document.title = "Стоматологический туризм в Душанбе | Family Dent";
     const description = "Стоматологическое лечение в Family Dent в Душанбе: предварительная консультация, согласованный маршрут визитов и знако��ство с Таджикистаном.";
@@ -159,13 +156,10 @@ export function TourismPage() {
             <motion.div key={activeHeroSlide} initial={reduceMotion ? false : { opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -18 }} transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}>
               <p className="tourism-eyebrow">{activeSlide.eyebrow}</p>
               <h1 id="tourism-title">{activeSlide.title}</h1>
-              <div className="tourism-hero__support"><p>{activeSlide.description}</p><button className="tourism-button tourism-button--light" onClick={() => setDialogOpen(true)}>Обсудить поездку <ArrowRight /></button></div>
+              <div className="tourism-hero__support"><p>{activeSlide.description}</p></div>
             </motion.div>
           </AnimatePresence>
         </motion.div>
-        <div className="tourism-hero__navigation" aria-label="Переключение слайдов"><button type="button" onClick={() => changeHeroSlide(-1)} aria-label="Предыдущий слайд"><ArrowLeft /></button><span><b>{String(activeHeroSlide + 1).padStart(2, "0")}</b> / {String(heroSlides.length).padStart(2, "0")}</span><button type="button" onClick={() => changeHeroSlide(1)} aria-label="Следующий слайд"><ArrowRight /></button></div>
-        <div className="tourism-hero__dots" aria-label="Слайды">{heroSlides.map((slide, index) => <button key={slide.image} type="button" className={index === activeHeroSlide ? "is-active" : ""} onClick={() => setActiveHeroSlide(index)} aria-label={`Перейти к слайду ${index + 1}`} aria-current={index === activeHeroSlide ? "true" : undefined} />)}</div>
-        <a href="#intro" className="tourism-hero__scroll" aria-label="Перейти к содержанию"><ArrowDown /></a>
       </section>
 
       <section id="intro" className="tourism-intro tourism-shell"><Reveal><p className="tourism-eyebrow tourism-eyebrow--dark">Стоматология без границ</p></Reveal><Reveal className="tourism-intro__statement" delay={0.08}><h2>Медицинская ясность — и время увидеть Таджикистан.</h2><p>Начните путешествие в Душанбе, а затем отправьтесь к живописным озёрам, Фанским горам или легендарному Памиру. Стоматологические визиты можно совместить с отдыхом и новыми впечатлениями — мы поможем спланировать маршрут без лишней суеты, а медицинские решения врач подтвердит после диагностики.</p></Reveal></section>
