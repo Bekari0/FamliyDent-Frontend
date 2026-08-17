@@ -21,10 +21,10 @@ export const tourismComparison = [
 ] as const;
 
 export const tourismPackages = [
-  { number: "01", name: "Express Smile", duration: "2–3 дня", audience: "Для деловой поездки", description: "Компактный маршрут консультации, диагностики и процедур, которые возможно безопасно выполнить за короткий визит." },
-  { number: "02", name: "Улыбка + Горы", duration: "3–7 дней", audience: "Лечение и впечатления", description: "График приёмов с окнами для отдыха и самостоятельного знакомства с Душанбе и природой страны." },
-  { number: "03", name: "Имплантация под ключ", duration: "10–14 дней", audience: "По показаниям врача", description: "Индивидуальный маршрут диагностики, хирургического этапа и наблюдения. Финальный объём определяется очно." },
-  { number: "04", name: "Family Smile Tour", duration: "Индивидуально", audience: "Семейный формат", description: "Согласованный график консультаций и лечения для нескольких членов семьи в рамках одной поездки." },
+  { number: "01", name: "Express Smile", duration: "2–3 дня", audience: "Для деловой поездки", description: "Компактный маршрут консультации, диагностики и процедур, которые возможно безопасно выполнить за короткий визит.", image: "/images/tourism/packages/presentation-package-3.jpeg", imageAlt: "Деловые путешественники в аэропорту" },
+  { number: "02", name: "Улыбка + Горы", duration: "3–7 дней", audience: "Лечение и впечатления", description: "График приёмов с окнами для отдыха и самостоятельного знакомства с Душанбе и природой страны.", image: "/images/tourism/packages/presentation-package-2.jpeg", imageAlt: "Горное озеро в Таджикистане" },
+  { number: "03", name: "Имплантация под ключ", duration: "10–14 дней", audience: "По показаниям врача", description: "Индивидуальный маршрут диагностики, хирургического этапа и наблюдения. Финальный объём определяется очно.", image: "/images/tourism/packages/presentation-package-1.jpeg", imageAlt: "Панорама Душанбе" },
+  { number: "04", name: "Family Smile Tour", duration: "Индивидуально", audience: "Семейный формат", description: "Согласованный график консультаций и лечения для нескольких членов семьи в рамках одной поездки.", image: "/images/tourism/packages/presentation-package-4.jpeg", imageAlt: "Семья отдыхает у горного озера" },
 ] as const;
 
 export const tourismPlaces = [
