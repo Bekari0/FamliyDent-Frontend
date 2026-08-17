@@ -1,230 +1,158 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight, Star, Quote, Play, Pause, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { ArrowRight, Star } from "lucide-react";
 import { getPatientReviews } from "../../lib/data/patient-reviews";
 import type { PatientReview } from "../../lib/data/types";
-import { ScrollAnimate, StaggerContainer, StaggerItem } from "../shared/scroll-animate";
+import { ScrollAnimate } from "../shared/scroll-animate";
+
+const sourceLabels: Record<PatientReview["source"], string> = {
+  google: "Google",
+  instagram: "Instagram",
+  whatsapp: "WhatsApp",
+  video: "Видеоотзыв",
+};
+
+function ReviewCard({ review }: { review: PatientReview }) {
+  return (
+    <article className="group flex min-h-56 flex-col justify-between gap-8 rounded-[var(--radius-xl)] border border-[var(--color-rule)] bg-[var(--color-surface)] p-6 shadow-[var(--shadow-whisper)] transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-[var(--color-accent-2)] hover:shadow-[var(--shadow-card)] sm:p-7">
+      <div className="flex flex-col gap-5">
+        <div className="flex items-center gap-1" aria-label={`${review.rating ?? 5} из 5`}>
+          {Array.from({ length: review.rating ?? 5 }).map((_, index) => (
+            <Star
+              key={index}
+              aria-hidden="true"
+              className="size-4 fill-[var(--color-accent)] text-[var(--color-accent)]"
+            />
+          ))}
+        </div>
+        <p className="text-pretty text-sm leading-6 text-[var(--color-ink-2)] sm:text-base sm:leading-7">
+          {review.text}
+        </p>
+      </div>
+
+      <footer className="flex items-end justify-between gap-4 border-t border-[var(--color-rule)] pt-5">
+        <div className="flex flex-col gap-1">
+          <h3 className="font-sans text-sm font-bold text-[var(--color-ink)] sm:text-base">
+            {review.authorName}
+          </h3>
+          <p className="text-xs text-[var(--color-muted)]">{review.publishedAt}</p>
+        </div>
+        <span className="rounded-[var(--radius-pill)] bg-[var(--color-accent-soft)] px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-[var(--color-accent)]">
+          {sourceLabels[review.source]}
+        </span>
+      </footer>
+    </article>
+  );
+}
 
 export function PatientReviewsSection() {
   const [reviews, setReviews] = useState<PatientReview[]>([]);
-  const [activeIdx, setActiveIdx] = useState<number>(0);
-  const [playingVideoId, setPlayingVideoId] = useState<string | null>(null);
-  const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
+  const sectionRef = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const firstColumnY = useTransform(scrollYProgress, [0, 1], [48, -48]);
+  const secondColumnY = useTransform(scrollYProgress, [0, 1], [-48, 48]);
 
   useEffect(() => {
-    async function load() {
-      const data = await getPatientReviews();
-      setReviews(data);
-    }
-    load();
+    getPatientReviews().then(setReviews);
   }, []);
 
-  const currentReview = reviews[activeIdx];
+  const averageRating = useMemo(() => {
+    const rated = reviews.filter((review) => review.rating);
+    if (!rated.length) return null;
+    return rated.reduce((sum, review) => sum + (review.rating ?? 0), 0) / rated.length;
+  }, [reviews]);
 
-  const handleNext = () => {
-    if (reviews.length === 0) return;
-    setActiveIdx((prev) => (prev + 1) % reviews.length);
-  };
-
-  const handlePrev = () => {
-    if (reviews.length === 0) return;
-    setActiveIdx((prev) => (prev - 1 + reviews.length) % reviews.length);
-  };
-
-  const toggleVideo = (id: string) => {
-    const video = videoRefs.current[id];
-    if (!video) return;
-
-    if (playingVideoId === id) {
-      video.pause();
-      setPlayingVideoId(null);
-    } else {
-      // pause all other videos
-      Object.entries(videoRefs.current).forEach(([vId, vEl]) => {
-        const videoElement = vEl as HTMLVideoElement | null;
-        if (vId !== id && videoElement) videoElement.pause();
-      });
-      video.play();
-      setPlayingVideoId(id);
-    }
-  };
+  const firstColumn = reviews.filter((_, index) => index % 2 === 0);
+  const secondColumn = reviews.filter((_, index) => index % 2 !== 0);
 
   return (
-    <section className="w-full bg-[var(--color-surface)] text-[var(--color-ink)] py-16 sm:py-20 px-5 sm:px-8 border-b border-[var(--color-rule)]">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <ScrollAnimate className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-          <div>
-            <span className="text-xs uppercase font-bold text-[var(--color-accent)] tracking-wider mb-2 block font-mono">
-              Доверие пациентов
-            </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[var(--color-ink)] tracking-tight">
-              Отзывы о Family Dent
-            </h2>
-            <p className="text-xs sm:text-sm text-[var(--color-muted)] font-normal mt-1">
-              Честные истории вылеченных пациентов из Душанбе и других городов.
-            </p>
-          </div>
+    <section
+      ref={sectionRef}
+      aria-labelledby="patient-reviews-title"
+      className="w-full overflow-hidden border-b border-[var(--color-rule)] bg-[var(--color-paper-2)] px-5 py-16 text-[var(--color-ink)] sm:px-8 sm:py-24 min-[900px]:py-28"
+    >
+      <div className="mx-auto grid max-w-7xl gap-12 min-[900px]:grid-cols-[minmax(17rem,0.78fr)_minmax(0,1.45fr)] min-[900px]:gap-16">
+        <ScrollAnimate className="flex flex-col items-start min-[900px]:sticky min-[900px]:top-24 min-[900px]:h-fit">
+          <span className="mb-5 font-mono text-xs font-bold uppercase tracking-[0.16em] text-[var(--color-accent)]">
+            Доверие пациентов
+          </span>
+          <h2
+            id="patient-reviews-title"
+            className="max-w-lg text-balance font-sans text-4xl font-bold leading-[1.02] tracking-[-0.04em] text-[var(--color-ink)] sm:text-5xl min-[900px]:text-6xl"
+          >
+            <span className="block">Что говорят</span>
+            <span className="block">наши пациенты?</span>
+          </h2>
+
+          {averageRating !== null && (
+            <div className="mt-9 flex w-full max-w-md items-end justify-between gap-5 border-y border-[var(--color-rule-2)] py-5">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-baseline gap-2">
+                  <strong className="font-sans text-4xl leading-none tracking-tight text-[var(--color-ink)]">
+                    {averageRating.toFixed(1)} / 5
+                  </strong>
+                </div>
+                <div className="flex items-center gap-1" aria-hidden="true">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <Star
+                      key={index}
+                      className="size-4 fill-[var(--color-accent)] text-[var(--color-accent)]"
+                    />
+                  ))}
+                </div>
+              </div>
+              <p className="max-w-32 text-right text-xs leading-5 text-[var(--color-muted)]">
+                Средняя оценка отзывов
+              </p>
+            </div>
+          )}
+
+          <p className="mt-6 max-w-md text-pretty text-sm leading-6 text-[var(--color-muted)] sm:text-base sm:leading-7">
+            Истории пациентов Family Dent о лечении, внимании врачей и атмосфере клиники.
+          </p>
+
           <Link
             to="/reviews"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--color-paper-2)] text-[var(--color-ink)] border border-[var(--color-rule)] text-xs font-bold hover:bg-[var(--color-paper-3)] transition-all self-start md:self-auto group"
+            className="group mt-8 inline-flex min-h-11 items-center gap-3 border-b border-[var(--color-ink)] pb-1 text-sm font-bold text-[var(--color-ink)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] focus-visible:ring-offset-4"
           >
-            <span>Все отзывы</span>
-            <ArrowRight className="w-4 h-4 text-[var(--color-accent)] group-hover:translate-x-1 transition-transform" />
+            <span>Изучить все отзывы</span>
+            <ArrowRight className="size-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </ScrollAnimate>
 
-        {/* Featured Review Hero Card with Switcher */}
-        {currentReview && (
-          <ScrollAnimate delay={0.1} className="bg-[var(--color-paper)] border border-[var(--color-rule)] rounded-3xl p-6 sm:p-10 shadow-[var(--shadow-whisper)] mb-10 relative overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              {/* Review Text / Quotes */}
-              <div className="lg:col-span-7 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-3 mb-6">
-                    <Quote className="w-8 h-8 text-[var(--color-accent)] flex-shrink-0 opacity-80" />
-                    <div className="flex items-center gap-1">
-                      {[...Array(currentReview.rating || 5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className="w-4 h-4 fill-amber-400 text-amber-400"
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={currentReview.id}
-                      initial={{ opacity: 0, x: 15 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -15 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <p className="text-base sm:text-lg lg:text-xl font-medium text-[var(--color-ink)] leading-relaxed italic mb-6">
-                        «{currentReview.text}»
-                      </p>
-
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-[var(--color-accent)] text-[var(--color-accent-ink)] font-extrabold flex items-center justify-center text-sm">
-                          {currentReview.authorName.charAt(0)}
-                        </div>
-                        <div>
-                          <h4 className="text-sm font-extrabold text-[var(--color-ink)]">
-                            {currentReview.authorName}
-                          </h4>
-                          <div className="flex items-center gap-2 mt-0.5">
-                            <span className="text-[10px] font-bold uppercase tracking-wider bg-[var(--color-accent-soft)] text-[var(--color-accent)] px-2 py-0.5 rounded border border-[var(--color-rule)]">
-                              {currentReview.source}
-                            </span>
-                            {currentReview.publishedAt && (
-                              <span className="text-xs text-[var(--color-muted)]">
-                                • {currentReview.publishedAt}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-
-                {/* Carousel Controls */}
-                <div className="flex items-center gap-3 mt-8 pt-6 border-t border-[var(--color-rule)]">
-                  <button
-                    onClick={handlePrev}
-                    aria-label="Предыдущий отзыв"
-                    className="w-10 h-10 rounded-xl bg-[var(--color-surface)] border border-[var(--color-rule)] hover:bg-[var(--color-paper-2)] text-[var(--color-ink)] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-                  <span className="text-xs font-bold text-[var(--color-muted)] font-mono">
-                    {activeIdx + 1} / {reviews.length}
-                  </span>
-                  <button
-                    onClick={handleNext}
-                    aria-label="Следующий отзыв"
-                    className="w-10 h-10 rounded-xl bg-[var(--color-surface)] border border-[var(--color-rule)] hover:bg-[var(--color-paper-2)] text-[var(--color-ink)] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-                </div>
+        <div className="-mx-5 sm:-mx-8 min-[900px]:mx-0">
+          <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-8 min-[900px]:hidden">
+            {reviews.map((review) => (
+              <div key={review.id} className="w-[84vw] max-w-sm shrink-0 snap-center">
+                <ReviewCard review={review} />
               </div>
+            ))}
+          </div>
 
-              {/* Media / Video Column */}
-              <div className="lg:col-span-5">
-                {currentReview.source === "video" && currentReview.videoUrl ? (
-                  <div className="relative aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden bg-[var(--color-ink)] border border-[var(--color-rule)] shadow-md group">
-                    <video
-                      ref={(el) => (videoRefs.current[currentReview.id] = el)}
-                      src={currentReview.videoUrl}
-                      poster={currentReview.videoPoster}
-                      controls={playingVideoId === currentReview.id}
-                      preload="none"
-                      className="w-full h-full object-cover"
-                    />
-                    {playingVideoId !== currentReview.id && (
-                      <button
-                        onClick={() => toggleVideo(currentReview.id)}
-                        className="absolute inset-0 flex items-center justify-center bg-[var(--color-ink)]/40 hover:bg-[var(--color-ink)]/30 transition-colors cursor-pointer"
-                        aria-label="Воспроизвести видео"
-                      >
-                        <div className="w-14 h-14 rounded-full bg-[var(--color-accent)] text-[var(--color-accent-ink)] flex items-center justify-center shadow-2xl hover:scale-105 transition-transform">
-                          <Play className="w-6 h-6 fill-current ml-1" />
-                        </div>
-                      </button>
-                    )}
-                  </div>
-                ) : (
-                  <div className="bg-[var(--color-surface)] rounded-2xl p-6 border border-[var(--color-rule)] shadow-2xs flex flex-col justify-center items-center text-center min-h-[220px]">
-                    <Quote className="w-10 h-10 text-[var(--color-accent-soft)] mb-3" />
-                    <p className="text-xs text-[var(--color-muted)] font-normal max-w-xs">
-                      Все отзывы подтверждены и собраны из открытых геосервисов и мессенджеров.
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </ScrollAnimate>
-        )}
-
-        {/* Small Preview Grid of other reviews */}
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {reviews.slice(0, 3).map((rev, idx) => (
-            <StaggerItem
-              key={rev.id}
-              as="div"
+          <div className="hidden grid-cols-2 gap-5 min-[900px]:grid">
+            <motion.div
+              style={reduceMotion ? undefined : { y: firstColumnY }}
+              className="flex flex-col gap-5 will-change-transform"
             >
-              <button
-                onClick={() => setActiveIdx(idx)}
-                className={`w-full text-left p-4 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between ${
-                  idx === activeIdx
-                    ? "bg-[var(--color-ink)] text-[var(--color-paper)] border-[var(--color-ink)] shadow-md"
-                    : "bg-[var(--color-paper)] hover:bg-[var(--color-paper-2)] text-[var(--color-ink)] border-[var(--color-rule)]"
-                }`}
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-extrabold">{rev.authorName}</span>
-                    <span
-                      className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded ${
-                        idx === activeIdx
-                          ? "bg-[var(--color-accent)] text-[var(--color-accent-ink)]"
-                          : "bg-[var(--color-accent-soft)] text-[var(--color-accent)]"
-                      }`}
-                    >
-                      {rev.source}
-                    </span>
-                  </div>
-                  <p className="text-xs line-clamp-2 opacity-80 leading-relaxed font-normal">
-                    "{rev.text}"
-                  </p>
-                </div>
-              </button>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+              {firstColumn.map((review) => (
+                <ReviewCard key={review.id} review={review} />
+              ))}
+            </motion.div>
+            <motion.div
+              style={reduceMotion ? undefined : { y: secondColumnY }}
+              className="flex flex-col gap-5 pt-16 will-change-transform"
+            >
+              {secondColumn.map((review) => (
+                <ReviewCard key={review.id} review={review} />
+              ))}
+            </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );
