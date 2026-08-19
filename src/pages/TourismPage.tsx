@@ -133,7 +133,7 @@ function ConsultationDialog({ open, onClose }: { open: boolean; onClose: () => v
   return (
     <dialog ref={dialogRef} className="tourism-dialog" onClose={onClose} onCancel={onClose} onClick={(event) => { if (event.target === event.currentTarget) onClose(); }}>
       <div className="tourism-dialog__top"><div><p className="tourism-eyebrow tourism-eyebrow--dark">Персональная консультация</p><h2>Расскажите о задаче</h2></div><button className="tourism-dialog__close" onClick={onClose} aria-label="Закрыть форму"><X /></button></div>
-      <p className="tourism-dialog__intro">Координатор уточнит детали и поможет подготов��ть материалы для врача.</p>
+      <p className="tourism-dialog__intro">Координатор уточнит детали и поможет подготовить материалы для врача.</p>
       <ConsultationForm idPrefix="dialog" />
     </dialog>
   );
@@ -160,7 +160,7 @@ export function TourismPage() {
 
   useEffect(() => {
     document.title = "Стоматологический туризм в Душанбе | Family Dent";
-    const description = "Стоматологическое лечение в Family Dent в Душанбе: предварительная консультация, согласованный маршрут визитов и знако��ство с Таджикистаном.";
+    const description = "Стоматологическое лечение в Family Dent в Душанбе: предварительная консультация, согласованный маршрут визитов и знакомство с Таджикистаном.";
     let meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     if (!meta) { meta = document.createElement("meta"); meta.name = "description"; document.head.append(meta); }
     meta.content = description;
@@ -226,12 +226,9 @@ export function TourismPage() {
           <div className="tourism-services__list">
             {treatmentDirections.map((item) => (
               <div key={item.title} className="tourism-service">
-                <img
+                <span
                   className="tourism-service__icon"
-                  src={item.icon}
-                  width="64"
-                  height="64"
-                  alt=""
+                  style={{ "--tourism-service-icon": `url("${item.icon}")` } as React.CSSProperties}
                   aria-hidden="true"
                 />
                 <h3>{item.title}</h3>
@@ -244,7 +241,7 @@ export function TourismPage() {
         </div>
       </section>
 
-      <section className="tourism-comparison" aria-labelledby="comparison-title"><div className="tourism-shell"><div className="tourism-comparison__head"><div><p className="tourism-eyebrow">Ориентир по стоимости</p><h2 id="comparison-title">Сравните —<br />и считайте всю поездку.</h2></div><p>Диапазоны из презентации Family Dent показывают порядо�� цен в долларах США. Это не публичная оферта: точная стоимость зависит от диагноза, материалов и плана врача.</p></div><div className="tourism-comparison__scroller" tabIndex={0} aria-label="Прокручиваемая таблица сравнения цен"><table><thead><tr><th scope="col">Услуга</th><th scope="col" className="is-featured">Таджикистан</th><th scope="col">Россия</th><th scope="col">Казахстан</th><th scope="col">Европа</th><th scope="col">США</th></tr></thead><tbody>{tourismComparison.map((row) => <tr key={row.service}><th scope="row">{row.service}</th><td className="is-featured">{row.tajikistan}</td><td>{row.russia}</td><td>{row.kazakhstan}</td><td>{row.europe}</td><td>{row.usa}</td></tr>)}</tbody></table></div><p className="tourism-comparison__note">Цены ориентировочные и приведены для сравнения. Финальную смету врач формирует после диагностики.</p></div></section>
+      <section className="tourism-comparison" aria-labelledby="comparison-title"><div className="tourism-shell"><div className="tourism-comparison__head"><div><p className="tourism-eyebrow">Ориентир по стоимости</p><h2 id="comparison-title">Сравните —<br />и считайте всю поездку.</h2></div><p>Диапазоны из презентации Family Dent показывают порядок цен в долларах США. Это не публичная оферта: точная стоимость зависит от диагноза, материалов и плана врача.</p></div><div className="tourism-comparison__scroller" tabIndex={0} aria-label="Прокручиваемая таблица сравнения цен"><table><thead><tr><th scope="col">Услуга</th><th scope="col" className="is-featured">Таджикистан</th><th scope="col">Россия</th><th scope="col">Казахстан</th><th scope="col">Европа</th><th scope="col">США</th></tr></thead><tbody>{tourismComparison.map((row) => <tr key={row.service}><th scope="row">{row.service}</th><td className="is-featured">{row.tajikistan}</td><td>{row.russia}</td><td>{row.kazakhstan}</td><td>{row.europe}</td><td>{row.usa}</td></tr>)}</tbody></table></div><p className="tourism-comparison__note">Цены ориентировочные и приведены для сравнения. Финальную смету врач формирует после диагностики.</p></div></section>
 
       <section className="tourism-packages" aria-labelledby="packages-title"><div className="tourism-shell"><div className="tourism-packages__head"><p className="tourism-eyebrow tourism-eyebrow--dark">Готовые форматы поездки</p><div><h2 id="packages-title">Выберите ритм.<br />Маршрут уточним вместе.</h2><p>Пакет задаёт длительность и логику поездки, но не заменяет медицинский план.</p></div></div><div className="tourism-local-options"><p>Если вы уже в Таджикистане</p><ul><li>Консультация + диагностика</li><li>Диагностика + профессиональная чистка</li><li>Диагностика + чистка + лечение кариеса</li></ul></div><div className="tourism-packages__list">{tourismPackages.map((item, index) => <Reveal key={item.number} className="tourism-package" delay={index * 0.06}><img className="tourism-package__background" src={item.image} width="991" height="661" loading="lazy" alt={item.imageAlt} /><span className="tourism-package__scrim" aria-hidden="true" /><span className="tourism-package__number">{item.number}</span><div><p>{item.audience}</p><h3>{item.name}</h3></div><strong>{item.duration}</strong><p className="tourism-package__description">{item.description}</p><button type="button" onClick={() => setDialogOpen(true)} aria-label={`Обсудить пакет ${item.name}`}><ArrowRight /></button></Reveal>)}</div></div></section>
 
@@ -256,7 +253,7 @@ export function TourismPage() {
 
       <section className="tourism-places" aria-labelledby="places-title"><div className="tourism-shell tourism-places__heading"><p className="tourism-eyebrow tourism-eyebrow--dark">Между визитами</p><h2 id="places-title">10 мест, ради которых стоит увидеть Таджикистан</h2></div><div className="tourism-places__grid">{tourismPlaces.map((place, index) => <Reveal key={place.name} className={`tourism-place ${place.className}`} delay={Math.min(index * 0.04, 0.2)}><img src={place.image} width="1200" height="900" loading="lazy" alt={`${place.name} — ${place.meta}`} /><div><span>{place.meta}</span><h3>{place.name}</h3></div></Reveal>)}</div></section>
 
-      <section className="tourism-cinematic" aria-label="Пейзаж Памира"><img src="/images/tourism/pamir-road.png" width="1536" height="1024" loading="lazy" alt="Дорога через горы Памир��" /><div><p>Сменить привычный г��ризонт</p></div></section>
+      <section className="tourism-cinematic" aria-label="Пейзаж Памира"><img src="/images/tourism/pamir-road.png" width="1536" height="1024" loading="lazy" alt="Дорога через горы Памира" /><div><p>Сменить привычный горизонт</p></div></section>
 
       <section className="tourism-conversion" aria-labelledby="consultation-title"><div className="tourism-shell tourism-conversion__inner"><Reveal className="tourism-conversion__copy"><p className="tourism-eyebrow">Следующий шаг</p><h2 id="consultation-title">Начните с разговора, а не с билета.</h2><p>Расскажите о задаче. Координатор поможет подготовить материалы для врача и обсудить дальнейший маршрут.</p></Reveal><Reveal className="tourism-conversion__form" delay={0.08}><ConsultationForm idPrefix="section" /></Reveal></div></section>
 
