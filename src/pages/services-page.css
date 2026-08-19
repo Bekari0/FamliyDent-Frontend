@@ -8,19 +8,16 @@
 
 /* Framed page composition, refined type and actions */
 .services-page{
-  --services-edge:clamp(.5rem,1.25vw,1.25rem);
-  padding:var(--services-edge);
-  display:flex;
-  flex-direction:column;
-  gap:var(--services-edge);
-  background:var(--color-paper-3);
+  padding:0;
+  display:block;
+  background:var(--color-paper);
 }
 .services-page>section{
-  border-radius:clamp(var(--radius-md),1.5vw,var(--radius-xl));
+  border-radius:0;
   overflow:hidden;
 }
 .services-page__container{
-  width:min(calc(100% - 2 * clamp(1rem,3.2vw,3.5rem)),var(--container-max));
+  width:min(calc(100% - 2 * clamp(1.25rem,3.6vw,4rem)),var(--container-max));
 }
 .services-page h1,.services-page h2{
   font-weight:590;
@@ -77,8 +74,6 @@
 }
 
 @media(max-width:44rem){
-  .services-page{--services-edge:.375rem}
-  .services-page>section{border-radius:var(--radius-md)}
   .services-page__container{width:min(calc(100% - 2rem),var(--container-max))}
   .services-hero h1{font-size:clamp(2.35rem,10.8vw,3.7rem);line-height:.98}
   .services-hero button,.services-final button{min-height:3.5rem;border-radius:var(--radius-sm)}

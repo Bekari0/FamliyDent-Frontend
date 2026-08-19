@@ -6,16 +6,16 @@
 
 /* Match the framed services catalogue */
 .service-detail{
-  --service-edge:clamp(.5rem,1.25vw,1.25rem);
-  padding:var(--service-edge);
-  display:flex;
-  flex-direction:column;
-  gap:var(--service-edge);
-  background:var(--color-paper-3);
+  padding:0;
+  display:block;
+  background:var(--color-paper);
 }
 .service-detail>section{
-  border-radius:clamp(var(--radius-md),1.5vw,var(--radius-xl));
+  border-radius:0;
   overflow:hidden;
+}
+.service-detail__container{
+  width:min(calc(100% - 2 * clamp(1.25rem,3.6vw,4rem)),var(--container-max));
 }
 .service-detail h1,.service-detail h2,.service-not-found h1{
   font-weight:590;
@@ -38,7 +38,6 @@
 .service-benefits li strong{font-weight:550;letter-spacing:-.015em}
 
 @media(max-width:44rem){
-  .service-detail{--service-edge:.375rem}
-  .service-detail>section{border-radius:var(--radius-md)}
+  .service-detail__container{width:min(calc(100% - 2rem),var(--container-max))}
   .service-detail button,.service-not-found a{min-height:3.5rem;border-radius:var(--radius-sm)}
 }
