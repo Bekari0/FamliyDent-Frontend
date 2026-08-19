@@ -15,12 +15,12 @@ const heroSlides = [
 ] as const;
 
 const treatmentDirections = [
-  { title: "Протезирование зубов", icon: "/icons/tourism-treatment-1.svg" },
-  { title: "Имплантация", icon: "/icons/tourism-treatment-2.svg" },
-  { title: "Эстетическая стоматология", icon: "/icons/tourism-treatment-3.svg" },
-  { title: "Лечение корневых каналов", icon: "/icons/tourism-treatment-4.svg" },
-  { title: "Ортодонтия", icon: "/icons/tourism-treatment-5.svg" },
-  { title: "Профессиональная гигиена и отбеливание", icon: "/icons/tourism-treatment-6.svg" },
+  { title: "Протезирование зубов", icon: "/icons/tourism-treatment-1.svg?v=3" },
+  { title: "Имплантация", icon: "/icons/tourism-treatment-2.svg?v=3" },
+  { title: "Эстетическая стоматология", icon: "/icons/tourism-treatment-3.svg?v=3" },
+  { title: "Лечение корневых каналов", icon: "/icons/tourism-treatment-4.svg?v=3" },
+  { title: "Ортодонтия", icon: "/icons/tourism-treatment-5.svg?v=3" },
+  { title: "Профессиональная гигиена и отбеливание", icon: "/icons/tourism-treatment-6.svg?v=3" },
 ] as const;
 
 function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
