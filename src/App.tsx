@@ -16,6 +16,7 @@ const ResultsPage = lazy(() => import("./pages/ResultsPage").then((m) => ({ defa
 const TourismPage = lazy(() => import("./pages/TourismPage").then((m) => ({ default: m.TourismPage })));
 const AcademyPage = lazy(() => import("./pages/AcademyPage").then((m) => ({ default: m.AcademyPage })));
 const ServicesPage = lazy(() => import("./pages/ServicesPage").then((m) => ({ default: m.ServicesPage })));
+const ServiceDetailPage = lazy(() => import("./pages/ServiceDetailPage").then((m) => ({ default: m.ServiceDetailPage })));
 const ReviewsPage = lazy(() => import("./pages/ReviewsPage").then((m) => ({ default: m.ReviewsPage })));
 const BlogPage = lazy(() => import("./pages/BlogPage").then((m) => ({ default: m.BlogPage })));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage").then((m) => ({ default: m.BlogPostPage })));
@@ -28,12 +29,18 @@ function ScrollToTop() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    if (!hash) {
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-      });
+    if (hash) {
+      const scrollToHash = () => document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
+      const frame = requestAnimationFrame(() => requestAnimationFrame(scrollToHash));
+      const timeout = window.setTimeout(scrollToHash, 350);
+      return () => { cancelAnimationFrame(frame); window.clearTimeout(timeout); };
     }
+
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    const frame = requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    });
+    return () => cancelAnimationFrame(frame);
   }, [pathname, hash]);
 
   return null;
@@ -71,6 +78,7 @@ export default function App() {
               <Route path="/tourism" element={<TourismPage />} />
               <Route path="/academy" element={<AcademyPage />} />
               <Route path="/services" element={<ServicesPage onOpenBooking={() => handleOpenBooking()} />} />
+              <Route path="/services/:slug" element={<ServiceDetailPage onOpenBooking={() => handleOpenBooking()} />} />
               <Route path="/pricing" element={<ServicesPage onOpenBooking={() => handleOpenBooking()} />} />
               <Route path="/reviews" element={<ReviewsPage />} />
               <Route path="/blog" element={<BlogPage />} />

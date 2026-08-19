@@ -106,6 +106,7 @@ export interface Service {
   id: string;
   slug: string;
   title: string;
+  shortTitle: string;
   category: string;
   description: string;
   priceFrom: string;
