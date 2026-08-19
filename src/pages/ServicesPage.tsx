@@ -1,14 +1,22 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { ArrowDown, ArrowRight, Calendar, Check, Clock, ShieldCheck } from "lucide-react";
 import { EditorialPageHero } from "../components/shared/editorial-page-hero";
-import { Clock, Tag, ArrowRight, Calendar } from "lucide-react";
 import { getServices } from "../lib/data/services";
 import type { Service } from "../lib/data/types";
-import { StaggerContainer, StaggerItem } from "../components/shared/scroll-animate";
+import "./services-page.css";
 
 interface ServicesPageProps {
   onOpenBooking: () => void;
 }
+
+const treatmentSteps = [
+  "Диагностика",
+  "Индивидуальный план",
+  "Качественные материалы",
+  "Профессиональное лечение",
+  "Контроль результата",
+];
 
 export function ServicesPage({ onOpenBooking }: ServicesPageProps) {
   const [services, setServices] = useState<Service[]>([]);
@@ -16,83 +24,128 @@ export function ServicesPage({ onOpenBooking }: ServicesPageProps) {
 
   useEffect(() => {
     document.title = "Стоматологические услуги — Family Dent Душанбе";
-    async function loadServices() {
-      const data = await getServices();
-      setServices(data);
-    }
-    loadServices();
+    getServices().then(setServices);
   }, []);
 
-  // Hash link auto-scroll
   useEffect(() => {
-    if (location.hash) {
-      const id = location.hash.replace("#", "");
-      const elem = document.getElementById(id);
-      if (elem) {
-        elem.scrollIntoView({ behavior: "smooth" });
-      }
-    }
+    if (!location.hash || services.length === 0) return;
+    const element = document.getElementById(location.hash.slice(1));
+    element?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [location.hash, services]);
 
   return (
-    <div className="w-full flex flex-col min-h-screen bg-paper text-ink">
+    <main className="services-page">
       <EditorialPageHero
-        badge="Наши направления"
-        title="Услуги и направления лечения"
-        description="Комплексная семейная стоматология в Душанбе с использованием передовых швейцарских и японских стандартов."
+        badge="Услуги Family Dent"
+        title="Все основные направления в одной клинике"
+        description="От профилактики и лечения зубов до имплантации, ортодонтии и эстетической стоматологии."
       />
 
-      <StaggerContainer className="max-w-7xl mx-auto px-5 my-8 w-full flex flex-col gap-8">
-        {services.map((service) => (
-          <StaggerItem
-            key={service.id}
-            id={service.slug}
-            className="scroll-mt-24 bg-surface border border-rule rounded-3xl p-6 sm:p-8 shadow-card flex flex-col md:flex-row justify-between gap-6 hover:border-accent/40 transition-colors"
-          >
-            <div className="max-w-2xl">
-              <span className="text-[11px] uppercase font-semibold text-accent tracking-wider block mb-1 font-mono">
-                {service.category}
-              </span>
-              <h2 className="font-display text-xl sm:text-2xl font-bold text-ink mb-3">
-                {service.title}
-              </h2>
-              <p className="text-xs sm:text-sm text-muted font-normal leading-relaxed mb-4">
-                {service.description}
-              </p>
+      <section className="services-page__trust" aria-labelledby="services-trust-title">
+        <div className="services-page__container services-trust">
+          <div>
+            <p className="services-page__eyebrow">Качество, которому можно доверять</p>
+            <h2 id="services-trust-title">Лечение начинается с точной диагностики</h2>
+          </div>
+          <div className="services-trust__copy">
+            <ShieldCheck aria-hidden="true" />
+            <p>
+              Мы используем современные подходы к лечению, цифровую диагностику и качественные материалы от проверенных производителей из Японии, Южной Кореи, Италии, России, Германии и других стран.
+            </p>
+          </div>
+        </div>
+      </section>
 
-              {service.details && (
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {service.details.map((detail, idx) => (
-                    <span
-                      key={idx}
-                      className="text-xs px-3 py-1 rounded-lg bg-accent/15 border border-accent/25 text-accent"
-                    >
-                      {detail}
+      <section className="services-catalog" aria-labelledby="services-catalog-title">
+        <div className="services-page__container services-catalog__layout">
+          <aside className="services-catalog__aside">
+            <p className="services-page__eyebrow">Каталог направлений</p>
+            <h2 id="services-catalog-title">Выберите нужную услугу</h2>
+            <nav aria-label="Навигация по услугам">
+              {services.map((service, index) => (
+                <a key={service.id} href={`#${service.slug}`}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  {service.title}
+                </a>
+              ))}
+            </nav>
+          </aside>
+
+          <div className="services-catalog__list">
+            {services.map((service, index) => (
+              <article key={service.id} id={service.slug} className="service-entry">
+                <header className="service-entry__header">
+                  <span className="service-entry__number">{String(index + 1).padStart(2, "0")}</span>
+                  <div>
+                    <p className="services-page__eyebrow">{service.category}</p>
+                    <h3>{service.title}</h3>
+                  </div>
+                </header>
+
+                <div className="service-entry__body">
+                  <p className="service-entry__description">{service.description}</p>
+                  <ul>
+                    {service.details?.map((detail) => (
+                      <li key={detail}>
+                        <Check aria-hidden="true" />
+                        <span>{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <footer className="service-entry__footer">
+                  <div className="service-entry__duration">
+                    <Clock aria-hidden="true" />
+                    <span>
+                      <small>Длительность</small>
+                      {service.duration}
                     </span>
-                  ))}
-                </div>
-              )}
-            </div>
+                  </div>
+                  <button type="button" onClick={onOpenBooking}>
+                    Записаться
+                    <ArrowRight aria-hidden="true" />
+                  </button>
+                </footer>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className="flex flex-col justify-between items-start md:items-end gap-4 border-t md:border-t-0 md:border-l border-rule pt-4 md:pt-0 md:pl-8 flex-shrink-0">
-              {service.duration && (
-                <div className="flex items-center gap-1 text-xs text-muted">
-                  <Clock className="w-3.5 h-3.5" />
-                  <span>Длительность: {service.duration}</span>
-                </div>
-              )}
-
-              <button
-                onClick={onOpenBooking}
-                className="w-full sm:w-auto min-h-11 bg-ink hover:bg-accent hover:text-accent-ink text-paper font-semibold text-xs px-5 py-2.5 rounded-pill transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <Calendar className="w-3.5 h-3.5 text-accent-2" />
-                <span>Записаться</span>
-              </button>
+      <section className="services-process" aria-labelledby="services-process-title">
+        <div className="services-page__container">
+          <div className="services-process__heading">
+            <div>
+              <p className="services-page__eyebrow">План действий</p>
+              <h2 id="services-process-title">Понятный путь к результату</h2>
             </div>
-          </StaggerItem>
-        ))}
-      </StaggerContainer>
-    </div>
+            <ArrowDown aria-hidden="true" />
+          </div>
+          <ol>
+            {treatmentSteps.map((step, index) => (
+              <li key={step}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{step}</strong>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="services-cta">
+        <div className="services-page__container services-cta__inner">
+          <div>
+            <p className="services-page__eyebrow">Первый шаг</p>
+            <h2>Начните с консультации и диагностики</h2>
+            <p>Врач оценит состояние полости рта, ответит на вопросы и предложит последовательный план лечения.</p>
+          </div>
+          <button type="button" onClick={onOpenBooking}>
+            <Calendar aria-hidden="true" />
+            Записаться на приём
+          </button>
+        </div>
+      </section>
+    </main>
   );
 }
