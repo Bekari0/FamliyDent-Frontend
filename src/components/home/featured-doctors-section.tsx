@@ -18,7 +18,7 @@ export function FeaturedDoctorsSection({ onOpenBooking: _onOpenBooking }: Featur
         <ScrollAnimate className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
             <span className="text-xs uppercase font-bold text-accent tracking-wider mb-2 block font-mono">Врачи клиники</span>
-            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">Врачи Family Dent</h2>
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-white tracking-tight">Врачи Family Dent</h2>
             <p className="text-xs sm:text-sm text-white/70 font-normal mt-1">Познакомьтесь с образованием, опытом и направлениями работы наших специалистов.</p>
           </div>
           <Link to="/doctors" className="inline-flex min-h-11 items-center gap-2 px-5 py-2.5 rounded-pill bg-white/10 text-white border border-white/20 text-xs font-bold hover:bg-white/20 transition-all self-start md:self-auto group shadow-whisper">

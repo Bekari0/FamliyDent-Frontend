@@ -124,7 +124,7 @@ export function ClinicMetricsSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-[42px] font-bold text-white tracking-tight leading-[1.08] drop-shadow-sm max-w-[660px]"
+            className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-white tracking-tight leading-[1.08] drop-shadow-sm max-w-[660px]"
           >
             Раскройте совершенство. <br />
             Откройте для себя стандарт <span className="text-accent-soft font-bold">Family Dent</span>.
@@ -227,13 +227,13 @@ function StatGlassCard({
             </span>
           )}
           <span
-            className="text-3xl sm:text-4xl lg:text-[46px] font-bold tracking-tight text-white font-mono leading-none"
+            className="text-3xl sm:text-4xl lg:text-[42px] font-semibold tracking-tight text-white font-mono leading-none"
             aria-live="polite"
           >
             {shouldReduceMotion ? metric.value : displayValue}
           </span>
           {metric.suffix && (
-            <span className="relative top-1 text-2xl sm:text-3xl lg:text-[34px] font-bold text-accent-soft leading-none self-baseline ml-0.5">
+            <span className="relative top-1 text-2xl sm:text-3xl lg:text-[30px] font-semibold text-accent-soft leading-none self-baseline ml-0.5">
               {metric.suffix}
             </span>
           )}

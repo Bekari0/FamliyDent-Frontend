@@ -33,9 +33,9 @@ export function DoctorsPage({ onOpenBooking }: DoctorsPageProps) {
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-5 sm:px-6 lg:px-8">
           <motion.div style={{ x: introX }} className="flex max-w-3xl flex-col gap-3">
             <p className="font-mono text-xs uppercase tracking-[0.12em] text-accent-2">Команда клиники</p>
-            <h1 id="doctors-list-title" className="text-balance font-display text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
+            <h2 id="doctors-list-title" className="max-w-2xl text-balance font-display text-2xl font-semibold leading-[1.1] tracking-[-0.025em] sm:text-3xl lg:text-4xl">
               Каждый профиль — открыто о подготовке и практике врача
-            </h1>
+            </h2>
             <p className="text-pretty text-sm leading-relaxed text-paper/65 sm:text-base">
               Выберите специалиста, чтобы узнать об образовании, профессиональной подготовке и направлениях приёма.
             </p>

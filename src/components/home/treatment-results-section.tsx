@@ -26,7 +26,7 @@ export function TreatmentResultsSection() {
             <span className="text-xs uppercase font-bold text-[var(--color-accent)] tracking-wider mb-2 block font-mono">
               Клинические кейсы
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[var(--color-ink)] tracking-tight">
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-[var(--color-ink)] tracking-tight">
               Результаты лечения «До / После»
             </h2>
             <p className="text-xs sm:text-sm text-[var(--color-muted)] font-normal mt-1">
@@ -60,7 +60,7 @@ export function TreatmentResultsSection() {
                   </div>
                 </div>
 
-                <h3 className="text-lg font-extrabold text-[var(--color-ink)] mb-2">
+                <h3 className="text-lg font-semibold text-[var(--color-ink)] mb-2">
                   {c.title}
                 </h3>
                 <p className="text-xs text-[var(--color-muted)] font-normal leading-relaxed mb-6">

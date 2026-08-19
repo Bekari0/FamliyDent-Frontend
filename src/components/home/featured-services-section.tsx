@@ -68,7 +68,7 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
             <span className="text-xs uppercase font-bold text-accent tracking-wider mb-2 block font-mono">
               Направления лечения
             </span>
-            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-ink tracking-tight">
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-ink tracking-tight">
               Основные услуги клиники
             </h2>
             <p className="text-xs sm:text-sm text-muted font-normal mt-1">
@@ -156,7 +156,7 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
                       </div>
                     </div>
 
-                    <h3 className="text-xl sm:text-2xl font-extrabold text-[var(--color-ink)] mb-3">
+                    <h3 className="text-xl sm:text-2xl font-semibold text-[var(--color-ink)] mb-3">
                       {activeService.title}
                     </h3>
 

@@ -33,7 +33,7 @@ export function HomeHero({ onOpenBooking, onOpenAuth }: HomeHeroProps) {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="lg:col-span-4 flex flex-col items-start text-left"
         >
-          <h1 className="font-display text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-black leading-[1.08] text-white tracking-tight">
+          <h1 className="font-display text-3xl sm:text-4xl lg:text-4xl xl:text-[44px] font-semibold leading-[1.08] text-white tracking-[-0.03em]">
             Современная<br />
             стоматология<br />
             для всей семьи<br />
@@ -56,7 +56,7 @@ export function HomeHero({ onOpenBooking, onOpenAuth }: HomeHeroProps) {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
           className="lg:col-span-4 flex flex-col items-start lg:items-start text-left w-full min-w-0"
         >
-          <h2 className="font-display text-[21px] min-[360px]:text-[24px] min-[390px]:text-[27px] sm:text-4xl lg:text-4xl xl:text-5xl font-black leading-[1.08] text-white tracking-tight mb-8 w-full max-w-full">
+          <h2 className="font-display text-[21px] min-[360px]:text-[24px] min-[390px]:text-[27px] sm:text-4xl lg:text-4xl xl:text-[44px] font-semibold leading-[1.08] text-white tracking-[-0.03em] mb-6 w-full max-w-full">
             <span className="block whitespace-nowrap">Без боли.</span>
             <span className="block whitespace-nowrap">Без спешки.</span>
             <span className="block whitespace-nowrap">Без компромиссов.</span>
