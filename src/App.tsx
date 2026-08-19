@@ -1,13 +1,13 @@
 import React, { Suspense, lazy, useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route, useLocation } from "react-router-dom";
 import { SiteHeader } from "./components/navigation/site-header";
 import { SiteFooter } from "./components/navigation/site-footer";
 import { BookingModal } from "./components/booking/booking-modal";
 import { AuthDialog } from "./components/auth/auth-dialog";
+import { SocialContactLauncher } from "./components/shared/social-contact-launcher";
 import { OrbitalRings } from "./components/OrbitalRings";
 
 const HomePage = lazy(() => import("./pages/HomePage").then((m) => ({ default: m.HomePage })));
-const PeoplePage = lazy(() => import("./pages/PeoplePage").then((m) => ({ default: m.PeoplePage })));
 const DoctorsPage = lazy(() => import("./pages/DoctorsPage").then((m) => ({ default: m.DoctorsPage })));
 const AboutPage = lazy(() => import("./pages/AboutPage").then((m) => ({ default: m.AboutPage })));
 const ClinicTourPage = lazy(() => import("./pages/ClinicTourPage").then((m) => ({ default: m.ClinicTourPage })));
@@ -16,6 +16,7 @@ const ResultsPage = lazy(() => import("./pages/ResultsPage").then((m) => ({ defa
 const TourismPage = lazy(() => import("./pages/TourismPage").then((m) => ({ default: m.TourismPage })));
 const AcademyPage = lazy(() => import("./pages/AcademyPage").then((m) => ({ default: m.AcademyPage })));
 const ServicesPage = lazy(() => import("./pages/ServicesPage").then((m) => ({ default: m.ServicesPage })));
+const ServiceDetailPage = lazy(() => import("./pages/ServiceDetailPage").then((m) => ({ default: m.ServiceDetailPage })));
 const ReviewsPage = lazy(() => import("./pages/ReviewsPage").then((m) => ({ default: m.ReviewsPage })));
 const BlogPage = lazy(() => import("./pages/BlogPage").then((m) => ({ default: m.BlogPage })));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage").then((m) => ({ default: m.BlogPostPage })));
@@ -28,12 +29,18 @@ function ScrollToTop() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    if (!hash) {
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-      });
+    if (hash) {
+      const scrollToHash = () => document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
+      const frame = requestAnimationFrame(() => requestAnimationFrame(scrollToHash));
+      const timeout = window.setTimeout(scrollToHash, 350);
+      return () => { cancelAnimationFrame(frame); window.clearTimeout(timeout); };
     }
+
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    const frame = requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    });
+    return () => cancelAnimationFrame(frame);
   }, [pathname, hash]);
 
   return null;
@@ -62,7 +69,7 @@ export default function App() {
           <Suspense fallback={<div className="min-h-screen bg-paper" /> }>
             <Routes>
               <Route path="/" element={<HomePage onOpenBooking={() => handleOpenBooking()} />} />
-              <Route path="/people" element={<PeoplePage onOpenBooking={handleOpenBooking} />} />
+              <Route path="/people" element={<Navigate to="/doctors" replace />} />
               <Route path="/doctors" element={<DoctorsPage onOpenBooking={handleOpenBooking} />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/about/clinic-tour" element={<ClinicTourPage />} />
@@ -71,6 +78,7 @@ export default function App() {
               <Route path="/tourism" element={<TourismPage />} />
               <Route path="/academy" element={<AcademyPage />} />
               <Route path="/services" element={<ServicesPage onOpenBooking={() => handleOpenBooking()} />} />
+              <Route path="/services/:slug" element={<ServiceDetailPage onOpenBooking={() => handleOpenBooking()} />} />
               <Route path="/pricing" element={<ServicesPage onOpenBooking={() => handleOpenBooking()} />} />
               <Route path="/reviews" element={<ReviewsPage />} />
               <Route path="/blog" element={<BlogPage />} />
@@ -82,6 +90,8 @@ export default function App() {
         </main>
 
         <SiteFooter />
+
+        <SocialContactLauncher />
 
         <BookingModal
           isOpen={bookingOpen}

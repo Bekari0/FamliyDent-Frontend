@@ -25,7 +25,7 @@ export function BlogPage() {
         description="Экспертные статьи наших врачей о гигиене, винирах, брекетах, имплантации и детской стоматологии."
       />
 
-      <div className="max-w-7xl mx-auto px-5 my-8 w-full">
+      <div className="page-container my-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {posts.map((post) => (
             <Link

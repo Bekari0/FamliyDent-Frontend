@@ -3,7 +3,7 @@ import { motion, useInView, useReducedMotion } from "motion/react";
 import { getClinicMetrics, type ClinicMetric } from "../../lib/data/metrics";
 
 const VIDEO_SRC = "/videos/familydent.mp4";
-const VIDEO_POSTER = "/images/clinic_about.jpg";
+const VIDEO_POSTER = "/images/clinic-exterior-poster.png";
 const VIDEO_DELAY_MS = 1200;
 const SLOW_CONNECTION_TYPES = ["slow-2g", "2g", "3g"];
 
@@ -65,11 +65,11 @@ export function ClinicMetricsSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full h-auto min-h-screen lg:h-screen lg:max-h-screen flex flex-col justify-between overflow-hidden text-white py-6 sm:py-8 lg:py-10 px-6 sm:px-12 lg:px-16 xl:px-24 z-10"
+      className="relative z-10 flex h-auto min-h-screen w-full flex-col justify-between overflow-hidden py-6 text-white sm:py-8 lg:h-screen lg:max-h-screen lg:py-10"
     >
       {/* 1. FULL-SCREEN BACKGROUND VIDEO / POSTER WITH OVERLAY */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
-        <div className="absolute inset-0 bg-[url('/images/clinic_about.jpg')] bg-cover bg-center" />
+        <div className="absolute inset-0 bg-[url('/images/clinic-exterior-poster.png')] bg-cover bg-center" />
 
         {isVideoMounted && !videoError && (
           <video
@@ -95,14 +95,14 @@ export function ClinicMetricsSection() {
       </div>
 
       {/* 2. TOP HEADER & COMPACT TEXT CONTENT */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto">
+      <div className="page-container relative z-10">
         {/* Category Badge & Section Title */}
         <div className="flex items-center justify-between gap-4 mb-4 sm:mb-5">
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] sm:text-xs font-mono uppercase tracking-[0.15em] font-medium text-white/90"
+            className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[11px] sm:text-xs font-mono uppercase tracking-[0.15em] font-medium text-white/90"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
             О КЛИНИКЕ
@@ -124,7 +124,7 @@ export function ClinicMetricsSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-[42px] font-bold text-white tracking-tight leading-[1.08] drop-shadow-sm max-w-[660px]"
+            className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-white tracking-tight leading-[1.08] drop-shadow-sm max-w-[660px]"
           >
             Раскройте совершенство. <br />
             Откройте для себя стандарт <span className="text-accent-soft font-bold">Family Dent</span>.
@@ -142,7 +142,7 @@ export function ClinicMetricsSection() {
       </div>
 
       {/* 3. HORIZONTAL GLASS STATISTICAL CARDS ROW */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto pt-4 sm:pt-6 pb-1">
+      <div className="page-container relative z-10 pt-4 pb-1 sm:pt-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 items-stretch">
           {metrics.map((item, index) => (
             <StatGlassCard
@@ -227,13 +227,13 @@ function StatGlassCard({
             </span>
           )}
           <span
-            className="text-3xl sm:text-4xl lg:text-[46px] font-bold tracking-tight text-white font-mono leading-none"
+            className="text-3xl sm:text-4xl lg:text-[42px] font-semibold tracking-tight text-white font-mono leading-none"
             aria-live="polite"
           >
             {shouldReduceMotion ? metric.value : displayValue}
           </span>
           {metric.suffix && (
-            <span className="text-2xl sm:text-3xl lg:text-[34px] font-bold text-accent-soft leading-none self-baseline ml-0.5">
+            <span className="relative top-1 text-2xl sm:text-3xl lg:text-[30px] font-semibold text-accent-soft leading-none self-baseline ml-0.5">
               {metric.suffix}
             </span>
           )}

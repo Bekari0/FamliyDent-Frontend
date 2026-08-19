@@ -24,9 +24,9 @@ export function BookingSection({ onOpenBookingModal }: BookingSectionProps) {
   return (
     <section
       id="booking"
-      className="scroll-mt-24 w-full bg-paper-2 text-ink py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 border-b border-rule relative overflow-hidden"
+      className="relative w-full scroll-mt-24 overflow-hidden border-b border-rule bg-paper-2 py-12 text-ink sm:py-16 lg:py-20"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="page-container">
         <ScrollAnimate className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch rounded-3xl overflow-hidden border border-rule shadow-card bg-surface">
           {/* Left Column: Dark Info & Benefits */}
           <div
@@ -42,7 +42,7 @@ export function BookingSection({ onOpenBookingModal }: BookingSectionProps) {
                 <span className="truncate">Быстрая запись • Без очередей</span>
               </div>
 
-              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-paper leading-[1.2] mb-4 tracking-tight">
+              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-paper leading-[1.2] mb-4 tracking-tight">
                 Запишитесь на консультацию и 3D-диагностику
               </h2>
 
@@ -111,7 +111,7 @@ export function BookingSection({ onOpenBookingModal }: BookingSectionProps) {
                 <div className="w-16 h-16 rounded-2xl bg-accent/20 text-accent flex items-center justify-center mb-5 shadow-sm">
                   <ShieldCheck className="w-8 h-8" />
                 </div>
-                <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-ink mb-3 tracking-tight">
+                <h3 className="font-display text-2xl sm:text-3xl font-semibold text-ink mb-3 tracking-tight">
                   Заявка успешно отправлена!
                 </h3>
                 <p className="text-xs sm:text-sm text-muted font-normal max-w-md mb-8 leading-relaxed">
@@ -127,7 +127,7 @@ export function BookingSection({ onOpenBookingModal }: BookingSectionProps) {
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-5 sm:gap-6">
                 <div>
-                  <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-ink tracking-tight mb-2">
+                  <h3 className="font-display text-2xl sm:text-3xl font-semibold text-ink tracking-tight mb-2">
                     Забронировать приём
                   </h3>
                   <p className="text-xs sm:text-sm text-muted font-normal leading-relaxed">

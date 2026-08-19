@@ -1,80 +1,59 @@
-import React, { useState, useRef } from "react";
-import { Play, Pause, Quote } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import type { PatientReview } from "../../lib/data/types";
 
 interface VideoReviewCardProps {
-  key?: React.Key;
   review: PatientReview;
 }
 
 export function VideoReviewCard({ review }: VideoReviewCardProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const togglePlay = () => {
-    if (!videoRef.current) return;
-    if (isPlaying) {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      videoRef.current.play();
-      setIsPlaying(true);
-    }
-  };
+  const isInstagram = review.source === "instagram";
 
   return (
-    <div className="bg-surface border border-rule rounded-2xl overflow-hidden shadow-card flex flex-col group">
-      {/* Video Container */}
-      <div className="relative aspect-[9/16] sm:aspect-[4/5] w-full bg-paper overflow-hidden">
-        {review.videoUrl ? (
+    <article className="flex flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-rule)] bg-[var(--color-surface)] shadow-[var(--shadow-whisper)]">
+      <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--color-paper-2)]">
+        {isInstagram && review.videoUrl ? (
+          <iframe
+            src={review.videoUrl}
+            title={review.authorName}
+            loading="lazy"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            className="h-full w-full border-0"
+          />
+        ) : review.videoUrl ? (
           <video
-            ref={videoRef}
             src={review.videoUrl}
             poster={review.videoPoster}
-            controls={isPlaying}
-            onEnded={() => setIsPlaying(false)}
-            onPause={() => setIsPlaying(false)}
+            controls
             preload="none"
-            className="w-full h-full object-cover"
+            className="h-full w-full object-cover"
           />
-        ) : (
-          <img
-            src={review.videoPoster || "https://images.pexels.com/photos/3762453/pexels-photo-3762453.jpeg?auto=compress&cs=tinysrgb&w=800"}
-            alt={review.authorName}
-            loading="lazy"
-            decoding="async"
-            className="w-full h-full object-cover"
-          />
-        )}
+        ) : null}
+      </div>
 
-        {/* Play Overlay Button */}
-        {!isPlaying && (
-          <button
-            onClick={togglePlay}
-            aria-label={`Смотреть видеоотзыв ${review.authorName}`}
-            className="absolute inset-0 m-auto w-14 h-14 rounded-full bg-accent text-accent-ink flex items-center justify-center shadow-md transition-transform duration-300 hover:scale-110 cursor-pointer border-2 border-white/30 backdrop-blur-sm"
-          >
-            <Play className="w-6 h-6 fill-current ml-1" />
-          </button>
-        )}
-
-        <div className="absolute top-3 left-3 bg-ink/75 backdrop-blur-md px-2.5 py-1 rounded-pill text-[10px] font-semibold text-paper uppercase tracking-wider border border-white/10 font-mono">
-          Видеоотзыв
+      <div className="flex flex-col gap-3 border-t border-[var(--color-rule)] p-5">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex flex-col gap-1">
+            <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[var(--color-accent)]">
+              Видеоотзыв · Instagram
+            </span>
+            <h3 className="font-sans text-base font-bold text-[var(--color-ink)]">
+              {review.authorName}
+            </h3>
+          </div>
+          {review.sourceUrl && (
+            <a
+              href={review.sourceUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Открыть оригинал видеоотзыва в Instagram"
+              className="flex size-11 shrink-0 items-center justify-center rounded-full bg-[var(--color-ink)] text-[var(--color-paper)] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)]"
+            >
+              <ExternalLink aria-hidden="true" className="size-4" />
+            </a>
+          )}
         </div>
+        {review.text && <p className="text-sm leading-6 text-[var(--color-muted)]">{review.text}</p>}
       </div>
-
-      {/* Details */}
-      <div className="p-4 bg-paper border-t border-rule flex flex-col gap-1.5">
-        <h4 className="font-display text-sm font-bold text-ink">{review.authorName}</h4>
-        {review.text && (
-          <p className="text-xs text-muted font-normal line-clamp-2">
-            "{review.text}"
-          </p>
-        )}
-        {review.publishedAt && (
-          <span className="text-[10px] text-muted mt-1">{review.publishedAt}</span>
-        )}
-      </div>
-    </div>
+    </article>
   );
 }

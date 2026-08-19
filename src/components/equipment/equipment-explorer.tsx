@@ -21,7 +21,7 @@ export function EquipmentExplorer({ items }: EquipmentExplorerProps) {
   );
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-5 py-8">
+    <div className="page-container py-8">
       {/* Desktop Layout */}
       <ScrollAnimate className="hidden md:grid md:grid-cols-12 gap-8 items-start">
         {/* Left List */}

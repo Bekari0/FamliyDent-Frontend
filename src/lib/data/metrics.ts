@@ -23,11 +23,11 @@ export const clinicMetrics = [
     description: "Многолетняя практическая экспертиза",
   },
   {
-    id: "smiles",
-    value: 5000,
-    suffix: "+",
-    label: "Улыбок преображено",
-    description: "Успешно проведенное лечение",
+    id: "satisfaction",
+    value: 97,
+    suffix: "%",
+    label: "Довольных пациентов",
+    description: "Пациенты, довольные качеством лечения и сервиса",
   },
   {
     id: "doctors",

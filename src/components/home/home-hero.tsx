@@ -19,12 +19,12 @@ export function HomeHero({ onOpenBooking, onOpenAuth }: HomeHeroProps) {
   };
 
   return (
-    <section className="relative w-full min-h-[100svh] flex flex-col justify-between overflow-hidden pt-24 pb-14 sm:pb-16 px-5 sm:px-8 lg:px-12 text-white bg-[#1A1A1A]">
+    <section className="relative flex min-h-[100svh] w-full flex-col justify-between overflow-hidden bg-[#1A1A1A] pt-24 pb-14 text-white sm:pb-16">
       {/* Background ambient video / lighting */}
       <BackgroundVideo />
 
       {/* Main Hero Layout matching image.png */}
-      <div className="my-auto w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 xl:gap-8 items-center z-10 relative">
+      <div className="page-container relative z-10 my-auto grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-6 xl:gap-8">
         
         {/* Left Column: Title & Subtitle */}
         <motion.div 
@@ -33,7 +33,7 @@ export function HomeHero({ onOpenBooking, onOpenAuth }: HomeHeroProps) {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="lg:col-span-4 flex flex-col items-start text-left"
         >
-          <h1 className="font-display text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-black leading-[1.08] text-white tracking-tight">
+          <h1 className="font-display text-3xl sm:text-4xl lg:text-4xl xl:text-[44px] font-semibold leading-[1.08] text-white tracking-[-0.03em]">
             Современная<br />
             стоматология<br />
             для всей семьи<br />
@@ -56,7 +56,7 @@ export function HomeHero({ onOpenBooking, onOpenAuth }: HomeHeroProps) {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
           className="lg:col-span-4 flex flex-col items-start lg:items-start text-left w-full min-w-0"
         >
-          <h2 className="font-display text-[21px] min-[360px]:text-[24px] min-[390px]:text-[27px] sm:text-4xl lg:text-4xl xl:text-5xl font-black leading-[1.08] text-white tracking-tight mb-8 w-full max-w-full">
+          <h2 className="font-display text-[21px] min-[360px]:text-[24px] min-[390px]:text-[27px] sm:text-4xl lg:text-4xl xl:text-[44px] font-semibold leading-[1.08] text-white tracking-[-0.03em] mb-6 w-full max-w-full">
             <span className="block whitespace-nowrap">Без боли.</span>
             <span className="block whitespace-nowrap">Без спешки.</span>
             <span className="block whitespace-nowrap">Без компромиссов.</span>

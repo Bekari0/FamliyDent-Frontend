@@ -16,7 +16,7 @@ export function AboutPage() {
         description="Современный медицинский центр в Душанбе, созданный для комфортного лечения всей семьи в атмосфере заботы и технологического превосходства."
       />
 
-      <div className="max-w-5xl mx-auto px-5 my-8 w-full flex flex-col gap-10">
+      <div className="page-container page-container--content my-8 flex flex-col gap-10">
         {/* Quick Links Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <Link

@@ -31,7 +31,7 @@ export function HomeFaqSection() {
             <span className="text-xs uppercase font-bold text-[var(--color-accent)] tracking-wider mb-2 block font-mono">
               Вопросы и ответы
             </span>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[var(--color-ink)] tracking-tight">
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-[var(--color-ink)] tracking-tight">
               Часто задаваемые вопросы
             </h2>
           </div>

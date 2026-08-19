@@ -39,7 +39,7 @@ export function ResultsPage() {
         description="Интерактивное сравнение результатов до и после восстановления улыбки пациентам клиники Family Dent."
       />
 
-      <div className="max-w-7xl mx-auto px-5 my-6 w-full">
+      <div className="page-container my-6">
         {/* Category selector */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
           {CATEGORIES.map((cat) => (

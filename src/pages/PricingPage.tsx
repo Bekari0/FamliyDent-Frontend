@@ -30,7 +30,7 @@ export function PricingPage({ onOpenBooking }: PricingPageProps) {
         description="Фиксированные расценки без скрытых доплат. Точную стоимость план лечения указывает доктор после бесплатного первичного осмотра."
       />
 
-      <div className="max-w-5xl mx-auto px-5 my-8 w-full flex flex-col gap-8">
+      <div className="page-container page-container--content my-8 flex flex-col gap-8">
         {categories.map((cat) => {
           const items = pricing.filter((p) => p.category === cat);
           return (

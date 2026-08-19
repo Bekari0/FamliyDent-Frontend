@@ -12,7 +12,7 @@ export function ConcernDrawer({ concerns }: ConcernDrawerProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <section id="concerns" className="w-full max-w-7xl mx-auto px-5 my-6 sm:my-10 z-10 relative">
+    <section id="concerns" className="page-container relative z-10 my-6 sm:my-10">
       <div className="bg-surface border border-rule rounded-2xl shadow-card backdrop-blur-xl overflow-hidden transition-all duration-300 text-ink">
         {/* Accordion Trigger Header */}
         <button

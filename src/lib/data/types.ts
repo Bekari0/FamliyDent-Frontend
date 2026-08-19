@@ -56,12 +56,14 @@ export interface EquipmentItem {
 export interface PatientReview {
   id: string;
   authorName: string;
-  source: "google" | "instagram" | "whatsapp" | "video";
+  source: "google" | "yandex" | "2gis" | "instagram" | "whatsapp" | "video";
   rating?: number;
   text?: string;
   videoUrl?: string;
   videoPoster?: string;
   publishedAt?: string;
+  branch?: string;
+  sourceUrl?: string;
 }
 
 export interface ConcernItem {
@@ -88,22 +90,31 @@ export interface Doctor {
   slug: string;
   name: string;
   specialty: string;
-  experienceYears?: number | string;
-  bio: string;
-  image: string;
-  education?: string[];
-  specialties?: string[];
+  qualification?: string;
+  experienceYears?: string;
+  bio: string[];
+  image?: string;
+  imagePosition?: string;
+  education: string[];
+  specialties: string[];
+  training?: string[];
+  highlights?: string[];
+  commonQuestions?: string[];
 }
 
 export interface Service {
   id: string;
   slug: string;
   title: string;
+  shortTitle: string;
   category: string;
   description: string;
   priceFrom: string;
   duration?: string;
   details?: string[];
+  image: string;
+  imagePosition?: string;
+  mobileImagePosition?: string;
 }
 
 export interface PricingItem {

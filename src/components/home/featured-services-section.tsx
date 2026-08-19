@@ -6,17 +6,6 @@ import { getServices } from "../../lib/data/services";
 import type { Service } from "../../lib/data/types";
 import { ScrollAnimate, StaggerContainer, StaggerItem } from "../shared/scroll-animate";
 
-// High quality service imagery mapping for crossfade presentation
-const SERVICE_IMAGES: Record<string, string> = {
-  therapy: "https://images.pexels.com/photos/3845766/pexels-photo-3845766.jpeg?auto=compress&cs=tinysrgb&w=1000",
-  implantation: "https://images.pexels.com/photos/3845729/pexels-photo-3845729.jpeg?auto=compress&cs=tinysrgb&w=1000",
-  orthodontics: "https://images.pexels.com/photos/6627524/pexels-photo-6627524.jpeg?auto=compress&cs=tinysrgb&w=1000",
-  hygiene: "https://images.pexels.com/photos/3779702/pexels-photo-3779702.jpeg?auto=compress&cs=tinysrgb&w=1000",
-  "diagnostics-tmj": "https://images.pexels.com/photos/4270360/pexels-photo-4270360.jpeg?auto=compress&cs=tinysrgb&w=1000",
-  pediatric: "https://images.pexels.com/photos/3779705/pexels-photo-3779705.jpeg?auto=compress&cs=tinysrgb&w=1000",
-  aesthetics: "https://images.pexels.com/photos/6502287/pexels-photo-6502287.jpeg?auto=compress&cs=tinysrgb&w=1000",
-};
-
 interface FeaturedServicesSectionProps {
   onOpenBooking: () => void;
 }
@@ -71,15 +60,15 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
   const activeService = services.find((s) => s.id === activeServiceId) || services[0];
 
   return (
-    <section className="w-full bg-paper-2 text-ink py-16 sm:py-20 px-5 sm:px-8 border-b border-rule">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-full border-b border-rule bg-paper-2 py-16 text-ink sm:py-20">
+      <div className="page-container">
         {/* Header */}
         <ScrollAnimate className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
             <span className="text-xs uppercase font-bold text-accent tracking-wider mb-2 block font-mono">
               Направления лечения
             </span>
-            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-ink tracking-tight">
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-ink tracking-tight">
               Основные услуги клиники
             </h2>
             <p className="text-xs sm:text-sm text-muted font-normal mt-1">
@@ -152,13 +141,13 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
                     {/* Image Preview */}
                     <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden mb-6 bg-[var(--color-paper-2)] shadow-md relative">
                       <img
-                        src={
-                          SERVICE_IMAGES[activeService.category] ||
-                          SERVICE_IMAGES.therapy
-                        }
-                        alt={activeService.title}
+                        src={activeService.image}
+                        alt={`${activeService.title} в клинике Family Dent`}
                         loading="lazy"
                         decoding="async"
+                        width="900"
+                        height="506"
+                        style={{ objectPosition: activeService.imagePosition }}
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute top-3 right-3 bg-[var(--color-ink)]/90 backdrop-blur-md text-[var(--color-accent-2)] px-3 py-1.5 rounded-xl text-xs font-bold border border-white/10 flex items-center gap-1.5">
@@ -167,7 +156,7 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
                       </div>
                     </div>
 
-                    <h3 className="text-xl sm:text-2xl font-extrabold text-[var(--color-ink)] mb-3">
+                    <h3 className="text-xl sm:text-2xl font-semibold text-[var(--color-ink)] mb-3">
                       {activeService.title}
                     </h3>
 
@@ -259,13 +248,13 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
                   <div className="p-4 pt-0 border-t border-[var(--color-rule)] bg-[var(--color-surface)]">
                     <div className="aspect-[16/9] w-full rounded-xl overflow-hidden my-3 bg-[var(--color-paper-2)]">
                       <img
-                        src={
-                          SERVICE_IMAGES[service.category] ||
-                          SERVICE_IMAGES.therapy
-                        }
-                        alt={service.title}
+                        src={service.image}
+                        alt={`${service.title} в клинике Family Dent`}
                         loading="lazy"
                         decoding="async"
+                        width="900"
+                        height="506"
+                        style={{ objectPosition: service.mobileImagePosition || service.imagePosition }}
                         className="w-full h-full object-cover"
                       />
                     </div>

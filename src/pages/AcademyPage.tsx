@@ -25,7 +25,7 @@ export function AcademyPage() {
         description="Академия Family Dent создана для молодых и практикующих специалистов, которые хотят развивать свои навыки под руководством опытных преподавателей."
       />
 
-      <div className="max-w-5xl mx-auto px-5 my-8 w-full">
+      <div className="page-container page-container--content my-8">
         {/* Goal Card */}
         <div className="bg-surface border border-rule rounded-3xl p-8 sm:p-10 mb-10 shadow-card flex items-start gap-5">
           <div className="w-12 h-12 rounded-2xl bg-accent/15 border border-accent/25 flex items-center justify-center text-accent flex-shrink-0">

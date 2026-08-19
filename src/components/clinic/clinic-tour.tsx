@@ -27,7 +27,7 @@ export function ClinicTour({
   const [tourMode, setTourMode] = useState<"photo" | "panorama">("photo");
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-5 py-8">
+    <div className="page-container py-8">
       {/* Header section */}
       <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>

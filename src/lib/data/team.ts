@@ -101,8 +101,8 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
     name: doc.name,
     category: "doctors",
     position: doc.specialty,
-    shortBio: doc.bio,
-    image: doc.image,
+    shortBio: doc.bio[0],
+    image: doc.image ?? "/images/clinic_about.jpg",
     experienceYears: doc.experienceYears,
     specialties: doc.specialties,
     education: doc.education
