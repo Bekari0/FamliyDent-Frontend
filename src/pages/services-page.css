@@ -5,3 +5,81 @@
 @media(max-width:64rem){.services-grid{grid-template-columns:repeat(3,1fr)}.service-tile-wrap:nth-child(n){grid-column:span 1}.services-process ol{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:44rem){.services-hero--compact{min-height:32rem}.services-hero__shade{background:linear-gradient(0deg,color-mix(in oklch,var(--color-ink) 96%,transparent),color-mix(in oklch,var(--color-ink) 36%,transparent) 85%)}.services-hero__content{padding-block:var(--space-2xl)}.services-hero h1{font-size:clamp(2.45rem,11.5vw,4rem)}.services-hero h1 br{display:none}.services-hero button{width:100%}.services-catalog__header,.services-final__inner{align-items:flex-start;flex-direction:column;gap:var(--space-lg)}.services-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:11.5rem;gap:var(--space-xs)}.service-tile{min-height:0}.service-tile strong{left:var(--space-sm);right:2.25rem;bottom:var(--space-sm);font-size:clamp(.92rem,4.3vw,1.15rem)}.service-tile__number{top:var(--space-sm);left:var(--space-sm)}.service-tile__arrow{right:var(--space-sm);bottom:var(--space-sm);width:1rem}.services-process ol{grid-template-columns:1fr}.services-process li{min-height:4.75rem;flex-direction:row;align-items:center;justify-content:flex-start;border-right:0;border-bottom:var(--rule-thin) solid color-mix(in oklch,var(--color-paper) 24%,transparent)}.services-final button{width:100%}}
 @media(hover:none){.service-tile:hover img{transform:none}}@media(prefers-reduced-motion:reduce){.services-page *{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}.service-tile-wrap,.services-hero__image{opacity:1!important;transform:none!important}}
+
+/* Framed page composition, refined type and actions */
+.services-page{
+  --services-edge:clamp(.5rem,1.25vw,1.25rem);
+  padding:var(--services-edge);
+  display:flex;
+  flex-direction:column;
+  gap:var(--services-edge);
+  background:var(--color-paper-3);
+}
+.services-page>section{
+  border-radius:clamp(var(--radius-md),1.5vw,var(--radius-xl));
+  overflow:hidden;
+}
+.services-page__container{
+  width:min(calc(100% - 2 * clamp(1rem,3.2vw,3.5rem)),var(--container-max));
+}
+.services-page h1,.services-page h2{
+  font-weight:590;
+  letter-spacing:-.042em;
+  font-variation-settings:"wdth" 96;
+}
+.services-hero h1{
+  max-width:17ch;
+  font-size:clamp(2.7rem,5.35vw,5.75rem);
+  line-height:.96;
+}
+.services-hero__lead{
+  max-width:40rem;
+  font-size:clamp(1rem,.92rem + .22vw,1.2rem);
+  line-height:1.62;
+  text-wrap:pretty;
+}
+.services-page__eyebrow{
+  font-weight:560;
+  letter-spacing:.12em;
+}
+.services-catalog__header h2,.services-final h2{
+  line-height:1.02;
+}
+.service-tile strong{
+  font-weight:560;
+  line-height:1.12;
+  letter-spacing:-.018em;
+}
+.services-process li strong{
+  font-weight:540;
+  line-height:1.35;
+}
+.services-hero button,.services-final button{
+  min-height:3.625rem;
+  padding-inline:1.65rem;
+  border:var(--rule-thin) solid color-mix(in oklch,var(--color-paper) 20%,transparent);
+  border-radius:var(--radius-md);
+  font-size:clamp(.92rem,.88rem + .12vw,1rem);
+  font-weight:620;
+  letter-spacing:-.01em;
+  box-shadow:0 .5rem 1.5rem color-mix(in oklch,var(--color-ink) 13%,transparent);
+  transition:transform var(--dur-short) var(--ease-out),background-color var(--dur-short) var(--ease-out),box-shadow var(--dur-short) var(--ease-out);
+}
+.services-hero button:hover,.services-final button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 .75rem 2rem color-mix(in oklch,var(--color-ink) 19%,transparent);
+}
+.services-hero button:active,.services-final button:active{
+  transform:translateY(0) scale(.985);
+}
+.service-tile{
+  border-radius:var(--radius-md);
+}
+
+@media(max-width:44rem){
+  .services-page{--services-edge:.375rem}
+  .services-page>section{border-radius:var(--radius-md)}
+  .services-page__container{width:min(calc(100% - 2rem),var(--container-max))}
+  .services-hero h1{font-size:clamp(2.35rem,10.8vw,3.7rem);line-height:.98}
+  .services-hero button,.services-final button{min-height:3.5rem;border-radius:var(--radius-sm)}
+}
