@@ -111,6 +111,9 @@ export interface Service {
   priceFrom: string;
   duration?: string;
   details?: string[];
+  image: string;
+  imagePosition?: string;
+  mobileImagePosition?: string;
 }
 
 export interface PricingItem {
