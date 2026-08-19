@@ -8,16 +8,20 @@
 
 /* Framed page composition, refined type and actions */
 .services-page{
+  --services-page-gutter:clamp(1.25rem,3.6vw,4rem);
+  --services-content-max:110rem;
   padding:0;
   display:block;
   background:var(--color-paper);
 }
 .services-page>section{
+  width:100%;
   border-radius:0;
   overflow:hidden;
 }
 .services-page__container{
-  width:min(calc(100% - 2 * clamp(1.25rem,3.6vw,4rem)),var(--container-max));
+  width:min(calc(100% - 2 * var(--services-page-gutter)),var(--services-content-max));
+  margin-inline:auto;
 }
 .services-page h1,.services-page h2{
   font-weight:590;
@@ -74,7 +78,7 @@
 }
 
 @media(max-width:44rem){
-  .services-page__container{width:min(calc(100% - 2rem),var(--container-max))}
+  .services-page{--services-page-gutter:clamp(1rem,4.6vw,1.25rem)}
   .services-hero h1{font-size:clamp(2.35rem,10.8vw,3.7rem);line-height:.98}
   .services-hero button,.services-final button{min-height:3.5rem;border-radius:var(--radius-sm)}
 }
