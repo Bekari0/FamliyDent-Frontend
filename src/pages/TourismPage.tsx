@@ -226,9 +226,12 @@ export function TourismPage() {
           <div className="tourism-services__list">
             {treatmentDirections.map((item, index) => (
               <Reveal key={item.title} className="tourism-service" delay={index * 0.05}>
-                <span
+                <img
                   className="tourism-service__icon"
-                  style={{ maskImage: `url(${item.icon})`, WebkitMaskImage: `url(${item.icon})` }}
+                  src={item.icon}
+                  width="64"
+                  height="64"
+                  alt=""
                   aria-hidden="true"
                 />
                 <h3>{item.title}</h3>
