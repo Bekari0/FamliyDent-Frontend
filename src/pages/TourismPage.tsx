@@ -224,8 +224,8 @@ export function TourismPage() {
             <p>От эстетической до функциональной стоматологии — подберём решение после диагностики и составим понятный план лечения.</p>
           </div>
           <div className="tourism-services__list">
-            {treatmentDirections.map((item, index) => (
-              <Reveal key={item.title} className="tourism-service" delay={index * 0.05}>
+            {treatmentDirections.map((item) => (
+              <div key={item.title} className="tourism-service">
                 <img
                   className="tourism-service__icon"
                   src={item.icon}
@@ -238,7 +238,7 @@ export function TourismPage() {
                 <button type="button" onClick={() => setDialogOpen(true)} aria-label={`Обсудить направление: ${item.title}`}>
                   <ArrowRight />
                 </button>
-              </Reveal>
+              </div>
             ))}
           </div>
         </div>
