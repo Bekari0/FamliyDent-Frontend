@@ -15,7 +15,8 @@
   overflow:hidden;
 }
 .service-detail__container{
-  width:min(calc(100% - 2 * clamp(1.25rem,3.6vw,4rem)),var(--container-max));
+  width:min(calc(100% - 2 * var(--page-gutter)),var(--container-max));
+  margin-inline:auto;
 }
 .service-detail h1,.service-detail h2,.service-not-found h1{
   font-weight:590;
@@ -38,6 +39,5 @@
 .service-benefits li strong{font-weight:550;letter-spacing:-.015em}
 
 @media(max-width:44rem){
-  .service-detail__container{width:min(calc(100% - 2rem),var(--container-max))}
   .service-detail button,.service-not-found a{min-height:3.5rem;border-radius:var(--radius-sm)}
 }

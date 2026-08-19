@@ -60,8 +60,8 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
   const activeService = services.find((s) => s.id === activeServiceId) || services[0];
 
   return (
-    <section className="w-full bg-paper-2 text-ink py-16 sm:py-20 px-5 sm:px-8 border-b border-rule">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-full border-b border-rule bg-paper-2 py-16 text-ink sm:py-20">
+      <div className="page-container">
         {/* Header */}
         <ScrollAnimate className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>

@@ -62,6 +62,15 @@
   --container-5xl: 64rem;
   --container-6xl: 72rem;
   --container-7xl: 80rem;
+  --container-max: 90rem;
+  --container-readable: 46rem;
+  --page-gutter: clamp(1.125rem, 3.6vw, 4rem);
+  --section-y: clamp(4.5rem, 9vw, 9rem);
+  --header-height: 4.75rem;
+  --control-height-sm: 2.5rem;
+  --control-height-md: 3rem;
+  --control-height-lg: 3.5rem;
+  --focus-ring: 0 0 0 3px color-mix(in oklch, var(--color-focus) 32%, transparent);
 
   --text-xs: clamp(0.75rem, calc(0.72rem + 0.1vw), 0.875rem);
   --text-sm: clamp(0.875rem, calc(0.83rem + 0.14vw), 1rem);
@@ -105,6 +114,19 @@
 }
 
 @layer utilities {
+  .page-container {
+    width: min(calc(100% - 2 * var(--page-gutter)), var(--container-max));
+    margin-inline: auto;
+  }
+
+  .page-container--readable {
+    max-width: var(--container-readable);
+  }
+
+  .page-container--content {
+    max-width: var(--container-5xl);
+  }
+
   .liquid-glass {
     position: relative;
     overflow: hidden;

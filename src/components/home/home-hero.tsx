@@ -19,12 +19,12 @@ export function HomeHero({ onOpenBooking, onOpenAuth }: HomeHeroProps) {
   };
 
   return (
-    <section className="relative w-full min-h-[100svh] flex flex-col justify-between overflow-hidden pt-24 pb-14 sm:pb-16 px-5 sm:px-8 lg:px-12 text-white bg-[#1A1A1A]">
+    <section className="relative flex min-h-[100svh] w-full flex-col justify-between overflow-hidden bg-[#1A1A1A] pt-24 pb-14 text-white sm:pb-16">
       {/* Background ambient video / lighting */}
       <BackgroundVideo />
 
       {/* Main Hero Layout matching image.png */}
-      <div className="my-auto w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 xl:gap-8 items-center z-10 relative">
+      <div className="page-container relative z-10 my-auto grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-6 xl:gap-8">
         
         {/* Left Column: Title & Subtitle */}
         <motion.div 

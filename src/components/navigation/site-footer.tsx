@@ -4,8 +4,8 @@ import { Phone, MapPin, Mail, Clock, Shield } from "lucide-react";
 
 export function SiteFooter() {
   return (
-    <footer className="w-full bg-ink border-t border-rule/20 text-paper/70 py-12 px-5 sm:px-8">
-      <div className="max-w-7xl mx-auto flex flex-col gap-10">
+    <footer className="w-full border-t border-rule/20 bg-ink py-12 text-paper/70">
+      <div className="page-container flex flex-col gap-10">
         
         {/* Shared Yandex map and editorial contact panel */}
         <section className="grid min-h-[34rem] w-full overflow-hidden rounded-[var(--radius-xl)] border border-rule/20 bg-ink-2 shadow-xl md:grid-cols-[minmax(0,2fr)_minmax(18rem,1fr)]" aria-labelledby="footer-contacts-title">

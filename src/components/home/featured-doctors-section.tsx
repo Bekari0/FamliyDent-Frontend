@@ -13,8 +13,8 @@ const featuredDoctors = doctorsData.filter((doctor) => doctor.image).slice(0, 3)
 
 export function FeaturedDoctorsSection({ onOpenBooking: _onOpenBooking }: FeaturedDoctorsSectionProps) {
   return (
-    <section className="w-full bg-ink text-paper py-16 sm:py-20 px-5 sm:px-8 border-b border-white/10">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-full border-b border-white/10 bg-ink py-16 text-paper sm:py-20">
+      <div className="page-container">
         <ScrollAnimate className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
             <span className="text-xs uppercase font-bold text-accent tracking-wider mb-2 block font-mono">Врачи клиники</span>

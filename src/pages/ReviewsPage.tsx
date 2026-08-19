@@ -101,8 +101,8 @@ export function ReviewsPage() {
         description="Видеоистории и отзывы с карт — с прямыми ссылками на оригинальные публикации."
       />
 
-      <section aria-labelledby="reviews-list-title" className="px-4 py-12 sm:px-8 sm:py-16">
-        <div className="mx-auto flex max-w-7xl flex-col gap-10">
+      <section aria-labelledby="reviews-list-title" className="py-12 sm:py-16">
+        <div className="page-container flex flex-col gap-10">
           <div className="flex flex-col gap-5 border-b border-[var(--color-rule)] pb-7 lg:flex-row lg:items-end lg:justify-between">
             <div className="flex max-w-xl flex-col gap-2">
               <h2 id="reviews-list-title" className="font-sans text-2xl font-bold tracking-tight sm:text-3xl">Истории наших пациентов</h2>

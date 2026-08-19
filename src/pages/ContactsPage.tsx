@@ -15,7 +15,7 @@ export function ContactsPage() {
         description="Мы находимся в самом центре Душанбе. Запишитесь на прием удобным для вас способом."
       />
 
-      <div className="max-w-5xl mx-auto px-5 my-8 w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="page-container page-container--content my-8 grid grid-cols-1 gap-8 md:grid-cols-2">
         {/* Contact info cards */}
         <div className="bg-surface border border-rule rounded-3xl p-8 shadow-card flex flex-col gap-6">
           <h2 className="font-display text-xl font-bold text-ink mb-2">Наш адрес и часы работы</h2>

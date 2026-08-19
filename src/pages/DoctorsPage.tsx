@@ -30,7 +30,7 @@ export function DoctorsPage({ onOpenBooking }: DoctorsPageProps) {
       />
 
       <section className="w-full border-t border-paper/10 py-12 sm:py-16 lg:py-20" aria-labelledby="doctors-list-title">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-5 sm:px-6 lg:px-8">
+        <div className="page-container flex flex-col gap-10">
           <motion.div style={{ x: introX }} className="flex max-w-3xl flex-col gap-3">
             <p className="font-mono text-xs uppercase tracking-[0.12em] text-accent-2">Команда клиники</p>
             <h2 id="doctors-list-title" className="max-w-2xl text-balance font-display text-2xl font-semibold leading-[1.1] tracking-[-0.025em] sm:text-3xl lg:text-4xl">

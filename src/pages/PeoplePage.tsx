@@ -56,7 +56,7 @@ export function PeoplePage({ onOpenBooking }: PeoplePageProps) {
         description="Профессионалы, создающие атмосферу искренней заботы, бескомпромиссного качества и цифровой точности на каждом этапе вашего лечения."
       />
 
-      <div className="max-w-7xl mx-auto px-5 w-full">
+      <div className="page-container">
         <TeamCategoryNav
           dark
           activeCategory={selectedCategory}

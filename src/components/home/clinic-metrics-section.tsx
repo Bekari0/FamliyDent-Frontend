@@ -65,7 +65,7 @@ export function ClinicMetricsSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full h-auto min-h-screen lg:h-screen lg:max-h-screen flex flex-col justify-between overflow-hidden text-white py-6 sm:py-8 lg:py-10 px-6 sm:px-12 lg:px-16 xl:px-24 z-10"
+      className="relative z-10 flex h-auto min-h-screen w-full flex-col justify-between overflow-hidden py-6 text-white sm:py-8 lg:h-screen lg:max-h-screen lg:py-10"
     >
       {/* 1. FULL-SCREEN BACKGROUND VIDEO / POSTER WITH OVERLAY */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
@@ -95,7 +95,7 @@ export function ClinicMetricsSection() {
       </div>
 
       {/* 2. TOP HEADER & COMPACT TEXT CONTENT */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto">
+      <div className="page-container relative z-10">
         {/* Category Badge & Section Title */}
         <div className="flex items-center justify-between gap-4 mb-4 sm:mb-5">
           <motion.div
@@ -142,7 +142,7 @@ export function ClinicMetricsSection() {
       </div>
 
       {/* 3. HORIZONTAL GLASS STATISTICAL CARDS ROW */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto pt-4 sm:pt-6 pb-1">
+      <div className="page-container relative z-10 pt-4 pb-1 sm:pt-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 items-stretch">
           {metrics.map((item, index) => (
             <StatGlassCard

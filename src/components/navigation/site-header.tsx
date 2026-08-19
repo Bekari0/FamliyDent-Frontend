@@ -68,7 +68,7 @@ export function SiteHeader({
       transition={{ duration: 0.25, ease: "easeInOut" }}
       className="fixed inset-x-0 top-0 z-[60] w-full bg-ink/95 backdrop-blur-xl border-b border-rule/20 shadow-[0_8px_30px_rgba(0,0,0,0.2)] text-paper"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between gap-4">
+      <div className="page-container flex h-16 items-center justify-between gap-4 sm:h-18">
         {/* Logo */}
         <Link
           to="/"

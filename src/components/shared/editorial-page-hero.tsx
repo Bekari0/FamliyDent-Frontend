@@ -10,8 +10,9 @@ interface EditorialPageHeroProps {
 
 export function EditorialPageHero({ badge, title, description, dark = false }: EditorialPageHeroProps) {
   return (
-    <section className="relative w-full pt-28 pb-12 sm:pt-36 sm:pb-16 px-5 max-w-7xl mx-auto text-center overflow-hidden">
-      <ScrollAnimate className="flex flex-col items-center max-w-4xl mx-auto">
+    <section className="relative w-full pt-28 pb-12 sm:pt-36 sm:pb-16 text-center overflow-hidden">
+      <ScrollAnimate className="page-container flex flex-col items-center">
+        <div className="flex w-full max-w-4xl flex-col items-center">
         {badge && (
           <span
             className={`px-3.5 py-1 rounded-pill text-xs font-semibold mb-4 uppercase tracking-wider font-mono whitespace-nowrap max-w-full overflow-hidden text-ellipsis ${
@@ -37,6 +38,7 @@ export function EditorialPageHero({ badge, title, description, dark = false }: E
         >
           {description}
         </p>
+        </div>
       </ScrollAnimate>
     </section>
   );
