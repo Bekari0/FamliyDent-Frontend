@@ -31,7 +31,7 @@
   --color-shadow: oklch(23% 0 0 / 0.1);
   --color-shadow-soft: oklch(23% 0 0 / 0.05);
 
-  --font-display: "Geologica", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Roboto Serif", ui-serif, Georgia, serif;
   --font-body: "Golos Text", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --font-sans: var(--font-body);

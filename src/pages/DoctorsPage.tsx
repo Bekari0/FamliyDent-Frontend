@@ -70,7 +70,7 @@ export function DoctorsPage({ onOpenBooking }: DoctorsPageProps) {
                   type="button"
                   onClick={() => setSpecialty(item.value)}
                   aria-pressed={specialty === item.value}
-                  className="min-h-11 rounded-pill border border-paper/20 px-4 text-sm font-semibold text-paper transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-accent-ink"
+                  className="min-h-11 rounded-pill border border-paper/35 px-4 text-sm font-semibold text-paper transition-colors hover:border-paper/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper/70 aria-pressed:border-paper/90 aria-pressed:bg-paper aria-pressed:text-ink"
                 >
                   {item.label}
                 </button>
@@ -78,7 +78,7 @@ export function DoctorsPage({ onOpenBooking }: DoctorsPageProps) {
             </div>
             <label className="flex min-w-0 flex-col gap-2 font-mono text-xs uppercase tracking-wider text-paper/65">
               Филиал
-              <select value={branch} onChange={(event) => setBranch(event.target.value)} className="min-h-11 rounded-lg border border-paper/20 bg-ink-2 px-3 font-body text-sm normal-case tracking-normal text-paper focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus">
+              <select value={branch} onChange={(event) => setBranch(event.target.value)} className="min-h-11 rounded-lg border border-paper/35 bg-ink-2 px-3 font-body text-sm normal-case tracking-normal text-paper transition-colors hover:border-paper/70 focus-visible:border-paper/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper/70">
                 <option value="all">Все филиалы</option>
                 <option value="Айни">Айни</option>
                 <option value="Молодёжный">Молодёжный</option>
