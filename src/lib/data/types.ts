@@ -100,6 +100,7 @@ export interface Doctor {
   training?: string[];
   highlights?: string[];
   commonQuestions?: string[];
+  branches?: ("Айни" | "Молодёжный")[];
 }
 
 export interface Service {

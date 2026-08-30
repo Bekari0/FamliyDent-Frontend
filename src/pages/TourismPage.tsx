@@ -23,6 +23,24 @@ const treatmentDirections = [
   { title: "Профессиональная гигиена и отбеливание", icon: "/icons/tourism-treatment-6.svg?v=3" },
 ] as const;
 
+const treatmentDurations = [
+  ["Отбеливание", "1 день"], ["Профессиональная гигиена", "1 день"], ["Лечение кариеса", "1–3 дня"],
+  ["Виниры", "5–7 дней"], ["Коронки", "5–7 дней"], ["Имплантация", "Индивидуально"],
+  ["All-on-4 / All-on-6", "Индивидуально"], ["Полная реабилитация", "Индивидуально"],
+] as const;
+
+const tourServices = ["Предварительная онлайн-консультация", "Анализ КТ или рентгена", "Предварительный план лечения", "Расчёт стоимости", "Планирование визитов", "Подбор отеля", "Трансфер из аэропорта", "Трансфер между отелем и клиникой", "Сопровождение координатора", "Языковая поддержка", "Стоматологическое лечение", "Рекомендации перед возвращением домой", "Дистанционная связь после лечения"] as const;
+
+const tourismFaq = [
+  ["Нужно ли приезжать на консультацию до лечения?", "Нет. Предварительную консультацию можно пройти онлайн. Отправьте фотографии, КТ или панорамный снимок, если они у вас есть. Окончательный план утверждается после очной диагностики."],
+  ["Можно ли узнать стоимость лечения до приезда?", "Да. После изучения медицинских материалов мы предоставим предварительный расчёт. Окончательная стоимость определяется после очной диагностики."],
+  ["Сколько дней нужно провести в Душанбе?", "Это зависит от вида и объёма лечения. После изучения вашего случая мы составим индивидуальный график."],
+  ["Помогаете ли вы с отелем и трансфером?", "Да. Мы можем помочь подобрать проживание и по предварительной договорённости организовать трансфер из аэропорта, между отелем и клиникой и обратно."],
+  ["На каком языке можно общаться?", "Коммуникация доступна на русском, таджикском, английском и узбекском языках. При необходимости поможем организовать дополнительную языковую поддержку."],
+  ["Что делать после возвращения домой?", "Свяжитесь с координатором Family Dent. Мы остаёмся на связи для дистанционной консультации и контроля состояния."],
+  ["Как забронировать лечение?", "Оставьте заявку на сайте или напишите в WhatsApp. Координатор свяжется с вами и расскажет о следующих шагах."],
+] as const;
+
 function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const reduceMotion = useReducedMotion();
   return (
@@ -247,7 +265,15 @@ export function TourismPage() {
 
       <section ref={roadmapRef} className="tourism-roadmap" aria-labelledby="roadmap-title"><div className="tourism-shell"><div className="tourism-roadmap__head"><p className="tourism-eyebrow tourism-eyebrow--dark">Как это работает</p><h2 id="roadmap-title">От сообщения<br />до Душанбе</h2></div><div className="tourism-roadmap__track"><div className="tourism-roadmap__line"><motion.span style={reduceMotion ? { scaleX: 1 } : { scaleX: lineScale }} /></div>{tourismRoadmap.map((step) => <article key={step.number}><span className="tourism-roadmap__number">{step.number}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}</div><p className="tourism-roadmap__disclaimer">Окончательный план, объём и сроки лечения определяет врач после очной диагностики.</p></div></section>
 
-      <section className="tourism-visit" aria-labelledby="visit-title"><div className="tourism-shell tourism-visit__inner"><div><p className="tourism-eyebrow">Визит без неопределённости</p><h2 id="visit-title">До. Во время. После.</h2></div><div className="tourism-visit__steps"><Reveal><span>До визита</span><p>Собираем доступные снимки и уточняем медицинскую задачу.</p></Reveal><Reveal delay={0.07}><span>В Душанбе</span><p>Проводим очную диагностику и согласуем дальнейшие действия.</p></Reveal><Reveal delay={0.14}><span>После визита</span><p>Остаёмся на связи по вопросам согласованного лечения.</p></Reveal></div></div></section>
+      <section className="tourism-visit" aria-labelledby="visit-title"><div className="tourism-shell tourism-visit__inner"><div><p className="tourism-eyebrow">Визит без неопределённости</p><h2 id="visit-title">До. Во время. После.</h2></div><div className="tourism-visit__steps"><Reveal><span>До визита</span><p>Собираем доступные снимки и уточняем медицинскую задачу.</p></Reveal><Reveal delay={0.07}><span>В Душанбе</span><p>Проводим очную диагностику и согласуем дальнейшие действия.</p></Reveal><Reveal delay={0.14}><span>После визита</span><p>Остаёмся на связи для дистанционной консультации, контроля состояния и передачи рекомендаций.</p></Reveal></div></div></section>
+
+      <section className="tourism-details" aria-labelledby="duration-title"><div className="tourism-shell"><div className="tourism-details__head"><p className="tourism-eyebrow tourism-eyebrow--dark">Планирование поездки</p><h2 id="duration-title">Сколько дней нужно находиться в Душанбе</h2><p>Продолжительность зависит от диагноза, объёма работ и выбранного метода. Точный график составляется после изучения вашей ситуации.</p></div><div className="tourism-details__table">{treatmentDurations.map(([name, duration]) => <div key={name}><span>{name}</span><strong>{duration}</strong></div>)}</div></div></section>
+
+      <section className="tourism-support" aria-labelledby="support-title"><div className="tourism-shell tourism-support__layout"><div><p className="tourism-eyebrow">Организация тура</p><h2 id="support-title">Что может организовать Family Dent</h2><p>Условия включения дополнительных услуг согласовываются индивидуально.</p></div><ul>{tourServices.map((item) => <li key={item}>{item}</li>)}</ul></div></section>
+
+      <section className="tourism-language" aria-labelledby="language-title"><div className="tourism-shell tourism-language__layout"><div><p className="tourism-eyebrow tourism-eyebrow--dark">Языковая поддержка</p><h2 id="language-title">Мы говорим на вашем языке</h2><p>Для нас важно, чтобы пациент понимал каждый этап лечения.</p></div><ul><li>Русский</li><li>Таджикский</li><li>Английский</li><li>Узбекский</li></ul></div></section>
+
+      <section className="tourism-faq" aria-labelledby="tourism-faq-title"><div className="tourism-shell"><p className="tourism-eyebrow tourism-eyebrow--dark">Ответы перед поездкой</p><h2 id="tourism-faq-title">Часто задаваемые вопросы</h2><div className="tourism-faq__list">{tourismFaq.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></div></section>
 
       <section className="tourism-manifesto" aria-label="FamilyDent и Таджикистан"><div className="tourism-manifesto__panel"><img src="/images/family-dent-2-reception.jpg" width="4000" height="6000" loading="lazy" alt="Зона ожидания Family Dent 2 в Душанбе" /><strong>FamilyDent</strong></div><div className="tourism-manifesto__panel"><img src="/images/tourism/fann-mountains.png" width="1024" height="1280" loading="lazy" alt="Горы Таджикистана" /><strong>Tajikistan</strong></div><div className="tourism-manifesto__center">Точность<br />в лечении.<br /><em>Свобода</em> в пути.</div></section>
 
@@ -255,7 +281,7 @@ export function TourismPage() {
 
       <section className="tourism-cinematic" aria-label="Пейзаж Памира"><img src="/images/tourism/pamir-road.png" width="1536" height="1024" loading="lazy" alt="Дорога через горы Памира" /><div><p>Сменить привычный горизонт</p></div></section>
 
-      <section className="tourism-conversion" aria-labelledby="consultation-title"><div className="tourism-shell tourism-conversion__inner"><Reveal className="tourism-conversion__copy"><p className="tourism-eyebrow">Следующий шаг</p><h2 id="consultation-title">Начните с разговора, а не с билета.</h2><p>Расскажите о задаче. Координатор поможет подготовить материалы для врача и обсудить дальнейший маршрут.</p></Reveal><Reveal className="tourism-conversion__form" delay={0.08}><ConsultationForm idPrefix="section" /></Reveal></div></section>
+      <section className="tourism-conversion" aria-labelledby="consultation-title"><div className="tourism-shell tourism-conversion__inner"><Reveal className="tourism-conversion__copy"><p className="tourism-eyebrow">Следующий шаг</p><h2 id="consultation-title">Начните с разговора, а не с билета.</h2><p>Расскажите о задаче. Координатор поможет подготовить материалы для врача и обсудить дальнейший маршрут.</p><p className="tourism-coordinator">WhatsApp · Telegram · Телефон<br /><a href="tel:+992988770009">+992 98 877 0009</a></p></Reveal><Reveal className="tourism-conversion__form" delay={0.08}><ConsultationForm idPrefix="section" /></Reveal></div></section>
 
       <ConsultationDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
     </main>

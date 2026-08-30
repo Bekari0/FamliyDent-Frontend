@@ -240,9 +240,31 @@ const rawDoctorsData: Doctor[] = [
   },
 ];
 
+const supplementalDoctors: Doctor[] = [
+  { id: "doc-ashrapov", slug: "ashrapov-bahrom", name: "Ашрапов Бахром Салохиддинович", specialty: "Врач-стоматолог, терапевт, ортопед", bio: ["Ведёт приём как стоматолог-терапевт и ортопед в филиале на Айни."], education: [], specialties: ["Терапевтическая стоматология", "Ортопедическая стоматология"], branches: ["Айни"] },
+  { id: "doc-bafoev", slug: "bafoev-haet", name: "Бафоев Хаёт Джахонович", specialty: "Врач-стоматолог, ортодонт, терапевт, гнатолог", bio: ["Ведёт приём по ортодонтии, терапевтической стоматологии и гнатологии."], education: [], specialties: ["Ортодонтия", "Терапевтическая стоматология", "Гнатология"], branches: ["Айни", "Молодёжный"] },
+  { id: "doc-shamsiyai", slug: "shamsiyai-nurullo", name: "Шамсияи Нурулло", specialty: "Стоматолог-гигиенист", bio: ["Ведёт приём по профессиональной гигиене полости рта в филиале на Айни."], education: [], specialties: ["Профессиональная гигиена"], branches: ["Айни"] },
+  { id: "doc-mansurov", slug: "mansurov-asror", name: "Мансуров Асрор Махмадшарифович", specialty: "Врач-стоматолог, хирург-имплантолог", bio: ["Ведёт хирургический и имплантологический приём в филиале на Айни."], education: [], specialties: ["Хирургическая стоматология", "Имплантология"], branches: ["Айни"] },
+  { id: "doc-masrur", slug: "masrur-aydimamadovich", name: "Масрур Айдимамадович", specialty: "Врач-стоматолог, ортопед, терапевт", bio: ["Ведёт терапевтический и ортопедический приём в филиале «Молодёжный»."], education: [], specialties: ["Терапевтическая стоматология", "Ортопедическая стоматология"], branches: ["Молодёжный"] },
+  { id: "doc-holov", slug: "holov-kamol", name: "Холов Камол Абдутолибович", specialty: "Врач-стоматолог, терапевт", bio: ["Ведёт терапевтический приём в филиале на Айни."], education: [], specialties: ["Терапевтическая стоматология"], branches: ["Айни"] },
+  { id: "doc-kahorova", slug: "kahorova-nozanin", name: "Кахорова Нозанин", specialty: "Врач-стоматолог, терапевт, гигиенист, детский стоматолог", bio: ["Ведёт терапевтический и детский приём, а также профессиональную гигиену в филиале «Молодёжный»."], education: [], specialties: ["Терапевтическая стоматология", "Профессиональная гигиена", "Детская стоматология"], branches: ["Молодёжный"] },
+  { id: "doc-lutfonov", slug: "lutfonov-behruz", name: "Лутфонов Бехруз Манучехрович", specialty: "Врач-стоматолог, терапевт", bio: ["Ведёт терапевтический приём в филиале на Айни."], education: [], specialties: ["Терапевтическая стоматология"], branches: ["Айни"] },
+  { id: "doc-ahmedova-dilshoda", slug: "ahmedova-dilshoda", name: "Ахмедова Дильшода Ибрагимовна", specialty: "Стоматолог-гигиенист", bio: ["Ведёт приём по профессиональной гигиене полости рта в филиале «Молодёжный»."], education: [], specialties: ["Профессиональная гигиена"], branches: ["Молодёжный"] },
+  { id: "doc-mehrona", slug: "mehrona", name: "Мехрона", specialty: "Детский врач-стоматолог", bio: ["Ведёт детский стоматологический приём в филиале на Айни."], education: [], specialties: ["Детская стоматология"], branches: ["Айни"] },
+];
+
+const branchBySlug: Record<string, Doctor["branches"]> = {
+  "ahmedova-ruhshona": ["Молодёжный"], "abdullozoda-muhibullo": ["Молодёжный"], "bashirov-amin": ["Айни"],
+  "ismoilov-muhammad": ["Айни"], "nurov-dilshod": ["Айни", "Молодёжный"], "nurullaev-timur": ["Айни"],
+  "nurov-alisher": ["Айни"], "nazarov-somon": ["Айни"], "murzaev-sandzhar": ["Молодёжный"],
+  "razakov-parviz": ["Айни"], "umarova-nigina": ["Айни", "Молодёжный"], "shodmonov-sabur": ["Айни"],
+  "kosimi-husrav": ["Айни"], "khalifaev-romiz": ["Айни"], "shukurov-doniyor": ["Айни"],
+  "kurbonova-anusha": ["Айни"], "sharipova-nozanin": ["Айни"], "farahnush-farruhovna": ["Айни"], "rashidova-nodira": ["Айни"],
+};
+
 const priorityOrder = ["nurov-dilshod", "umarova-nigina", "nurov-alisher"];
 
-export const doctorsData: Doctor[] = [...rawDoctorsData].sort((first, second) => {
+export const doctorsData: Doctor[] = [...rawDoctorsData.map((doctor) => ({ ...doctor, branches: branchBySlug[doctor.slug] ?? doctor.branches })), ...supplementalDoctors].sort((first, second) => {
   const firstPriority = priorityOrder.indexOf(first.slug);
   const secondPriority = priorityOrder.indexOf(second.slug);
 

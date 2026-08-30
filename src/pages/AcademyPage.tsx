@@ -72,6 +72,10 @@ export function AcademyPage() {
           <p className="text-xs sm:text-sm text-muted max-w-lg font-normal">
             Свяжитесь с куратором Академии Family Dent для уточнения дат ближайших мастер-классов и наличия свободных мест.
           </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 text-sm font-semibold">
+            <a href="tel:944600660" className="text-ink underline decoration-accent underline-offset-4">944 600 660</a>
+            <a href="https://www.instagram.com/familydent.medtour/" target="_blank" rel="noreferrer" className="text-ink underline decoration-accent underline-offset-4">Instagram</a>
+          </div>
           <Link
             to="/contacts"
             className="mt-2 inline-flex min-h-11 items-center gap-2 px-8 py-3.5 rounded-pill bg-ink text-paper font-semibold text-xs sm:text-sm hover:bg-accent hover:text-accent-ink transition-all cursor-pointer shadow-md"

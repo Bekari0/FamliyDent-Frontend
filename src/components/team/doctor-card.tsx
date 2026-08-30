@@ -55,6 +55,9 @@ export function DoctorCard({ doctor, onOpen, index }: DoctorCardProps) {
           <p className="font-mono text-xs leading-relaxed tracking-wide text-accent-2">{doctor.specialty}</p>
           <h2 className="text-pretty font-display text-xl font-semibold leading-tight text-paper">{doctor.name}</h2>
         </div>
+        {doctor.branches?.length ? (
+          <p className="font-mono text-xs uppercase tracking-wider text-paper/50">Филиал: {doctor.branches.join(" · ")}</p>
+        ) : null}
         {fact && (
           <p className="flex items-start gap-2 text-sm leading-relaxed text-paper/65">
             <Award className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
