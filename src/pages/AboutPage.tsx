@@ -64,6 +64,18 @@ export function AboutPage() {
           </div>
         </section>
 
+        <section className="grid gap-6 border-b border-rule pb-10 lg:grid-cols-[5fr_7fr] lg:items-end" aria-labelledby="about-video-title">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">Family Dent</p>
+            <h2 id="about-video-title" className="mt-3 font-display text-3xl font-semibold leading-tight text-ink">Познакомьтесь с нашей клиникой</h2>
+            <p className="mt-4 max-w-xl text-pretty leading-relaxed text-muted">Посмотрите, как устроено пространство Family Dent и какая атмосфера ждёт вас на приёме.</p>
+          </div>
+          <video className="aspect-video w-full rounded-2xl border border-rule bg-ink object-cover shadow-card" controls playsInline preload="metadata">
+            <source src="/videos/about-family-dent.mp4" type="video/mp4" />
+            Ваш браузер не поддерживает воспроизведение видео.
+          </video>
+        </section>
+
         <section className="grid gap-8 rounded-3xl bg-ink p-8 text-paper sm:p-10 lg:grid-cols-[4fr_8fr]" aria-labelledby="mission-title">
           <h2 id="mission-title" className="font-display text-2xl font-semibold">Наша миссия</h2>
           <p className="max-w-3xl text-pretty text-lg leading-relaxed text-paper/75">Помогать людям сохранять здоровье зубов и красивую улыбку, предоставляя качественное, безопасное и современное стоматологическое лечение по справедливой цене.</p>
@@ -86,7 +98,7 @@ export function AboutPage() {
           <div className="grid gap-8 lg:grid-cols-[5fr_7fr]">
             <div><h2 id="belief-title" className="font-display text-3xl font-semibold text-ink">Во что мы верим</h2><p className="mt-4 text-pretty leading-relaxed text-muted">Мы считаем, что хорошая стоматология — это не самое дорогое лечение. Это правильное лечение, выполненное качественно, безопасно и с заботой о пациенте.</p></div>
             <div className="grid gap-5 sm:grid-cols-2">{[
-              ["Не назначаем лишнего", "Предлагаем лечение, которое действительно необходимо."],
+              ["Не назначаем лишнего", "Предлагаем лечение, которое действитель��о необходимо."],
               ["Объясняем понятным языком", "Пациент должен понимать, что происходит с его здоровьем и зачем нужно лечение."],
               ["Не экономим на качестве", "Используем современные технологии и качественные материалы, сохраняя разумную стоимость лечения."],
               ["Продолжаем учиться", "Мы убеждены, что в медицине невозможно остановиться в развитии."],
