@@ -103,8 +103,8 @@ const rawDoctorsData: Doctor[] = [
     specialty: "Детский врач-стоматолог",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%D0%A4%D0%B0%D1%80%D0%B0%D1%85%D0%BD%D1%83%D1%88_%D0%A4%D0%B0%D1%80%D1%80%D1%83%D1%85%D0%BE%D0%B2%D0%BD%D0%B0_%D0%94%D0%B5%D1%82%D0%BA%D1%81%D0%BA%D0%B8%D0%B9_%D1%81%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%BE%D0%BB%D0%BE%D0%B3-tPkXnlv4RovPGaWWqVdlV7kb0KIk0f.webp",
     experienceYears: "Более 5 лет",
-    bio: ["Фарахнуш Фарруховна специализируется на профилактике и лечении стоматологи��еских заболеваний у детей. Изучала детскую психологию, что помогает снижать тревожность и находить индивидуальный подход к ребёнку."],
-    education: ["2019 — Таджикский государственный медици��ский университет имени Абуали ибн Сино.", "Послевузовская подготовка — интернатура/ординатура."],
+    bio: ["Фарахнуш Фарруховна специализируется на профилактике и лечении стоматологи����еских заболеваний у детей. Изучала детскую психологию, что помогает снижать тревожность и находить индивидуальный подход к ребёнку."],
+    education: ["2019 — Таджикский государственный меди��и��ский университет имени Абуали ибн Сино.", "Послевузовская подготовка — интернатура/ординатура."],
     specialties: ["Детская стоматология", "Лечение кариеса", "Профессиональная гигиена", "Адаптация детей", "Профилактика"],
     training: ["Онлайн-курсы по детской психологии и эффективной коммуникации с детьми в стоматологической практике."],
     highlights: ["Знания детской психологии", "Бережная адаптация ребёнка"],
@@ -158,7 +158,7 @@ const rawDoctorsData: Doctor[] = [
   {
     id: "doc-shodmonov",
     slug: "shodmonov-sabur",
-    name: "Шодмонов Сабур Сухробович",
+    name: "Шодмоно�� Сабур Сухробович",
     specialty: "Врач-стоматолог, терапевт, ортопед",
     experienceYears: "Более 5 лет",
     bio: ["Сабур Шодмонов специализируется на эстетической и ортопедической стоматологии, восстановлении зубов и современных методах терапевтического лечения. Сочетает функциональный и эстетический подход."],
@@ -174,7 +174,7 @@ const rawDoctorsData: Doctor[] = [
     name: "Мурзаев Санджар Шамсиевич",
     specialty: "Врач-стоматолог, терапевт, ортопед",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%D0%9C%D1%83%D1%80%D0%B7%D0%B0%D0%B5%D0%B2%20%D0%A1%D0%B0%D0%BD%D1%87%D0%B0%D1%80%20%D0%A2%D0%B5%D1%80%D0%B0%D0%BF%D0%B5%D0%B2%D1%82-IoTbjS0zja1aJr8xVaHqdaWoQYXdBP.webp",
-    bio: ["Санджар Мурзаев специализируется на терапевтической и ортопедической стоматологии. Стремится устранить проб��ему и восстановить здоровье, функциональность и эстетику улыбки."],
+    bio: ["Санджар Мурзаев специализируется на терапевтической и ортопедической стоматологии. Стремится устранить ��роб��ему и восстановить здоровье, функциональность и эстетику улыбки."],
     education: ["2021 — Таджикский государственный медицинский университет имени Абуали ибн Сино."],
     specialties: ["Лечение кариеса", "Эндодонтическое лечение", "Эстетическая реставрация", "Ортопедическое лечение", "Керамические и циркониевые коронки"],
     highlights: ["Комплексное восстановление функции и эстетики"],
@@ -248,6 +248,9 @@ const supplementalDoctors: Doctor[] = [
   { id: "doc-masrur", slug: "masrur-mamadayozov", name: "Масрур Мамадаёзов", specialty: "Врач-стоматолог, терапевт, ортопед, хирург", bio: ["Ведёт терапевтический, ортопедический и хирургический приём."], education: [], specialties: ["Терапевтическая стоматология", "Ортопедическая стоматология", "Хирургическая стоматология"], branches: ["Молодёжный"] },
   { id: "doc-ahmadova-dilshoda", slug: "ahmadova-dilshoda", name: "Ахмадова Дилшода Иброхимовна", specialty: "Врач-стоматолог, гигиенист", bio: ["Ведёт приём по профессиональной гигиене полости рта."], education: [], specialties: ["Профессиональная гигиена"], branches: ["Молодёжный"] },
   { id: "doc-saisharifova", slug: "saisharifova-sarvinoz", name: "Сайшарифова Сарвиноз Джамшедовна", specialty: "Врач-стоматолог, гигиенист", bio: ["Ведёт приём по профессиональной гигиене полости рта."], education: [], specialties: ["Профессиональная гигиена"] },
+  { id: "doc-latifzoda", slug: "latifzoda-mehrona", name: "Латифзода Мехрона Махмадшариф", specialty: "Врач-стоматолог, терапевт", bio: [], education: [], specialties: ["Терапевтическая стоматология"], branches: ["Айни"] },
+  { id: "doc-farahnoz", slug: "farahnoz", name: "Фарахноз", specialty: "Врач-стоматолог, гигиенист", bio: [], education: [], specialties: ["Профессиональная гигиена"], branches: ["Айни"] },
+  { id: "doc-holov", slug: "holov-kamol", name: "Холов Камол Абдутолибович", specialty: "Врач-стоматолог, терапевт", bio: [], education: [], specialties: ["Терапевтическая стоматология"], branches: ["Айни"] },
 ];
 
 const branchBySlug: Record<string, Doctor["branches"]> = {
@@ -261,7 +264,38 @@ const branchBySlug: Record<string, Doctor["branches"]> = {
 
 const priorityOrder = ["nurov-dilshod", "umarova-nigina", "nurov-alisher"];
 
-export const doctorsData: Doctor[] = [...rawDoctorsData.map((doctor) => ({ ...doctor, branches: branchBySlug[doctor.slug] ?? doctor.branches })), ...supplementalDoctors].sort((first, second) => {
+const imageBySlug: Record<string, string> = {
+  "abdullozoda-muhibullo": "/images/doctors/abdullozoda-muhibullo.webp",
+  "ahmadova-dilshoda": "/images/doctors/ahmadova-dilshoda.webp",
+  "ahmedova-ruhshona": "/images/doctors/ahmedova-ruhshona.webp",
+  "ashrapov-bahromiddin": "/images/doctors/ashrapov-bahromiddin.webp",
+  "bafoev-haet": "/images/doctors/bafoev-haet.webp",
+  "bashirov-amin": "/images/doctors/bashirov-amin.webp",
+  "farahnoz": "/images/doctors/farahnoz.webp",
+  "farahnush-farruhovna": "/images/doctors/farahnush-farruhovna.webp",
+  "holov-kamol": "/images/doctors/holov-kamol.webp",
+  "ismoilov-muhammad": "/images/doctors/ismoilov-muhammad.webp",
+  "kahorzoda-nozanin": "/images/doctors/kahorzoda-nozanin.webp",
+  "khalifaev-romiz": "/images/doctors/khalifaev-romiz.webp",
+  "kosimi-husrav": "/images/doctors/kosimi-husrav.webp",
+  "latifzoda-mehrona": "/images/doctors/latifzoda-mehrona.webp",
+  "lutfonov-behruz": "/images/doctors/lutfonov-behruz.webp",
+  "masrur-mamadayozov": "/images/doctors/masrur-mamadayozov.webp",
+  "murzaev-sandzhar": "/images/doctors/murzaev-sandzhar.webp",
+  "nazarov-somon": "/images/doctors/nazarov-somon.webp",
+  "nurov-alisher": "/images/doctors/nurov-alisher.webp",
+  "nurov-dilshod": "/images/doctors/nurov-dilshod.webp",
+  "nurullaev-timur": "/images/doctors/nurullaev-timur.webp",
+  "rashidova-nodira": "/images/doctors/rashidova-nodira.webp",
+  "razakov-parviz": "/images/doctors/razakov-parviz.webp",
+  "saisharifova-sarvinoz": "/images/doctors/saisharifova-sarvinoz.webp",
+  "sharipova-nozanin": "/images/doctors/sharipova-nozanin.webp",
+  "shodmonov-sabur": "/images/doctors/shodmonov-sabur.webp",
+  "shukurov-doniyor": "/images/doctors/shukurov-doniyor.webp",
+  "umarova-nigina": "/images/doctors/umarova-nigina.webp",
+};
+
+export const doctorsData: Doctor[] = [...rawDoctorsData.map((doctor) => ({ ...doctor, branches: branchBySlug[doctor.slug] ?? doctor.branches })), ...supplementalDoctors].map((doctor) => ({ ...doctor, image: imageBySlug[doctor.slug] ?? doctor.image })).sort((first, second) => {
   const firstPriority = priorityOrder.indexOf(first.slug);
   const secondPriority = priorityOrder.indexOf(second.slug);
 
