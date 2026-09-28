@@ -70,7 +70,7 @@ export function AboutPage() {
             <h2 id="about-video-title" className="mt-3 font-display text-3xl font-semibold leading-tight text-ink">Познакомьтесь с нашей клиникой</h2>
             <p className="mt-4 max-w-xl text-pretty leading-relaxed text-muted">Посмотрите, как устроено пространство Family Dent и какая атмосфера ждёт вас на приёме.</p>
           </div>
-          <video className="aspect-video w-full rounded-2xl border border-rule bg-ink object-cover shadow-card" controls playsInline preload="metadata">
+          <video className="w-full rounded-2xl border border-rule bg-ink shadow-card" controls playsInline preload="metadata">
             <source src="/videos/about-family-dent.mp4" type="video/mp4" />
             Ваш браузер не поддерживает воспроизведение видео.
           </video>
