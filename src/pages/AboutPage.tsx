@@ -18,6 +18,7 @@ export function AboutPage() {
         badge="Семейные ценности"
         title="О клинике Family Dent"
         description="Современный медицинский центр в Душанбе, созданный для комфортного лечения всей семьи в атмосфере заботы и технологического превосходства."
+        backgroundImage="/images/about-family-dent-reception.jpg"
       />
 
       <div className="page-container page-container--content my-8 flex flex-col gap-10">
@@ -29,13 +30,15 @@ export function AboutPage() {
           </div>
         </section>
 
-        <section className="grid gap-6 border-b border-rule pb-10 lg:grid-cols-[5fr_7fr] lg:items-end" aria-labelledby="about-video-title">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">Family Dent</p>
-            <h2 id="about-video-title" className="mt-3 font-display text-3xl font-semibold leading-tight text-ink">Познакомьтесь с нашей клиникой</h2>
-            <p className="mt-4 max-w-xl text-pretty leading-relaxed text-muted">Посмотрите, как устроено пространство Family Dent и какая атмосфера ждёт вас на приёме.</p>
+        <section className="grid gap-8 border-b border-rule pb-10 md:grid-cols-[5fr_7fr] md:items-stretch" aria-labelledby="about-video-title">
+          <div className="flex flex-col justify-between py-1 md:min-h-[22rem]">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">Family Dent</p>
+              <h2 id="about-video-title" className="mt-3 font-display text-3xl font-semibold leading-tight text-ink">Познакомьтесь с нашей клиникой</h2>
+            </div>
+            <p className="max-w-md text-pretty leading-relaxed text-muted">Посмотрите, как устроено пространство Family Dent и какая атмосфера ждёт вас на приёме.</p>
           </div>
-          <video className="w-full rounded-2xl border border-rule bg-ink shadow-card" controls playsInline preload="metadata">
+          <video className="aspect-video w-full self-center rounded-xl border border-rule bg-ink object-cover shadow-card md:max-w-2xl md:justify-self-end" controls playsInline preload="metadata">
             <source src="/videos/about-family-dent.mp4" type="video/mp4" />
             Ваш браузер не поддерживает воспроизведение видео.
           </video>
