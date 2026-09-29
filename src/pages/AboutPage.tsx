@@ -4,13 +4,40 @@ import { ClinicTour } from "../components/clinic/clinic-tour";
 import { getClinicSpaces } from "../lib/data/clinic-spaces";
 import type { ClinicSpace } from "../lib/data/types";
 
+const clinicValues = [
+  ["Забота", "Мы внимательно относимся к каждому пациенту и стремимся сделать лечение максимально комфортным."],
+  ["Честность", "Мы предлагаем только необходимое лечение, подробно объясняем план и стоимость до начала работы."],
+  ["Качество", "Используем современные материалы, проверенные технологии и придерживаемся международных стандартов лечения."],
+  ["Развитие", "Наши врачи регулярно проходят обучение, чтобы применять самые эффективные современные методики."],
+  ["Ответственность", "Мы отвечаем за качество своей работы и сопровождаем пациента на всех этапах лечения."],
+] as const;
+
 export function AboutPage() {
   const [spaces, setSpaces] = useState<ClinicSpace[]>([]);
+  const [activeValueIndex, setActiveValueIndex] = useState(0);
 
   useEffect(() => {
     document.title = "О клинике — Family Dent Душанбе";
     getClinicSpaces().then(setSpaces);
   }, []);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveValueIndex((currentIndex) => (currentIndex + 1) % clinicValues.length);
+    }, 3000);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
+
+  const activeValue = clinicValues[activeValueIndex];
+
+  function showPreviousValue() {
+    setActiveValueIndex((currentIndex) => (currentIndex - 1 + clinicValues.length) % clinicValues.length);
+  }
+
+  function showNextValue() {
+    setActiveValueIndex((currentIndex) => (currentIndex + 1) % clinicValues.length);
+  }
 
   return (
     <div className="w-full flex flex-col min-h-screen bg-paper text-ink">
@@ -43,16 +70,18 @@ export function AboutPage() {
         <section aria-labelledby="values-title">
           <h2 id="values-title" className="font-display text-2xl font-semibold text-ink">Наши ценности</h2>
           <div className="mt-6 grid gap-5 md:grid-cols-[minmax(0,1fr)_18rem] md:items-center">
-            <div className="grid gap-px overflow-hidden rounded-2xl border border-rule bg-rule sm:grid-cols-2">
-              {[
-                ["Забота", "Мы внимательно относимся к каждому пациенту и стремимся сделать лечение максимально комфортным."],
-                ["Честность", "Мы предлагаем только необходимое лечение, подробно объясняем план и стоимость до начала работы."],
-                ["Качество", "Используем современные материалы, проверенные технологии и придерживаемся международных стандартов лечения."],
-                ["Развитие", "Наши врачи регулярно проходят обучение, чтобы применять самые эффективные современные методики."],
-                ["Ответственность", "Мы отвечаем за качество своей работы и сопровождаем пациента на всех этапах лечения."],
-              ].map(([title, text]) => <article key={title} className="bg-surface p-6"><h3 className="font-display text-lg font-semibold text-ink">{title}</h3><p className="mt-3 text-sm leading-relaxed text-muted">{text}</p></article>)}
+            <div className="min-h-[18rem] rounded-2xl border border-rule bg-surface p-6 sm:p-8" aria-live="polite">
+              <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">0{activeValueIndex + 1} / 0{clinicValues.length}</p>
+              <article key={activeValue[0]} className="mt-10">
+                <h3 className="font-display text-3xl font-semibold text-ink">{activeValue[0]}</h3>
+                <p className="mt-4 max-w-lg text-pretty leading-relaxed text-muted">{activeValue[1]}</p>
+              </article>
+              <div className="mt-10 flex items-center gap-3">
+                <button type="button" onClick={showPreviousValue} className="min-h-11 rounded-full border border-rule px-4 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent" aria-label="Предыдущая ценность">Назад</button>
+                <button type="button" onClick={showNextValue} className="min-h-11 rounded-full bg-ink px-4 text-sm font-semibold text-paper transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2" aria-label="Следующая ценность">Далее</button>
+              </div>
             </div>
-            <video className="aspect-video w-full self-center rounded-xl border border-rule bg-ink object-cover shadow-card" controls playsInline preload="metadata">
+            <video className="aspect-[9/16] w-full max-w-[18rem] justify-self-center rounded-xl border border-rule bg-ink object-cover shadow-card md:justify-self-end" controls playsInline preload="metadata">
               <source src="/videos/3d-tomography.mp4" type="video/mp4" />
               Ваш браузер не поддерживает воспроизведение видео.
             </video>
