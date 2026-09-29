@@ -82,8 +82,7 @@ export function SiteFooter() {
             <Link to="/services" className="text-xs text-paper/70 hover:text-paper transition-colors">Услуги клиники</Link>
             <Link to="/doctors" className="text-xs text-paper/70 hover:text-paper transition-colors">Наши врачи</Link>
             <Link to="/results" className="text-xs text-paper/70 hover:text-paper transition-colors">Результаты лечения</Link>
-            <Link to="/about/clinic-tour" className="text-xs text-paper/70 hover:text-paper transition-colors">Виртуальная экскурсия</Link>
-            <Link to="/about/equipment" className="text-xs text-paper/70 hover:text-paper transition-colors">Оборудование</Link>
+            <Link to="/about" className="text-xs text-paper/70 hover:text-paper transition-colors">О клинике</Link>
           </div>
 
           {/* Col 3: Patients & Programs */}
@@ -92,7 +91,6 @@ export function SiteFooter() {
               Пациентам
             </h4>
             <Link to="/tourism" className="text-xs text-paper/70 hover:text-paper transition-colors">Стоматологический туризм</Link>
-            <Link to="/academy" className="text-xs text-paper/70 hover:text-paper transition-colors">Академия Family Dent</Link>
             <Link to="/reviews" className="text-xs text-paper/70 hover:text-paper transition-colors">Отзывы пациентов</Link>
             <Link to="/blog" className="text-xs text-paper/70 hover:text-paper transition-colors">Полезные статьи</Link>
             <Link to="/faq" className="text-xs text-paper/70 hover:text-paper transition-colors">Частые вопросы (FAQ)</Link>

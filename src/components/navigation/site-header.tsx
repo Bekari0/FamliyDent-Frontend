@@ -12,17 +12,10 @@ interface SiteHeaderProps {
   onToggleColorMode?: () => void;
 }
 
-const ABOUT_ITEMS: NavDropdownItem[] = [
-  { label: "О клинике", href: "/about" },
-  { label: "Познакомьтесь с нашей клиникой", href: "/about/clinic-tour" },
-  { label: "Современное оборудование", href: "/about/equipment" },
-];
-
 const MORE_ITEMS: NavDropdownItem[] = [
   { label: "Отзывы", href: "/reviews" },
   { label: "Блог", href: "/blog" },
   { label: "Стоматологический туризм", href: "/tourism" },
-  { label: "Академия Family Dent", href: "/academy" },
   { label: "FAQ", href: "/faq" },
 ];
 
@@ -59,7 +52,7 @@ export function SiteHeader({
 
   const isPeopleActive = currentPath === "/doctors";
   const isAboutActive = currentPath.startsWith("/about");
-  const isMoreActive = ["/reviews", "/blog", "/tourism", "/academy", "/faq"].includes(currentPath);
+  const isMoreActive = ["/reviews", "/blog", "/tourism", "/faq"].includes(currentPath);
 
   return (
     <motion.header
@@ -131,11 +124,15 @@ export function SiteHeader({
             Люди Family Dent
           </Link>
 
-          <NavDropdown
-            label="О нас"
-            items={ABOUT_ITEMS}
-            isActive={isAboutActive}
-          />
+          <Link
+            to="/about"
+            aria-current={isAboutActive ? "page" : undefined}
+            className={`text-xs font-medium px-2.5 py-1 rounded transition-colors whitespace-nowrap ${
+              isAboutActive ? "text-white font-semibold" : "text-white/70 hover:text-white"
+            }`}
+          >
+            О клинике
+          </Link>
 
           <Link
             to="/contacts"
@@ -219,11 +216,13 @@ export function SiteHeader({
               Люди Family Dent
             </Link>
 
-            <MobileNavGroup
-              label="О нас"
-              items={ABOUT_ITEMS}
-              onItemClick={() => setMenuOpen(false)}
-            />
+            <Link
+              to="/about"
+              onClick={() => setMenuOpen(false)}
+              className="text-lg font-medium text-paper hover:text-accent py-1"
+            >
+              О клинике
+            </Link>
 
             <Link
               to="/contacts"

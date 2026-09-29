@@ -10,11 +10,8 @@ import { OrbitalRings } from "./components/OrbitalRings";
 const HomePage = lazy(() => import("./pages/HomePage").then((m) => ({ default: m.HomePage })));
 const DoctorsPage = lazy(() => import("./pages/DoctorsPage").then((m) => ({ default: m.DoctorsPage })));
 const AboutPage = lazy(() => import("./pages/AboutPage").then((m) => ({ default: m.AboutPage })));
-const ClinicTourPage = lazy(() => import("./pages/ClinicTourPage").then((m) => ({ default: m.ClinicTourPage })));
-const EquipmentPage = lazy(() => import("./pages/EquipmentPage").then((m) => ({ default: m.EquipmentPage })));
 const ResultsPage = lazy(() => import("./pages/ResultsPage").then((m) => ({ default: m.ResultsPage })));
 const TourismPage = lazy(() => import("./pages/TourismPage").then((m) => ({ default: m.TourismPage })));
-const AcademyPage = lazy(() => import("./pages/AcademyPage").then((m) => ({ default: m.AcademyPage })));
 const ServicesPage = lazy(() => import("./pages/ServicesPage").then((m) => ({ default: m.ServicesPage })));
 const ServiceDetailPage = lazy(() => import("./pages/ServiceDetailPage").then((m) => ({ default: m.ServiceDetailPage })));
 const ReviewsPage = lazy(() => import("./pages/ReviewsPage").then((m) => ({ default: m.ReviewsPage })));
@@ -72,11 +69,11 @@ export default function App() {
               <Route path="/people" element={<Navigate to="/doctors" replace />} />
               <Route path="/doctors" element={<DoctorsPage onOpenBooking={handleOpenBooking} />} />
               <Route path="/about" element={<AboutPage />} />
-              <Route path="/about/clinic-tour" element={<ClinicTourPage />} />
-              <Route path="/about/equipment" element={<EquipmentPage />} />
+              <Route path="/about/clinic-tour" element={<Navigate to="/about" replace />} />
+              <Route path="/about/equipment" element={<Navigate to="/about" replace />} />
               <Route path="/results" element={<ResultsPage />} />
               <Route path="/tourism" element={<TourismPage />} />
-              <Route path="/academy" element={<AcademyPage />} />
+              <Route path="/academy" element={<Navigate to="/" replace />} />
               <Route path="/services" element={<ServicesPage onOpenBooking={() => handleOpenBooking()} />} />
               <Route path="/services/:slug" element={<ServiceDetailPage onOpenBooking={() => handleOpenBooking()} />} />
               <Route path="/pricing" element={<ServicesPage onOpenBooking={() => handleOpenBooking()} />} />
