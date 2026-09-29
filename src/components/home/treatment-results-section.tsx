@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { getTreatmentCases } from "../../lib/data/treatment-cases";
 import type { TreatmentCase } from "../../lib/data/types";
 import { BeforeAfterSlider } from "../results/before-after-slider";
@@ -54,8 +54,7 @@ export function TreatmentResultsSection() {
                   <span className="text-[11px] uppercase font-bold text-[var(--color-accent)] bg-[var(--color-accent-soft)] px-2.5 py-1 rounded-md border border-[var(--color-rule)]">
                     {c.category}
                   </span>
-                  <div className="flex items-center gap-1 text-[11px] text-[var(--color-muted)] font-medium">
-                    <Sparkles className="w-3.5 h-3.5 text-[var(--color-accent)]" />
+                  <div className="text-[11px] text-[var(--color-muted)] font-medium">
                     <span>Цифровая протоколизация</span>
                   </div>
                 </div>

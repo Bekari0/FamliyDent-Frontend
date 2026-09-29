@@ -39,7 +39,7 @@ export function SiteFooter() {
               </div>
 
               <a href="tel:+992446606600" className="flex items-center gap-4 text-sm text-paper/85 transition-colors hover:text-accent-2"><Phone className="h-5 w-5 shrink-0 text-accent-2" aria-hidden="true" /><span>+992 446 60 66 00</span></a>
-              <a href="mailto:familydent.tj@gmail.com" className="flex items-center gap-4 break-all text-sm text-paper/85 transition-colors hover:text-accent-2"><Mail className="h-5 w-5 shrink-0 text-accent-2" aria-hidden="true" /><span>familydent.tj@gmail.com</span></a>
+              <a href="mailto:info@familydent.tj" className="flex items-center gap-4 break-all text-sm text-paper/85 transition-colors hover:text-accent-2"><Mail className="h-5 w-5 shrink-0 text-accent-2" aria-hidden="true" /><span>info@familydent.tj</span></a>
               <div className="flex items-center gap-4 text-sm text-paper/85"><Clock className="h-5 w-5 shrink-0 text-accent-2" aria-hidden="true" /><span>Пн-Сб: 07:30 – 20:00</span></div>
             </div>
           </div>
@@ -82,8 +82,7 @@ export function SiteFooter() {
             <Link to="/services" className="text-xs text-paper/70 hover:text-paper transition-colors">Услуги клиники</Link>
             <Link to="/doctors" className="text-xs text-paper/70 hover:text-paper transition-colors">Наши врачи</Link>
             <Link to="/results" className="text-xs text-paper/70 hover:text-paper transition-colors">Результаты лечения</Link>
-            <Link to="/about/clinic-tour" className="text-xs text-paper/70 hover:text-paper transition-colors">Виртуальная экскурсия</Link>
-            <Link to="/about/equipment" className="text-xs text-paper/70 hover:text-paper transition-colors">Оборудование</Link>
+            <Link to="/about" className="text-xs text-paper/70 hover:text-paper transition-colors">О клинике</Link>
           </div>
 
           {/* Col 3: Patients & Programs */}
@@ -92,10 +91,9 @@ export function SiteFooter() {
               Пациентам
             </h4>
             <Link to="/tourism" className="text-xs text-paper/70 hover:text-paper transition-colors">Стоматологический туризм</Link>
-            <Link to="/academy" className="text-xs text-paper/70 hover:text-paper transition-colors">Академия Family Dent</Link>
             <Link to="/reviews" className="text-xs text-paper/70 hover:text-paper transition-colors">Отзывы пациентов</Link>
             <Link to="/blog" className="text-xs text-paper/70 hover:text-paper transition-colors">Полезные статьи</Link>
-            <Link to="/faq" className="text-xs text-paper/70 hover:text-paper transition-colors">Частые вопросы (FAQ)</Link>
+            <Link to="/#faq" className="text-xs text-paper/70 hover:text-paper transition-colors">Частые вопросы (FAQ)</Link>
           </div>
 
           {/* Col 4: Direct Contacts */}
@@ -114,9 +112,9 @@ export function SiteFooter() {
               <Phone className="w-3.5 h-3.5 text-accent flex-shrink-0" />
               <span>+992 446 60 66 00</span>
             </a>
-            <a href="mailto:familydent.tj@gmail.com" className="flex items-center gap-2 text-xs text-paper/80 hover:text-accent-2">
+            <a href="mailto:info@familydent.tj" className="flex items-center gap-2 text-xs text-paper/80 hover:text-accent-2">
               <Mail className="w-3.5 h-3.5 text-accent flex-shrink-0" />
-              <span>familydent.tj@gmail.com</span>
+              <span>info@familydent.tj</span>
             </a>
             <div className="flex items-center gap-2 text-xs text-paper/80">
               <Clock className="w-3.5 h-3.5 text-accent flex-shrink-0" />

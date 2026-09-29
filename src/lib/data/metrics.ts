@@ -25,7 +25,7 @@ export const clinicMetrics = [
   {
     id: "implants",
     value: 5000,
-    prefix: "Более ",
+    suffix: "+",
     label: "Установленных имплантов",
     description: "Практический опыт команды Family Dent",
   },

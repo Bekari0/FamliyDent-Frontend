@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Calendar, Clock, Phone, MapPin, CheckCircle2, ShieldCheck, Sparkles, User, ChevronDown } from "lucide-react";
+import { Calendar, Clock, Phone, MapPin, CheckCircle2, ShieldCheck, User, ChevronDown } from "lucide-react";
 import { ScrollAnimate } from "../shared/scroll-animate";
 
 interface BookingSectionProps {
@@ -37,8 +37,7 @@ export function BookingSection({ onOpenBookingModal }: BookingSectionProps) {
             <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-accent/10 blur-3xl pointer-events-none" />
 
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-accent-2 border border-white/15 text-xs font-semibold mb-6 max-w-full backdrop-blur-sm">
-                <Sparkles className="w-3.5 h-3.5 text-accent shrink-0" />
+              <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/10 text-accent-2 border border-white/15 text-xs font-semibold mb-6 max-w-full backdrop-blur-sm">
                 <span className="truncate">Быстрая запись • Без очередей</span>
               </div>
 

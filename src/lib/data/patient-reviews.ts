@@ -7,7 +7,7 @@ export const reviewSourceLinks = {
     "https://www.google.com/maps/place/Family+Dent/@38.563438,68.8018967,17z/data=!4m8!3m7!1s0x38b5d1aba35cafc3:0xd10cb723db2752e2!8m2!3d38.563438!4d68.8044716!9m1!1b1!16s%2Fg%2F11jv8kdh_9?entry=ttu",
   googleFamilyDent2:
     "https://www.google.com/maps/place/Family+Dent+2/@38.5489051,68.7583137,17z/data=!4m8!3m7!1s0x6bdc250bce99c505:0x19fb711797678402!8m2!3d38.5489009!4d68.7608886!9m1!1b1!16s%2Fg%2F11ymnbcpkx?entry=ttu",
-  instagram: "https://www.instagram.com/p/DafePwMA6x_/",
+  instagram: "https://www.instagram.com/reel/DdRO6_BIVc6/",
 } as const;
 
 export const googleReviewSources = [
@@ -30,12 +30,20 @@ const yandexReviewsUrl = reviewSourceLinks.yandex;
 // Public reviews verified against the Family Dent listing on Yandex Maps.
 const patientReviewsData: PatientReview[] = [
   {
+    id: "instagram-ddro6-bivc6",
+    authorName: "Видеоотзыв пациента Family Dent",
+    source: "instagram",
+    text: "История пациента о лечении в Family Dent.",
+    videoUrl: "https://www.instagram.com/reel/DdRO6_BIVc6/embed/",
+    sourceUrl: reviewSourceLinks.instagram,
+  },
+  {
     id: "instagram-dafepwma6x",
     authorName: "Видеоотзыв пациента Family Dent",
     source: "instagram",
     text: "История пациента о лечении в Family Dent.",
     videoUrl: "https://www.instagram.com/p/DafePwMA6x_/embed/",
-    sourceUrl: reviewSourceLinks.instagram,
+    sourceUrl: "https://www.instagram.com/p/DafePwMA6x_/",
   },
   {
     id: "yandex-manizha-t",
