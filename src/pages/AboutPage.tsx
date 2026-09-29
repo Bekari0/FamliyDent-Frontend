@@ -22,23 +22,13 @@ export function AboutPage() {
       />
 
       <div className="page-container page-container--content my-8 flex flex-col gap-10">
-        <section className="grid gap-8 border-y border-rule py-10 lg:grid-cols-[5fr_7fr]" aria-labelledby="about-story-title">
+        <section className="grid gap-8 border-y border-rule py-10 md:grid-cols-[4fr_5fr_3fr] md:items-center" aria-labelledby="about-story-title">
           <h2 id="about-story-title" className="text-balance font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">Family Dent — стоматология, созданная с любовью к своему делу</h2>
           <div className="flex max-w-3xl flex-col gap-5 text-base leading-relaxed text-muted">
             <p>История Family Dent началась в 2018 году с желания создать клинику, где качество лечения всегда будет стоять на первом месте. Основатели клиники — врачи, искренне любящие свою профессию и стремящиеся постоянно развиваться. Благодаря поддержке семьи эта идея превратилась в современную стоматологическую клинику, которой сегодня доверяют тысячи пациентов.</p>
             <p>Мы начинали с небольшой команды и трёх стоматологических кресел. Шаг за шагом развивались, внедряли современные технологии, расширяли команду специалистов и создавали комфортные условия для пациентов. Сегодня Family Dent — это клиника, где можно получить комплексное стоматологическое лечение для всей семьи в одном месте.</p>
           </div>
-        </section>
-
-        <section className="grid gap-8 border-b border-rule pb-10 md:grid-cols-[5fr_7fr] md:items-stretch" aria-labelledby="about-video-title">
-          <div className="flex flex-col justify-between py-1 md:min-h-[22rem]">
-            <div>
-              <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">Family Dent</p>
-              <h2 id="about-video-title" className="mt-3 font-display text-3xl font-semibold leading-tight text-ink">Познакомьтесь с нашей клиникой</h2>
-            </div>
-            <p className="max-w-md text-pretty leading-relaxed text-muted">Посмотрите, как устроено пространство Family Dent и какая атмосфера ждёт вас на приёме.</p>
-          </div>
-          <video className="aspect-[9/16] w-full max-w-[20rem] self-center rounded-xl border border-rule bg-ink object-cover shadow-card md:justify-self-end" controls playsInline preload="metadata">
+          <video className="aspect-[9/16] w-full max-w-[18rem] justify-self-center rounded-xl border border-rule bg-ink object-cover shadow-card lg:justify-self-end" controls playsInline preload="metadata">
             <source src="/videos/about-family-dent.mp4" type="video/mp4" />
             Ваш браузер не поддерживает воспроизведение видео.
           </video>
