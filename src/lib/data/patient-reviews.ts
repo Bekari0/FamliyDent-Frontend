@@ -38,6 +38,14 @@ const patientReviewsData: PatientReview[] = [
     sourceUrl: reviewSourceLinks.instagram,
   },
   {
+    id: "instagram-dafepwma6x",
+    authorName: "Видеоотзыв пациента Family Dent",
+    source: "instagram",
+    text: "История пациента о лечении в Family Dent.",
+    videoUrl: "https://www.instagram.com/p/DafePwMA6x_/embed/",
+    sourceUrl: "https://www.instagram.com/p/DafePwMA6x_/",
+  },
+  {
     id: "yandex-manizha-t",
     authorName: "Манижа Т.",
     source: "yandex",
