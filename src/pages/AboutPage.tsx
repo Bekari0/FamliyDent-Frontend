@@ -38,7 +38,7 @@ export function AboutPage() {
             </div>
             <p className="max-w-md text-pretty leading-relaxed text-muted">Посмотрите, как устроено пространство Family Dent и какая атмосфера ждёт вас на приёме.</p>
           </div>
-          <video className="aspect-video w-full self-center rounded-xl border border-rule bg-ink object-cover shadow-card md:max-w-xl md:justify-self-end" controls playsInline preload="metadata">
+          <video className="aspect-[9/16] w-full max-w-[20rem] self-center rounded-xl border border-rule bg-ink object-cover shadow-card md:justify-self-end" controls playsInline preload="metadata">
             <source src="/videos/about-family-dent.mp4" type="video/mp4" />
             Ваш браузер не поддерживает воспроизведение видео.
           </video>
