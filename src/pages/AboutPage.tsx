@@ -24,7 +24,7 @@ export function AboutPage() {
   useEffect(() => {
     const intervalId = window.setInterval(() => {
       setActiveValueIndex((currentIndex) => (currentIndex + 1) % clinicValues.length);
-    }, 3000);
+    }, 5000);
 
     return () => window.clearInterval(intervalId);
   }, []);
@@ -70,16 +70,18 @@ export function AboutPage() {
         <section aria-labelledby="values-title">
           <h2 id="values-title" className="font-display text-2xl font-semibold text-ink">Наши ценности</h2>
           <div className="mt-6 grid gap-5 md:grid-cols-[minmax(0,1fr)_18rem] md:items-center">
-            <div className="min-h-[18rem] rounded-2xl border border-rule bg-surface p-6 sm:p-8" aria-live="polite">
-              <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">0{activeValueIndex + 1} / 0{clinicValues.length}</p>
+            <div className="min-h-[18rem]" aria-live="polite">
+              <div className="flex items-start justify-between gap-6">
+                <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">0{activeValueIndex + 1} / 0{clinicValues.length}</p>
+                <div className="flex items-center gap-2">
+                  <button type="button" onClick={showPreviousValue} className="grid size-11 place-items-center text-2xl leading-none text-ink transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent" aria-label="Предыдущая ценность">←</button>
+                  <button type="button" onClick={showNextValue} className="grid size-11 place-items-center text-2xl leading-none text-ink transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent" aria-label="Следующая ценность">→</button>
+                </div>
+              </div>
               <article key={activeValue[0]} className="mt-10">
                 <h3 className="font-display text-3xl font-semibold text-ink">{activeValue[0]}</h3>
                 <p className="mt-4 max-w-lg text-pretty leading-relaxed text-muted">{activeValue[1]}</p>
               </article>
-              <div className="mt-10 flex items-center gap-3">
-                <button type="button" onClick={showPreviousValue} className="min-h-11 rounded-full border border-rule px-4 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent" aria-label="Предыдущая ценность">Назад</button>
-                <button type="button" onClick={showNextValue} className="min-h-11 rounded-full bg-ink px-4 text-sm font-semibold text-paper transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2" aria-label="Следующая ценность">Далее</button>
-              </div>
             </div>
             <video className="aspect-[9/16] w-full max-w-[18rem] justify-self-center rounded-xl border border-rule bg-ink object-cover shadow-card md:justify-self-end" controls playsInline preload="metadata">
               <source src="/videos/3d-tomography.mp4" type="video/mp4" />
