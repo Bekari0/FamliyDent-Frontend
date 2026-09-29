@@ -16,7 +16,7 @@ const MORE_ITEMS: NavDropdownItem[] = [
   { label: "Отзывы", href: "/reviews" },
   { label: "Блог", href: "/blog" },
   { label: "Стоматологический туризм", href: "/tourism" },
-  { label: "FAQ", href: "/faq" },
+  { label: "FAQ", href: "/#faq" },
 ];
 
 export function SiteHeader({
@@ -52,7 +52,7 @@ export function SiteHeader({
 
   const isPeopleActive = currentPath === "/doctors";
   const isAboutActive = currentPath.startsWith("/about");
-  const isMoreActive = ["/reviews", "/blog", "/tourism", "/faq"].includes(currentPath);
+  const isMoreActive = ["/reviews", "/blog", "/tourism"].includes(currentPath);
 
   return (
     <motion.header

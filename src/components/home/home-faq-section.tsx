@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight, Plus, Minus, HelpCircle } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import { getFaqItems } from "../../lib/data/faq";
 import type { FaqItem } from "../../lib/data/types";
 import { ScrollAnimate, StaggerContainer, StaggerItem } from "../shared/scroll-animate";
@@ -23,7 +22,7 @@ export function HomeFaqSection() {
   };
 
   return (
-    <section className="w-full bg-[var(--color-paper-2)] text-[var(--color-ink)] py-16 sm:py-20 px-5 sm:px-8 border-b border-[var(--color-rule)]">
+    <section id="faq" className="scroll-mt-20 w-full bg-[var(--color-paper-2)] text-[var(--color-ink)] py-16 sm:py-20 px-5 sm:px-8 border-b border-[var(--color-rule)]">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <ScrollAnimate className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
@@ -35,13 +34,7 @@ export function HomeFaqSection() {
               Часто задаваемые вопросы
             </h2>
           </div>
-          <Link
-            to="/faq"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--color-surface)] text-[var(--color-ink)] border border-[var(--color-rule)] text-xs font-bold hover:bg-[var(--color-paper)] transition-all self-start sm:self-auto group shadow-2xs"
-          >
-            <span>Все вопросы</span>
-            <ArrowRight className="w-4 h-4 text-[var(--color-accent)] group-hover:translate-x-1 transition-transform" />
-          </Link>
+
         </ScrollAnimate>
 
         {/* Linear Accordion List */}

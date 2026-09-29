@@ -93,7 +93,7 @@ export function SiteFooter() {
             <Link to="/tourism" className="text-xs text-paper/70 hover:text-paper transition-colors">Стоматологический туризм</Link>
             <Link to="/reviews" className="text-xs text-paper/70 hover:text-paper transition-colors">Отзывы пациентов</Link>
             <Link to="/blog" className="text-xs text-paper/70 hover:text-paper transition-colors">Полезные статьи</Link>
-            <Link to="/faq" className="text-xs text-paper/70 hover:text-paper transition-colors">Частые вопросы (FAQ)</Link>
+            <Link to="/#faq" className="text-xs text-paper/70 hover:text-paper transition-colors">Частые вопросы (FAQ)</Link>
           </div>
 
           {/* Col 4: Direct Contacts */}

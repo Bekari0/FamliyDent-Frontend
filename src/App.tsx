@@ -18,7 +18,6 @@ const ReviewsPage = lazy(() => import("./pages/ReviewsPage").then((m) => ({ defa
 const BlogPage = lazy(() => import("./pages/BlogPage").then((m) => ({ default: m.BlogPage })));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage").then((m) => ({ default: m.BlogPostPage })));
 const ContactsPage = lazy(() => import("./pages/ContactsPage").then((m) => ({ default: m.ContactsPage })));
-const FaqPage = lazy(() => import("./pages/FaqPage").then((m) => ({ default: m.FaqPage })));
 
 export { OrbitalRings };
 
@@ -81,7 +80,7 @@ export default function App() {
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogPostPage />} />
               <Route path="/contacts" element={<ContactsPage />} />
-              <Route path="/faq" element={<FaqPage />} />
+              <Route path="/faq" element={<Navigate to="/#faq" replace />} />
             </Routes>
           </Suspense>
         </main>
