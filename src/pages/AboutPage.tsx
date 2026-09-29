@@ -40,21 +40,22 @@ export function AboutPage() {
       {spaces.length > 0 && <ClinicTour spaces={spaces} />}
 
       <div className="page-container page-container--content mb-8 flex flex-col gap-10">
-        <section className="grid gap-8 rounded-3xl bg-ink p-8 text-paper sm:p-10 lg:grid-cols-[4fr_8fr]" aria-labelledby="mission-title">
-          <h2 id="mission-title" className="font-display text-2xl font-semibold">Наша миссия</h2>
-          <p className="max-w-3xl text-pretty text-lg leading-relaxed text-paper/75">Помогать людям сохранять здоровье зубов и красивую улыбку, предоставляя качественное, безопасное и современное стоматологическое лечение по справедливой цене.</p>
-        </section>
-
         <section aria-labelledby="values-title">
           <h2 id="values-title" className="font-display text-2xl font-semibold text-ink">Наши ценности</h2>
-          <div className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-5">
-            {[
-              ["Забота", "Мы внимательно относимся к каждому пациенту и стремимся сделать лечение максимально комфортным."],
-              ["Честность", "Мы предлагаем только необходимое лечение, подробно объясняем план и стоимость до начала работы."],
-              ["Качество", "Используем современные материалы, проверенные технологии и придерживаемся международных стандартов лечения."],
-              ["Развитие", "Наши врачи регулярно проходят обучение, чтобы применять самые эффективные современные методики."],
-              ["Ответственность", "Мы отвечаем за качество своей работы и сопровождаем пациента на всех этапах лечения."],
-            ].map(([title, text]) => <article key={title} className="bg-surface p-6"><h3 className="font-display text-lg font-semibold text-ink">{title}</h3><p className="mt-3 text-sm leading-relaxed text-muted">{text}</p></article>)}
+          <div className="mt-6 grid gap-5 lg:grid-cols-[minmax(0,7fr)_minmax(18rem,5fr)] lg:items-center">
+            <div className="grid gap-px overflow-hidden rounded-2xl border border-rule bg-rule sm:grid-cols-2">
+              {[
+                ["Забота", "Мы внимательно относимся к каждому пациенту и стремимся сделать лечение максимально комфортным."],
+                ["Честность", "Мы предлагаем только необходимое лечение, подробно объясняем план и стоимость до начала работы."],
+                ["Качество", "Используем современные материалы, проверенные технологии и придерживаемся международных стандартов лечения."],
+                ["Развитие", "Наши врачи регулярно проходят обучение, чтобы применять самые эффективные современные методики."],
+                ["Ответственность", "Мы отвечаем за качество своей работы и сопровождаем пациента на всех этапах лечения."],
+              ].map(([title, text]) => <article key={title} className="bg-surface p-6"><h3 className="font-display text-lg font-semibold text-ink">{title}</h3><p className="mt-3 text-sm leading-relaxed text-muted">{text}</p></article>)}
+            </div>
+            <video className="aspect-video w-full self-center rounded-xl border border-rule bg-ink object-cover shadow-card" controls playsInline preload="metadata">
+              <source src="/videos/3d-tomography.mp4" type="video/mp4" />
+              Ваш браузер не поддерживает воспроизведение видео.
+            </video>
           </div>
         </section>
 
