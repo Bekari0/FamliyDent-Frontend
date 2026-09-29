@@ -103,8 +103,8 @@ const rawDoctorsData: Doctor[] = [
     specialty: "Детский врач-стоматолог",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%D0%A4%D0%B0%D1%80%D0%B0%D1%85%D0%BD%D1%83%D1%88_%D0%A4%D0%B0%D1%80%D1%80%D1%83%D1%85%D0%BE%D0%B2%D0%BD%D0%B0_%D0%94%D0%B5%D1%82%D0%BA%D1%81%D0%BA%D0%B8%D0%B9_%D1%81%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%BE%D0%BB%D0%BE%D0%B3-tPkXnlv4RovPGaWWqVdlV7kb0KIk0f.webp",
     experienceYears: "Более 5 лет",
-    bio: ["Фарахнуш Фарруховна специализируется на профилактике и лечении стоматологи����еских заболеваний у детей. Изучала детскую психологию, что помогает снижать тревожность и находить индивидуальный подход к ребёнку."],
-    education: ["2019 — Таджикский государственный меди��и��ский университет имени Абуали ибн Сино.", "Послевузовская подготовка — интернатура/ординатура."],
+    bio: ["Фарахнуш Фарруховна специализируется на профилактике и лечении стоматологи������еских заболеваний у детей. Изучала детскую психологию, что помогает снижать тревожность и находить индивидуальный подход к ребёнку."],
+    education: ["2019 — Таджикский государственный м��ди��и��ский университет имени Абуали ибн Сино.", "Послевузовская подготовка — интернатура/ординатура."],
     specialties: ["Детская стоматология", "Лечение кариеса", "Профессиональная гигиена", "Адаптация детей", "Профилактика"],
     training: ["Онлайн-курсы по детской психологии и эффективной коммуникации с детьми в стоматологической практике."],
     highlights: ["Знания детской психологии", "Бережная адаптация ребёнка"],
@@ -158,7 +158,7 @@ const rawDoctorsData: Doctor[] = [
   {
     id: "doc-shodmonov",
     slug: "shodmonov-sabur",
-    name: "Шодмоно�� Сабур Сухробович",
+    name: "Шо��моно�� Сабур Сухробович",
     specialty: "Врач-стоматолог, терапевт, ортопед",
     experienceYears: "Более 5 лет",
     bio: ["Сабур Шодмонов специализируется на эстетической и ортопедической стоматологии, восстановлении зубов и современных методах терапевтического лечения. Сочетает функциональный и эстетический подход."],
@@ -246,10 +246,8 @@ const supplementalDoctors: Doctor[] = [
   { id: "doc-kahorzoda", slug: "kahorzoda-nozanin", name: "Кахорзода Нозанин Джамшед", specialty: "Врач-стоматолог, терапевт", bio: ["Ведёт терапевтический приём."], education: [], specialties: ["Терапевтическая стоматология"], branches: ["Молодёжный"] },
   { id: "doc-lutfonov", slug: "lutfonov-behruz", name: "Лутфонов Бехруз Манучехрович", specialty: "Врач-стоматолог, терапевт", bio: ["Ведёт терапевтический приём."], education: [], specialties: ["Терапевтическая стоматология"], branches: ["Айни"] },
   { id: "doc-masrur", slug: "masrur-mamadayozov", name: "Масрур Мамадаёзов", specialty: "Врач-стоматолог, терапевт, ортопед, хирург", bio: ["Ведёт терапевтический, ортопедический и хирургический приём."], education: [], specialties: ["Терапевтическая стоматология", "Ортопедическая стоматология", "Хирургическая стоматология"], branches: ["Молодёжный"] },
-  { id: "doc-ahmadova-dilshoda", slug: "ahmadova-dilshoda", name: "Ахмадова Дилшода Иброхимовна", specialty: "Врач-стоматолог, гигиенист", bio: ["Ведёт приём по профессиональной гигиене полости рта."], education: [], specialties: ["Профессиональная гигиена"], branches: ["Молодёжный"] },
   { id: "doc-saisharifova", slug: "saisharifova-sarvinoz", name: "Сайшарифова Сарвиноз Джамшедовна", specialty: "Врач-стоматолог, гигиенист", bio: ["Ведёт приём по профессиональной гигиене полости рта."], education: [], specialties: ["Профессиональная гигиена"] },
   { id: "doc-latifzoda", slug: "latifzoda-mehrona", name: "Латифзода Мехрона Махмадшариф", specialty: "Врач-стоматолог, терапевт", bio: [], education: [], specialties: ["Терапевтическая стоматология"], branches: ["Айни"] },
-  { id: "doc-farahnoz", slug: "farahnoz", name: "Фарахноз", specialty: "Врач-стоматолог, гигиенист", bio: [], education: [], specialties: ["Профессиональная гигиена"], branches: ["Айни"] },
   { id: "doc-holov", slug: "holov-kamol", name: "Холов Камол Абдутолибович", specialty: "Врач-стоматолог, терапевт", bio: [], education: [], specialties: ["Терапевтическая стоматология"], branches: ["Айни"] },
 ];
 
@@ -266,12 +264,10 @@ const priorityOrder = ["nurov-dilshod", "umarova-nigina", "nurov-alisher"];
 
 const imageBySlug: Record<string, string> = {
   "abdullozoda-muhibullo": "/images/doctors/abdullozoda-muhibullo.webp",
-  "ahmadova-dilshoda": "/images/doctors/ahmadova-dilshoda.webp",
   "ahmedova-ruhshona": "/images/doctors/ahmedova-ruhshona.webp",
   "ashrapov-bahromiddin": "/images/doctors/ashrapov-bahromiddin.webp",
   "bafoev-haet": "/images/doctors/bafoev-haet.webp",
   "bashirov-amin": "/images/doctors/bashirov-amin.webp",
-  "farahnoz": "/images/doctors/farahnoz.webp",
   "farahnush-farruhovna": "/images/doctors/farahnush-farruhovna.webp",
   "holov-kamol": "/images/doctors/holov-kamol.webp",
   "ismoilov-muhammad": "/images/doctors/ismoilov-muhammad.webp",
