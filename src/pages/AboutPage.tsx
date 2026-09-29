@@ -22,16 +22,18 @@ export function AboutPage() {
       />
 
       <div className="page-container page-container--content my-8 flex flex-col gap-10">
-        <section className="grid gap-8 border-y border-rule py-10 md:grid-cols-[4fr_5fr_3fr] md:items-center" aria-labelledby="about-story-title">
-          <h2 id="about-story-title" className="text-balance font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">Family Dent — стоматология, созданная с любовью к своему делу</h2>
-          <div className="flex max-w-3xl flex-col gap-5 text-base leading-relaxed text-muted">
-            <p>История Family Dent началась в 2018 году с желания создать клинику, где качество лечения всегда будет стоять на первом месте. Основатели клиники — врачи, искренне любящие свою профессию и стремящиеся постоянно развиваться. Благодаря поддержке семьи эта идея превратилась в современную стоматологическую клинику, которой сегодня доверяют тысячи пациентов.</p>
-            <p>Мы начинали с небольшой команды и трёх стоматологических кресел. Шаг за шагом развивались, внедряли современные технологии, расширяли команду специалистов и создавали комфортные условия для пациентов. Сегодня Family Dent — это клиника, где можно получить комплексное стоматологическое лечение для всей семьи в одном месте.</p>
+        <section className="border-y border-rule py-10" aria-labelledby="about-story-title">
+          <h2 id="about-story-title" className="max-w-4xl text-balance font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">Family Dent — стоматология, созданная с любовью к своему делу</h2>
+          <div className="mt-6 grid gap-5 md:grid-cols-[minmax(0,1fr)_18rem] md:items-center">
+            <div className="flex flex-col gap-5 text-base leading-relaxed text-muted">
+              <p>История Family Dent началась в 2018 году с желания создать клинику, где качество лечения всегда будет стоять на первом месте. Основатели клиники — врачи, искренне любящие свою профессию и стремящиеся постоянно развиваться. Благодаря поддержке семьи эта идея превратилась в современную стоматологическую клинику, которой сегодня доверяют тысячи пациентов.</p>
+              <p>Мы начинали с небольшой команды и трёх стоматологических кресел. Шаг за шагом развивались, внедряли современные технологии, расширяли команду специалистов и создавали комфортные условия для пациентов. Сегодня Family Dent — это клиника, где можно получить комплексное стоматологическое лечение для всей семьи в одном месте.</p>
+            </div>
+            <video className="aspect-[9/16] w-full max-w-[18rem] justify-self-center rounded-xl border border-rule bg-ink object-cover shadow-card md:justify-self-end" controls playsInline preload="metadata">
+              <source src="/videos/about-family-dent.mp4" type="video/mp4" />
+              Ваш браузер не поддерживает воспроизведение видео.
+            </video>
           </div>
-          <video className="aspect-[9/16] w-full max-w-[18rem] justify-self-center rounded-xl border border-rule bg-ink object-cover shadow-card lg:justify-self-end" controls playsInline preload="metadata">
-            <source src="/videos/about-family-dent.mp4" type="video/mp4" />
-            Ваш браузер не поддерживает воспроизведение видео.
-          </video>
         </section>
       </div>
 
