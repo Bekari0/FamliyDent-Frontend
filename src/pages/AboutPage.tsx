@@ -42,7 +42,7 @@ export function AboutPage() {
       <div className="page-container page-container--content mb-8 flex flex-col gap-10">
         <section aria-labelledby="values-title">
           <h2 id="values-title" className="font-display text-2xl font-semibold text-ink">Наши ценности</h2>
-          <div className="mt-6 grid gap-5 lg:grid-cols-[minmax(0,7fr)_minmax(18rem,5fr)] lg:items-center">
+          <div className="mt-6 grid gap-5 md:grid-cols-[minmax(0,1fr)_18rem] md:items-center">
             <div className="grid gap-px overflow-hidden rounded-2xl border border-rule bg-rule sm:grid-cols-2">
               {[
                 ["Забота", "Мы внимательно относимся к каждому пациенту и стремимся сделать лечение максимально комфортным."],
