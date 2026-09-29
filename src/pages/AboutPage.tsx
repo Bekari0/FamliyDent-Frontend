@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { EditorialPageHero } from "../components/shared/editorial-page-hero";
 import { ClinicTour } from "../components/clinic/clinic-tour";
 import { getClinicSpaces } from "../lib/data/clinic-spaces";
@@ -51,12 +52,12 @@ export function AboutPage() {
       <div className="page-container page-container--content my-8 flex flex-col gap-10">
         <section className="border-y border-rule py-10" aria-labelledby="about-story-title">
           <h2 id="about-story-title" className="max-w-4xl text-balance font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">Family Dent — стоматология, созданная с любовью к своему делу</h2>
-          <div className="mt-6 grid gap-5 md:grid-cols-[minmax(0,1fr)_18rem] md:items-center">
+          <div className="mt-6 grid gap-5 md:grid-cols-[minmax(0,1fr)_22rem] md:items-center">
             <div className="flex flex-col gap-5 text-base leading-relaxed text-muted">
               <p>История Family Dent началась в 2018 году с желания создать клинику, где качество лечения всегда будет стоять на первом месте. Основатели клиники — врачи, искренне любящие свою профессию и стремящиеся постоянно развиваться. Благодаря поддержке семьи эта идея превратилась в современную стоматологическую клинику, которой сегодня доверяют тысячи пациентов.</p>
               <p>Мы начинали с небольшой команды и трёх стоматологических кресел. Шаг за шагом развивались, внедряли современные технологии, расширяли команду специалистов и создавали комфортные условия для пациентов. Сегодня Family Dent — это клиника, где можно получить комплексное стоматологическое лечение для всей семьи в одном месте.</p>
             </div>
-            <video className="aspect-[9/16] w-full max-w-[18rem] justify-self-center rounded-xl border border-rule bg-ink object-cover shadow-card md:justify-self-end" controls playsInline preload="metadata">
+            <video className="aspect-[9/16] w-full max-w-[22rem] justify-self-center rounded-xl border border-rule bg-ink object-cover shadow-card md:justify-self-end" controls playsInline preload="metadata">
               <source src="/videos/about-family-dent.mp4" type="video/mp4" />
               Ваш браузер не поддерживает воспроизведение видео.
             </video>
@@ -69,13 +70,13 @@ export function AboutPage() {
       <div className="page-container page-container--content mb-8 flex flex-col gap-10">
         <section aria-labelledby="values-title">
           <h2 id="values-title" className="font-display text-2xl font-semibold text-ink">Наши ценности</h2>
-          <div className="mt-6 grid gap-5 md:grid-cols-[minmax(0,1fr)_18rem] md:items-center">
+          <div className="mt-6 grid gap-5 md:grid-cols-[minmax(0,1fr)_22rem] md:items-center">
             <div className="min-h-[18rem]" aria-live="polite">
               <div className="flex items-start justify-between gap-6">
                 <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">0{activeValueIndex + 1} / 0{clinicValues.length}</p>
                 <div className="flex items-center gap-2">
-                  <button type="button" onClick={showPreviousValue} className="grid size-11 place-items-center text-2xl leading-none text-ink transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent" aria-label="Предыдущая ценность">←</button>
-                  <button type="button" onClick={showNextValue} className="grid size-11 place-items-center text-2xl leading-none text-ink transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent" aria-label="Следующая ценность">→</button>
+                  <button type="button" onClick={showPreviousValue} className="grid size-11 place-items-center rounded-full border border-rule text-ink transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent" aria-label="Предыдущая ценность"><ArrowLeft aria-hidden="true" size={18} strokeWidth={1.7} /></button>
+                  <button type="button" onClick={showNextValue} className="grid size-11 place-items-center rounded-full border border-rule text-ink transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent" aria-label="Следующая ценность"><ArrowRight aria-hidden="true" size={18} strokeWidth={1.7} /></button>
                 </div>
               </div>
               <article key={activeValue[0]} className="mt-10">
@@ -83,7 +84,7 @@ export function AboutPage() {
                 <p className="mt-4 max-w-lg text-pretty leading-relaxed text-muted">{activeValue[1]}</p>
               </article>
             </div>
-            <video className="aspect-[9/16] w-full max-w-[18rem] justify-self-center rounded-xl border border-rule bg-ink object-cover shadow-card md:justify-self-end" controls playsInline preload="metadata">
+            <video className="aspect-[9/16] w-full max-w-[22rem] justify-self-center rounded-xl border border-rule bg-ink object-cover shadow-card md:justify-self-end" controls playsInline preload="metadata">
               <source src="/videos/3d-tomography.mp4" type="video/mp4" />
               Ваш браузер не поддерживает воспроизведение видео.
             </video>
