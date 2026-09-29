@@ -60,8 +60,8 @@ export function ContactsPage() {
             </div>
             <div>
               <span className="text-xs uppercase text-accent font-semibold block font-mono">Email</span>
-              <a href="mailto:familydent.tj@gmail.com" className="text-sm text-ink hover:text-accent font-medium">
-                familydent.tj@gmail.com
+              <a href="mailto:info@familydent.tj" className="text-sm text-ink hover:text-accent font-medium">
+                info@familydent.tj
               </a>
             </div>
           </div>

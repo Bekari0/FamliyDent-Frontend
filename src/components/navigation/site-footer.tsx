@@ -39,7 +39,7 @@ export function SiteFooter() {
               </div>
 
               <a href="tel:+992446606600" className="flex items-center gap-4 text-sm text-paper/85 transition-colors hover:text-accent-2"><Phone className="h-5 w-5 shrink-0 text-accent-2" aria-hidden="true" /><span>+992 446 60 66 00</span></a>
-              <a href="mailto:familydent.tj@gmail.com" className="flex items-center gap-4 break-all text-sm text-paper/85 transition-colors hover:text-accent-2"><Mail className="h-5 w-5 shrink-0 text-accent-2" aria-hidden="true" /><span>familydent.tj@gmail.com</span></a>
+              <a href="mailto:info@familydent.tj" className="flex items-center gap-4 break-all text-sm text-paper/85 transition-colors hover:text-accent-2"><Mail className="h-5 w-5 shrink-0 text-accent-2" aria-hidden="true" /><span>info@familydent.tj</span></a>
               <div className="flex items-center gap-4 text-sm text-paper/85"><Clock className="h-5 w-5 shrink-0 text-accent-2" aria-hidden="true" /><span>Пн-Сб: 07:30 – 20:00</span></div>
             </div>
           </div>
@@ -112,9 +112,9 @@ export function SiteFooter() {
               <Phone className="w-3.5 h-3.5 text-accent flex-shrink-0" />
               <span>+992 446 60 66 00</span>
             </a>
-            <a href="mailto:familydent.tj@gmail.com" className="flex items-center gap-2 text-xs text-paper/80 hover:text-accent-2">
+            <a href="mailto:info@familydent.tj" className="flex items-center gap-2 text-xs text-paper/80 hover:text-accent-2">
               <Mail className="w-3.5 h-3.5 text-accent flex-shrink-0" />
-              <span>familydent.tj@gmail.com</span>
+              <span>info@familydent.tj</span>
             </a>
             <div className="flex items-center gap-2 text-xs text-paper/80">
               <Clock className="w-3.5 h-3.5 text-accent flex-shrink-0" />
