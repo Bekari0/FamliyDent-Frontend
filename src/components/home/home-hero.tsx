@@ -83,8 +83,8 @@ export function HomeHero({ onOpenBooking, onOpenAuth }: HomeHeroProps) {
       </div>
 
       {/* Large Bottom Background Watermark positioned at bottom border */}
-      <div className="absolute bottom-1 sm:bottom-2 left-1/2 -translate-x-1/2 w-full text-center z-10 select-none pointer-events-none overflow-hidden px-4">
-        <span className="font-display text-2xl min-[360px]:text-3xl min-[390px]:text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white/10 tracking-tight uppercase whitespace-nowrap block">
+      <div className="absolute bottom-0 left-1/2 w-full -translate-x-1/2 translate-y-[0.12em] overflow-hidden px-4 text-center z-10 select-none pointer-events-none">
+        <span className="block font-display text-2xl min-[360px]:text-3xl min-[390px]:text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none text-white/10 tracking-tight uppercase whitespace-nowrap">
           FAMILY DENT<span className="hidden sm:inline"> • ДУШАНБЕ</span>
         </span>
       </div>

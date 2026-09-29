@@ -104,8 +104,7 @@ export function ClinicMetricsSection() {
             transition={{ duration: 0.6 }}
             className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[11px] sm:text-xs font-mono uppercase tracking-[0.15em] font-medium text-white/90"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            О КЛИНИКЕ
+  О КЛИНИКЕ
           </motion.div>
 
           <motion.span
