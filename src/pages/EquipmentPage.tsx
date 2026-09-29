@@ -24,6 +24,18 @@ export function EquipmentPage() {
         description="Передовые цифровые технологии, дентальные микроскопы и 3D-томографы, обеспечивающие максимальную точность и безопасность лечения."
       />
 
+      <section className="page-container grid gap-6 py-8 lg:grid-cols-[5fr_7fr] lg:items-end" aria-labelledby="tomography-video-title">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">3D-диагностика</p>
+          <h2 id="tomography-video-title" className="mt-3 font-display text-3xl font-semibold leading-tight text-ink">Томография в Family Dent</h2>
+          <p className="mt-4 max-w-xl text-pretty leading-relaxed text-muted">Видео показывает технологию, которую мы используем для точной цифровой диагностики и планирования лечения.</p>
+        </div>
+        <video className="w-full rounded-2xl border border-rule bg-ink shadow-card" controls playsInline preload="metadata">
+          <source src="/videos/3d-tomography.mp4" type="video/mp4" />
+          Ваш браузер не поддерживает воспроизведение видео.
+        </video>
+      </section>
+
       <EquipmentExplorer items={equipmentItems} />
     </div>
   );
