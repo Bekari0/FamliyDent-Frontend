@@ -1,4 +1,5 @@
 import type { FaqItem } from "./types";
+import { getContentOrFallback } from "../api";
 
 /* Mock data for Family Dent FAQ */
 const faqData: FaqItem[] = [
@@ -35,5 +36,5 @@ const faqData: FaqItem[] = [
 ];
 
 export async function getFaqItems(): Promise<FaqItem[]> {
-  return [...faqData];
+  return getContentOrFallback("faq", faqData);
 }

@@ -1,4 +1,5 @@
 import type { Doctor } from "./types";
+import { getContentOrFallback } from "../api";
 
 const rawDoctorsData: Doctor[] = [
   {
@@ -302,9 +303,9 @@ export const doctorsData: Doctor[] = [...rawDoctorsData.map((doctor) => ({ ...do
 });
 
 export async function getDoctors(): Promise<Doctor[]> {
-  return [...doctorsData];
+  return getContentOrFallback("doctors", doctorsData);
 }
 
 export async function getDoctorBySlug(slug: string): Promise<Doctor | null> {
-  return doctorsData.find((doctor) => doctor.slug === slug) ?? null;
+  return (await getDoctors()).find((doctor) => doctor.slug === slug) ?? null;
 }

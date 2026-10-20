@@ -3,6 +3,7 @@ import { X, Calendar, User, Phone, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { getDoctors } from "../../lib/data/doctors";
 import type { Doctor } from "../../lib/data/types";
+import { createBooking } from "../../lib/api";
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -16,6 +17,8 @@ export function BookingModal({ isOpen, onClose, preselectedDoctor }: BookingModa
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   useEffect(() => {
     async function fetchDocs() {
@@ -31,10 +34,19 @@ export function BookingModal({ isOpen, onClose, preselectedDoctor }: BookingModa
     }
   }, [preselectedDoctor]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!phone || !name) return;
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitError("");
+    try {
+      await createBooking({ name, phone, doctor: doctor || undefined });
+      setSubmitted(true);
+    } catch {
+      setSubmitError("Не удалось отправить заявку. Позвоните нам или попробуйте ещё раз.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
@@ -141,10 +153,13 @@ export function BookingModal({ isOpen, onClose, preselectedDoctor }: BookingModa
 
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="w-full mt-2 inline-flex min-h-11 items-center justify-center rounded-pill bg-ink text-paper hover:bg-accent hover:text-accent-ink font-semibold text-xs py-3 transition-all cursor-pointer shadow-lg"
                 >
-                  Записаться на консультацию
+                  {isSubmitting ? "Отправляем…" : "Записаться на консультацию"}
                 </button>
+
+                {submitError && <p className="text-xs text-red-700 text-center" role="alert">{submitError}</p>}
 
                 <p className="text-[10px] text-muted text-center font-normal mt-2">
                   Нажимая кнопку, вы соглашаетесь на обработку персональных данных.

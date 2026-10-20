@@ -3,7 +3,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
 import { EditorialPageHero } from "../components/shared/editorial-page-hero";
 import { DoctorCard } from "../components/team/doctor-card";
 import { DoctorProfileDialog } from "../components/team/doctor-profile-dialog";
-import { doctorsData } from "../lib/data/doctors";
+import { getDoctors } from "../lib/data/doctors";
 import type { Doctor } from "../lib/data/types";
 
 interface DoctorsPageProps {
@@ -22,23 +22,25 @@ const specialtyFilters = [
 
 export function DoctorsPage({ onOpenBooking }: DoctorsPageProps) {
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [specialty, setSpecialty] = useState("all");
   const [branch, setBranch] = useState("all");
   const filteredDoctors = useMemo(() => {
     const selectedSpecialty = specialtyFilters.find((item) => item.value === specialty);
-    return doctorsData.filter((doctor) => {
+    return doctors.filter((doctor) => {
       const searchable = `${doctor.specialty} ${doctor.specialties.join(" ")}`.toLocaleLowerCase("ru");
       const matchesSpecialty = !selectedSpecialty?.terms.length || selectedSpecialty.terms.some((term) => searchable.includes(term));
       const matchesBranch = branch === "all" || doctor.branches?.includes(branch as "Айни" | "Молодёжный");
       return matchesSpecialty && matchesBranch;
     });
-  }, [branch, specialty]);
+  }, [branch, doctors, specialty]);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const introX = useTransform(scrollYProgress, [0, 0.28], reduceMotion ? [0, 0] : [0, 56]);
 
   useEffect(() => {
     document.title = "Врачи Family Dent — Стоматологи в Душанбе";
+    void getDoctors().then(setDoctors);
   }, []);
 
   return (

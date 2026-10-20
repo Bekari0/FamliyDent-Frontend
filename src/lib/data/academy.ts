@@ -1,4 +1,5 @@
 import type { AcademyProgram } from "./types";
+import { getContentOrFallback } from "../api";
 
 /* Mock data for Family Dent Academy directions */
 const academyProgramsData: AcademyProgram[] = [
@@ -30,5 +31,5 @@ const academyProgramsData: AcademyProgram[] = [
 ];
 
 export async function getAcademyPrograms(): Promise<AcademyProgram[]> {
-  return [...academyProgramsData];
+  return getContentOrFallback("academyPrograms", academyProgramsData);
 }

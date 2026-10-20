@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { doctorsData } from "../../lib/data/doctors";
+import { getDoctors } from "../../lib/data/doctors";
 import type { TeamMember } from "../../lib/data/types";
 import { TeamMemberCard } from "../team/team-member-card";
 import { ScrollAnimate, StaggerContainer, StaggerItem } from "../shared/scroll-animate";
@@ -9,9 +10,12 @@ interface FeaturedDoctorsSectionProps {
   onOpenBooking?: (doctorName?: string) => void;
 }
 
-const featuredDoctors = doctorsData.filter((doctor) => doctor.image).slice(0, 3);
-
 export function FeaturedDoctorsSection({ onOpenBooking: _onOpenBooking }: FeaturedDoctorsSectionProps) {
+  const [featuredDoctors, setFeaturedDoctors] = useState<Awaited<ReturnType<typeof getDoctors>>>([]);
+  useEffect(() => {
+    void getDoctors().then((doctors) => setFeaturedDoctors(doctors.filter((doctor) => doctor.image).slice(0, 3)));
+  }, []);
+
   return (
     <section className="w-full border-b border-white/10 bg-ink py-16 text-paper sm:py-20">
       <div className="page-container">

@@ -1,4 +1,5 @@
 import type { TourismFeature } from "./types";
+import { getContentOrFallback } from "../api";
 
 export const tourismRoadmap = [
   { number: "01", title: "Вы пишете нам", description: "Оставляете контакты и коротко описываете медицинскую задачу." },
@@ -59,5 +60,10 @@ const tourismFeaturesData: TourismFeature[] = [
 ];
 
 export async function getTourismFeatures(): Promise<TourismFeature[]> {
-  return [...tourismFeaturesData];
+  return getContentOrFallback("tourismFeatures", tourismFeaturesData);
 }
+
+export const getTourismRoadmap = () => getContentOrFallback("tourismRoadmap", [...tourismRoadmap]);
+export const getTourismComparison = () => getContentOrFallback("tourismComparison", [...tourismComparison]);
+export const getTourismPackages = () => getContentOrFallback("tourismPackages", [...tourismPackages]);
+export const getTourismPlaces = () => getContentOrFallback("tourismPlaces", [...tourismPlaces]);

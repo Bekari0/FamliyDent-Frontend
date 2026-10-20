@@ -1,4 +1,5 @@
 import type { Service } from "./types";
+import { getContentOrFallback } from "../api";
 
 export const servicesData: Service[] = [
   { id: "srv-therapy", slug: "therapy", title: "Терапия и лечение боли", shortTitle: "Терапия", category: "Лечение зубов", description: "Лечение кариеса любой сложности, пульпита и периодонтита, восстановление и замена старых пломб.", priceFrom: "", duration: "60–90 минут", details: ["Лечение под микроскопом", "Пломбы премиум-класса", "Эффективная анестезия"], image: "/images/services/DSC08348.webp", imagePosition: "50% 42%", mobileImagePosition: "50% 38%" },
@@ -15,5 +16,5 @@ export const servicesData: Service[] = [
   { id: "srv-comprehensive-diagnostics", slug: "comprehensive-diagnostics", title: "Комплексная диагностика и план лечения", shortTitle: "Комплексная диагностика", category: "Планирование лечения", description: "Точная оценка состояния зубов и полости рта с составлением индивидуального плана лечения, в том числе перед переездом в другую страну.", priceFrom: "", duration: "40–60 минут", details: ["КЛКТ: 3D-диагностика зубов, костной ткани и корневых каналов", "ИИ-диагностика цифровых снимков", "Подробная консультация врача", "Индивидуальная последовательность лечения"], image: "/images/services/DSC08274.webp", imagePosition: "50% 50%" },
 ];
 
-export async function getServices(): Promise<Service[]> { return [...servicesData]; }
-export async function getServiceBySlug(slug: string): Promise<Service | null> { return servicesData.find((service) => service.slug === slug) || null; }
+export async function getServices(): Promise<Service[]> { return getContentOrFallback("services", servicesData); }
+export async function getServiceBySlug(slug: string): Promise<Service | null> { return (await getServices()).find((service) => service.slug === slug) || null; }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { X, Lock, Mail, User, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { authenticate } from "../../lib/api";
 
 interface AuthDialogProps {
   isOpen: boolean;
@@ -13,12 +14,23 @@ export function AuthDialog({ isOpen, onClose }: AuthDialogProps) {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSuccess(true);
+    setIsSubmitting(true);
+    setSubmitError("");
+    try {
+      await authenticate({ mode, email, password, name: mode === "register" ? name : undefined });
+      setIsSuccess(true);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : "Не удалось выполнить вход");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleDone = () => {
@@ -133,10 +145,12 @@ export function AuthDialog({ isOpen, onClose }: AuthDialogProps) {
 
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="w-full mt-2 inline-flex min-h-11 items-center justify-center rounded-pill bg-ink text-paper hover:bg-accent hover:text-accent-ink font-semibold text-xs py-2.5 transition-all cursor-pointer shadow-lg"
                 >
-                  {mode === "login" ? "Войти в кабинет" : "Зарегистрироваться"}
+                  {isSubmitting ? "Отправляем…" : mode === "login" ? "Войти в кабинет" : "Зарегистрироваться"}
                 </button>
+                {submitError && <p className="text-xs text-red-700 text-center" role="alert">{submitError}</p>}
               </form>
             </div>
           )}

@@ -1,4 +1,5 @@
 import type { PricingItem } from "./types";
+import { getContentOrFallback } from "../api";
 
 /* Mock data for Family Dent prices */
 const pricingData: PricingItem[] = [
@@ -14,5 +15,5 @@ const pricingData: PricingItem[] = [
 ];
 
 export async function getPricingItems(): Promise<PricingItem[]> {
-  return [...pricingData];
+  return getContentOrFallback("pricing", pricingData);
 }

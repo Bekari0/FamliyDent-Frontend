@@ -1,4 +1,5 @@
 import type { TreatmentCase } from "./types";
+import { getContentOrFallback } from "../api";
 
 const DISCLAIMER = "Результат лечения индивидуален и зависит от клинической ситуации.";
 
@@ -61,10 +62,10 @@ const treatmentCasesData: TreatmentCase[] = [
 ];
 
 export async function getTreatmentCases(): Promise<TreatmentCase[]> {
-  return [...treatmentCasesData];
+  return getContentOrFallback("treatmentCases", treatmentCasesData);
 }
 
 export async function getTreatmentCasesByCategory(category: string): Promise<TreatmentCase[]> {
   if (category === "all" || !category) return getTreatmentCases();
-  return treatmentCasesData.filter((c) => c.category === category);
+  return (await getTreatmentCases()).filter((c) => c.category === category);
 }

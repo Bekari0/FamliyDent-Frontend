@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ArrowRight, Calendar } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { Link } from "react-router-dom";
-import { servicesData } from "../lib/data/services";
+import { getServices } from "../lib/data/services";
 import type { Service } from "../lib/data/types";
 import "./services-page.css";
 
@@ -28,7 +28,11 @@ const treatmentSteps = ["Диагностика", "Индивидуальный 
 
 export function ServicesPage({ onOpenBooking }: ServicesPageProps) {
   const reduceMotion = useReducedMotion();
-  useEffect(() => { document.title = "Стоматологические услуги — Family Dent Душанбе"; }, []);
+  const [services, setServices] = useState<Service[]>([]);
+  useEffect(() => {
+    document.title = "Стоматологические услуги — Family Dent Душанбе";
+    void getServices().then(setServices);
+  }, []);
 
   return <main className="services-page">
     <section className="services-hero services-hero--compact" aria-labelledby="services-hero-title">
@@ -45,7 +49,7 @@ export function ServicesPage({ onOpenBooking }: ServicesPageProps) {
     <section className="services-catalog" aria-labelledby="services-catalog-title">
       <div className="services-page__container">
         <header className="services-catalog__header"><div><p className="services-page__eyebrow">12 направлений</p><h2 id="services-catalog-title">Выберите направление</h2></div><p>Откройте страницу услуги, чтобы узнать подробнее о лечении и записаться на консультацию.</p></header>
-        <div className="services-grid">{servicesData.map((service, index) => <ServiceTile key={service.id} service={service} index={index} />)}</div>
+        <div className="services-grid">{services.map((service, index) => <ServiceTile key={service.id} service={service} index={index} />)}</div>
       </div>
     </section>
 

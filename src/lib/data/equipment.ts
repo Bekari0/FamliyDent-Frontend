@@ -1,4 +1,5 @@
 import type { EquipmentItem } from "./types";
+import { getContentOrFallback } from "../api";
 
 /* Mock data for Family Dent advanced equipment */
 const equipmentData: EquipmentItem[] = [
@@ -53,5 +54,5 @@ const equipmentData: EquipmentItem[] = [
 ];
 
 export async function getEquipmentItems(): Promise<EquipmentItem[]> {
-  return [...equipmentData];
+  return getContentOrFallback("equipment", equipmentData);
 }

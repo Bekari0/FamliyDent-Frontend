@@ -1,3 +1,5 @@
+import { getContentOrFallback } from "../api";
+
 export interface ClinicMetric {
   id: string;
   value: number;
@@ -39,5 +41,5 @@ export const clinicMetrics = [
 ] satisfies readonly ClinicMetric[];
 
 export async function getClinicMetrics(): Promise<ClinicMetric[]> {
-  return Promise.resolve([...clinicMetrics]);
+  return getContentOrFallback("metrics", [...clinicMetrics]);
 }

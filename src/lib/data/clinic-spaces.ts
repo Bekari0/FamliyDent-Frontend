@@ -1,4 +1,5 @@
 import type { ClinicSpace } from "./types";
+import { getContentOrFallback } from "../api";
 
 const branchPhotos = [
   { branch: "Айни", count: 18, prefix: "ayni" },
@@ -17,5 +18,5 @@ const clinicSpacesData: ClinicSpace[] = branchPhotos.flatMap(({ branch, count, p
 );
 
 export async function getClinicSpaces(): Promise<ClinicSpace[]> {
-  return clinicSpacesData;
+  return getContentOrFallback("clinicSpaces", clinicSpacesData);
 }

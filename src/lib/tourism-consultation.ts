@@ -1,3 +1,5 @@
+import { createTourismConsultation } from "./api";
+
 export type TourismConsultationPayload = {
   name: string;
   email: string;
@@ -10,15 +12,18 @@ export type TourismConsultationPayload = {
 
 export type TourismConsultationResult =
   | { ok: true }
-  | { ok: false; reason: "not-configured" };
+  | { ok: false; reason: "request-failed" };
 
 /**
- * Integration point for the future server-side Telegram endpoint.
- * Never place Telegram bot credentials in this client module.
+ * Persists consultation requests through the server; secrets never reach the browser.
  */
 export async function submitTourismConsultation(
-  _payload: TourismConsultationPayload,
+  payload: TourismConsultationPayload,
 ): Promise<TourismConsultationResult> {
-  await new Promise((resolve) => window.setTimeout(resolve, 450));
-  return { ok: false, reason: "not-configured" };
+  try {
+    await createTourismConsultation(payload);
+    return { ok: true };
+  } catch {
+    return { ok: false, reason: "request-failed" };
+  }
 }

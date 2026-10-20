@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, Calendar, Clock } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { Link, useParams } from "react-router-dom";
-import { servicesData } from "../lib/data/services";
+import { getServices } from "../lib/data/services";
+import type { Service } from "../lib/data/types";
 import { ServiceTile } from "./ServicesPage";
 import "./service-detail-page.css";
 
@@ -11,14 +12,23 @@ interface ServiceDetailPageProps { onOpenBooking: () => void; }
 export function ServiceDetailPage({ onOpenBooking }: ServiceDetailPageProps) {
   const { slug } = useParams();
   const reduceMotion = useReducedMotion();
-  const index = servicesData.findIndex((item) => item.slug === slug);
-  const service = index >= 0 ? servicesData[index] : null;
+  const [services, setServices] = useState<Service[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const index = services.findIndex((item) => item.slug === slug);
+  const service = index >= 0 ? services[index] : null;
 
-  useEffect(() => { document.title = service ? `${service.title} — Family Dent` : "Услуга не найдена — Family Dent"; }, [service]);
+  useEffect(() => {
+    void getServices().then(setServices).finally(() => setIsLoaded(true));
+  }, []);
 
+  useEffect(() => {
+    if (isLoaded) document.title = service ? `${service.title} — Family Dent` : "Услуга не найдена — Family Dent";
+  }, [isLoaded, service]);
+
+  if (!isLoaded) return <main className="service-not-found"><div><p className="services-page__eyebrow">Загрузка…</p></div></main>;
   if (!service) return <main className="service-not-found"><div><p className="services-page__eyebrow">404 / Услуга не найдена</p><h1>Такого направления нет</h1><p>Вернитесь в каталог и выберите подходящую услугу.</p><Link to="/services"><ArrowLeft aria-hidden="true" />Все услуги</Link></div></main>;
 
-  const related = [1, 2, 3].map((offset) => servicesData[(index + offset) % servicesData.length]);
+  const related = [1, 2, 3].map((offset) => services[(index + offset) % services.length]);
   const number = String(index + 1).padStart(2, "0");
 
   return <main className="service-detail">
@@ -27,7 +37,7 @@ export function ServiceDetailPage({ onOpenBooking }: ServiceDetailPageProps) {
       <div className="service-detail-hero__shade" aria-hidden="true" />
       <motion.div className="service-detail__container service-detail-hero__content" initial={reduceMotion ? false : { opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
         <Link className="service-detail__back" to="/services"><ArrowLeft aria-hidden="true" />Все услуги</Link>
-        <p className="service-detail__eyebrow">{number} / {servicesData.length}</p>
+        <p className="service-detail__eyebrow">{number} / {services.length}</p>
         <h1 id="service-title">{service.title}</h1>
         <p className="service-detail-hero__lead">{service.description}</p>
         <div className="service-detail-hero__actions"><span><Clock aria-hidden="true" />Длительность · {service.duration}</span><button type="button" onClick={onOpenBooking}>Записаться <ArrowRight aria-hidden="true" /></button></div>
@@ -38,6 +48,6 @@ export function ServiceDetailPage({ onOpenBooking }: ServiceDetailPageProps) {
 
     <section className="service-booking"><div className="service-detail__container service-booking__inner"><div><p className="service-detail__eyebrow">Консультация</p><h2>Составим индивидуальный план лечения</h2></div><button type="button" onClick={onOpenBooking}><Calendar aria-hidden="true" />Записаться</button></div></section>
 
-    <section className="service-related" aria-labelledby="service-related-title"><div className="service-detail__container"><header><p className="service-detail__eyebrow">Продолжить выбор</p><h2 id="service-related-title">Другие направления</h2></header><div className="service-related__grid">{related.map((item) => <ServiceTile key={item.id} service={item} index={servicesData.indexOf(item)} compact />)}</div></div></section>
+    <section className="service-related" aria-labelledby="service-related-title"><div className="service-detail__container"><header><p className="service-detail__eyebrow">Продолжить выбор</p><h2 id="service-related-title">Другие направления</h2></header><div className="service-related__grid">{related.map((item) => <ServiceTile key={item.id} service={item} index={services.indexOf(item)} compact />)}</div></div></section>
   </main>;
 }

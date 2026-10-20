@@ -1,5 +1,6 @@
 import type { TeamMember, TeamCategory } from "./types";
 import { getDoctors } from "./doctors";
+import { getContentOrFallback } from "../api";
 
 /* Mock data for non-doctor Family Dent staff */
 const staffData: TeamMember[] = [
@@ -108,7 +109,7 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
     education: doc.education
   }));
 
-  return [...doctorMembers, ...staffData];
+  return getContentOrFallback("team", [...doctorMembers, ...staffData]);
 }
 
 export async function getTeamMembersByCategory(category: TeamCategory): Promise<TeamMember[]> {

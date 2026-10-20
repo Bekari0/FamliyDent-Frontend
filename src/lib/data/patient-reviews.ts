@@ -1,4 +1,5 @@
 import type { PatientReview } from "./types";
+import { getContentOrFallback } from "../api";
 
 export const reviewSourceLinks = {
   yandex:
@@ -108,5 +109,5 @@ const patientReviewsData: PatientReview[] = [
 ];
 
 export async function getPatientReviews(): Promise<PatientReview[]> {
-  return [...patientReviewsData];
+  return getContentOrFallback("reviews", patientReviewsData);
 }

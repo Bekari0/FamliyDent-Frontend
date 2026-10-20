@@ -1,4 +1,5 @@
 import type { BlogPost } from "./types";
+import { getContentOrFallback } from "../api";
 
 /* Mock data for Family Dent blog posts */
 const blogPostsData: BlogPost[] = [
@@ -27,9 +28,9 @@ const blogPostsData: BlogPost[] = [
 ];
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
-  return [...blogPostsData];
+  return getContentOrFallback("blogPosts", blogPostsData);
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  return blogPostsData.find((b) => b.slug === slug) || null;
+  return (await getBlogPosts()).find((b) => b.slug === slug) || null;
 }

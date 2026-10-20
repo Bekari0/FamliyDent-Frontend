@@ -1,8 +1,42 @@
+# Dependencies and generated output
 node_modules/
 build/
 dist/
 coverage/
-.DS_Store
+.vite/
+.cache/
+*.tsbuildinfo
 *.log
+
+# Local environment and credentials
 .env*
 !.env.example
+.aws/
+.codex/
+.agents/
+*.pem
+*.key
+*.p12
+*.pfx
+/secrets/
+/credentials*.json
+
+# Private uploads, database exports, and backups
+/data/
+/backups/
+/exports/
+*.bson
+*.dump
+*.sql.gz
+*.sqlite
+*.sqlite3
+*.bak
+
+# Local tools and reports
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+*.swo
+/lighthouse.json
+/*.report.html

@@ -1,4 +1,5 @@
 import type { ConcernItem } from "./types";
+import { getContentOrFallback } from "../api";
 
 /* Mock data for "Что вас беспокоит?" drawer */
 const concernsData: ConcernItem[] = [
@@ -47,5 +48,5 @@ const concernsData: ConcernItem[] = [
 ];
 
 export async function getConcernItems(): Promise<ConcernItem[]> {
-  return [...concernsData];
+  return getContentOrFallback("concerns", concernsData);
 }
