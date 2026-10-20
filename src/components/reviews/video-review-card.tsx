@@ -1,5 +1,6 @@
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Play, ShieldCheck } from "lucide-react";
 import type { PatientReview } from "../../lib/data/types";
+import { useCookieConsent } from "../shared/cookie-consent";
 
 interface VideoReviewCardProps {
   review: PatientReview;
@@ -7,11 +8,12 @@ interface VideoReviewCardProps {
 
 export function VideoReviewCard({ review }: VideoReviewCardProps) {
   const isInstagram = review.source === "instagram";
+  const { externalContentAllowed, acceptAll } = useCookieConsent();
 
   return (
     <article className="flex flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-rule)] bg-[var(--color-surface)] shadow-[var(--shadow-whisper)]">
       <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--color-paper-2)]">
-        {isInstagram && review.videoUrl ? (
+        {isInstagram && review.videoUrl && externalContentAllowed ? (
           <iframe
             src={review.videoUrl}
             title={review.authorName}
@@ -19,6 +21,18 @@ export function VideoReviewCard({ review }: VideoReviewCardProps) {
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
             className="h-full w-full border-0"
           />
+        ) : isInstagram && review.videoUrl ? (
+          <div className="flex h-full w-full flex-col items-center justify-center bg-ink px-6 text-center text-paper">
+            <span className="flex size-12 items-center justify-center rounded-full border border-accent/30 bg-accent/15 text-accent-2">
+              <ShieldCheck aria-hidden="true" className="size-5" />
+            </span>
+            <p className="mt-4 font-display text-lg font-semibold">Видео скрыто для вашей приватности</p>
+            <p className="mt-2 max-w-xs text-xs leading-relaxed text-paper/60">Instagram загрузится только после вашего согласия на сторонние cookie.</p>
+            <button type="button" onClick={acceptAll} className="mt-5 inline-flex min-h-10 items-center gap-2 rounded-pill bg-accent px-5 text-xs font-bold text-accent-ink transition-colors hover:bg-accent-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
+              <Play aria-hidden="true" className="size-3.5 fill-current" />
+              Разрешить видео
+            </button>
+          </div>
         ) : review.videoUrl ? (
           <video
             src={review.videoUrl}

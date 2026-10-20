@@ -5,6 +5,7 @@ import { SiteFooter } from "./components/navigation/site-footer";
 import { BookingModal } from "./components/booking/booking-modal";
 import { AuthDialog } from "./components/auth/auth-dialog";
 import { SocialContactLauncher } from "./components/shared/social-contact-launcher";
+import { CookieConsentProvider } from "./components/shared/cookie-consent";
 import { OrbitalRings } from "./components/OrbitalRings";
 
 const HomePage = lazy(() => import("./pages/HomePage").then((m) => ({ default: m.HomePage })));
@@ -54,16 +55,17 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <div className="flex flex-col min-h-screen bg-paper text-ink font-body selection:bg-accent selection:text-accent-ink">
-        <SiteHeader
-          onOpenBooking={() => handleOpenBooking()}
-          onOpenAuth={() => setAuthOpen(true)}
-        />
+      <CookieConsentProvider>
+        <ScrollToTop />
+        <div className="flex flex-col min-h-screen bg-paper text-ink font-body selection:bg-accent selection:text-accent-ink">
+          <SiteHeader
+            onOpenBooking={() => handleOpenBooking()}
+            onOpenAuth={() => setAuthOpen(true)}
+          />
 
-        <main className="flex-1 w-full pt-16 sm:pt-18">
-          <Suspense fallback={<div className="min-h-screen bg-paper" /> }>
-            <Routes>
+          <main className="flex-1 w-full pt-16 sm:pt-18">
+            <Suspense fallback={<div className="min-h-screen bg-paper" /> }>
+              <Routes>
               <Route path="/" element={<HomePage onOpenBooking={() => handleOpenBooking()} />} />
               <Route path="/people" element={<Navigate to="/doctors" replace />} />
               <Route path="/doctors" element={<DoctorsPage onOpenBooking={handleOpenBooking} />} />
@@ -81,25 +83,26 @@ export default function App() {
               <Route path="/blog/:slug" element={<BlogPostPage />} />
               <Route path="/contacts" element={<ContactsPage />} />
               <Route path="/faq" element={<Navigate to="/#faq" replace />} />
-            </Routes>
-          </Suspense>
-        </main>
+              </Routes>
+            </Suspense>
+          </main>
 
-        <SiteFooter />
+          <SiteFooter />
 
-        <SocialContactLauncher />
+          <SocialContactLauncher />
 
-        <BookingModal
-          isOpen={bookingOpen}
-          onClose={() => setBookingOpen(false)}
-          preselectedDoctor={selectedDoctor}
-        />
+          <BookingModal
+            isOpen={bookingOpen}
+            onClose={() => setBookingOpen(false)}
+            preselectedDoctor={selectedDoctor}
+          />
 
-        <AuthDialog
-          isOpen={authOpen}
-          onClose={() => setAuthOpen(false)}
-        />
-      </div>
+          <AuthDialog
+            isOpen={authOpen}
+            onClose={() => setAuthOpen(false)}
+          />
+        </div>
+      </CookieConsentProvider>
     </BrowserRouter>
   );
 }

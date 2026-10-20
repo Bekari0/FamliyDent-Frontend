@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Phone, MapPin, Mail, Clock, Shield } from "lucide-react";
+import { Phone, MapPin, Mail, Clock } from "lucide-react";
+import { useCookieConsent } from "../shared/cookie-consent";
 
 export function SiteFooter() {
+  const { externalContentAllowed, acceptAll, openSettings } = useCookieConsent();
+
   return (
     <footer className="w-full border-t border-rule/20 bg-ink py-12 text-paper/70">
       <div className="page-container flex flex-col gap-10">
@@ -10,16 +13,32 @@ export function SiteFooter() {
         {/* Shared Yandex map and editorial contact panel */}
         <section className="grid min-h-[34rem] w-full overflow-hidden rounded-[var(--radius-xl)] border border-rule/20 bg-ink-2 shadow-xl md:grid-cols-[minmax(0,2fr)_minmax(18rem,1fr)]" aria-labelledby="footer-contacts-title">
           <div className="relative min-h-[24rem] bg-paper-3 md:min-h-[34rem]">
-            <iframe
-              title="Яндекс Карта с двумя филиалами Family Dent в Душанбе"
-              src="https://yandex.ru/map-widget/v1/?ll=68.782757%2C38.556142&z=13.6&l=map&pt=68.760889%2C38.548925%2Cpm2gnl~68.804625%2C38.563358%2Cpm2gnl"
-              width="100%"
-              height="100%"
-              className="absolute inset-0 h-full w-full border-0"
-              loading="lazy"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+            {externalContentAllowed ? (
+              <iframe
+                title="Яндекс Карта с двумя филиалами Family Dent в Душанбе"
+                src="https://yandex.ru/map-widget/v1/?ll=68.782757%2C38.556142&z=13.6&l=map&pt=68.760889%2C38.548925%2Cpm2gnl~68.804625%2C38.563358%2Cpm2gnl"
+                width="100%"
+                height="100%"
+                className="absolute inset-0 h-full w-full border-0"
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center overflow-hidden bg-paper-2 p-6 text-center">
+                <div className="absolute -left-16 -top-16 size-64 rounded-full bg-accent/15 blur-3xl" aria-hidden="true" />
+                <div className="relative flex max-w-sm flex-col items-center">
+                  <span className="flex size-14 items-center justify-center rounded-full border border-rule bg-paper text-trust shadow-whisper">
+                    <MapPin aria-hidden="true" className="size-6" />
+                  </span>
+                  <h3 className="mt-5 font-display text-2xl font-semibold text-ink">Карта доступна с вашего согласия</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted">Яндекс Карты могут сохранять сторонние cookie. Разрешите их загрузку, чтобы увидеть оба филиала.</p>
+                  <button type="button" onClick={acceptAll} className="mt-6 inline-flex min-h-11 items-center justify-center rounded-pill bg-ink px-6 text-xs font-semibold text-paper transition-colors hover:bg-trust focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus">
+                    Разрешить и показать карту
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="flex flex-col justify-between gap-10 bg-ink-2 p-7 sm:p-10 md:p-8 lg:p-12">
@@ -128,6 +147,8 @@ export function SiteFooter() {
           <span>© {new Date().getFullYear()} Family Dent. Все права защищены.</span>
           <div className="flex items-center gap-4">
             <span className="hover:text-paper/60 transition-colors">Политика конфиденциальности</span>
+            <span>•</span>
+            <button type="button" onClick={openSettings} className="transition-colors hover:text-paper/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">Настройки cookie</button>
             <span>•</span>
             <span className="hover:text-paper/60 transition-colors">Лицензия №12834-ТМ</span>
           </div>
