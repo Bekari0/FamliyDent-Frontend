@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "motion/react";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  useReducedMotion,
+  type Transition,
+  type Variants,
+} from "motion/react";
 import { OrbitalRings } from "./OrbitalRings";
 
 interface CentralLogoProps {
@@ -47,7 +55,7 @@ export function CentralLogo({ colorMode = "glowing-white", className = "" }: Cen
   }, [mouseX, mouseY, shouldReduceMotion]);
 
   // Entrance variants
-  const entranceVariants = {
+  const entranceVariants: Variants = {
     hidden: {
       opacity: 0,
       scale: 0.8,
@@ -76,7 +84,7 @@ export function CentralLogo({ colorMode = "glowing-white", className = "" }: Cen
       }
     : {};
 
-  const loopTransition = !shouldReduceMotion && isEntered
+  const loopTransition: Transition | undefined = !shouldReduceMotion && isEntered
     ? {
         y: {
           duration: 7.5,
