@@ -1,16 +1,29 @@
-import React, { useEffect, useRef, useState } from "react";
+import { Container, Heading, Text, readCssToken } from "@/ui-kit";
+import {
+  ArrowRight,
+  CheckCircle2,
+  ChevronRight,
+  Clock,
+  Sparkles,
+} from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight, CheckCircle2, Clock, ChevronRight, Sparkles } from "lucide-react";
 import { getServices } from "../../lib/data/services";
 import type { Service } from "../../lib/data/types";
-import { ScrollAnimate, StaggerContainer, StaggerItem } from "../shared/scroll-animate";
+import {
+  ScrollAnimate,
+  StaggerContainer,
+  StaggerItem,
+} from "../shared/scroll-animate";
 
 interface FeaturedServicesSectionProps {
   onOpenBooking: () => void;
 }
 
-export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSectionProps) {
+export function FeaturedServicesSection({
+  onOpenBooking,
+}: FeaturedServicesSectionProps) {
   const [services, setServices] = useState<Service[]>([]);
   const [activeServiceId, setActiveServiceId] = useState<string>("");
   const [pendingScrollId, setPendingScrollId] = useState<string | null>(null);
@@ -32,7 +45,9 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
     if (activeServiceId !== pendingScrollId) return;
     if (typeof window === "undefined") return;
 
-    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+    const isDesktop = window.matchMedia(
+      `(min-width: ${readCssToken("--breakpoint-desktop")})`,
+    ).matches;
     if (isDesktop) {
       setPendingScrollId(null);
       return;
@@ -45,7 +60,8 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
           const header = document.querySelector("header");
           const headerHeight = header?.getBoundingClientRect().height ?? 0;
           const desiredOffset = Math.max(90, Math.min(110, headerHeight + 30));
-          const top = target.getBoundingClientRect().top + window.scrollY - desiredOffset;
+          const top =
+            target.getBoundingClientRect().top + window.scrollY - desiredOffset;
 
           window.scrollTo({
             top,
@@ -57,37 +73,43 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
     });
   }, [activeServiceId, pendingScrollId]);
 
-  const activeService = services.find((s) => s.id === activeServiceId) || services[0];
+  const activeService =
+    services.find((s) => s.id === activeServiceId) || services[0];
 
   return (
     <section className="w-full border-b border-rule bg-paper-2 py-16 text-ink sm:py-20">
-      <div className="page-container">
+      <Container>
         {/* Header */}
-        <ScrollAnimate className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <ScrollAnimate className="flex flex-col tablet:flex-row tablet:items-end justify-between mb-12 gap-4">
           <div>
-            <span className="text-xs uppercase font-bold text-accent tracking-wider mb-2 block font-mono">
+            <span className="type-overline uppercase text-brand-text mb-2 block">
               Направления лечения
             </span>
-            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-ink tracking-tight">
+            <Heading level={2} className="text-ink">
               Основные услуги клиники
-            </h2>
-            <p className="text-xs sm:text-sm text-muted font-normal mt-1">
-              Персональный подход, цифровая точность и гарантия качества для всей семьи.
-            </p>
+            </Heading>
+            <Text variant="body-sm" className="text-muted mt-1">
+              Персональный подход, цифровая точность и гарантия качества для
+              всей семьи.
+            </Text>
           </div>
           <Link
             to="/services"
-            className="inline-flex min-h-11 items-center gap-2 px-5 py-2.5 rounded-pill bg-paper text-ink border border-rule text-xs font-bold hover:bg-accent-soft transition-all self-start md:self-auto group shadow-whisper"
+            className="type-caption inline-flex min-h-11 items-center gap-2 px-5 py-2.5 rounded-pill bg-paper text-ink border border-rule hover:bg-accent-soft transition-all self-start tablet:self-auto group shadow-whisper"
+            data-ui-scheme="default"
           >
             <span>Все услуги</span>
-            <ArrowRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-brand-text group-hover:translate-x-1 transition-transform" />
           </Link>
         </ScrollAnimate>
 
         {/* DESKTOP VIEW: Split interactive layout */}
-        <ScrollAnimate delay={0.1} className="hidden lg:grid lg:grid-cols-12 gap-8 items-stretch">
+        <ScrollAnimate
+          delay={0.1}
+          className="hidden desktop:grid desktop:grid-cols-12 gap-8 items-stretch"
+        >
           {/* Left Vertical List */}
-          <div className="lg:col-span-5 flex flex-col gap-2.5">
+          <div className="desktop:col-span-5 flex flex-col gap-2.5">
             {services.map((service) => {
               const isActive = service.id === activeServiceId;
               return (
@@ -100,6 +122,7 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
                       ? "bg-ink text-paper border-ink shadow-lg translate-x-1"
                       : "bg-paper hover:bg-paper-3 text-ink border-rule shadow-whisper"
                   }`}
+                  data-ui-scheme={isActive ? "inverse" : "default"}
                 >
                   <div className="flex items-center gap-3.5">
                     <div
@@ -108,16 +131,14 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
                       }`}
                     />
                     <div>
-                      <h3 className="font-display text-sm font-bold leading-tight">
+                      <Heading level={3} variant="heading-6">
                         {service.title}
-                      </h3>
+                      </Heading>
                     </div>
                   </div>
                   <ChevronRight
                     className={`w-4 h-4 transition-transform ${
-                      isActive
-                        ? "text-accent translate-x-1"
-                        : "text-muted"
+                      isActive ? "text-brand-text translate-x-1" : "text-muted"
                     }`}
                   />
                 </button>
@@ -127,7 +148,10 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
 
           {/* Right Active Preview Card with Image Crossfade */}
           {activeService && (
-            <div className="lg:col-span-7 bg-paper rounded-3xl p-6 sm:p-8 border border-rule shadow-card flex flex-col justify-between min-h-[480px]">
+            <div
+              className="desktop:col-span-7 bg-paper rounded-3xl p-6 sm:p-8 border border-rule shadow-card flex flex-col justify-between min-h-[480px]"
+              data-ui-scheme="default"
+            >
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeService.id}
@@ -139,7 +163,7 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
                 >
                   <div>
                     {/* Image Preview */}
-                    <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden mb-6 bg-[var(--color-paper-2)] shadow-md relative">
+                    <div className="aspect-[16/9] w-full rounded-2xl overflow-hidden mb-6 bg-paper-2 shadow-md relative">
                       <img
                         src={activeService.image}
                         alt={`${activeService.title} в клинике Family Dent`}
@@ -150,48 +174,58 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
                         style={{ objectPosition: activeService.imagePosition }}
                         className="w-full h-full object-cover"
                       />
-                      <div className="absolute top-3 right-3 bg-[var(--color-ink)]/90 backdrop-blur-md text-[var(--color-accent-2)] px-3 py-1.5 rounded-xl text-xs font-bold border border-white/10 flex items-center gap-1.5">
+                      <div
+                        className="type-caption absolute top-3 right-3 bg-ink/90 backdrop-blur-md text-accent-2 px-3 py-1.5 rounded-xl border border-on-dark/10 flex items-center gap-1.5"
+                        data-ui-scheme="inverse"
+                      >
                         <Clock className="w-3.5 h-3.5" />
                         <span>{activeService.duration || "45–60 мин"}</span>
                       </div>
                     </div>
 
-                    <h3 className="text-xl sm:text-2xl font-semibold text-[var(--color-ink)] mb-3">
+                    <Heading
+                      level={3}
+                      variant="heading-4"
+                      className="text-ink mb-3"
+                    >
                       {activeService.title}
-                    </h3>
+                    </Heading>
 
-                    <p className="text-sm text-[var(--color-muted)] leading-relaxed mb-6 font-normal">
+                    <Text variant="body-sm" className="text-muted mb-6">
                       {activeService.description}
-                    </p>
+                    </Text>
 
                     {/* Features Checklist */}
-                    {activeService.details && activeService.details.length > 0 && (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-6">
-                        {activeService.details.map((detail, idx) => (
-                          <div
-                            key={idx}
-                            className="flex items-center gap-2 text-xs font-semibold text-[var(--color-ink)] bg-[var(--color-surface)] p-2.5 rounded-xl border border-[var(--color-rule)] shadow-2xs"
-                          >
-                            <CheckCircle2 className="w-4 h-4 text-[var(--color-accent)] flex-shrink-0" />
-                            <span>{detail}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                    {activeService.details &&
+                      activeService.details.length > 0 && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-6">
+                          {activeService.details.map((detail, idx) => (
+                            <div
+                              key={idx}
+                              className="type-caption flex items-center gap-2 text-ink bg-surface p-2.5 rounded-xl border border-rule shadow-2xs"
+                              data-ui-scheme="default"
+                            >
+                              <CheckCircle2 className="w-4 h-4 text-brand-text flex-shrink-0" />
+                              <span>{detail}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex items-center gap-3 pt-4 border-t border-[var(--color-rule)]">
+                  <div className="flex items-center gap-3 pt-4 border-t border-rule">
                     <button
                       onClick={onOpenBooking}
-                      className="green-shimmer-bg hover:brightness-105 font-bold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all shadow-md cursor-pointer flex items-center gap-2 active:scale-95"
+                      className="type-button green-shimmer-bg hover:brightness-105 px-6 py-3 rounded-xl transition-all shadow-md cursor-pointer flex items-center gap-2 active:scale-95"
                     >
                       <Sparkles className="w-4 h-4" />
                       <span>Записаться на этот приём</span>
                     </button>
                     <Link
                       to="/services"
-                      className="bg-[var(--color-surface)] hover:bg-[var(--color-paper-2)] text-[var(--color-ink)] border border-[var(--color-rule)] font-bold text-xs sm:text-sm px-5 py-3 rounded-xl transition-all flex items-center gap-1"
+                      className="type-caption bg-surface hover:bg-paper-2 text-ink border border-rule px-5 py-3 rounded-xl transition-all flex items-center gap-1"
+                      data-ui-scheme="default"
                     >
                       <span>Подробнее</span>
                       <ArrowRight className="w-4 h-4" />
@@ -204,13 +238,14 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
         </ScrollAnimate>
 
         {/* MOBILE VIEW: Accordion List */}
-        <StaggerContainer className="lg:hidden flex flex-col gap-3">
+        <StaggerContainer className="desktop:hidden flex flex-col gap-3">
           {services.map((service) => {
             const isOpen = service.id === activeServiceId;
             return (
               <StaggerItem
                 key={service.id}
-                className="bg-[var(--color-paper)] border border-[var(--color-rule)] rounded-2xl overflow-hidden transition-all"
+                className="bg-paper border border-rule rounded-2xl overflow-hidden transition-all"
+                data-ui-scheme="default"
               >
                 <button
                   ref={(el) => {
@@ -225,28 +260,33 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
                       setPendingScrollId(service.id);
                     }
                   }}
-                  className="w-full text-left p-4 flex items-center justify-between font-bold text-[var(--color-ink)] cursor-pointer"
+                  className="w-full text-left p-4 flex items-center justify-between font-bold text-ink cursor-pointer"
                 >
                   <div className="flex items-center gap-3">
                     <div
                       className={`w-2.5 h-2.5 rounded-full ${
-                        isOpen ? "bg-[var(--color-accent)]" : "bg-[var(--color-rule-2)]"
+                        isOpen ? "bg-accent" : "bg-rule-2"
                       }`}
                     />
                     <div>
-                      <span className="text-sm block">{service.title}</span>
+                      <span className="type-body-sm block">
+                        {service.title}
+                      </span>
                     </div>
                   </div>
                   <ChevronRight
-                    className={`w-4 h-4 text-[var(--color-muted)] transition-transform ${
-                      isOpen ? "rotate-90 text-[var(--color-accent)]" : ""
+                    className={`w-4 h-4 text-muted transition-transform ${
+                      isOpen ? "rotate-90 text-brand-text" : ""
                     }`}
                   />
                 </button>
 
                 {isOpen && (
-                  <div className="p-4 pt-0 border-t border-[var(--color-rule)] bg-[var(--color-surface)]">
-                    <div className="aspect-[16/9] w-full rounded-xl overflow-hidden my-3 bg-[var(--color-paper-2)]">
+                  <div
+                    className="p-4 pt-0 border-t border-rule bg-surface"
+                    data-ui-scheme="default"
+                  >
+                    <div className="aspect-[16/9] w-full rounded-xl overflow-hidden my-3 bg-paper-2">
                       <img
                         src={service.image}
                         alt={`${service.title} в клинике Family Dent`}
@@ -254,21 +294,25 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
                         decoding="async"
                         width="900"
                         height="506"
-                        style={{ objectPosition: service.mobileImagePosition || service.imagePosition }}
+                        style={{
+                          objectPosition:
+                            service.mobileImagePosition ||
+                            service.imagePosition,
+                        }}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <p className="text-xs text-[var(--color-muted)] leading-relaxed mb-4">
+                    <Text variant="body-sm" className="text-muted mb-4">
                       {service.description}
-                    </p>
+                    </Text>
                     {service.details && (
                       <ul className="flex flex-col gap-1.5 mb-4">
                         {service.details.map((d, i) => (
                           <li
                             key={i}
-                            className="text-xs text-[var(--color-ink)] flex items-center gap-2"
+                            className="type-caption text-ink flex items-center gap-2"
                           >
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[var(--color-accent)] flex-shrink-0" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-brand-text flex-shrink-0" />
                             <span>{d}</span>
                           </li>
                         ))}
@@ -276,7 +320,7 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
                     )}
                     <button
                       onClick={onOpenBooking}
-                      className="w-full green-shimmer-bg font-bold text-xs py-3 rounded-xl transition-all shadow-sm"
+                      className="type-button w-full green-shimmer-bg py-3 rounded-xl transition-all shadow-sm"
                     >
                       Записаться на консультацию
                     </button>
@@ -286,7 +330,7 @@ export function FeaturedServicesSection({ onOpenBooking }: FeaturedServicesSecti
             );
           })}
         </StaggerContainer>
-      </div>
+      </Container>
     </section>
   );
 }

@@ -1,25 +1,58 @@
-import React, { Suspense, lazy, useState, useEffect } from "react";
-import { BrowserRouter, Navigate, Routes, Route, useLocation } from "react-router-dom";
-import { SiteHeader } from "./components/navigation/site-header";
-import { SiteFooter } from "./components/navigation/site-footer";
-import { BookingModal } from "./components/booking/booking-modal";
+import { Suspense, lazy, useEffect, useState } from "react";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import { AuthDialog } from "./components/auth/auth-dialog";
-import { SocialContactLauncher } from "./components/shared/social-contact-launcher";
-import { CookieConsentProvider } from "./components/shared/cookie-consent";
-import { ContentStatusNotice } from "./components/shared/content-status-notice";
+import { BookingModal } from "./components/booking/booking-modal";
+import { SiteFooter } from "./components/navigation/site-footer";
+import { SiteHeader } from "./components/navigation/site-header";
 import { OrbitalRings } from "./components/OrbitalRings";
+import { ContentStatusNotice } from "./components/shared/content-status-notice";
+import { CookieConsentProvider } from "./components/shared/cookie-consent";
+import { SocialContactLauncher } from "./components/shared/social-contact-launcher";
 
-const HomePage = lazy(() => import("./pages/HomePage").then((m) => ({ default: m.HomePage })));
-const DoctorsPage = lazy(() => import("./pages/DoctorsPage").then((m) => ({ default: m.DoctorsPage })));
-const AboutPage = lazy(() => import("./pages/AboutPage").then((m) => ({ default: m.AboutPage })));
-const ResultsPage = lazy(() => import("./pages/ResultsPage").then((m) => ({ default: m.ResultsPage })));
-const TourismPage = lazy(() => import("./pages/TourismPage").then((m) => ({ default: m.TourismPage })));
-const ServicesPage = lazy(() => import("./pages/ServicesPage").then((m) => ({ default: m.ServicesPage })));
-const ServiceDetailPage = lazy(() => import("./pages/ServiceDetailPage").then((m) => ({ default: m.ServiceDetailPage })));
-const ReviewsPage = lazy(() => import("./pages/ReviewsPage").then((m) => ({ default: m.ReviewsPage })));
-const BlogPage = lazy(() => import("./pages/BlogPage").then((m) => ({ default: m.BlogPage })));
-const BlogPostPage = lazy(() => import("./pages/BlogPostPage").then((m) => ({ default: m.BlogPostPage })));
-const ContactsPage = lazy(() => import("./pages/ContactsPage").then((m) => ({ default: m.ContactsPage })));
+const HomePage = lazy(() =>
+  import("./pages/HomePage").then((m) => ({ default: m.HomePage })),
+);
+const DoctorsPage = lazy(() =>
+  import("./pages/DoctorsPage").then((m) => ({ default: m.DoctorsPage })),
+);
+const AboutPage = lazy(() =>
+  import("./pages/AboutPage").then((m) => ({ default: m.AboutPage })),
+);
+const ResultsPage = lazy(() =>
+  import("./pages/ResultsPage").then((m) => ({ default: m.ResultsPage })),
+);
+const TourismPage = lazy(() =>
+  import("./pages/TourismPage").then((m) => ({ default: m.TourismPage })),
+);
+const ServicesPage = lazy(() =>
+  import("./pages/ServicesPage").then((m) => ({ default: m.ServicesPage })),
+);
+const ServiceDetailPage = lazy(() =>
+  import("./pages/ServiceDetailPage").then((m) => ({
+    default: m.ServiceDetailPage,
+  })),
+);
+const ReviewsPage = lazy(() =>
+  import("./pages/ReviewsPage").then((m) => ({ default: m.ReviewsPage })),
+);
+const BlogPage = lazy(() =>
+  import("./pages/BlogPage").then((m) => ({ default: m.BlogPage })),
+);
+const BlogPostPage = lazy(() =>
+  import("./pages/BlogPostPage").then((m) => ({ default: m.BlogPostPage })),
+);
+const ContactsPage = lazy(() =>
+  import("./pages/ContactsPage").then((m) => ({ default: m.ContactsPage })),
+);
+const UiKitPreview = import.meta.env.DEV
+  ? lazy(() => import("./ui-kit/showcase"))
+  : null;
 
 export { OrbitalRings };
 
@@ -28,10 +61,18 @@ function ScrollToTop() {
 
   useEffect(() => {
     if (hash) {
-      const scrollToHash = () => document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
-      const frame = requestAnimationFrame(() => requestAnimationFrame(scrollToHash));
+      const scrollToHash = () =>
+        document
+          .getElementById(hash.slice(1))
+          ?.scrollIntoView({ block: "start" });
+      const frame = requestAnimationFrame(() =>
+        requestAnimationFrame(scrollToHash),
+      );
       const timeout = window.setTimeout(scrollToHash, 350);
-      return () => { cancelAnimationFrame(frame); window.clearTimeout(timeout); };
+      return () => {
+        cancelAnimationFrame(frame);
+        window.clearTimeout(timeout);
+      };
     }
 
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -46,7 +87,9 @@ function ScrollToTop() {
 
 export default function App() {
   const [bookingOpen, setBookingOpen] = useState(false);
-  const [selectedDoctor, setSelectedDoctor] = useState<string | undefined>(undefined);
+  const [selectedDoctor, setSelectedDoctor] = useState<string | undefined>(
+    undefined,
+  );
   const [authOpen, setAuthOpen] = useState(false);
 
   const handleOpenBooking = (doctorName?: string) => {
@@ -58,7 +101,10 @@ export default function App() {
     <BrowserRouter>
       <CookieConsentProvider>
         <ScrollToTop />
-        <div className="flex flex-col min-h-screen bg-paper text-ink font-body selection:bg-accent selection:text-accent-ink">
+        <div
+          className="flex flex-col min-h-screen bg-paper text-ink font-body selection:bg-accent selection:text-accent-ink"
+          data-ui-scheme="default"
+        >
           <SiteHeader
             onOpenBooking={() => handleOpenBooking()}
             onOpenAuth={() => setAuthOpen(true)}
@@ -66,25 +112,69 @@ export default function App() {
 
           <main className="flex-1 w-full pt-16 sm:pt-18">
             <ContentStatusNotice />
-            <Suspense fallback={<div className="min-h-screen bg-paper" /> }>
+            <Suspense
+              fallback={
+                <div
+                  className="min-h-screen bg-paper"
+                  data-ui-scheme="default"
+                />
+              }
+            >
               <Routes>
-              <Route path="/" element={<HomePage onOpenBooking={() => handleOpenBooking()} />} />
-              <Route path="/people" element={<Navigate to="/doctors" replace />} />
-              <Route path="/doctors" element={<DoctorsPage onOpenBooking={handleOpenBooking} />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/about/clinic-tour" element={<Navigate to="/about" replace />} />
-              <Route path="/about/equipment" element={<Navigate to="/about" replace />} />
-              <Route path="/results" element={<ResultsPage />} />
-              <Route path="/tourism" element={<TourismPage />} />
-              <Route path="/academy" element={<Navigate to="/" replace />} />
-              <Route path="/services" element={<ServicesPage onOpenBooking={() => handleOpenBooking()} />} />
-              <Route path="/services/:slug" element={<ServiceDetailPage onOpenBooking={() => handleOpenBooking()} />} />
-              <Route path="/pricing" element={<ServicesPage onOpenBooking={() => handleOpenBooking()} />} />
-              <Route path="/reviews" element={<ReviewsPage />} />
-              <Route path="/blog" element={<BlogPage />} />
-              <Route path="/blog/:slug" element={<BlogPostPage />} />
-              <Route path="/contacts" element={<ContactsPage />} />
-              <Route path="/faq" element={<Navigate to="/#faq" replace />} />
+                {UiKitPreview && (
+                  <Route path="/ui-kit" element={<UiKitPreview />} />
+                )}
+                <Route
+                  path="/"
+                  element={
+                    <HomePage onOpenBooking={() => handleOpenBooking()} />
+                  }
+                />
+                <Route
+                  path="/people"
+                  element={<Navigate to="/doctors" replace />}
+                />
+                <Route
+                  path="/doctors"
+                  element={<DoctorsPage onOpenBooking={handleOpenBooking} />}
+                />
+                <Route path="/about" element={<AboutPage />} />
+                <Route
+                  path="/about/clinic-tour"
+                  element={<Navigate to="/about" replace />}
+                />
+                <Route
+                  path="/about/equipment"
+                  element={<Navigate to="/about" replace />}
+                />
+                <Route path="/results" element={<ResultsPage />} />
+                <Route path="/tourism" element={<TourismPage />} />
+                <Route path="/academy" element={<Navigate to="/" replace />} />
+                <Route
+                  path="/services"
+                  element={
+                    <ServicesPage onOpenBooking={() => handleOpenBooking()} />
+                  }
+                />
+                <Route
+                  path="/services/:slug"
+                  element={
+                    <ServiceDetailPage
+                      onOpenBooking={() => handleOpenBooking()}
+                    />
+                  }
+                />
+                <Route
+                  path="/pricing"
+                  element={
+                    <ServicesPage onOpenBooking={() => handleOpenBooking()} />
+                  }
+                />
+                <Route path="/reviews" element={<ReviewsPage />} />
+                <Route path="/blog" element={<BlogPage />} />
+                <Route path="/blog/:slug" element={<BlogPostPage />} />
+                <Route path="/contacts" element={<ContactsPage />} />
+                <Route path="/faq" element={<Navigate to="/#faq" replace />} />
               </Routes>
             </Suspense>
           </main>
@@ -99,10 +189,7 @@ export default function App() {
             preselectedDoctor={selectedDoctor}
           />
 
-          <AuthDialog
-            isOpen={authOpen}
-            onClose={() => setAuthOpen(false)}
-          />
+          <AuthDialog isOpen={authOpen} onClose={() => setAuthOpen(false)} />
         </div>
       </CookieConsentProvider>
     </BrowserRouter>

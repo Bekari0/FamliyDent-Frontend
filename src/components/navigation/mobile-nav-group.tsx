@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import type { NavDropdownItem } from "./nav-dropdown";
 
 interface MobileNavGroupProps {
@@ -10,7 +10,11 @@ interface MobileNavGroupProps {
   onItemClick?: () => void;
 }
 
-export function MobileNavGroup({ label, items, onItemClick }: MobileNavGroupProps) {
+export function MobileNavGroup({
+  label,
+  items,
+  onItemClick,
+}: MobileNavGroupProps) {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
@@ -18,12 +22,12 @@ export function MobileNavGroup({ label, items, onItemClick }: MobileNavGroupProp
     <div className="w-full flex flex-col items-center">
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="text-lg font-medium text-white/90 hover:text-accent transition-colors py-2 px-4 flex items-center justify-center gap-2 cursor-pointer"
+        className="type-button text-on-dark/90 hover:text-brand-text transition-colors py-2 px-4 flex items-center justify-center gap-2 cursor-pointer"
         aria-expanded={isOpen}
       >
         <span>{label}</span>
         <ChevronDown
-          className={`w-4 h-4 transition-transform duration-300 ${isOpen ? "rotate-180 text-accent" : "text-white/60"}`}
+          className={`w-4 h-4 transition-transform duration-300 ${isOpen ? "rotate-180 text-brand-text" : "text-on-dark/60"}`}
         />
       </button>
 
@@ -34,10 +38,11 @@ export function MobileNavGroup({ label, items, onItemClick }: MobileNavGroupProp
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="overflow-hidden w-full flex flex-col items-center gap-1.5 py-1 bg-white/5 rounded-xl my-1"
+            className="overflow-hidden w-full flex flex-col items-center gap-1.5 py-1 bg-surface/5 rounded-xl my-1"
           >
             {items.map((item) => {
-              const isItemActive = location.pathname + location.hash === item.href;
+              const isItemActive =
+                location.pathname + location.hash === item.href;
               return (
                 <Link
                   key={item.href}
@@ -47,10 +52,10 @@ export function MobileNavGroup({ label, items, onItemClick }: MobileNavGroupProp
                     if (onItemClick) onItemClick();
                   }}
                   aria-current={isItemActive ? "page" : undefined}
-                  className={`text-sm py-1.5 px-4 rounded-lg transition-colors ${
+                  className={`type-body-sm py-1.5 px-4 rounded-lg transition-colors ${
                     isItemActive
-                      ? "text-accent font-semibold"
-                      : "text-white/70 hover:text-white"
+                      ? "text-brand-text "
+                      : "text-on-dark/70 hover:text-on-dark"
                   }`}
                 >
                   {item.label}

@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 export interface NavDropdownItem {
   label: string;
@@ -37,7 +37,10 @@ export function NavDropdown({ label, items, isActive }: NavDropdownProps) {
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -73,13 +76,15 @@ export function NavDropdown({ label, items, isActive }: NavDropdownProps) {
         onClick={toggleClick}
         aria-expanded={isOpen}
         aria-haspopup="true"
-        className={`relative text-xs font-medium transition-colors duration-200 cursor-pointer rounded px-1.5 py-1 flex items-center gap-1 focus:outline-none focus:ring-1 focus:ring-accent/50 ${
-          isActive || isOpen ? "text-white" : "text-white/70 hover:text-white"
+        className={`type-button relative transition-colors duration-200 cursor-pointer rounded px-1.5 py-1 flex items-center gap-1 focus:outline-none focus:ring-1 focus:ring-accent/50 ${
+          isActive || isOpen
+            ? "text-on-dark"
+            : "text-on-dark/70 hover:text-on-dark"
         }`}
       >
         <span>{label}</span>
         <ChevronDown
-          className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? "rotate-180 text-accent" : "text-white/60"}`}
+          className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? "rotate-180 text-brand-text" : "text-on-dark/60"}`}
         />
 
         {(isActive || isOpen) && (
@@ -99,24 +104,28 @@ export function NavDropdown({ label, items, isActive }: NavDropdownProps) {
             exit={{ opacity: 0, y: 6, scale: 0.96 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
             className="absolute left-0 top-full mt-2 min-w-[280px] w-max max-w-[340px] sm:max-w-[380px] rounded-2xl bg-ink/95 border border-rule/20 p-2 shadow-2xl backdrop-blur-xl z-50"
+            data-ui-scheme="inverse"
           >
             <div className="flex flex-col gap-0.5">
               {items.map((item) => {
-                const isItemActive = location.pathname + location.hash === item.href;
+                const isItemActive =
+                  location.pathname + location.hash === item.href;
                 return (
                   <Link
                     key={item.href}
                     to={item.href}
                     onClick={() => setIsOpen(false)}
                     aria-current={isItemActive ? "page" : undefined}
-                    className={`text-xs px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between gap-3 leading-snug whitespace-normal break-words ${
+                    className={`type-caption px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between gap-3 whitespace-normal break-words ${
                       isItemActive
-                        ? "bg-accent/20 text-accent font-medium"
-                        : "text-white/80 hover:text-white hover:bg-white/10"
+                        ? "bg-accent/20 text-brand-text "
+                        : "text-on-dark/80 hover:text-on-dark hover:bg-surface/10"
                     }`}
                   >
                     <span className="flex-1 break-words">{item.label}</span>
-                    {isItemActive && <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />}
+                    {isItemActive && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+                    )}
                   </Link>
                 );
               })}

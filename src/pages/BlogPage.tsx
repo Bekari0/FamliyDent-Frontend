@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { Container, Heading, Text } from "@/ui-kit";
+import { ArrowRight, Calendar, User } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { EditorialPageHero } from "../components/shared/editorial-page-hero";
-import { Calendar, User, ArrowRight } from "lucide-react";
 import { getBlogPosts } from "../lib/data/blog";
 import type { BlogPost } from "../lib/data/types";
 
@@ -18,22 +19,29 @@ export function BlogPage() {
   }, []);
 
   return (
-    <div className="w-full flex flex-col min-h-screen bg-paper text-ink">
+    <div
+      className="w-full flex flex-col min-h-screen bg-paper text-ink"
+      data-ui-scheme="default"
+    >
       <EditorialPageHero
         badge="Полезные материалы"
         title="Блог и советы стоматологов"
         description="Экспертные статьи наших врачей о гигиене, винирах, брекетах, имплантации и детской стоматологии."
       />
 
-      <div className="page-container my-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <Container className="my-8">
+        <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
           {posts.map((post) => (
             <Link
               key={post.id}
               to={`/blog/${post.slug}`}
               className="bg-surface border border-rule rounded-3xl overflow-hidden shadow-card flex flex-col group hover:border-accent/40 transition-colors"
+              data-ui-scheme="default"
             >
-              <div className="aspect-[16/9] w-full overflow-hidden bg-paper">
+              <div
+                className="aspect-[16/9] w-full overflow-hidden bg-paper"
+                data-ui-scheme="default"
+              >
                 <img
                   src={post.image}
                   alt={post.title}
@@ -45,21 +53,25 @@ export function BlogPage() {
 
               <div className="p-6 flex flex-col justify-between flex-1">
                 <div>
-                  <span className="text-[10px] uppercase font-semibold text-accent tracking-wider block mb-2 font-mono">
+                  <span className="type-overline uppercase text-brand-text block mb-2">
                     {post.category}
                   </span>
-                  <h2 className="font-display text-lg sm:text-xl font-bold text-ink mb-2 group-hover:text-accent transition-colors">
+                  <Heading
+                    level={2}
+                    variant="heading-5"
+                    className="text-ink mb-2 group-hover:text-brand-text transition-colors"
+                  >
                     {post.title}
-                  </h2>
-                  <p className="text-xs sm:text-sm text-muted font-normal leading-relaxed mb-4">
+                  </Heading>
+                  <Text variant="body-sm" className="text-muted mb-4">
                     {post.excerpt}
-                  </p>
+                  </Text>
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-muted border-t border-rule pt-4">
+                <div className="type-caption flex items-center justify-between text-muted border-t border-rule pt-4">
                   <div className="flex items-center gap-3">
                     <span className="flex items-center gap-1">
-                      <User className="w-3.5 h-3.5 text-accent" />
+                      <User className="w-3.5 h-3.5 text-brand-text" />
                       <span>{post.author}</span>
                     </span>
                     <span className="flex items-center gap-1">
@@ -67,13 +79,13 @@ export function BlogPage() {
                       <span>{post.date}</span>
                     </span>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 text-brand-text group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
             </Link>
           ))}
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

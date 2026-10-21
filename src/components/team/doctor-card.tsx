@@ -1,3 +1,4 @@
+import { Heading, Text } from "@/ui-kit";
 import { ArrowUpRight, Award } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import type { Doctor } from "../../lib/data/types";
@@ -29,22 +30,30 @@ function DoctorPortrait({ doctor }: { doctor: Doctor }) {
     .join("");
 
   return (
-    <div className="flex h-full w-full items-center justify-center bg-ink-2" aria-hidden="true">
-      <span className="font-display text-5xl font-semibold tracking-tight text-paper/35">{initials}</span>
+    <div
+      className="flex h-full w-full items-center justify-center bg-ink-2"
+      aria-hidden="true"
+    >
+      <span className="type-display text-paper/35">{initials}</span>
     </div>
   );
 }
 
 export function DoctorCard({ doctor, onOpen, index }: DoctorCardProps) {
   const reduceMotion = useReducedMotion();
-  const fact = doctor.experienceYears ?? doctor.qualification ?? doctor.highlights?.[0];
+  const fact =
+    doctor.experienceYears ?? doctor.qualification ?? doctor.highlights?.[0];
 
   return (
     <motion.article
       initial={reduceMotion ? false : { opacity: 0, y: 28 }}
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.6, delay: Math.min(index % 4, 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      transition={{
+        duration: 0.6,
+        delay: Math.min(index % 4, 3) * 0.08,
+        ease: [0.16, 1, 0.3, 1],
+      }}
       className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-paper/15 bg-paper/[0.06] transition duration-[var(--dur-long)] hover:-translate-y-1 hover:border-accent/60 focus-within:border-accent"
     >
       <div className="aspect-[4/5] w-full shrink-0 overflow-hidden bg-ink-2">
@@ -52,21 +61,40 @@ export function DoctorCard({ doctor, onOpen, index }: DoctorCardProps) {
       </div>
       <div className="flex flex-1 flex-col gap-4 p-5 sm:p-6">
         <div className="flex flex-col gap-2">
-          <p className="font-mono text-xs leading-relaxed tracking-wide text-accent-2">{doctor.specialty}</p>
-          <h2 className="text-pretty font-display text-xl font-semibold leading-tight text-paper">{doctor.name}</h2>
+          <Text variant="overline" className="text-accent-2">
+            {doctor.specialty}
+          </Text>
+          <Heading
+            level={2}
+            variant="heading-4"
+            className="text-pretty text-paper"
+          >
+            {doctor.name}
+          </Heading>
         </div>
         {doctor.branches?.length ? (
-          <p className="font-mono text-xs uppercase tracking-wider text-paper/50">Филиал: {doctor.branches.join(" · ")}</p>
+          <Text variant="overline" className="uppercase text-paper/50">
+            Филиал: {doctor.branches.join(" · ")}
+          </Text>
         ) : null}
         {fact && (
-          <p className="flex items-start gap-2 text-sm leading-relaxed text-paper/65">
-            <Award className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+          <Text
+            variant="body-sm"
+            className="flex items-start gap-2 text-paper/65"
+          >
+            <Award
+              className="mt-0.5 h-4 w-4 shrink-0 text-brand-text"
+              aria-hidden="true"
+            />
             <span>{fact}</span>
-          </p>
+          </Text>
         )}
-        <span className="mt-auto inline-flex items-center justify-between border-t border-paper/10 pt-4 text-sm font-semibold text-paper">
+        <span className="type-body-sm mt-auto inline-flex items-center justify-between border-t border-paper/10 pt-4 text-paper">
           Подробнее
-          <ArrowUpRight className="h-4 w-4 transition-transform duration-[var(--dur-short)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+          <ArrowUpRight
+            className="h-4 w-4 transition-transform duration-[var(--dur-short)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            aria-hidden="true"
+          />
         </span>
       </div>
       <button

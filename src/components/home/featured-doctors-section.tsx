@@ -1,37 +1,61 @@
+import { Container, Heading, Text } from "@/ui-kit";
+import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import { getDoctors } from "../../lib/data/doctors";
 import type { TeamMember } from "../../lib/data/types";
+import {
+  ScrollAnimate,
+  StaggerContainer,
+  StaggerItem,
+} from "../shared/scroll-animate";
 import { TeamMemberCard } from "../team/team-member-card";
-import { ScrollAnimate, StaggerContainer, StaggerItem } from "../shared/scroll-animate";
 
 interface FeaturedDoctorsSectionProps {
   onOpenBooking?: (doctorName?: string) => void;
 }
 
-export function FeaturedDoctorsSection({ onOpenBooking: _onOpenBooking }: FeaturedDoctorsSectionProps) {
-  const [featuredDoctors, setFeaturedDoctors] = useState<Awaited<ReturnType<typeof getDoctors>>>([]);
+export function FeaturedDoctorsSection({
+  onOpenBooking: _onOpenBooking,
+}: FeaturedDoctorsSectionProps) {
+  const [featuredDoctors, setFeaturedDoctors] = useState<
+    Awaited<ReturnType<typeof getDoctors>>
+  >([]);
   useEffect(() => {
-    void getDoctors().then((doctors) => setFeaturedDoctors(doctors.filter((doctor) => doctor.image).slice(0, 3)));
+    void getDoctors().then((doctors) =>
+      setFeaturedDoctors(doctors.filter((doctor) => doctor.image).slice(0, 3)),
+    );
   }, []);
 
   return (
-    <section className="w-full border-b border-white/10 bg-ink py-16 text-paper sm:py-20">
-      <div className="page-container">
-        <ScrollAnimate className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+    <section
+      className="w-full border-b border-on-dark/10 bg-ink py-16 text-paper sm:py-20"
+      data-ui-scheme="inverse"
+    >
+      <Container>
+        <ScrollAnimate className="flex flex-col tablet:flex-row tablet:items-end justify-between mb-12 gap-4">
           <div>
-            <span className="text-xs uppercase font-bold text-accent tracking-wider mb-2 block font-mono">Врачи клиники</span>
-            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-white tracking-tight">Врачи Family Dent</h2>
-            <p className="text-xs sm:text-sm text-white/70 font-normal mt-1">Познакомьтесь с образованием, опытом и направлениями работы наших специалистов.</p>
+            <span className="type-overline uppercase text-brand-text mb-2 block">
+              Врачи клиники
+            </span>
+            <Heading level={2} className="text-on-dark">
+              Врачи Family Dent
+            </Heading>
+            <Text variant="body-sm" className="text-on-dark/70 mt-1">
+              Познакомьтесь с образованием, опытом и направлениями работы наших
+              специалистов.
+            </Text>
           </div>
-          <Link to="/doctors" className="inline-flex min-h-11 items-center gap-2 px-5 py-2.5 rounded-pill bg-white/10 text-white border border-white/20 text-xs font-bold hover:bg-white/20 transition-all self-start md:self-auto group shadow-whisper">
+          <Link
+            to="/doctors"
+            className="type-caption inline-flex min-h-11 items-center gap-2 px-5 py-2.5 rounded-pill bg-surface/10 text-on-dark border border-on-dark/20 hover:bg-surface/20 transition-all self-start tablet:self-auto group shadow-whisper"
+          >
             <span>Все врачи</span>
-            <ArrowRight className="w-4 h-4 text-accent group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-brand-text group-hover:translate-x-1 transition-transform" />
           </Link>
         </ScrollAnimate>
 
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        <StaggerContainer className="grid grid-cols-1 tablet:grid-cols-3 gap-6 items-stretch">
           {featuredDoctors.map((doctor) => {
             const member: TeamMember = {
               id: doctor.id,
@@ -45,10 +69,14 @@ export function FeaturedDoctorsSection({ onOpenBooking: _onOpenBooking }: Featur
               specialties: doctor.specialties,
             };
 
-            return <StaggerItem key={doctor.id} className="flex flex-col"><TeamMemberCard member={member} dark /></StaggerItem>;
+            return (
+              <StaggerItem key={doctor.id} className="flex flex-col">
+                <TeamMemberCard member={member} dark />
+              </StaggerItem>
+            );
           })}
         </StaggerContainer>
-      </div>
+      </Container>
     </section>
   );
 }
