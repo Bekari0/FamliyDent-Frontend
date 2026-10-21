@@ -13,7 +13,7 @@
     "preview": "vite preview",
     "clean": "node --input-type=module -e \"import { rmSync } from 'node:fs'; rmSync('dist', { recursive: true, force: true });\"",
     "lint": "tsc --noEmit && npm run lint --workspace @familydent/backend",
-    "test": "tsx --test src/**/*.test.ts src/**/*.test.tsx && npm test --workspace @familydent/backend",
+    "test": "tsx --test 'src/**/*.test.ts' 'src/**/*.test.tsx' && npm test --workspace @familydent/backend",
     "db:setup": "npm run db:setup --workspace @familydent/backend",
     "db:migrate": "npm run db:migrate --workspace @familydent/backend",
     "db:verify": "npm run db:verify --workspace @familydent/backend",
