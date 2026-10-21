@@ -1,12 +1,10 @@
-import { Heading, Text } from "@/ui-kit";
+import { Heading, Reveal, Text } from "@/ui-kit";
 import { ArrowUpRight, Award } from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
 import type { Doctor } from "../../lib/data/types";
 
 interface DoctorCardProps {
   doctor: Doctor;
   onOpen: (doctor: Doctor) => void;
-  index: number;
 }
 
 function DoctorPortrait({ doctor }: { doctor: Doctor }) {
@@ -39,21 +37,13 @@ function DoctorPortrait({ doctor }: { doctor: Doctor }) {
   );
 }
 
-export function DoctorCard({ doctor, onOpen, index }: DoctorCardProps) {
-  const reduceMotion = useReducedMotion();
+export function DoctorCard({ doctor, onOpen }: DoctorCardProps) {
   const fact =
     doctor.experienceYears ?? doctor.qualification ?? doctor.highlights?.[0];
 
   return (
-    <motion.article
-      initial={reduceMotion ? false : { opacity: 0, y: 28 }}
-      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{
-        duration: 0.6,
-        delay: Math.min(index % 4, 3) * 0.08,
-        ease: [0.16, 1, 0.3, 1],
-      }}
+    <Reveal
+      as="article"
       className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-paper/15 bg-paper/[0.06] transition duration-[var(--dur-long)] hover:-translate-y-1 hover:border-accent/60 focus-within:border-accent"
     >
       <div className="aspect-[4/5] w-full shrink-0 overflow-hidden bg-ink-2">
@@ -103,6 +93,6 @@ export function DoctorCard({ doctor, onOpen, index }: DoctorCardProps) {
         className="absolute inset-0 cursor-pointer rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus"
         aria-label={`Подробнее о враче ${doctor.name}`}
       />
-    </motion.article>
+    </Reveal>
   );
 }

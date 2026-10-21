@@ -1,4 +1,4 @@
-import { Heading, Text } from "@/ui-kit";
+import { Reveal, RevealHeading, Text } from "@/ui-kit";
 import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -29,9 +29,9 @@ export function BlogPostPage() {
         className="w-full min-h-screen bg-paper text-ink flex flex-col items-center justify-center p-5"
         data-ui-scheme="default"
       >
-        <Heading level={1} className="mb-4">
+        <RevealHeading level={1} className="mb-4">
           Статья не найдена
-        </Heading>
+        </RevealHeading>
         <Link
           to="/blog"
           className="text-brand-text hover:underline flex items-center gap-2"
@@ -63,7 +63,7 @@ export function BlogPostPage() {
           <span>Вернуться ко всем статьям</span>
         </Link>
 
-        <div className="aspect-[16/9] w-full rounded-3xl overflow-hidden mb-8 border border-rule shadow-card">
+        <Reveal className="aspect-[16/9] w-full rounded-3xl overflow-hidden mb-8 border border-rule shadow-card">
           <img
             src={post.image}
             alt={post.title}
@@ -71,9 +71,9 @@ export function BlogPostPage() {
             decoding="async"
             className="w-full h-full object-cover"
           />
-        </div>
+        </Reveal>
 
-        <div
+        <Reveal
           className="type-body-sm bg-surface border border-rule rounded-3xl p-8 shadow-card space-y-4 text-muted"
           data-ui-scheme="default"
         >
@@ -81,7 +81,7 @@ export function BlogPostPage() {
             {post.excerpt}
           </Text>
           <Text variant="body">{post.content}</Text>
-        </div>
+        </Reveal>
       </div>
     </div>
   );

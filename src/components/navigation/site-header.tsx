@@ -63,7 +63,7 @@ export function SiteHeader({ onOpenBooking }: SiteHeaderProps) {
         <Link
           to="/"
           onClick={() => {
-            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            window.scrollTo({ top: 0, left: 0, behavior: "auto" });
             setMenuOpen(false);
           }}
           className="flex items-center group focus:outline-none focus-visible:ring-1 focus-visible:ring-on-dark/30 rounded-lg p-1 flex-shrink-0"

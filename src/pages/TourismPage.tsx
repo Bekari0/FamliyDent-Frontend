@@ -4,6 +4,8 @@ import {
   Heading,
   IconButton,
   Input,
+  Reveal,
+  RevealHeading,
   Select,
   Text,
   Textarea,
@@ -147,29 +149,6 @@ const tourismFaq = [
     "Оставьте заявку на сайте или напишите в WhatsApp. Координатор свяжется с вами и расскажет о следующих шагах.",
   ],
 ] as const;
-
-function Reveal({
-  children,
-  className = "",
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-}) {
-  const reduceMotion = useReducedMotion();
-  return (
-    <motion.div
-      className={className}
-      initial={reduceMotion ? false : { opacity: 0, y: 32 }}
-      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.68, delay, ease: [0.16, 1, 0.3, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 function ConsultationForm({
   idPrefix = "consultation",
@@ -361,7 +340,7 @@ function ConsultationDialog({
           >
             Персональная консультация
           </Text>
-          <Heading level={2}>Расскажите о задаче</Heading>
+          <RevealHeading level={2}>Расскажите о задаче</RevealHeading>
         </div>
         <IconButton onClick={onClose} aria-label="Закрыть форму">
           <X aria-hidden="true" />
@@ -595,9 +574,9 @@ export function TourismPage() {
             >
               Направления лечения
             </Text>
-            <Heading level={2} id="services-title">
+            <RevealHeading level={2} id="services-title">
               Рекомендуемые процедуры
-            </Heading>
+            </RevealHeading>
             <Text variant="body">
               От эстетической до функциональной стоматологии — подберём решение
               после диагностики и составим понятный план лечения.
@@ -615,7 +594,7 @@ export function TourismPage() {
                   }
                   aria-hidden="true"
                 />
-                <Heading level={3}>{item.title}</Heading>
+                <RevealHeading level={3}>{item.title}</RevealHeading>
                 <button
                   type="button"
                   onClick={() => setDialogOpen(true)}
@@ -639,9 +618,9 @@ export function TourismPage() {
               <Text variant="overline" className="tourism-eyebrow">
                 Ориентир по стоимости
               </Text>
-              <Heading level={2} id="comparison-title">
+              <RevealHeading level={2} id="comparison-title">
                 Сравните —<br />и считайте всю поездку.
-              </Heading>
+              </RevealHeading>
             </div>
             <Text variant="body">
               Диапазоны из презентации Family Dent показывают порядок цен в
@@ -698,11 +677,11 @@ export function TourismPage() {
               Готовые форматы поездки
             </Text>
             <div>
-              <Heading level={2} id="packages-title">
+              <RevealHeading level={2} id="packages-title">
                 Выберите ритм.
                 <br />
                 Маршрут уточним вместе.
-              </Heading>
+              </RevealHeading>
               <Text variant="body">
                 Пакет задаёт длительность и логику поездки, но не заменяет
                 медицинский план.
@@ -768,11 +747,11 @@ export function TourismPage() {
             >
               Как это работает
             </Text>
-            <Heading level={2} variant="display" id="roadmap-title">
+            <RevealHeading level={2} variant="display" id="roadmap-title">
               От сообщения
               <br />
               до Душанбе
-            </Heading>
+            </RevealHeading>
           </div>
           <div className="tourism-roadmap__track">
             <div className="tourism-roadmap__line">
@@ -783,7 +762,7 @@ export function TourismPage() {
             {roadmap.map((step) => (
               <article key={step.number}>
                 <span className="tourism-roadmap__number">{step.number}</span>
-                <Heading level={3}>{step.title}</Heading>
+                <RevealHeading level={3}>{step.title}</RevealHeading>
                 <Text variant="body">{step.description}</Text>
               </article>
             ))}
@@ -801,9 +780,9 @@ export function TourismPage() {
             <Text variant="overline" className="tourism-eyebrow">
               Визит без неопределённости
             </Text>
-            <Heading level={2} id="visit-title">
+            <RevealHeading level={2} id="visit-title">
               До. Во время. После.
-            </Heading>
+            </RevealHeading>
           </div>
           <div className="tourism-visit__steps">
             <Reveal>
@@ -838,9 +817,9 @@ export function TourismPage() {
             >
               Планирование поездки
             </Text>
-            <Heading level={2} id="duration-title">
+            <RevealHeading level={2} id="duration-title">
               Сколько дней нужно находиться в Душанбе
-            </Heading>
+            </RevealHeading>
             <Text variant="body">
               Продолжительность зависит от диагноза, объёма работ и выбранного
               метода. Точный график составляется после изучения вашей ситуации.
@@ -863,9 +842,9 @@ export function TourismPage() {
             <Text variant="overline" className="tourism-eyebrow">
               Организация тура
             </Text>
-            <Heading level={2} id="support-title">
+            <RevealHeading level={2} id="support-title">
               Что может организовать Family Dent
-            </Heading>
+            </RevealHeading>
             <Text variant="body">
               Условия включения дополнительных услуг согласовываются
               индивидуально.
@@ -888,9 +867,9 @@ export function TourismPage() {
             >
               Языковая поддержка
             </Text>
-            <Heading level={2} id="language-title">
+            <RevealHeading level={2} id="language-title">
               Мы говорим на вашем языке
-            </Heading>
+            </RevealHeading>
             <Text variant="body">
               Для нас важно, чтобы пациент понимал каждый этап лечения.
             </Text>
@@ -912,9 +891,9 @@ export function TourismPage() {
           >
             Ответы перед поездкой
           </Text>
-          <Heading level={2} id="tourism-faq-title">
+          <RevealHeading level={2} id="tourism-faq-title">
             Часто задаваемые вопросы
-          </Heading>
+          </RevealHeading>
           <div className="tourism-faq__list">
             {tourismFaq.map(([question, answer]) => (
               <details key={question}>
@@ -969,9 +948,9 @@ export function TourismPage() {
           >
             Между визитами
           </Text>
-          <Heading level={2} id="places-title">
+          <RevealHeading level={2} id="places-title">
             10 мест, ради которых стоит увидеть Таджикистан
-          </Heading>
+          </RevealHeading>
         </div>
         <div className="tourism-places__grid">
           {places.map((place, index) => (

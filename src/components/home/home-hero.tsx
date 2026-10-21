@@ -1,5 +1,4 @@
-import { Button, Container, Heading, Text } from "@/ui-kit";
-import { motion } from "motion/react";
+import { Button, Container, Heading, Reveal, Text } from "@/ui-kit";
 import { BackgroundVideo } from "../BackgroundVideo";
 import { CentralLogo } from "../CentralLogo";
 
@@ -12,7 +11,7 @@ export function HomeHero({ onOpenBooking }: HomeHeroProps) {
   const scrollToBooking = () => {
     const el = document.getElementById("booking");
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      el.scrollIntoView({ behavior: "auto" });
     } else {
       onOpenBooking();
     }
@@ -29,12 +28,7 @@ export function HomeHero({ onOpenBooking }: HomeHeroProps) {
       {/* Main Hero Layout matching image.png */}
       <Container className="relative z-10 my-auto grid grid-cols-1 items-center gap-8 desktop:grid-cols-12 desktop:gap-6 xl:gap-8">
         {/* Left Column: Title & Subtitle */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="desktop:col-span-4 flex flex-col items-start text-left"
-        >
+        <Reveal className="desktop:col-span-4 flex flex-col items-start text-left">
           <Heading level={1} variant="hero" className="text-on-dark">
             Современная
             <br />
@@ -48,7 +42,7 @@ export function HomeHero({ onOpenBooking }: HomeHeroProps) {
             От первого молочного зуба до сложной имплантации — бережно, точно и
             без спешки.
           </Text>
-        </motion.div>
+        </Reveal>
 
         {/* Center Column: Glowing Tooth Emblem */}
         <div className="desktop:col-span-4 flex items-center justify-center py-4 desktop:py-0 relative overflow-visible">
@@ -56,12 +50,7 @@ export function HomeHero({ onOpenBooking }: HomeHeroProps) {
         </div>
 
         {/* Right Column: Title & Action Buttons */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-          className="desktop:col-span-4 flex flex-col items-start desktop:items-start text-left w-full min-w-0"
-        >
+        <Reveal className="desktop:col-span-4 flex flex-col items-start desktop:items-start text-left w-full min-w-0">
           <Heading level={2} className="text-on-dark mb-6 w-full max-w-full">
             <span className="block">Без боли.</span>
             <span className="block">Без спешки.</span>
@@ -73,7 +62,7 @@ export function HomeHero({ onOpenBooking }: HomeHeroProps) {
               Записаться
             </Button>
           </div>
-        </motion.div>
+        </Reveal>
       </Container>
 
       {/* Large Bottom Background Watermark positioned at bottom border */}

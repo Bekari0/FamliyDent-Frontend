@@ -1,4 +1,4 @@
-import { Heading, Text } from "@/ui-kit";
+import { Heading, Reveal, Text } from "@/ui-kit";
 import React from "react";
 import type { TreatmentCase } from "../../lib/data/types";
 import { BeforeAfterSlider } from "./before-after-slider";
@@ -10,7 +10,7 @@ interface TreatmentCaseCardProps {
 
 export function TreatmentCaseCard({ treatmentCase }: TreatmentCaseCardProps) {
   return (
-    <div
+    <Reveal
       className="bg-surface border border-rule rounded-2xl p-5 shadow-card flex flex-col gap-4 hover:border-accent/40 transition-colors"
       data-ui-scheme="default"
     >
@@ -28,6 +28,6 @@ export function TreatmentCaseCard({ treatmentCase }: TreatmentCaseCardProps) {
           {treatmentCase.shortDescription}
         </Text>
       </div>
-    </div>
+    </Reveal>
   );
 }

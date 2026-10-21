@@ -1,4 +1,11 @@
-import { Container, Heading, Text } from "@/ui-kit";
+import {
+  Container,
+  Heading,
+  Reveal,
+  RevealGroup,
+  RevealHeading,
+  Text,
+} from "@/ui-kit";
 import { ExternalLink, MapPin, Star } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { VideoReviewCard } from "../components/reviews/video-review-card";
@@ -21,7 +28,8 @@ const filters: Array<{ id: ReviewFilter; label: string }> = [
 
 function TextReviewCard({ review }: { review: PatientReview }) {
   return (
-    <a
+    <Reveal
+      as="a"
       href={review.sourceUrl}
       target="_blank"
       rel="noreferrer"
@@ -33,6 +41,7 @@ function TextReviewCard({ review }: { review: PatientReview }) {
         <div className="flex items-center justify-between gap-4">
           <div
             className="flex items-center gap-1"
+            role="img"
             aria-label={`${review.rating ?? 5} из 5`}
           >
             {Array.from({ length: review.rating ?? 5 }).map((_, index) => (
@@ -66,7 +75,7 @@ function TextReviewCard({ review }: { review: PatientReview }) {
           className="size-4 text-muted transition-colors group-hover:text-brand-text"
         />
       </footer>
-    </a>
+    </Reveal>
   );
 }
 
@@ -76,7 +85,8 @@ function GoogleSourceCard({
   source: (typeof googleReviewSources)[number];
 }) {
   return (
-    <a
+    <Reveal
+      as="a"
       href={source.href}
       target="_blank"
       rel="noreferrer"
@@ -107,7 +117,7 @@ function GoogleSourceCard({
           />
         </span>
       </div>
-    </a>
+    </Reveal>
   );
 }
 
@@ -148,9 +158,9 @@ export function ReviewsPage() {
         <Container className="flex flex-col gap-10">
           <div className="flex flex-col gap-5 border-b border-rule pb-7 desktop:flex-row desktop:items-end desktop:justify-between">
             <div className="flex max-w-xl flex-col gap-2">
-              <Heading level={2} id="reviews-list-title">
+              <RevealHeading level={2} id="reviews-list-title">
                 Истории наших пациентов
-              </Heading>
+              </RevealHeading>
               <Text variant="body-sm" className="text-muted">
                 Выберите формат или площадку. Каждый текстовый отзыв ведёт к
                 оригиналу.
@@ -178,7 +188,7 @@ export function ReviewsPage() {
             </div>
           </div>
 
-          <div
+          <RevealGroup
             aria-live="polite"
             className="grid grid-cols-1 gap-5 sm:grid-cols-2 desktop:grid-cols-3"
           >
@@ -193,7 +203,7 @@ export function ReviewsPage() {
               googleReviewSources.map((source) => (
                 <GoogleSourceCard key={source.id} source={source} />
               ))}
-          </div>
+          </RevealGroup>
 
           {activeFilter === "yandex" && (
             <a

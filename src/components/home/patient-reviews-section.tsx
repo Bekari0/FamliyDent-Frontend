@@ -47,6 +47,7 @@ function ReviewCard({ review }: { review: PatientReview }) {
       <div className="flex flex-col gap-4">
         <div
           className="flex items-center gap-1"
+          role="img"
           aria-label={`${review.rating ?? 5} из 5`}
         >
           {Array.from({ length: review.rating ?? 5 }).map((_, index) => (

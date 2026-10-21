@@ -1,4 +1,4 @@
-import { Container, Heading, Text } from "@/ui-kit";
+import { Container, Heading, Reveal, RevealGroup, Text } from "@/ui-kit";
 import { ArrowRight, Calendar, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -30,9 +30,10 @@ export function BlogPage() {
       />
 
       <Container className="my-8">
-        <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
+        <RevealGroup className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
           {posts.map((post) => (
-            <Link
+            <Reveal
+              as={Link}
               key={post.id}
               to={`/blog/${post.slug}`}
               className="bg-surface border border-rule rounded-3xl overflow-hidden shadow-card flex flex-col group hover:border-accent/40 transition-colors"
@@ -82,9 +83,9 @@ export function BlogPage() {
                   <ArrowRight className="w-4 h-4 text-brand-text group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
-            </Link>
+            </Reveal>
           ))}
-        </div>
+        </RevealGroup>
       </Container>
     </div>
   );

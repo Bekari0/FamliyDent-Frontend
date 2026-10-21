@@ -75,9 +75,9 @@ function ScrollToTop() {
       };
     }
 
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     const frame = requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     });
     return () => cancelAnimationFrame(frame);
   }, [pathname, hash]);
