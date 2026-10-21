@@ -2,8 +2,8 @@ import {
   createElement,
   type ComponentPropsWithoutRef,
   type HTMLAttributes,
+  type Ref,
 } from "react";
-
 export const textVariants = [
   "display",
   "hero",
@@ -100,6 +100,7 @@ export function Text<T extends TextElement = "p">({
 }
 
 export interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
+  ref?: Ref<HTMLHeadingElement>;
   level: 1 | 2 | 3 | 4 | 5 | 6;
   variant?: TextVariant;
   tone?: TextTone;
