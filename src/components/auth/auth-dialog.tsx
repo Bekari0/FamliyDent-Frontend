@@ -135,6 +135,9 @@ export function AuthDialog({ isOpen, onClose }: AuthDialogProps) {
                     <input
                       type="password"
                       required
+                      minLength={mode === "register" ? 12 : 1}
+                      maxLength={200}
+                      autoComplete={mode === "register" ? "new-password" : "current-password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"

@@ -6,6 +6,7 @@ import { BookingModal } from "./components/booking/booking-modal";
 import { AuthDialog } from "./components/auth/auth-dialog";
 import { SocialContactLauncher } from "./components/shared/social-contact-launcher";
 import { CookieConsentProvider } from "./components/shared/cookie-consent";
+import { ContentStatusNotice } from "./components/shared/content-status-notice";
 import { OrbitalRings } from "./components/OrbitalRings";
 
 const HomePage = lazy(() => import("./pages/HomePage").then((m) => ({ default: m.HomePage })));
@@ -64,6 +65,7 @@ export default function App() {
           />
 
           <main className="flex-1 w-full pt-16 sm:pt-18">
+            <ContentStatusNotice />
             <Suspense fallback={<div className="min-h-screen bg-paper" /> }>
               <Routes>
               <Route path="/" element={<HomePage onOpenBooking={() => handleOpenBooking()} />} />

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Calendar, Clock, Phone, MapPin, CheckCircle2, ShieldCheck, User, ChevronDown } from "lucide-react";
 import { ScrollAnimate } from "../shared/scroll-animate";
+import { createBooking } from "../../lib/api";
 
 interface BookingSectionProps {
   onOpenBookingModal?: () => void;
@@ -8,6 +9,8 @@ interface BookingSectionProps {
 
 export function BookingSection({ onOpenBookingModal }: BookingSectionProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -15,10 +18,20 @@ export function BookingSection({ onOpenBookingModal }: BookingSectionProps) {
     date: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.phone) return;
-    setSubmitted(true);
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    setSubmitError("");
+    try {
+      await createBooking({ name: formData.name, phone: formData.phone, service: formData.service || undefined, preferredDate: formData.date || undefined });
+      setSubmitted(true);
+    } catch {
+      setSubmitError("Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -46,7 +59,7 @@ export function BookingSection({ onOpenBookingModal }: BookingSectionProps) {
               </h2>
 
               <p className="text-xs sm:text-sm text-paper/80 font-normal leading-relaxed mb-8 max-w-md">
-                Оставьте заявку за 30 секунд. Наш администратор свяжется с вами в течение 10 минут, ответит на любые вопросы и подберет максимально удобное время приёма.
+                Оставьте заявку за 30 секунд. Мы свяжемся с вами, ответим на вопросы и подберём удобное время приёма.
               </p>
 
               {/* Clinic Advantages List */}
@@ -114,7 +127,7 @@ export function BookingSection({ onOpenBookingModal }: BookingSectionProps) {
                   Заявка успешно отправлена!
                 </h3>
                 <p className="text-xs sm:text-sm text-muted font-normal max-w-md mb-8 leading-relaxed">
-                  Спасибо за обращение. Наш администратор перезвонит вам в течение 10 минут для подтверждения времени записи.
+                  Спасибо за обращение. Мы свяжемся с вами, чтобы согласовать и подтвердить время записи.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
@@ -130,7 +143,7 @@ export function BookingSection({ onOpenBookingModal }: BookingSectionProps) {
                     Забронировать приём
                   </h3>
                   <p className="text-xs sm:text-sm text-muted font-normal leading-relaxed">
-                    Заполните форму — мы забронируем удобное окно и подтвердим визит звонком
+                    Заполните форму — мы согласуем удобное время и подтвердим ваш визит
                   </p>
                 </div>
 
@@ -189,6 +202,7 @@ export function BookingSection({ onOpenBookingModal }: BookingSectionProps) {
                         }
                         className="w-full h-11 sm:h-12 bg-paper border border-rule rounded-xl pl-4 pr-10 text-xs sm:text-sm text-ink font-medium focus:bg-surface focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all cursor-pointer appearance-none"
                       >
+                        <option value="">Выберите услугу (необязательно)</option>
                         <option>Первичный осмотр и 3D-диагностика</option>
                         <option>Лечение кариеса и эстетика</option>
                         <option>Имплантация и хирургия</option>
@@ -223,14 +237,16 @@ export function BookingSection({ onOpenBookingModal }: BookingSectionProps) {
                 <div className="pt-2">
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     className="w-full h-12 sm:h-13 inline-flex items-center justify-center rounded-xl sm:rounded-full bg-ink text-paper hover:bg-accent hover:text-accent-ink font-bold text-xs sm:text-sm transition-all duration-200 shadow-md hover:shadow-lg active:scale-[0.98] cursor-pointer gap-2.5"
                   >
                     <Calendar className="w-4 h-4 shrink-0" />
-                    <span>Записаться на удобное время</span>
+                    <span>{isSubmitting ? "Отправляем…" : "Записаться на удобное время"}</span>
                   </button>
+                  {submitError && <p role="alert" className="mt-3 text-center text-sm text-red-700">{submitError}</p>}
 
                   <p className="text-[11px] text-muted text-center leading-normal mt-3 px-2">
-                    Нажимая кнопку, вы соглашаетесь на обработку персональных данных. Администратор перезвонит вам в течение 10 минут.
+                    Нажимая кнопку, вы соглашаетесь на обработку персональных данных. Мы свяжемся с вами для подтверждения записи.
                   </p>
                 </div>
               </form>

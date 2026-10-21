@@ -144,3 +144,34 @@ export interface FaqItem {
   answer: string;
   category?: string;
 }
+
+export interface ClinicMetric {
+  id: string;
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  label: string;
+  description?: string;
+}
+
+export interface TourismStep { id: string; number: string; title: string; description: string; }
+export interface TourismComparison {
+  id: string;
+  service: string;
+  tajikistan: string;
+  russia: string;
+  kazakhstan: string;
+  europe: string;
+  usa: string;
+}
+export interface TourismPackage {
+  id: string;
+  number: string;
+  name: string;
+  duration: string;
+  audience: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+}
+export interface TourismPlace { id: string; name: string; meta: string; image: string; className: string; }

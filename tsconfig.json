@@ -29,8 +29,6 @@
   },
   "include": [
     "src",
-    "server",
-    "scripts",
     "vite.config.ts"
   ],
   "exclude": [
