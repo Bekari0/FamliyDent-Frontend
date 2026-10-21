@@ -1,5 +1,11 @@
+import { Container, Heading, Text } from "@/ui-kit";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import { useEffect, useMemo, useState } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { EditorialPageHero } from "../components/shared/editorial-page-hero";
 import { DoctorCard } from "../components/team/doctor-card";
 import { DoctorProfileDialog } from "../components/team/doctor-profile-dialog";
@@ -12,10 +18,26 @@ interface DoctorsPageProps {
 
 const specialtyFilters = [
   { value: "all", label: "Все направления", terms: [] },
-  { value: "therapy", label: "Терапия", terms: ["терапевт", "эндодонт", "лечение кариеса"] },
-  { value: "surgery", label: "Хирургия и имплантация", terms: ["хирург", "имплант"] },
-  { value: "orthopedics", label: "Ортопедия", terms: ["ортопед", "протезирование"] },
-  { value: "orthodontics", label: "Ортодонтия", terms: ["ортодонт", "гнатолог"] },
+  {
+    value: "therapy",
+    label: "Терапия",
+    terms: ["терапевт", "эндодонт", "лечение кариеса"],
+  },
+  {
+    value: "surgery",
+    label: "Хирургия и имплантация",
+    terms: ["хирург", "имплант"],
+  },
+  {
+    value: "orthopedics",
+    label: "Ортопедия",
+    terms: ["ортопед", "протезирование"],
+  },
+  {
+    value: "orthodontics",
+    label: "Ортодонтия",
+    terms: ["ортодонт", "гнатолог"],
+  },
   { value: "pediatric", label: "Детская стоматология", terms: ["детский"] },
   { value: "hygiene", label: "Гигиена", terms: ["гигиен"] },
 ] as const;
@@ -26,17 +48,30 @@ export function DoctorsPage({ onOpenBooking }: DoctorsPageProps) {
   const [specialty, setSpecialty] = useState("all");
   const [branch, setBranch] = useState("all");
   const filteredDoctors = useMemo(() => {
-    const selectedSpecialty = specialtyFilters.find((item) => item.value === specialty);
+    const selectedSpecialty = specialtyFilters.find(
+      (item) => item.value === specialty,
+    );
     return doctors.filter((doctor) => {
-      const searchable = `${doctor.specialty} ${doctor.specialties.join(" ")}`.toLocaleLowerCase("ru");
-      const matchesSpecialty = !selectedSpecialty?.terms.length || selectedSpecialty.terms.some((term) => searchable.includes(term));
-      const matchesBranch = branch === "all" || doctor.branches?.includes(branch as "Айни" | "Молодёжный");
+      const searchable =
+        `${doctor.specialty} ${doctor.specialties.join(" ")}`.toLocaleLowerCase(
+          "ru",
+        );
+      const matchesSpecialty =
+        !selectedSpecialty?.terms.length ||
+        selectedSpecialty.terms.some((term) => searchable.includes(term));
+      const matchesBranch =
+        branch === "all" ||
+        doctor.branches?.includes(branch as "Айни" | "Молодёжный");
       return matchesSpecialty && matchesBranch;
     });
   }, [branch, doctors, specialty]);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
-  const introX = useTransform(scrollYProgress, [0, 0.28], reduceMotion ? [0, 0] : [0, 56]);
+  const introX = useTransform(
+    scrollYProgress,
+    [0, 0.28],
+    reduceMotion ? [0, 0] : [0, 56],
+  );
 
   useEffect(() => {
     document.title = "Врачи Family Dent — Стоматологи в Душанбе";
@@ -44,7 +79,10 @@ export function DoctorsPage({ onOpenBooking }: DoctorsPageProps) {
   }, []);
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-ink text-paper">
+    <div
+      className="flex min-h-screen w-full flex-col bg-ink text-paper"
+      data-ui-scheme="inverse"
+    >
       <EditorialPageHero
         dark
         badge="Люди Family Dent"
@@ -52,35 +90,60 @@ export function DoctorsPage({ onOpenBooking }: DoctorsPageProps) {
         description="Познакомьтесь со специалистами клиники: опыт, образование и направления работы каждого врача собраны в подробном профиле."
       />
 
-      <section className="w-full border-t border-paper/10 py-12 sm:py-16 lg:py-20" aria-labelledby="doctors-list-title">
-        <div className="page-container flex flex-col gap-10">
-          <motion.div style={{ x: introX }} className="flex max-w-3xl flex-col gap-3">
-            <p className="font-mono text-xs uppercase tracking-[0.12em] text-accent-2">Команда клиники</p>
-            <h2 id="doctors-list-title" className="max-w-2xl text-balance font-display text-2xl font-semibold leading-[1.1] tracking-[-0.025em] sm:text-3xl lg:text-4xl">
+      <section
+        className="w-full border-t border-paper/10 py-12 sm:py-16 desktop:py-20"
+        aria-labelledby="doctors-list-title"
+      >
+        <Container className="flex flex-col gap-10">
+          <motion.div
+            style={{ x: introX }}
+            className="flex max-w-3xl flex-col gap-3"
+          >
+            <Text variant="overline" className="uppercase text-accent-2">
+              Команда клиники
+            </Text>
+            <Heading
+              level={2}
+              id="doctors-list-title"
+              className="max-w-2xl text-balance"
+            >
               Каждый профиль — открыто о подготовке и практике врача
-            </h2>
-            <p className="text-pretty text-sm leading-relaxed text-paper/65 sm:text-base">
-              Выберите специалиста, чтобы узнать об образовании, профессиональной подготовке и направлениях приёма.
-            </p>
+            </Heading>
+            <Text variant="body-sm" className="text-pretty text-paper/65">
+              Выберите специалиста, чтобы узнать об образовании,
+              профессиональной подготовке и направлениях приёма.
+            </Text>
           </motion.div>
 
-          <div className="grid gap-4 border-y border-paper/15 py-5 lg:grid-cols-[minmax(0,1fr)_16rem]" aria-label="Фильтры врачей">
-            <div className="flex flex-wrap gap-2" role="group" aria-label="Фильтр по направлению">
+          <div
+            className="grid gap-4 border-y border-paper/15 py-5 desktop:grid-cols-[minmax(0,1fr)_16rem]"
+            aria-label="Фильтры врачей"
+          >
+            <div
+              className="flex flex-wrap gap-2"
+              role="group"
+              aria-label="Фильтр по направлению"
+            >
               {specialtyFilters.map((item) => (
                 <button
                   key={item.value}
                   type="button"
                   onClick={() => setSpecialty(item.value)}
                   aria-pressed={specialty === item.value}
-                  className="min-h-11 rounded-pill border border-paper/35 px-4 text-sm font-semibold text-paper transition-colors hover:border-paper/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper/70 aria-pressed:border-paper/90 aria-pressed:bg-paper aria-pressed:text-ink"
+                  className="type-button min-h-11 rounded-pill border border-paper/35 px-4 text-paper transition-colors hover:border-paper/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper/70 aria-pressed:border-paper/90 aria-pressed:bg-paper aria-pressed:text-ink"
+                  data-ui-scheme="default"
                 >
                   {item.label}
                 </button>
               ))}
             </div>
-            <label className="flex min-w-0 flex-col gap-2 font-mono text-xs uppercase tracking-wider text-paper/65">
+            <label className="type-overline flex min-w-0 flex-col gap-2 uppercase text-paper/65">
               Филиал
-              <select value={branch} onChange={(event) => setBranch(event.target.value)} className="min-h-11 rounded-lg border border-paper/35 bg-ink-2 px-3 font-body text-sm normal-case tracking-normal text-paper transition-colors hover:border-paper/70 focus-visible:border-paper/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper/70">
+              <select
+                value={branch}
+                onChange={(event) => setBranch(event.target.value)}
+                className="type-input min-h-11 rounded-lg border border-paper/35 bg-ink-2 px-3 normal-case text-paper transition-colors hover:border-paper/70 focus-visible:border-paper/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper/70"
+              >
                 <option value="all">Все филиалы</option>
                 <option value="Айни">Айни</option>
                 <option value="Молодёжный">Молодёжный</option>
@@ -88,18 +151,30 @@ export function DoctorsPage({ onOpenBooking }: DoctorsPageProps) {
             </label>
           </div>
 
-          <p className="text-sm text-paper/65" role="status">Найдено специалистов: {filteredDoctors.length}</p>
+          <Text variant="body-sm" className="text-paper/65" role="status">
+            Найдено специалистов: {filteredDoctors.length}
+          </Text>
 
           {filteredDoctors.length > 0 ? (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 desktop:grid-cols-3 xl:grid-cols-4">
               {filteredDoctors.map((doctor, index) => (
-                <DoctorCard key={doctor.id} doctor={doctor} index={index} onOpen={setSelectedDoctor} />
+                <DoctorCard
+                  key={doctor.id}
+                  doctor={doctor}
+                  index={index}
+                  onOpen={setSelectedDoctor}
+                />
               ))}
             </div>
           ) : (
-            <p className="border-y border-paper/15 py-10 text-paper/70">По выбранным фильтрам специалисты не найдены.</p>
+            <Text
+              variant="body"
+              className="border-y border-paper/15 py-10 text-paper/70"
+            >
+              По выбранным фильтрам специалисты не найдены.
+            </Text>
           )}
-        </div>
+        </Container>
       </section>
 
       <DoctorProfileDialog

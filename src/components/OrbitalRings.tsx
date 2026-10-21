@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import { readCssToken } from "@/ui-kit";
+import { useEffect, useRef } from "react";
 
 export interface OrbitalRingsProps {
   /** mouse position X normalized from -1 (left) to 1 (right) */
@@ -46,7 +47,15 @@ export function OrbitalRings({
 
     let animationFrameId: number;
 
-    // 3 3D orbital rings styled with elegant gold palette and proportioned to fit canvas unclipped
+    const colors = {
+      accent: readCssToken("--color-accent", canvas),
+      accentSoft: readCssToken("--color-accent-2", canvas),
+      back: readCssToken("--color-brand-strong", canvas),
+      light: readCssToken("--color-on-dark", canvas),
+      transparent: readCssToken("--color-transparent", canvas),
+    };
+
+    // Decorative geometry stays local; every color comes from the shared theme.
     const rings: RingConfig[] = [
       {
         diameter: 500,
@@ -55,10 +64,10 @@ export function OrbitalRings({
         tiltZ: 0.2,
         speed: 0.00045,
         dotSpeed: 0.001,
-        colorFront: "rgba(216, 200, 163, 0.9)", // Warm bright gold
-        colorBack: "rgba(180, 155, 110, 0.38)",
-        dotColor: "#FFFFFF",
-        dotGlow: "rgba(216, 200, 163, 0.95)",
+        colorFront: colors.accent, // Warm bright gold
+        colorBack: colors.back,
+        dotColor: colors.light,
+        dotGlow: colors.accentSoft,
         strokeWidth: 1.5,
       },
       {
@@ -68,10 +77,10 @@ export function OrbitalRings({
         tiltZ: -0.4,
         speed: -0.00035,
         dotSpeed: -0.00085,
-        colorFront: "rgba(235, 222, 190, 0.8)",
-        colorBack: "rgba(160, 138, 95, 0.3)",
-        dotColor: "#FFF8E7",
-        dotGlow: "rgba(235, 222, 190, 0.9)",
+        colorFront: colors.accentSoft,
+        colorBack: colors.back,
+        dotColor: colors.light,
+        dotGlow: colors.accentSoft,
         strokeWidth: 1.3,
       },
       {
@@ -81,10 +90,10 @@ export function OrbitalRings({
         tiltZ: 0.8,
         speed: 0.00028,
         dotSpeed: 0.00065,
-        colorFront: "rgba(216, 200, 163, 0.7)",
-        colorBack: "rgba(140, 120, 80, 0.25)",
-        dotColor: "#FFFFFF",
-        dotGlow: "rgba(216, 200, 163, 0.85)",
+        colorFront: colors.accent,
+        colorBack: colors.back,
+        dotColor: colors.light,
+        dotGlow: colors.accentSoft,
         strokeWidth: 1.3,
       },
     ];
@@ -136,7 +145,7 @@ export function OrbitalRings({
         z3d: number,
         rotX: number,
         rotY: number,
-        rotZ: number
+        rotZ: number,
       ) => {
         // Z rotation
         const cosZ = Math.cos(rotZ);
@@ -199,7 +208,14 @@ export function OrbitalRings({
           const x3d = radius * Math.cos(t);
           const y3d = radius * Math.sin(t);
 
-          const p = project3D(x3d, y3d, 0, ring.tiltX, currentTiltY, ring.tiltZ);
+          const p = project3D(
+            x3d,
+            y3d,
+            0,
+            ring.tiltX,
+            currentTiltY,
+            ring.tiltZ,
+          );
           points.push(p);
         }
 
@@ -220,27 +236,25 @@ export function OrbitalRings({
 
           let strokeW: number;
           let strokeColor: string;
+          let strokeOpacity: number;
 
           if (avgZ >= 0) {
             // Front segment: bright, crisp, thicker
             const frontFactor = 0.6 + 0.4 * normZ;
             strokeW = ring.strokeWidth * scaleFactor * (1 + normZ * 0.25);
-            strokeColor = ring.colorFront.replace(
-              /[\d\.]+\)$/,
-              `${(0.88 * frontFactor).toFixed(2)})`
-            );
+            strokeColor = ring.colorFront;
+            strokeOpacity = 0.88 * frontFactor;
           } else {
             // Back segment: dimmer, thinner, subtle
             const backFactor = 0.35 + 0.35 * (1 + normZ);
             strokeW = ring.strokeWidth * scaleFactor * 0.85;
-            strokeColor = ring.colorBack.replace(
-              /[\d\.]+\)$/,
-              `${(0.5 * backFactor).toFixed(2)})`
-            );
+            strokeColor = ring.colorBack;
+            strokeOpacity = 0.5 * backFactor;
           }
 
           ctx.lineWidth = Math.max(0.8, strokeW);
           ctx.strokeStyle = strokeColor;
+          ctx.globalAlpha = strokeOpacity;
 
           ctx.beginPath();
           ctx.moveTo(p1.x, p1.y);
@@ -248,11 +262,20 @@ export function OrbitalRings({
           ctx.stroke();
         }
 
+        ctx.globalAlpha = 1;
+
         // Project position of glowing dot riding along the ring
         const dotT = elapsed * ring.dotSpeed;
         const dotX3d = radius * Math.cos(dotT);
         const dotY3d = radius * Math.sin(dotT);
-        const dotP = project3D(dotX3d, dotY3d, 0, ring.tiltX, currentTiltY, ring.tiltZ);
+        const dotP = project3D(
+          dotX3d,
+          dotY3d,
+          0,
+          ring.tiltX,
+          currentTiltY,
+          ring.tiltZ,
+        );
 
         const isDotBack = dotP.z < zThreshold;
         const isDotFront = dotP.z >= zThreshold;
@@ -274,11 +297,11 @@ export function OrbitalRings({
             0,
             dotP.x,
             dotP.y,
-            glowRadius
+            glowRadius,
           );
           gradient.addColorStop(0, ring.dotGlow);
           gradient.addColorStop(0.35, ring.colorFront);
-          gradient.addColorStop(1, "rgba(216, 200, 163, 0)");
+          gradient.addColorStop(1, colors.transparent);
 
           ctx.save();
           ctx.globalAlpha = dotAlpha;
@@ -318,4 +341,3 @@ export function OrbitalRings({
 }
 
 export default OrbitalRings;
-

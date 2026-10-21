@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Container, Heading, Text } from "@/ui-kit";
 import { ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getTreatmentCases } from "../../lib/data/treatment-cases";
 import type { TreatmentCase } from "../../lib/data/types";
 import { BeforeAfterSlider } from "../results/before-after-slider";
-import { ScrollAnimate, StaggerContainer, StaggerItem } from "../shared/scroll-animate";
+import {
+  ScrollAnimate,
+  StaggerContainer,
+  StaggerItem,
+} from "../shared/scroll-animate";
 
 export function TreatmentResultsSection() {
   const [cases, setCases] = useState<TreatmentCase[]>([]);
@@ -18,53 +23,63 @@ export function TreatmentResultsSection() {
   }, []);
 
   return (
-    <section className="w-full border-b border-[var(--color-rule)] bg-[var(--color-paper)] py-16 text-[var(--color-ink)] sm:py-20">
-      <div className="page-container">
+    <section
+      className="w-full border-b border-rule bg-paper py-16 text-ink sm:py-20"
+      data-ui-scheme="default"
+    >
+      <Container>
         {/* Header */}
-        <ScrollAnimate className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <ScrollAnimate className="flex flex-col tablet:flex-row tablet:items-end justify-between mb-12 gap-4">
           <div>
-            <span className="text-xs uppercase font-bold text-[var(--color-accent)] tracking-wider mb-2 block font-mono">
+            <span className="type-overline uppercase text-brand-text mb-2 block">
               Клинические кейсы
             </span>
-            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-[var(--color-ink)] tracking-tight">
+            <Heading level={2} className="text-ink">
               Результаты лечения «До / После»
-            </h2>
-            <p className="text-xs sm:text-sm text-[var(--color-muted)] font-normal mt-1">
-              Перемещайте ползунок влево и вправо для наглядного сравнения эстетических результатов.
-            </p>
+            </Heading>
+            <Text variant="body-sm" className="text-muted mt-1">
+              Перемещайте ползунок влево и вправо для наглядного сравнения
+              эстетических результатов.
+            </Text>
           </div>
           <Link
             to="/results"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--color-surface)] text-[var(--color-ink)] border border-[var(--color-rule)] text-xs font-bold hover:bg-[var(--color-paper-2)] transition-all self-start md:self-auto group shadow-2xs"
+            className="type-caption inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-surface text-ink border border-rule hover:bg-paper-2 transition-all self-start tablet:self-auto group shadow-2xs"
+            data-ui-scheme="default"
           >
             <span>Все результаты</span>
-            <ArrowRight className="w-4 h-4 text-[var(--color-accent)] group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-brand-text group-hover:translate-x-1 transition-transform" />
           </Link>
         </ScrollAnimate>
 
         {/* Treatment Case Cards Grid */}
-        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <StaggerContainer className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
           {cases.map((c) => (
             <StaggerItem
               key={c.id}
-              className="bg-[var(--color-surface)] rounded-3xl p-6 sm:p-7 border border-[var(--color-rule)] shadow-[var(--shadow-whisper)] flex flex-col justify-between"
+              className="bg-surface rounded-3xl p-6 sm:p-7 border border-rule shadow-whisper flex flex-col justify-between"
+              data-ui-scheme="default"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-[11px] uppercase font-bold text-[var(--color-accent)] bg-[var(--color-accent-soft)] px-2.5 py-1 rounded-md border border-[var(--color-rule)]">
+                  <span className="type-caption uppercase text-brand-text bg-accent-soft px-2.5 py-1 rounded-md border border-rule">
                     {c.category}
                   </span>
-                  <div className="text-[11px] text-[var(--color-muted)] font-medium">
+                  <div className="type-caption text-muted">
                     <span>Цифровая протоколизация</span>
                   </div>
                 </div>
 
-                <h3 className="text-lg font-semibold text-[var(--color-ink)] mb-2">
+                <Heading
+                  level={3}
+                  variant="heading-5"
+                  className="text-ink mb-2"
+                >
                   {c.title}
-                </h3>
-                <p className="text-xs text-[var(--color-muted)] font-normal leading-relaxed mb-6">
+                </Heading>
+                <Text variant="body-sm" className="text-muted mb-6">
                   {c.shortDescription}
-                </p>
+                </Text>
 
                 {/* Interactive Slider */}
                 <BeforeAfterSlider
@@ -77,7 +92,7 @@ export function TreatmentResultsSection() {
             </StaggerItem>
           ))}
         </StaggerContainer>
-      </div>
+      </Container>
     </section>
   );
 }

@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { Container, Heading, Text } from "@/ui-kit";
 import { ExternalLink, MapPin, Star } from "lucide-react";
-import { EditorialPageHero } from "../components/shared/editorial-page-hero";
+import { useEffect, useMemo, useState } from "react";
 import { VideoReviewCard } from "../components/reviews/video-review-card";
+import { EditorialPageHero } from "../components/shared/editorial-page-hero";
 import {
   getPatientReviews,
   googleReviewSources,
@@ -24,51 +25,86 @@ function TextReviewCard({ review }: { review: PatientReview }) {
       href={review.sourceUrl}
       target="_blank"
       rel="noreferrer"
-      className="group flex min-h-64 flex-col justify-between gap-8 rounded-[var(--radius-lg)] border border-[var(--color-rule)] bg-[var(--color-surface)] p-6 shadow-[var(--shadow-whisper)] transition-all hover:-translate-y-1 hover:border-[var(--color-accent-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] sm:p-7"
+      className="group flex min-h-64 flex-col justify-between gap-8 rounded-lg border border-rule bg-surface p-6 shadow-whisper transition-all hover:-translate-y-1 hover:border-accent-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus sm:p-7"
       aria-label={`Отзыв ${review.authorName} на Яндекс Картах`}
+      data-ui-scheme="default"
     >
       <div className="flex flex-col gap-5">
         <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-1" aria-label={`${review.rating ?? 5} из 5`}>
+          <div
+            className="flex items-center gap-1"
+            aria-label={`${review.rating ?? 5} из 5`}
+          >
             {Array.from({ length: review.rating ?? 5 }).map((_, index) => (
-              <Star key={index} aria-hidden="true" className="size-4 fill-[var(--color-warn)] text-[var(--color-warn)]" />
+              <Star
+                key={index}
+                aria-hidden="true"
+                className="size-4 fill-warn text-warn"
+              />
             ))}
           </div>
-          <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[var(--color-accent)]">Яндекс</span>
+          <span className="type-overline uppercase text-brand-text">
+            Яндекс
+          </span>
         </div>
-        <p className="text-pretty text-sm leading-6 text-[var(--color-ink-2)]">{`«${review.text}»`}</p>
+        <Text
+          variant="body-sm"
+          className="text-pretty text-ink-2"
+        >{`«${review.text}»`}</Text>
       </div>
-      <footer className="flex items-end justify-between gap-4 border-t border-[var(--color-rule)] pt-5">
+      <footer className="flex items-end justify-between gap-4 border-t border-rule pt-5">
         <div className="flex flex-col gap-1">
-          <h3 className="font-sans text-base font-bold text-[var(--color-ink)]">{review.authorName}</h3>
-          <p className="text-xs text-[var(--color-muted)]">{review.publishedAt}</p>
+          <Heading level={3} variant="heading-6" className="text-ink">
+            {review.authorName}
+          </Heading>
+          <Text variant="body-sm" className="text-muted">
+            {review.publishedAt}
+          </Text>
         </div>
-        <ExternalLink aria-hidden="true" className="size-4 text-[var(--color-muted)] transition-colors group-hover:text-[var(--color-accent)]" />
+        <ExternalLink
+          aria-hidden="true"
+          className="size-4 text-muted transition-colors group-hover:text-brand-text"
+        />
       </footer>
     </a>
   );
 }
 
-function GoogleSourceCard({ source }: { source: (typeof googleReviewSources)[number] }) {
+function GoogleSourceCard({
+  source,
+}: {
+  source: (typeof googleReviewSources)[number];
+}) {
   return (
     <a
       href={source.href}
       target="_blank"
       rel="noreferrer"
-      className="group flex min-h-64 flex-col justify-between gap-8 rounded-[var(--radius-lg)] bg-[var(--color-ink)] p-6 text-[var(--color-paper)] transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] sm:p-7"
+      className="group flex min-h-64 flex-col justify-between gap-8 rounded-lg bg-ink p-6 text-paper transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus sm:p-7"
+      data-ui-scheme="inverse"
     >
       <div className="flex items-start justify-between gap-4">
-        <span className="flex size-11 items-center justify-center rounded-full bg-[var(--color-accent)] text-[var(--color-accent-ink)]">
+        <span className="flex size-11 items-center justify-center rounded-full bg-accent text-accent-ink">
           <MapPin aria-hidden="true" className="size-5" />
         </span>
-        <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[var(--color-accent-2)]">Google Maps</span>
+        <span className="type-overline uppercase text-accent-2">
+          Google Maps
+        </span>
       </div>
       <div className="flex flex-col gap-3">
-        <h3 className="font-sans text-xl font-bold">{source.name}</h3>
-        <p className="text-sm leading-6 text-[var(--color-paper-3)]">{source.branch}. Откройте карточку филиала, чтобы увидеть актуальные отзывы без сокращений.</p>
-        <span className="mt-2 inline-flex items-center gap-2 text-sm font-bold">
+        <Heading level={3} variant="heading-4">
+          {source.name}
+        </Heading>
+        <Text variant="body-sm" className="text-paper-3">
+          {source.branch}. Откройте карточку филиала, чтобы увидеть актуальные
+          отзывы без сокращений.
+        </Text>
+        <span className="type-body-sm mt-2 inline-flex items-center gap-2">
           Смотреть отзывы
-          <ExternalLink aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-0.5" />
+          <ExternalLink
+            aria-hidden="true"
+            className="size-4 transition-transform group-hover:translate-x-0.5"
+          />
         </span>
       </div>
     </a>
@@ -85,8 +121,12 @@ export function ReviewsPage() {
   }, []);
 
   const filteredReviews = useMemo(() => {
-    if (activeFilter === "video") return reviews.filter((review) => review.source === "instagram" || review.source === "video");
-    if (activeFilter === "yandex") return reviews.filter((review) => review.source === "yandex");
+    if (activeFilter === "video")
+      return reviews.filter(
+        (review) => review.source === "instagram" || review.source === "video",
+      );
+    if (activeFilter === "yandex")
+      return reviews.filter((review) => review.source === "yandex");
     if (activeFilter === "google") return [];
     return reviews;
   }, [activeFilter, reviews]);
@@ -94,7 +134,10 @@ export function ReviewsPage() {
   const showGoogle = activeFilter === "all" || activeFilter === "google";
 
   return (
-    <main className="flex min-h-screen w-full flex-col bg-[var(--color-paper)] text-[var(--color-ink)]">
+    <div
+      className="flex min-h-screen w-full flex-col bg-paper text-ink"
+      data-ui-scheme="default"
+    >
       <EditorialPageHero
         badge="Мнения пациентов"
         title="Отзывы о Family Dent"
@@ -102,20 +145,32 @@ export function ReviewsPage() {
       />
 
       <section aria-labelledby="reviews-list-title" className="py-12 sm:py-16">
-        <div className="page-container flex flex-col gap-10">
-          <div className="flex flex-col gap-5 border-b border-[var(--color-rule)] pb-7 lg:flex-row lg:items-end lg:justify-between">
+        <Container className="flex flex-col gap-10">
+          <div className="flex flex-col gap-5 border-b border-rule pb-7 desktop:flex-row desktop:items-end desktop:justify-between">
             <div className="flex max-w-xl flex-col gap-2">
-              <h2 id="reviews-list-title" className="font-sans text-2xl font-bold tracking-tight sm:text-3xl">Истории наших пациентов</h2>
-              <p className="text-sm leading-6 text-[var(--color-muted)]">Выберите формат или площадку. Каждый текстовый отзыв ведёт к оригиналу.</p>
+              <Heading level={2} id="reviews-list-title">
+                Истории наших пациентов
+              </Heading>
+              <Text variant="body-sm" className="text-muted">
+                Выберите формат или площадку. Каждый текстовый отзыв ведёт к
+                оригиналу.
+              </Text>
             </div>
-            <div role="group" aria-label="Фильтр отзывов" className="flex flex-wrap gap-2">
+            <div
+              role="group"
+              aria-label="Фильтр отзывов"
+              className="flex flex-wrap gap-2"
+            >
               {filters.map((filter) => (
                 <button
                   key={filter.id}
                   type="button"
                   onClick={() => setActiveFilter(filter.id)}
                   aria-pressed={activeFilter === filter.id}
-                  className={`min-h-11 rounded-full border px-4 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)] ${activeFilter === filter.id ? "border-[var(--color-ink)] bg-[var(--color-ink)] text-[var(--color-paper)]" : "border-[var(--color-rule-2)] bg-[var(--color-surface)] text-[var(--color-ink)] hover:border-[var(--color-accent)]"}`}
+                  className={`type-button min-h-11 rounded-full border px-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus ${activeFilter === filter.id ? "border-ink bg-ink text-paper" : "border-rule-2 bg-surface text-ink hover:border-accent"}`}
+                  data-ui-scheme={
+                    activeFilter === filter.id ? "inverse" : "default"
+                  }
                 >
                   {filter.label}
                 </button>
@@ -123,7 +178,10 @@ export function ReviewsPage() {
             </div>
           </div>
 
-          <div aria-live="polite" className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            aria-live="polite"
+            className="grid grid-cols-1 gap-5 sm:grid-cols-2 desktop:grid-cols-3"
+          >
             {filteredReviews.map((review) =>
               review.source === "instagram" || review.source === "video" ? (
                 <VideoReviewCard key={review.id} review={review} />
@@ -131,16 +189,25 @@ export function ReviewsPage() {
                 <TextReviewCard key={review.id} review={review} />
               ),
             )}
-            {showGoogle && googleReviewSources.map((source) => <GoogleSourceCard key={source.id} source={source} />)}
+            {showGoogle &&
+              googleReviewSources.map((source) => (
+                <GoogleSourceCard key={source.id} source={source} />
+              ))}
           </div>
 
           {activeFilter === "yandex" && (
-            <a href={reviewSourceLinks.yandex} target="_blank" rel="noreferrer" className="inline-flex min-h-11 w-fit items-center gap-2 font-bold text-[var(--color-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)]">
-              Все отзывы на Яндекс Картах <ExternalLink aria-hidden="true" className="size-4" />
+            <a
+              href={reviewSourceLinks.yandex}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex min-h-11 w-fit items-center gap-2 font-bold text-brand-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
+            >
+              Все отзывы на Яндекс Картах{" "}
+              <ExternalLink aria-hidden="true" className="size-4" />
             </a>
           )}
-        </div>
+        </Container>
       </section>
-    </main>
+    </div>
   );
 }

@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { HomeHero } from "../components/home/home-hero";
-import { ClinicMetricsSection } from "../components/home/clinic-metrics-section";
-import { FeaturedServicesSection } from "../components/home/featured-services-section";
-import { FeaturedDoctorsSection } from "../components/home/featured-doctors-section";
-import { TreatmentResultsSection } from "../components/home/treatment-results-section";
-import { PatientReviewsSection } from "../components/home/patient-reviews-section";
-import { HomeFaqSection } from "../components/home/home-faq-section";
+import { useEffect } from "react";
 import { BookingSection } from "../components/home/booking-section";
+import { ClinicMetricsSection } from "../components/home/clinic-metrics-section";
+import { FeaturedDoctorsSection } from "../components/home/featured-doctors-section";
+import { FeaturedServicesSection } from "../components/home/featured-services-section";
+import { HomeFaqSection } from "../components/home/home-faq-section";
+import { HomeHero } from "../components/home/home-hero";
+import { PatientReviewsSection } from "../components/home/patient-reviews-section";
+import { TreatmentResultsSection } from "../components/home/treatment-results-section";
 
 interface HomePageProps {
   onOpenBooking: (doctorName?: string) => void;
@@ -19,7 +19,10 @@ export function HomePage({ onOpenBooking, onOpenAuth }: HomePageProps) {
   }, []);
 
   return (
-    <div className="w-full flex flex-col min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)]">
+    <div
+      className="w-full flex flex-col min-h-screen bg-paper text-ink"
+      data-ui-scheme="default"
+    >
       {/* 1. HERO SECTION */}
       <HomeHero onOpenBooking={() => onOpenBooking()} onOpenAuth={onOpenAuth} />
 
@@ -30,7 +33,9 @@ export function HomePage({ onOpenBooking, onOpenAuth }: HomePageProps) {
       <FeaturedServicesSection onOpenBooking={() => onOpenBooking()} />
 
       {/* 4. DOCTORS SECTION */}
-      <FeaturedDoctorsSection onOpenBooking={(doctor) => onOpenBooking(doctor)} />
+      <FeaturedDoctorsSection
+        onOpenBooking={(doctor) => onOpenBooking(doctor)}
+      />
 
       {/* 5. TREATMENT RESULTS "BEFORE / AFTER" SECTION */}
       <TreatmentResultsSection />

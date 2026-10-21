@@ -1,4 +1,5 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import { Text } from "@/ui-kit";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 interface BeforeAfterSliderProps {
   beforeImage: string;
@@ -96,7 +97,8 @@ export function BeforeAfterSlider({
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerCancel}
         onKeyDown={handleKeyDown}
-        className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden select-none cursor-ew-resize touch-pan-y border border-slate-200 bg-slate-900 shadow-md focus:outline-none focus:ring-2 focus:ring-accent"
+        className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden select-none cursor-ew-resize touch-pan-y border border-rule bg-ink shadow-md focus:outline-none focus:ring-2 focus:ring-accent"
+        data-ui-scheme="inverse"
       >
         {/* Underneath image: AFTER */}
         <img
@@ -118,33 +120,44 @@ export function BeforeAfterSlider({
             loading="lazy"
             decoding="async"
             className="absolute inset-y-0 left-0 max-w-none h-full object-cover"
-            style={{ width: containerWidth > 0 ? `${containerWidth}px` : "100%" }}
+            style={{
+              width: containerWidth > 0 ? `${containerWidth}px` : "100%",
+            }}
           />
         </div>
 
         {/* Divider line and handle */}
         <div
-          className="absolute top-0 bottom-0 w-1 bg-accent pointer-events-none shadow-[0_0_12px_rgba(216,200,163,0.8)]"
+          className="absolute top-0 bottom-0 w-1 bg-accent pointer-events-none shadow-glow"
           style={{ left: `${position}%` }}
         >
-          <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white border-2 border-accent flex items-center justify-center shadow-lg text-ink text-xs font-bold">
+          <div
+            className="type-caption absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-surface border-2 border-accent flex items-center justify-center shadow-lg text-ink"
+            data-ui-scheme="default"
+          >
             ↔
           </div>
         </div>
 
         {/* Text Badges */}
-        <div className="absolute top-3 left-3 bg-ink/75 backdrop-blur-md px-2.5 py-1 rounded-lg text-[11px] font-bold text-paper uppercase tracking-wider border border-white/20 pointer-events-none shadow-sm font-mono">
+        <div
+          className="type-overline absolute top-3 left-3 bg-ink/75 backdrop-blur-md px-2.5 py-1 rounded-lg text-paper uppercase border border-on-dark/20 pointer-events-none shadow-sm"
+          data-ui-scheme="inverse"
+        >
           До
         </div>
-        <div className="absolute top-3 right-3 bg-ink/75 backdrop-blur-md px-2.5 py-1 rounded-lg text-[11px] font-bold text-accent uppercase tracking-wider border border-accent/30 pointer-events-none shadow-sm font-mono">
+        <div
+          className="type-overline absolute top-3 right-3 bg-ink/75 backdrop-blur-md px-2.5 py-1 rounded-lg text-brand-text uppercase border border-accent/30 pointer-events-none shadow-sm"
+          data-ui-scheme="inverse"
+        >
           После
         </div>
       </div>
 
       {/* Mandatory Disclaimer */}
-      <p className="text-[11px] text-slate-500 font-normal italic leading-normal px-1">
+      <Text variant="caption" className="text-muted italic px-1">
         {disclaimer}
-      </p>
+      </Text>
     </div>
   );
 }

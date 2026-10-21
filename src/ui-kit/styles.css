@@ -1,0 +1,45 @@
+@import "./tokens.css";
+@import "./typography.css";
+@import "./controls.css";
+@import "./effects.css";
+
+@layer base {
+  html {
+    font-size: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-height);
+    background: var(--color-background);
+    color: var(--color-text-primary);
+  }
+
+  body {
+    margin: 0;
+    min-width: 0;
+    min-height: 100svh;
+    @apply type-body;
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font-family: inherit;
+  }
+  button,
+  a,
+  input,
+  textarea,
+  select,
+  summary {
+    &:focus-visible {
+      outline: var(--rule-strong) solid var(--color-focus);
+      outline-offset: var(--rule-strong);
+    }
+  }
+  ::selection {
+    color: var(--color-action-text);
+    background: var(--color-action-primary);
+  }
+}

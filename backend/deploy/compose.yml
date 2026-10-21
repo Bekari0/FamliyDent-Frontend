@@ -1,0 +1,54 @@
+name: familydent
+services:
+  backend:
+    build:
+      context: ../..
+      dockerfile: backend/Dockerfile
+    image: familydent-backend:${IMAGE_TAG:-local}
+    env_file: ../.env
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 8787
+      SERVE_FRONTEND: "true"
+      FRONTEND_DIST: ../frontend
+      TRUST_PROXY: 172.30.0.2/32
+    expose: ["8787"]
+    restart: unless-stopped
+    init: true
+    read_only: true
+    tmpfs: ["/tmp:size=16m,noexec,nosuid"]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 128
+    mem_limit: 768m
+    cpus: 1.5
+    stop_grace_period: 35s
+    networks:
+      web:
+        ipv4_address: 172.30.0.3
+  caddy:
+    image: caddy:2.11-alpine
+    environment:
+      SITE_DOMAIN: ${SITE_DOMAIN:?Set SITE_DOMAIN in backend/deploy/.env}
+    ports: ["80:80", "443:443", "443:443/udp"]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    restart: unless-stopped
+    security_opt: ["no-new-privileges:true"]
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      web:
+        ipv4_address: 172.30.0.2
+networks:
+  web:
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
+volumes:
+  caddy_data:
+  caddy_config:

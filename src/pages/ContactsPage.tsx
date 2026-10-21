@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import { Container, Heading, Text } from "@/ui-kit";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { useEffect } from "react";
 import { EditorialPageHero } from "../components/shared/editorial-page-hero";
-import { MapPin, Phone, Mail, Clock, MessageSquare } from "lucide-react";
 
 export function ContactsPage() {
   useEffect(() => {
@@ -8,59 +9,92 @@ export function ContactsPage() {
   }, []);
 
   return (
-    <div className="w-full flex flex-col min-h-screen bg-paper text-ink">
+    <div
+      className="w-full flex flex-col min-h-screen bg-paper text-ink"
+      data-ui-scheme="default"
+    >
       <EditorialPageHero
         badge="Связь с нами"
         title="Контакты клиники Family Dent"
         description="Мы находимся в самом центре Душанбе. Запишитесь на прием удобным для вас способом."
       />
 
-      <div className="page-container page-container--content my-8 grid grid-cols-1 gap-8 md:grid-cols-2">
+      <Container
+        width="content"
+        className="my-8 grid grid-cols-1 gap-8 tablet:grid-cols-2"
+      >
         {/* Contact info cards */}
-        <div className="bg-surface border border-rule rounded-3xl p-8 shadow-card flex flex-col gap-6">
-          <h2 className="font-display text-xl font-bold text-ink mb-2">Наш адрес и часы работы</h2>
+        <div
+          className="bg-surface border border-rule rounded-3xl p-8 shadow-card flex flex-col gap-6"
+          data-ui-scheme="default"
+        >
+          <Heading level={2} variant="heading-4" className="text-ink mb-2">
+            Наш адрес и часы работы
+          </Heading>
 
           <div className="flex items-start gap-3">
-            <div className="w-9 h-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center flex-shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-accent/15 text-brand-text flex items-center justify-center flex-shrink-0">
               <MapPin className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-xs uppercase text-accent font-semibold block font-mono">Адреса филиалов</span>
-              <p className="text-sm text-ink font-medium">Улица Айни, 45</p>
-              <p className="text-sm text-ink font-medium mt-1">Улица Немат Карабаева, 29</p>
+              <span className="type-overline uppercase text-brand-text block">
+                Адреса филиалов
+              </span>
+              <Text variant="body-sm" className="text-ink">
+                Улица Айни, 45
+              </Text>
+              <Text variant="body-sm" className="text-ink mt-1">
+                Улица Немат Карабаева, 29
+              </Text>
             </div>
           </div>
 
           <div className="flex items-start gap-3">
-            <div className="w-9 h-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center flex-shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-accent/15 text-brand-text flex items-center justify-center flex-shrink-0">
               <Phone className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-xs uppercase text-accent font-semibold block font-mono">Телефон</span>
-              <a href="tel:+992446606600" className="text-sm text-ink hover:text-accent font-medium">
+              <span className="type-overline uppercase text-brand-text block">
+                Телефон
+              </span>
+              <a
+                href="tel:+992446606600"
+                className="type-body-sm text-ink hover:text-brand-text"
+              >
                 +992 446 60 66 00
               </a>
             </div>
           </div>
 
           <div className="flex items-start gap-3">
-            <div className="w-9 h-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center flex-shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-accent/15 text-brand-text flex items-center justify-center flex-shrink-0">
               <Clock className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-xs uppercase text-accent font-semibold block font-mono">График работы</span>
-              <p className="text-sm text-ink font-normal">Понедельник – Суббота: 08:00 – 20:00</p>
-              <p className="text-xs text-muted">Воскресенье: по предварительной записи</p>
+              <span className="type-overline uppercase text-brand-text block">
+                График работы
+              </span>
+              <Text variant="body-sm" className="text-ink">
+                Понедельник – Суббота: 08:00 – 20:00
+              </Text>
+              <Text variant="body-sm" className="text-muted">
+                Воскресенье: по предварительной записи
+              </Text>
             </div>
           </div>
 
           <div className="flex items-start gap-3">
-            <div className="w-9 h-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center flex-shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-accent/15 text-brand-text flex items-center justify-center flex-shrink-0">
               <Mail className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-xs uppercase text-accent font-semibold block font-mono">Email</span>
-              <a href="mailto:info@familydent.tj" className="text-sm text-ink hover:text-accent font-medium">
+              <span className="type-overline uppercase text-brand-text block">
+                Email
+              </span>
+              <a
+                href="mailto:info@familydent.tj"
+                className="type-body-sm text-ink hover:text-brand-text"
+              >
                 info@familydent.tj
               </a>
             </div>
@@ -68,14 +102,20 @@ export function ContactsPage() {
         </div>
 
         {/* Interactive Map Placeholder */}
-        <div className="bg-surface border border-rule rounded-3xl p-6 shadow-card flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[300px]">
-          <MapPin className="w-12 h-12 text-accent mb-3 animate-bounce" />
-          <h3 className="font-display text-lg font-bold text-ink mb-1">Клиника на карте Душанбе</h3>
-          <p className="text-xs text-muted max-w-xs font-normal">
-            Удобный подъезд и собственная бесплатная парковка для пациентов клиники.
-          </p>
+        <div
+          className="bg-surface border border-rule rounded-3xl p-6 shadow-card flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[300px]"
+          data-ui-scheme="default"
+        >
+          <MapPin className="w-12 h-12 text-brand-text mb-3 animate-bounce" />
+          <Heading level={3} variant="heading-5" className="text-ink mb-1">
+            Клиника на карте Душанбе
+          </Heading>
+          <Text variant="body-sm" className="text-muted max-w-xs">
+            Удобный подъезд и собственная бесплатная парковка для пациентов
+            клиники.
+          </Text>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

@@ -1,7 +1,13 @@
+import { Heading, Text } from "@/ui-kit";
+import { ArrowRight, Star } from "lucide-react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { ArrowRight, Star } from "lucide-react";
 import { getPatientReviews } from "../../lib/data/patient-reviews";
 import type { PatientReview } from "../../lib/data/types";
 
@@ -34,21 +40,37 @@ const sourceLabels: Partial<Record<PatientReview["source"], string>> = {
 
 function ReviewCard({ review }: { review: PatientReview }) {
   const content = (
-    <article className="flex min-h-52 flex-col justify-between gap-6 rounded-[var(--radius-lg)] bg-[var(--color-surface)] p-6 text-[var(--color-ink)] transition-transform duration-300 hover:-translate-y-1 sm:p-7">
+    <article
+      className="flex min-h-52 flex-col justify-between gap-6 rounded-lg bg-surface p-6 text-ink transition-transform duration-300 hover:-translate-y-1 sm:p-7"
+      data-ui-scheme="default"
+    >
       <div className="flex flex-col gap-4">
-        <div className="flex items-center gap-1" aria-label={`${review.rating ?? 5} из 5`}>
+        <div
+          className="flex items-center gap-1"
+          aria-label={`${review.rating ?? 5} из 5`}
+        >
           {Array.from({ length: review.rating ?? 5 }).map((_, index) => (
-            <Star key={index} aria-hidden="true" className="size-4 fill-[var(--color-warn)] text-[var(--color-warn)]" />
+            <Star
+              key={index}
+              aria-hidden="true"
+              className="size-4 fill-warn text-warn"
+            />
           ))}
         </div>
-        <p className="text-pretty text-sm leading-6 text-[var(--color-ink-2)]">{review.text}</p>
+        <Text variant="body-sm" className="text-pretty text-ink-2">
+          {review.text}
+        </Text>
       </div>
       <footer className="flex items-end justify-between gap-4">
         <div className="flex flex-col gap-1">
-          <h3 className="font-sans text-base font-bold">{review.authorName}</h3>
-          <p className="text-xs text-[var(--color-muted)]">{review.publishedAt}</p>
+          <Heading level={3} variant="heading-6">
+            {review.authorName}
+          </Heading>
+          <Text variant="body-sm" className="text-muted">
+            {review.publishedAt}
+          </Text>
         </div>
-        <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[var(--color-accent)]">
+        <span className="type-overline uppercase text-brand-text">
           {sourceLabels[review.source] ?? review.source}
         </span>
       </footer>
@@ -56,17 +78,27 @@ function ReviewCard({ review }: { review: PatientReview }) {
   );
 
   return review.sourceUrl ? (
-    <a href={review.sourceUrl} target="_blank" rel="noreferrer" aria-label={`Отзыв ${review.authorName} на ${sourceLabels[review.source]}`}>
+    <a
+      href={review.sourceUrl}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={`Отзыв ${review.authorName} на ${sourceLabels[review.source]}`}
+    >
       {content}
     </a>
-  ) : content;
+  ) : (
+    content
+  );
 }
 
 export function PatientReviewsSection() {
   const [reviews, setReviews] = useState<PatientReview[]>([]);
   const sectionRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
   const firstColumnY = useTransform(scrollYProgress, [0, 1], [-96, 112]);
   const secondColumnY = useTransform(scrollYProgress, [0, 1], [96, -128]);
 
@@ -78,10 +110,22 @@ export function PatientReviewsSection() {
   const secondColumn = reviews.filter((_, index) => index % 2 !== 0);
 
   return (
-    <section ref={sectionRef} aria-labelledby="patient-reviews-title" className="bg-[var(--color-paper)] px-4 py-16 sm:px-8 sm:py-24">
-      <div className="mx-auto overflow-hidden rounded-[var(--radius-xl)] bg-[var(--color-paper-2)] min-[900px]:grid min-[900px]:h-[48rem] min-[900px]:max-w-7xl min-[900px]:grid-cols-[minmax(18rem,0.84fr)_minmax(0,1.16fr)]">
+    <section
+      ref={sectionRef}
+      aria-labelledby="patient-reviews-title"
+      className="bg-paper px-4 py-16 sm:px-8 sm:py-24"
+      data-ui-scheme="default"
+    >
+      <div className="mx-auto overflow-hidden rounded-xl bg-paper-2 min-[900px]:grid min-[900px]:h-[48rem] min-[900px]:max-w-7xl min-[900px]:grid-cols-[minmax(18rem,0.84fr)_minmax(0,1.16fr)]">
         <div className="flex flex-col items-start px-6 py-12 sm:px-10 min-[900px]:px-12 min-[900px]:py-16 min-[1100px]:px-16">
-          <h2 id="patient-reviews-title" className="font-mono text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-accent)]">Что говорят наши пациенты?</h2>
+          <Heading
+            level={2}
+            variant="heading-6"
+            id="patient-reviews-title"
+            className="uppercase text-brand-text"
+          >
+            Что говорят наши пациенты?
+          </Heading>
 
           <div className="mt-8 flex flex-wrap items-center gap-5">
             {platformLinks.map((platform) => (
@@ -90,44 +134,79 @@ export function PatientReviewsSection() {
                 href={platform.href}
                 target="_blank"
                 rel="noreferrer"
-                className="flex min-h-11 items-center gap-2 rounded-[var(--radius-sm)] px-1 text-xs font-semibold text-[var(--color-ink)] transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)]"
+                className="type-caption flex min-h-11 items-center gap-2 rounded-sm px-1 text-ink transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
                 aria-label={`Отзывы Family Dent на ${platform.name}`}
               >
-                <img src={platform.icon} alt="" width="24" height="24" className="size-6 object-contain" />
+                <img
+                  src={platform.icon}
+                  alt=""
+                  width="24"
+                  height="24"
+                  className="size-6 object-contain"
+                />
                 <span>{platform.shortName}</span>
               </a>
             ))}
           </div>
 
           <div className="mt-8 flex flex-col gap-2">
-            <strong className="font-sans text-4xl font-bold leading-none tracking-[-0.04em] text-[var(--color-accent)]">4,8 / 5</strong>
-            <p className="font-sans text-base font-bold text-[var(--color-accent)]">Отзывы на картах</p>
-            <p className="font-mono text-xs text-[var(--color-muted)]">Яндекс: 12 оценок · 6 отзывов</p>
+            <strong className="type-stat text-brand-text">4,8 / 5</strong>
+            <Text variant="body" className="text-brand-text">
+              Отзывы на картах
+            </Text>
+            <Text variant="overline" className="text-muted">
+              Яндекс: 12 оценок · 6 отзывов
+            </Text>
           </div>
 
-          <p className="mt-7 max-w-sm text-pretty text-sm leading-6 text-[var(--color-muted)]">
-            Реальные истории пациентов о лечении, внимании врачей и атмосфере Family Dent. Выберите площадку, чтобы посмотреть оригиналы отзывов.
-          </p>
+          <Text
+            variant="body-sm"
+            className="mt-7 max-w-sm text-pretty text-muted"
+          >
+            Реальные истории пациентов о лечении, внимании врачей и атмосфере
+            Family Dent. Выберите площадку, чтобы посмотреть оригиналы отзывов.
+          </Text>
 
-          <Link to="/reviews" className="group mt-12 inline-flex min-h-11 items-center gap-3 text-sm font-bold text-[var(--color-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus)]">
+          <Link
+            to="/reviews"
+            className="type-body-sm group mt-12 inline-flex min-h-11 items-center gap-3 text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus"
+          >
             <span>Изучить все отзывы</span>
-            <ArrowRight aria-hidden="true" className="size-5 transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight
+              aria-hidden="true"
+              className="size-5 transition-transform duration-300 group-hover:translate-x-1"
+            />
           </Link>
         </div>
 
-        <div className="border-t border-[var(--color-rule)] min-[900px]:border-l min-[900px]:border-t-0">
+        <div className="border-t border-rule min-[900px]:border-l min-[900px]:border-t-0">
           <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 py-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden min-[900px]:hidden">
             {reviews.map((review) => (
-              <div key={review.id} className="w-[82vw] max-w-sm shrink-0 snap-center"><ReviewCard review={review} /></div>
+              <div
+                key={review.id}
+                className="w-[82vw] max-w-sm shrink-0 snap-center"
+              >
+                <ReviewCard review={review} />
+              </div>
             ))}
           </div>
 
           <div className="hidden h-full grid-cols-2 gap-3 overflow-hidden p-3 min-[900px]:grid">
-            <motion.div style={reduceMotion ? undefined : { y: firstColumnY }} className="flex flex-col gap-3 will-change-transform">
-              {firstColumn.concat(firstColumn).map((review, index) => <ReviewCard key={`${review.id}-${index}`} review={review} />)}
+            <motion.div
+              style={reduceMotion ? undefined : { y: firstColumnY }}
+              className="flex flex-col gap-3 will-change-transform"
+            >
+              {firstColumn.concat(firstColumn).map((review, index) => (
+                <ReviewCard key={`${review.id}-${index}`} review={review} />
+              ))}
             </motion.div>
-            <motion.div style={reduceMotion ? undefined : { y: secondColumnY }} className="flex flex-col gap-3 will-change-transform">
-              {secondColumn.concat(secondColumn).map((review, index) => <ReviewCard key={`${review.id}-${index}`} review={review} />)}
+            <motion.div
+              style={reduceMotion ? undefined : { y: secondColumnY }}
+              className="flex flex-col gap-3 will-change-transform"
+            >
+              {secondColumn.concat(secondColumn).map((review, index) => (
+                <ReviewCard key={`${review.id}-${index}`} review={review} />
+              ))}
             </motion.div>
           </div>
         </div>

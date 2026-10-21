@@ -1,6 +1,7 @@
+import { Button, Field, Heading, IconButton, Input, Text } from "@/ui-kit";
+import { CheckCircle2, Lock, Mail, User, X } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import React, { useState } from "react";
-import { X, Lock, Mail, User, CheckCircle2 } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
 import { authenticate } from "../../lib/api";
 
 interface AuthDialogProps {
@@ -24,10 +25,17 @@ export function AuthDialog({ isOpen, onClose }: AuthDialogProps) {
     setIsSubmitting(true);
     setSubmitError("");
     try {
-      await authenticate({ mode, email, password, name: mode === "register" ? name : undefined });
+      await authenticate({
+        mode,
+        email,
+        password,
+        name: mode === "register" ? name : undefined,
+      });
       setIsSuccess(true);
     } catch (error) {
-      setSubmitError(error instanceof Error ? error.message : "Не удалось выполнить вход");
+      setSubmitError(
+        error instanceof Error ? error.message : "Не удалось выполнить вход",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -40,46 +48,52 @@ export function AuthDialog({ isOpen, onClose }: AuthDialogProps) {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-md">
+      <div className="fixed inset-0 z-(--layer-dialog) flex items-start justify-center overflow-y-auto p-4 bg-overlay/50 backdrop-blur-md">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
-          className="relative w-full max-w-sm bg-paper-2 border border-rule rounded-2xl p-6 shadow-card text-ink"
+          className="relative my-auto w-full max-w-sm bg-paper-2 border border-rule rounded-2xl p-6 shadow-card text-ink"
         >
-          <button
+          <IconButton
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full bg-paper hover:bg-paper-3 text-muted hover:text-ink transition-colors cursor-pointer border border-rule"
+            className="absolute top-4 right-4"
             aria-label="Закрыть"
+            data-ui-scheme="default"
           >
             <X className="w-5 h-5" />
-          </button>
+          </IconButton>
 
           {isSuccess ? (
             <div className="py-6 text-center flex flex-col items-center">
               <div className="w-12 h-12 rounded-full bg-success-soft text-success border border-success/40 flex items-center justify-center mb-3">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
-              <h3 className="font-display text-lg font-bold mb-1">
+              <Heading level={3} variant="heading-5" className="mb-1">
                 {mode === "login" ? "С возвращением!" : "Регистрация завершена"}
-              </h3>
-              <p className="text-xs text-muted font-normal mb-4">
+              </Heading>
+              <Text variant="body-sm" className="text-muted mb-4">
                 Вы успешно вошли в личный кабинет пациента Family Dent.
-              </p>
-              <button
+              </Text>
+              <Button
+                variant="secondary"
+                size="lg"
                 onClick={handleDone}
-                className="inline-flex min-h-11 items-center justify-center rounded-pill bg-ink text-paper px-6 py-2 font-medium text-xs hover:bg-accent hover:text-accent-ink transition duration-[var(--dur-micro)] cursor-pointer"
+                className="w-full"
+                data-ui-scheme="inverse"
               >
                 Продолжить
-              </button>
+              </Button>
             </div>
           ) : (
             <div>
               <div className="flex items-center gap-2 mb-6 border-b border-rule pb-3">
                 <button
                   onClick={() => setMode("login")}
-                  className={`text-sm font-bold transition-colors cursor-pointer ${
-                    mode === "login" ? "text-accent" : "text-muted hover:text-ink"
+                  className={`type-button transition-colors cursor-pointer ${
+                    mode === "login"
+                      ? "text-brand-text"
+                      : "text-muted hover:text-ink"
                   }`}
                 >
                   Вход
@@ -87,8 +101,10 @@ export function AuthDialog({ isOpen, onClose }: AuthDialogProps) {
                 <span className="text-rule">•</span>
                 <button
                   onClick={() => setMode("register")}
-                  className={`text-sm font-bold transition-colors cursor-pointer ${
-                    mode === "register" ? "text-accent" : "text-muted hover:text-ink"
+                  className={`type-button transition-colors cursor-pointer ${
+                    mode === "register"
+                      ? "text-brand-text"
+                      : "text-muted hover:text-ink"
                   }`}
                 >
                   Регистрация
@@ -97,60 +113,82 @@ export function AuthDialog({ isOpen, onClose }: AuthDialogProps) {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 {mode === "register" && (
-                  <div>
-                    <label className="block text-xs text-ink font-medium mb-1">ФИО</label>
+                  <Field label="ФИО" required>
                     <div className="relative">
-                      <User className="w-4 h-4 text-accent absolute left-3 top-1/2 -translate-y-1/2" />
-                      <input
+                      <User className="w-4 h-4 text-brand-text absolute left-3 top-1/2 -translate-y-1/2" />
+                      <Input
                         type="text"
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Алишер Назаров"
-                        className="w-full bg-paper border border-rule rounded-xl py-2 px-9 text-xs text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+                        className="pl-10"
+                        data-ui-scheme="default"
                       />
                     </div>
-                  </div>
+                  </Field>
                 )}
 
-                <div>
-                  <label className="block text-xs text-ink font-medium mb-1">Email</label>
+                <Field label="Email" required>
                   <div className="relative">
-                    <Mail className="w-4 h-4 text-accent absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
+                    <Mail className="w-4 h-4 text-brand-text absolute left-3 top-1/2 -translate-y-1/2" />
+                    <Input
                       type="email"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="patient@example.com"
-                      className="w-full bg-paper border border-rule rounded-xl py-2 px-9 text-xs text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+                      className="pl-10"
+                      data-ui-scheme="default"
                     />
                   </div>
-                </div>
+                </Field>
 
-                <div>
-                  <label className="block text-xs text-ink font-medium mb-1">Пароль</label>
+                <Field label="Пароль" required>
                   <div className="relative">
-                    <Lock className="w-4 h-4 text-accent absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
+                    <Lock className="w-4 h-4 text-brand-text absolute left-3 top-1/2 -translate-y-1/2" />
+                    <Input
                       type="password"
                       required
+                      minLength={mode === "register" ? 12 : 1}
+                      maxLength={200}
+                      autoComplete={
+                        mode === "register"
+                          ? "new-password"
+                          : "current-password"
+                      }
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full bg-paper border border-rule rounded-xl py-2 px-9 text-xs text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+                      className="pl-10"
+                      data-ui-scheme="default"
                     />
                   </div>
-                </div>
+                </Field>
 
-                <button
+                <Button
+                  variant="secondary"
+                  size="lg"
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full mt-2 inline-flex min-h-11 items-center justify-center rounded-pill bg-ink text-paper hover:bg-accent hover:text-accent-ink font-semibold text-xs py-2.5 transition-all cursor-pointer shadow-lg"
+                  className="w-full"
+                  data-ui-scheme="inverse"
                 >
-                  {isSubmitting ? "Отправляем…" : mode === "login" ? "Войти в кабинет" : "Зарегистрироваться"}
-                </button>
-                {submitError && <p className="text-xs text-red-700 text-center" role="alert">{submitError}</p>}
+                  {isSubmitting
+                    ? "Отправляем…"
+                    : mode === "login"
+                      ? "Войти в кабинет"
+                      : "Зарегистрироваться"}
+                </Button>
+                {submitError && (
+                  <Text
+                    variant="body-sm"
+                    className="text-error-ink text-center"
+                    role="alert"
+                  >
+                    {submitError}
+                  </Text>
+                )}
               </form>
             </div>
           )}

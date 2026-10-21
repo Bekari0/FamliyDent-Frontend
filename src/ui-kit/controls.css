@@ -1,0 +1,128 @@
+@layer components {
+  .ui-button {
+    @apply type-button;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    min-height: var(--control-height-md);
+    padding: var(--space-sm) var(--space-lg);
+    border: var(--rule-thin) solid transparent;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition:
+      background var(--dur-short) var(--ease-out),
+      color var(--dur-short) var(--ease-out),
+      border-color var(--dur-short) var(--ease-out);
+  }
+  .ui-button--primary {
+    color: var(--color-action-text);
+    background: var(--color-action-primary);
+  }
+  .ui-button--primary:hover {
+    background: var(--color-action-hover);
+  }
+  .ui-button--secondary {
+    color: var(--color-on-dark);
+    background: var(--color-ink);
+  }
+  .ui-button--secondary:hover {
+    background: var(--color-ink-2);
+  }
+  .ui-button--outline {
+    color: var(--color-text-primary);
+    border-color: var(--color-border-strong);
+    background: transparent;
+  }
+  .ui-button--outline:hover,
+  .ui-button--ghost:hover {
+    background: color-mix(in oklch, var(--color-text-primary) 7%, transparent);
+  }
+  .ui-button--ghost {
+    color: inherit;
+    background: transparent;
+  }
+  .ui-button--danger {
+    color: var(--color-on-dark);
+    background: var(--color-error-ink);
+  }
+  .ui-button--sm {
+    min-height: max(2.75rem, var(--control-height-sm));
+    padding: var(--space-xs) var(--space-md);
+  }
+  .ui-button--lg {
+    min-height: var(--control-height-lg);
+    padding-inline: var(--space-xl);
+  }
+  .ui-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+  .ui-icon-button {
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    padding: var(--space-sm);
+  }
+  .ui-button svg {
+    flex-shrink: 0;
+    width: 1.125em;
+    height: 1.125em;
+  }
+  .ui-field {
+    display: grid;
+    gap: var(--space-xs);
+    min-width: 0;
+  }
+  .ui-field__label {
+    @apply type-label;
+    color: var(--color-text-primary);
+  }
+  .ui-field__hint {
+    @apply type-caption;
+    margin: 0;
+    color: var(--color-text-secondary);
+  }
+  .ui-field__error {
+    @apply type-caption;
+    margin: 0;
+    color: var(--color-error-ink);
+  }
+  .ui-input {
+    @apply type-input;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: var(--control-height-md);
+    padding: var(--space-sm) var(--space-md);
+    border: var(--rule-thin) solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    color: var(--color-ink);
+    transition: border-color var(--dur-short) var(--ease-out);
+  }
+  .ui-input::placeholder {
+    color: var(--color-muted);
+    opacity: 1;
+  }
+  .ui-input:hover {
+    border-color: var(--color-muted);
+  }
+  .ui-input:focus-visible {
+    outline-color: var(--color-focus);
+    border-color: var(--color-focus);
+  }
+  .ui-input[aria-invalid="true"] {
+    border-color: var(--color-error-ink);
+  }
+  .ui-input:disabled {
+    background: var(--color-paper-3);
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
+  .ui-textarea {
+    min-height: 8rem;
+    resize: vertical;
+  }
+}

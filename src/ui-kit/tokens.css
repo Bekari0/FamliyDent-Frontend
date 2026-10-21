@@ -1,0 +1,623 @@
+/* Self-hosted fonts; licenses live beside the font files. */
+@font-face {
+  font-family: "Golos Text";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(./assets/fonts/golos-text-cyrillic-ext-400-700.woff2) format("woff2");
+  unicode-range:
+    U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
+@font-face {
+  font-family: "Golos Text";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(./assets/fonts/golos-text-cyrillic-400-700.woff2) format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: "Golos Text";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(./assets/fonts/golos-text-latin-ext-400-700.woff2) format("woff2");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Golos Text";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(./assets/fonts/golos-text-latin-400-700.woff2) format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(./assets/fonts/ibm-plex-mono-cyrillic-ext-400.woff2) format("woff2");
+  unicode-range:
+    U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(./assets/fonts/ibm-plex-mono-cyrillic-400.woff2) format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(./assets/fonts/ibm-plex-mono-latin-ext-400.woff2) format("woff2");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(./assets/fonts/ibm-plex-mono-latin-400.woff2) format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(./assets/fonts/ibm-plex-mono-cyrillic-ext-500.woff2) format("woff2");
+  unicode-range:
+    U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(./assets/fonts/ibm-plex-mono-cyrillic-500.woff2) format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(./assets/fonts/ibm-plex-mono-latin-ext-500.woff2) format("woff2");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(./assets/fonts/ibm-plex-mono-latin-500.woff2) format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(./assets/fonts/ibm-plex-mono-cyrillic-ext-600.woff2) format("woff2");
+  unicode-range:
+    U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(./assets/fonts/ibm-plex-mono-cyrillic-600.woff2) format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(./assets/fonts/ibm-plex-mono-latin-ext-600.woff2) format("woff2");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(./assets/fonts/ibm-plex-mono-latin-600.woff2) format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Roboto Serif";
+  font-style: normal;
+  font-weight: 400 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(./assets/fonts/roboto-serif-cyrillic-ext-400-700.woff2)
+    format("woff2");
+  unicode-range:
+    U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
+@font-face {
+  font-family: "Roboto Serif";
+  font-style: normal;
+  font-weight: 400 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(./assets/fonts/roboto-serif-cyrillic-400-700.woff2) format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: "Roboto Serif";
+  font-style: normal;
+  font-weight: 400 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(./assets/fonts/roboto-serif-latin-ext-400-700.woff2) format("woff2");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Roboto Serif";
+  font-style: normal;
+  font-weight: 400 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(./assets/fonts/roboto-serif-latin-400-700.woff2) format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+/* Family Dent design tokens. Edit values here; components contain no local type scales. */
+@theme static {
+  /* Breakpoints: typography has three modes; sm/xl/2xl are layout refinements. */
+  --breakpoint-*: initial;
+  --breakpoint-mobile: 0rem;
+  --breakpoint-sm: 40rem;
+  --breakpoint-tablet: 48rem;
+  --breakpoint-desktop: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+  --text-*: initial;
+  --color-*: initial;
+
+  /* Semantic roles retain the Family Dent palette. */
+  --color-on-dark: var(--color-paper);
+  --color-overlay: #000;
+  --color-transparent: transparent;
+  --color-brand-strong: oklch(42% 0.055 82);
+  --color-brand-text: var(--color-brand-strong);
+  --color-error-ink: oklch(43% 0.16 25);
+  --color-warn-ink: oklch(40% 0.08 72);
+  --color-background: var(--color-paper);
+  --color-background-subtle: var(--color-paper-2);
+  --color-text-primary: var(--color-ink);
+  --color-text-secondary: var(--color-muted);
+  --color-border-default: var(--color-rule);
+  --color-border-strong: var(--color-rule-strong);
+  --color-action-primary: var(--color-accent);
+  --color-action-hover: var(--color-accent-2);
+  --color-action-text: var(--color-accent-ink);
+
+  --font-weight-light: 400;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 700;
+  --font-weight-black: 700;
+  --shadow-dialog: 0 1.75rem 5rem
+    color-mix(in oklch, var(--color-overlay) 34%, transparent);
+  --shadow-header: 0 0.5rem 1.875rem
+    color-mix(in oklch, var(--color-overlay) 20%, transparent);
+  --shadow-glow: 0 0 0.75rem
+    color-mix(in oklch, var(--color-accent) 80%, transparent);
+  --drop-shadow-emblem: 0 0.75rem 1.5rem
+    color-mix(in oklch, var(--color-overlay) 40%, transparent);
+
+  --color-paper: oklch(100% 0 0);
+  --color-paper-2: oklch(97.8% 0.006 85);
+  --color-paper-3: oklch(94.5% 0.012 85);
+  --color-surface: var(--color-paper);
+  --color-surface-raised: var(--color-surface);
+  --color-ink: oklch(23% 0 0);
+  --color-ink-2: oklch(31% 0.01 165);
+  --color-muted: oklch(49% 0.012 85);
+  --color-rule: oklch(89% 0.009 85);
+  --color-rule-2: oklch(76% 0.024 85);
+  --color-rule-strong: oklch(64% 0.018 85);
+  --color-accent: oklch(78% 0.055 82);
+  --color-accent-2: oklch(86% 0.035 82);
+  --color-accent-soft: oklch(95% 0.022 82);
+  --color-accent-ink: var(--color-ink);
+  --color-trust: oklch(36% 0.047 174);
+  --color-trust-soft: oklch(92% 0.022 174);
+  --color-warn: oklch(70% 0.13 72);
+  --color-warn-soft: oklch(94% 0.045 72);
+  --color-error: oklch(58% 0.18 25);
+  --color-error-soft: oklch(94% 0.035 25);
+  --color-success: oklch(53% 0.13 160);
+  --color-success-soft: oklch(92% 0.04 160);
+  --color-focus-ink: oklch(48% 0.085 174);
+  --color-focus: var(--color-focus-ink);
+  --color-shadow: color-mix(in oklch, var(--color-ink) 10%, transparent);
+  --color-shadow-soft: color-mix(in oklch, var(--color-ink) 5%, transparent);
+
+  --font-display: "Roboto Serif", ui-serif, Georgia, serif;
+  --font-body: "Golos Text", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: var(--font-body);
+
+  /* Shared spacing scale. */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  /* Layout dimensions. */
+  --container-3xs: 16rem;
+  --container-2xs: 18rem;
+  --container-xs: 20rem;
+  --container-sm: 24rem;
+  --container-md: 28rem;
+  --container-lg: 32rem;
+  --container-xl: 36rem;
+  --container-2xl: 42rem;
+  --container-3xl: 48rem;
+  --container-4xl: 56rem;
+  --container-5xl: 64rem;
+  --container-6xl: 72rem;
+  --container-7xl: 80rem;
+  --container-max: 90rem;
+  --container-readable: 46rem;
+  --page-gutter: clamp(1.125rem, 3.6vw, 4rem);
+  --section-y: clamp(4.5rem, 9vw, 9rem);
+  --header-height: 4.75rem;
+  --layer-dialog: 90;
+  --control-height-sm: 2.5rem;
+  --control-height-md: 3rem;
+  --control-height-lg: 3.5rem;
+  --focus-ring: 0 0 0 3px
+    color-mix(in oklch, var(--color-focus) 32%, transparent);
+
+  --radius-xs: 0.375rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.125rem;
+  --radius-xl: 1.75rem;
+  --radius-pill: 999rem;
+
+  --rule-thin: 1px;
+  --rule-strong: 2px;
+  --shadow-whisper: 0 0.5rem 1.5rem var(--color-shadow-soft);
+  --shadow-card: 0 1.75rem 4rem var(--color-shadow);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+  --dur-section: 680ms;
+}
+
+:root {
+  /* display: mobile / tablet / desktop. */
+  --type-display-mobile: 2.5rem;
+  --type-display-tablet: 3.5rem;
+  --type-display-desktop: 4.5rem;
+  --type-display-size: var(--type-display-mobile);
+  --type-display-family: var(--font-display);
+  --type-display-leading: 1.08;
+  --type-display-tracking: -0.035em;
+  --type-display-weight: var(--font-weight-semibold);
+
+  /* hero: mobile / tablet / desktop. */
+  --type-hero-mobile: 2rem;
+  --type-hero-tablet: 2.5rem;
+  --type-hero-desktop: 2.75rem;
+  --type-hero-size: var(--type-hero-mobile);
+  --type-hero-family: var(--font-display);
+  --type-hero-leading: 1.12;
+  --type-hero-tracking: -0.025em;
+  --type-hero-weight: var(--font-weight-semibold);
+
+  /* heading-1: mobile / tablet / desktop. */
+  --type-heading-1-mobile: 2.25rem;
+  --type-heading-1-tablet: 3rem;
+  --type-heading-1-desktop: 3.5rem;
+  --type-heading-1-size: var(--type-heading-1-mobile);
+  --type-heading-1-family: var(--font-display);
+  --type-heading-1-leading: 1.12;
+  --type-heading-1-tracking: -0.03em;
+  --type-heading-1-weight: var(--font-weight-semibold);
+
+  /* heading-2: mobile / tablet / desktop. */
+  --type-heading-2-mobile: 1.875rem;
+  --type-heading-2-tablet: 2.25rem;
+  --type-heading-2-desktop: 2.75rem;
+  --type-heading-2-size: var(--type-heading-2-mobile);
+  --type-heading-2-family: var(--font-display);
+  --type-heading-2-leading: 1.16;
+  --type-heading-2-tracking: -0.025em;
+  --type-heading-2-weight: var(--font-weight-semibold);
+
+  /* heading-3: mobile / tablet / desktop. */
+  --type-heading-3-mobile: 1.5rem;
+  --type-heading-3-tablet: 1.625rem;
+  --type-heading-3-desktop: 1.875rem;
+  --type-heading-3-size: var(--type-heading-3-mobile);
+  --type-heading-3-family: var(--font-display);
+  --type-heading-3-leading: 1.22;
+  --type-heading-3-tracking: -0.015em;
+  --type-heading-3-weight: var(--font-weight-semibold);
+
+  /* heading-4: mobile / tablet / desktop. */
+  --type-heading-4-mobile: 1.25rem;
+  --type-heading-4-tablet: 1.375rem;
+  --type-heading-4-desktop: 1.5rem;
+  --type-heading-4-size: var(--type-heading-4-mobile);
+  --type-heading-4-family: var(--font-display);
+  --type-heading-4-leading: 1.3;
+  --type-heading-4-tracking: -0.01em;
+  --type-heading-4-weight: var(--font-weight-semibold);
+
+  /* heading-5: mobile / tablet / desktop. */
+  --type-heading-5-mobile: 1.125rem;
+  --type-heading-5-tablet: 1.125rem;
+  --type-heading-5-desktop: 1.25rem;
+  --type-heading-5-size: var(--type-heading-5-mobile);
+  --type-heading-5-family: var(--font-body);
+  --type-heading-5-leading: 1.35;
+  --type-heading-5-tracking: 0em;
+  --type-heading-5-weight: var(--font-weight-semibold);
+
+  /* heading-6: mobile / tablet / desktop. */
+  --type-heading-6-mobile: 1rem;
+  --type-heading-6-tablet: 1rem;
+  --type-heading-6-desktop: 1.125rem;
+  --type-heading-6-size: var(--type-heading-6-mobile);
+  --type-heading-6-family: var(--font-body);
+  --type-heading-6-leading: 1.4;
+  --type-heading-6-tracking: 0em;
+  --type-heading-6-weight: var(--font-weight-semibold);
+
+  /* body-lg: mobile / tablet / desktop. */
+  --type-body-lg-mobile: 1.125rem;
+  --type-body-lg-tablet: 1.25rem;
+  --type-body-lg-desktop: 1.25rem;
+  --type-body-lg-size: var(--type-body-lg-mobile);
+  --type-body-lg-family: var(--font-body);
+  --type-body-lg-leading: 1.6;
+  --type-body-lg-tracking: 0em;
+  --type-body-lg-weight: var(--font-weight-normal);
+
+  /* body: mobile / tablet / desktop. */
+  --type-body-mobile: 1rem;
+  --type-body-tablet: 1rem;
+  --type-body-desktop: 1.125rem;
+  --type-body-size: var(--type-body-mobile);
+  --type-body-family: var(--font-body);
+  --type-body-leading: 1.65;
+  --type-body-tracking: 0em;
+  --type-body-weight: var(--font-weight-normal);
+
+  /* body-sm: mobile / tablet / desktop. */
+  --type-body-sm-mobile: 0.875rem;
+  --type-body-sm-tablet: 0.9375rem;
+  --type-body-sm-desktop: 1rem;
+  --type-body-sm-size: var(--type-body-sm-mobile);
+  --type-body-sm-family: var(--font-body);
+  --type-body-sm-leading: 1.6;
+  --type-body-sm-tracking: 0em;
+  --type-body-sm-weight: var(--font-weight-normal);
+
+  /* caption: mobile / tablet / desktop. */
+  --type-caption-mobile: 0.75rem;
+  --type-caption-tablet: 0.8125rem;
+  --type-caption-desktop: 0.875rem;
+  --type-caption-size: var(--type-caption-mobile);
+  --type-caption-family: var(--font-body);
+  --type-caption-leading: 1.5;
+  --type-caption-tracking: 0.01em;
+  --type-caption-weight: var(--font-weight-normal);
+
+  /* label: mobile / tablet / desktop. */
+  --type-label-mobile: 0.8125rem;
+  --type-label-tablet: 0.875rem;
+  --type-label-desktop: 0.875rem;
+  --type-label-size: var(--type-label-mobile);
+  --type-label-family: var(--font-body);
+  --type-label-leading: 1.4;
+  --type-label-tracking: 0.01em;
+  --type-label-weight: var(--font-weight-semibold);
+
+  /* overline: mobile / tablet / desktop. */
+  --type-overline-mobile: 0.75rem;
+  --type-overline-tablet: 0.75rem;
+  --type-overline-desktop: 0.8125rem;
+  --type-overline-size: var(--type-overline-mobile);
+  --type-overline-family: var(--font-mono);
+  --type-overline-leading: 1.5;
+  --type-overline-tracking: 0.1em;
+  --type-overline-weight: var(--font-weight-medium);
+
+  /* button: mobile / tablet / desktop. */
+  --type-button-mobile: 0.875rem;
+  --type-button-tablet: 0.875rem;
+  --type-button-desktop: 0.9375rem;
+  --type-button-size: var(--type-button-mobile);
+  --type-button-family: var(--font-body);
+  --type-button-leading: 1.4;
+  --type-button-tracking: 0em;
+  --type-button-weight: var(--font-weight-semibold);
+
+  /* input: mobile / tablet / desktop. */
+  --type-input-mobile: 1rem;
+  --type-input-tablet: 1rem;
+  --type-input-desktop: 1rem;
+  --type-input-size: var(--type-input-mobile);
+  --type-input-family: var(--font-body);
+  --type-input-leading: 1.5;
+  --type-input-tracking: 0em;
+  --type-input-weight: var(--font-weight-normal);
+
+  /* stat: mobile / tablet / desktop. */
+  --type-stat-mobile: 2.5rem;
+  --type-stat-tablet: 3.5rem;
+  --type-stat-desktop: 4rem;
+  --type-stat-size: var(--type-stat-mobile);
+  --type-stat-family: var(--font-display);
+  --type-stat-leading: 1.08;
+  --type-stat-tracking: -0.035em;
+  --type-stat-weight: var(--font-weight-semibold);
+
+  /* wordmark: mobile / tablet / desktop. */
+  --type-wordmark-mobile: 1.75rem;
+  --type-wordmark-tablet: 4.5rem;
+  --type-wordmark-desktop: 6.5rem;
+  --type-wordmark-size: var(--type-wordmark-mobile);
+  --type-wordmark-family: var(--font-display);
+  --type-wordmark-leading: 1;
+  --type-wordmark-tracking: -0.025em;
+  --type-wordmark-weight: var(--font-weight-bold);
+
+  @variant tablet {
+    --type-display-size: var(--type-display-tablet);
+    --type-hero-size: var(--type-hero-tablet);
+    --type-heading-1-size: var(--type-heading-1-tablet);
+    --type-heading-2-size: var(--type-heading-2-tablet);
+    --type-heading-3-size: var(--type-heading-3-tablet);
+    --type-heading-4-size: var(--type-heading-4-tablet);
+    --type-heading-5-size: var(--type-heading-5-tablet);
+    --type-heading-6-size: var(--type-heading-6-tablet);
+    --type-body-lg-size: var(--type-body-lg-tablet);
+    --type-body-size: var(--type-body-tablet);
+    --type-body-sm-size: var(--type-body-sm-tablet);
+    --type-caption-size: var(--type-caption-tablet);
+    --type-label-size: var(--type-label-tablet);
+    --type-overline-size: var(--type-overline-tablet);
+    --type-button-size: var(--type-button-tablet);
+    --type-input-size: var(--type-input-tablet);
+    --type-stat-size: var(--type-stat-tablet);
+    --type-wordmark-size: var(--type-wordmark-tablet);
+  }
+  @variant desktop {
+    --type-display-size: var(--type-display-desktop);
+    --type-hero-size: var(--type-hero-desktop);
+    --type-heading-1-size: var(--type-heading-1-desktop);
+    --type-heading-2-size: var(--type-heading-2-desktop);
+    --type-heading-3-size: var(--type-heading-3-desktop);
+    --type-heading-4-size: var(--type-heading-4-desktop);
+    --type-heading-5-size: var(--type-heading-5-desktop);
+    --type-heading-6-size: var(--type-heading-6-desktop);
+    --type-body-lg-size: var(--type-body-lg-desktop);
+    --type-body-size: var(--type-body-desktop);
+    --type-body-sm-size: var(--type-body-sm-desktop);
+    --type-caption-size: var(--type-caption-desktop);
+    --type-label-size: var(--type-label-desktop);
+    --type-overline-size: var(--type-overline-desktop);
+    --type-button-size: var(--type-button-desktop);
+    --type-input-size: var(--type-input-desktop);
+    --type-stat-size: var(--type-stat-desktop);
+    --type-wordmark-size: var(--type-wordmark-desktop);
+  }
+}
+
+:root {
+  --gradient-dark: linear-gradient(
+    145deg,
+    var(--color-ink) 0%,
+    color-mix(in oklch, var(--color-ink-2) 76%, var(--color-ink)) 62%,
+    color-mix(in oklch, var(--color-trust) 22%, var(--color-ink)) 100%
+  );
+}
+
+[data-ui-scheme="inverse"] {
+  --color-focus: var(--color-accent-2);
+  --color-text-primary: var(--color-on-dark);
+  --color-text-secondary: color-mix(
+    in oklch,
+    var(--color-on-dark) 72%,
+    transparent
+  );
+  --color-brand-text: var(--color-accent-2);
+  --color-background: var(--color-ink);
+  --color-border-default: color-mix(
+    in oklch,
+    var(--color-on-dark) 20%,
+    transparent
+  );
+  --color-border-strong: color-mix(
+    in oklch,
+    var(--color-on-dark) 40%,
+    transparent
+  );
+}
+
+[data-ui-scheme="default"] {
+  --color-focus: var(--color-focus-ink);
+  --color-text-primary: var(--color-ink);
+  --color-text-secondary: var(--color-muted);
+  --color-brand-text: var(--color-brand-strong);
+  --color-background: var(--color-paper);
+  --color-border-default: var(--color-rule);
+  --color-border-strong: var(--color-rule-strong);
+}
