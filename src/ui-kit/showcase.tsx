@@ -14,6 +14,11 @@ import {
   Textarea,
   textVariants,
 } from "./index";
+import {
+  RevealGroup,
+  RevealHeading,
+  Reveal as RevealItem,
+} from "./motion/reveal";
 import "./showcase.css";
 
 const palette = [
@@ -171,6 +176,39 @@ export default function UiKitShowcase() {
             <Input disabled defaultValue="Сохранённое значение" />
           </Field>
         </form>
+      </section>
+
+      <section aria-labelledby="ui-motion">
+        <RevealHeading level={2} id="ui-motion">
+          Появление и взаимодействие
+        </RevealHeading>
+        <Text tone="secondary">
+          Блоки появляются один раз при прокрутке. Системная настройка
+          уменьшения движения отключает появление и смещение.
+        </Text>
+        <RevealGroup className="ui-showcase__motion-grid">
+          {[
+            "Заголовки без изменения переносов",
+            "Последовательное появление карточек",
+            "Мгновенная доступность при фокусе",
+          ].map((title) => (
+            <RevealItem
+              key={title}
+              className="ui-showcase__motion-card"
+              data-preview-motion
+            >
+              <Heading level={3} variant="heading-5">
+                {title}
+              </Heading>
+              <Text variant="body-sm">
+                Цвета, размеры, шрифты и геометрия остаются прежними.
+              </Text>
+              <Button variant="outline">
+                Пример <ArrowRight aria-hidden="true" />
+              </Button>
+            </RevealItem>
+          ))}
+        </RevealGroup>
       </section>
 
       <section
