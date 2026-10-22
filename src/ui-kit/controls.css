@@ -1,7 +1,30 @@
 @layer components {
+  .ui-dialog {
+    margin: auto;
+    width: calc(100% - 2 * var(--space-md));
+    max-height: calc(100dvh - 2 * var(--space-md));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--color-paper-2);
+    color: var(--color-ink);
+    border: var(--rule-thin) solid var(--color-rule);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-dialog);
+  }
+  .ui-dialog[open] {
+    animation: dialog-in var(--dur-short) var(--ease-out);
+  }
+  .ui-dialog::backdrop {
+    background: color-mix(in oklch, var(--color-overlay) 50%, transparent);
+    backdrop-filter: blur(8px);
+  }
+
   .ui-button {
     @apply type-button;
     display: inline-flex;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
     align-items: center;
     justify-content: center;
     gap: var(--space-xs);

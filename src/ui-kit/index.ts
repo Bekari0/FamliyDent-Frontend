@@ -1,5 +1,6 @@
 export { Button, ButtonLink, IconButton, buttonClass } from "./button";
 export type { ButtonProps, ButtonSize, ButtonVariant } from "./button";
+export { Dialog } from "./dialog";
 export { Container } from "./container";
 export { readCssMilliseconds, readCssToken } from "./css-token";
 export { Field, Input, Select, Textarea } from "./field";

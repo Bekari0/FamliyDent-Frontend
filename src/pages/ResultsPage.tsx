@@ -49,8 +49,10 @@ export function ResultsPage() {
           {CATEGORIES.map((cat) => (
             <button
               key={cat.id}
+              type="button"
+              aria-pressed={activeCategory === cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`type-button px-4 py-2 rounded-pill transition-all duration-200 cursor-pointer border ${
+              className={`type-button min-h-11 px-4 py-2 rounded-pill transition-all duration-200 cursor-pointer border ${
                 activeCategory === cat.id
                   ? "bg-accent/15 border-accent/40 text-ink shadow-sm"
                   : "bg-paper border-rule text-muted hover:text-ink hover:bg-paper-2"

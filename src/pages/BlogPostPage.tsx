@@ -10,18 +10,33 @@ export function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<BlogPost | null>(null);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    async function loadPost() {
-      if (slug) {
-        const found = await getBlogPostBySlug(slug);
+    let cancelled = false;
+    setLoading(true);
+    void (slug ? getBlogPostBySlug(slug) : Promise.resolve(null)).then(
+      (found) => {
+        if (cancelled) return;
         setPost(found);
-        if (found) {
-          document.title = `${found.title} — Блог Family Dent`;
-        }
-      }
-    }
-    loadPost();
+        setLoading(false);
+        document.title = found
+          ? `${found.title} — Блог Family Dent`
+          : "Статья не найдена — Family Dent";
+      },
+    );
+    return () => {
+      cancelled = true;
+    };
   }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="page-container section-space" role="status">
+        Загрузка статьи…
+      </div>
+    );
+  }
 
   if (!post) {
     return (
@@ -74,7 +89,7 @@ export function BlogPostPage() {
         </Reveal>
 
         <Reveal
-          className="type-body-sm bg-surface border border-rule rounded-3xl p-8 shadow-card space-y-4 text-muted"
+          className="type-body-sm bg-surface border border-rule rounded-3xl p-5 sm:p-8 shadow-card space-y-4 text-muted"
           data-ui-scheme="default"
         >
           <Text variant="heading-3" className="text-ink">
