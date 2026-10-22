@@ -50,6 +50,7 @@ const BlogPostPage = lazy(() =>
 const ContactsPage = lazy(() =>
   import("./pages/ContactsPage").then((m) => ({ default: m.ContactsPage })),
 );
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const UiKitPreview = import.meta.env.DEV
   ? lazy(() => import("./ui-kit/showcase"))
   : null;
@@ -105,12 +106,19 @@ export default function App() {
           className="flex flex-col min-h-screen bg-paper text-ink font-body selection:bg-accent selection:text-accent-ink"
           data-ui-scheme="default"
         >
+          <a href="#main-content" className="skip-link">
+            Перейти к содержимому
+          </a>
           <SiteHeader
             onOpenBooking={() => handleOpenBooking()}
             onOpenAuth={() => setAuthOpen(true)}
           />
 
-          <main className="flex-1 w-full pt-16 sm:pt-18">
+          <main
+            id="main-content"
+            tabIndex={-1}
+            className="flex-1 w-full pt-[var(--header-height)]"
+          >
             <ContentStatusNotice />
             <Suspense
               fallback={
@@ -126,9 +134,7 @@ export default function App() {
                 )}
                 <Route
                   path="/"
-                  element={
-                    <HomePage onOpenBooking={() => handleOpenBooking()} />
-                  }
+                  element={<HomePage onOpenBooking={handleOpenBooking} />}
                 />
                 <Route
                   path="/people"
@@ -175,6 +181,7 @@ export default function App() {
                 <Route path="/blog/:slug" element={<BlogPostPage />} />
                 <Route path="/contacts" element={<ContactsPage />} />
                 <Route path="/faq" element={<Navigate to="/#faq" replace />} />
+                <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </Suspense>
           </main>

@@ -5,6 +5,7 @@ import type { Doctor } from "../../lib/data/types";
 interface DoctorCardProps {
   doctor: Doctor;
   onOpen: (doctor: Doctor) => void;
+  headingLevel?: 2 | 3;
 }
 
 function DoctorPortrait({ doctor }: { doctor: Doctor }) {
@@ -37,7 +38,11 @@ function DoctorPortrait({ doctor }: { doctor: Doctor }) {
   );
 }
 
-export function DoctorCard({ doctor, onOpen }: DoctorCardProps) {
+export function DoctorCard({
+  doctor,
+  onOpen,
+  headingLevel = 2,
+}: DoctorCardProps) {
   const fact =
     doctor.experienceYears ?? doctor.qualification ?? doctor.highlights?.[0];
 
@@ -46,7 +51,7 @@ export function DoctorCard({ doctor, onOpen }: DoctorCardProps) {
       as="article"
       className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-paper/15 bg-paper/[0.06] transition duration-[var(--dur-long)] hover:-translate-y-1 hover:border-accent/60 focus-within:border-accent"
     >
-      <div className="aspect-[4/5] w-full shrink-0 overflow-hidden bg-ink-2">
+      <div className="aspect-[4/3] w-full sm:aspect-[4/5] shrink-0 overflow-hidden bg-ink-2">
         <DoctorPortrait doctor={doctor} />
       </div>
       <div className="flex flex-1 flex-col gap-4 p-5 sm:p-6">
@@ -55,7 +60,7 @@ export function DoctorCard({ doctor, onOpen }: DoctorCardProps) {
             {doctor.specialty}
           </Text>
           <Heading
-            level={2}
+            level={headingLevel}
             variant="heading-4"
             className="text-pretty text-paper"
           >

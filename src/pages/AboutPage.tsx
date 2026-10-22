@@ -87,7 +87,7 @@ export function AboutPage() {
           >
             Family Dent — стоматология, созданная с любовью к своему делу
           </RevealHeading>
-          <div className="mt-6 grid gap-5 tablet:grid-cols-[minmax(0,1fr)_22rem] tablet:items-center">
+          <div className="mt-6 grid gap-5 tablet:grid-cols-[minmax(0,1fr)_minmax(0,18rem)] tablet:items-center">
             <RevealGroup className="type-body-sm flex flex-col gap-5 text-muted">
               <Reveal as={Text} variant="body">
                 История Family Dent началась в 2018 году с желания создать
@@ -108,7 +108,7 @@ export function AboutPage() {
               </Reveal>
             </RevealGroup>
             <video
-              className="aspect-[9/16] w-full max-w-[22rem] justify-self-center rounded-xl border border-rule bg-ink object-cover shadow-card tablet:justify-self-end"
+              className="aspect-[9/16] w-full max-w-[min(18rem,36svh)] justify-self-center rounded-xl border border-rule bg-ink object-cover shadow-card tablet:justify-self-end"
               controls
               playsInline
               preload="metadata"
@@ -128,7 +128,7 @@ export function AboutPage() {
           <RevealHeading level={2} id="values-title" className="text-ink">
             Наши ценности
           </RevealHeading>
-          <div className="mt-6 grid gap-5 tablet:grid-cols-[minmax(0,1fr)_22rem] tablet:items-center">
+          <div className="mt-6 grid gap-5 tablet:grid-cols-[minmax(0,1fr)_minmax(0,18rem)] tablet:items-center">
             <div className="min-h-[18rem]" aria-live="polite">
               <div className="flex items-start justify-between gap-6">
                 <Text variant="overline" className="uppercase text-brand-text">
@@ -170,7 +170,7 @@ export function AboutPage() {
               </article>
             </div>
             <video
-              className="aspect-[9/16] w-full max-w-[22rem] justify-self-center rounded-xl border border-rule bg-ink object-cover shadow-card tablet:justify-self-end"
+              className="aspect-[9/16] w-full max-w-[min(18rem,36svh)] justify-self-center rounded-xl border border-rule bg-ink object-cover shadow-card tablet:justify-self-end"
               controls
               playsInline
               preload="metadata"

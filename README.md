@@ -32,12 +32,18 @@ npm run lint
 npm test
 npm run test:integration
 npm run build
+npx playwright install --with-deps chromium
+npm run test:browser
 ```
 
 Интеграционные тесты поднимают временный MongoDB replica set; при первом запуске
 загружается бинарник MongoDB. Рабочая база сайта не используется.
 `npm run db:verify` проверяет настроенную базу; `npm run db:smoke` проверяет API
 и все 18 типов публичного контента без создания тестовых заявок.
+
+Полный прогон: `npm run check`. Браузерные тесты используют `dist`, публичные
+тестовые данные и отдельный порт 4173, не обращаются к рабочей БД.
+Результаты аудита размеров, типографики, доступности и API: [FML-002](docs/PROJECT_AUDIT_FML-002.md).
 
 ## UI-kit
 

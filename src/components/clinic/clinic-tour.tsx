@@ -53,7 +53,7 @@ export function ClinicTour({
         {spaces.map((space, index) => (
           <figure
             key={space.id}
-            className="group relative min-w-0 overflow-hidden bg-ink"
+            className="group relative aspect-[4/3] min-w-0 overflow-hidden bg-ink"
             data-ui-scheme="inverse"
           >
             <img
@@ -63,7 +63,7 @@ export function ClinicTour({
               height={600}
               loading={index < 5 ? "eager" : "lazy"}
               decoding="async"
-              className="aspect-[4/3] size-full object-cover transition-transform duration-500 ease-out motion-safe:group-hover:scale-[1.035]"
+              className="absolute inset-0 size-full object-cover transition-transform duration-500 ease-out motion-safe:group-hover:scale-[1.035]"
             />
             <figcaption
               className="type-caption pointer-events-none absolute inset-x-0 bottom-0 flex translate-y-full items-center justify-between gap-3 bg-ink/75 px-4 py-3 text-paper transition-transform duration-300 ease-out motion-safe:group-hover:translate-y-0 motion-reduce:translate-y-0"

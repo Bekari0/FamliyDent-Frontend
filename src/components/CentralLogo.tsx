@@ -110,7 +110,7 @@ export function CentralLogo({
 
   return (
     <div
-      className={`relative w-full aspect-square max-w-[310px] sm:max-w-[390px] desktop:max-w-[470px] xl:max-w-[550px] flex items-center justify-center select-none pointer-events-none mx-auto overflow-visible ${className}`}
+      className={`relative w-full aspect-square max-w-[var(--hero-emblem-size)] flex items-center justify-center select-none pointer-events-none mx-auto overflow-visible ${className}`}
       aria-hidden="true"
     >
       {/* 3D Orbit BACK LAYER (z < 0): Renders behind the central logo */}

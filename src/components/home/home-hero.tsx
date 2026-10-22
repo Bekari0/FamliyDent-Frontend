@@ -1,6 +1,7 @@
 import { Button, Container, Heading, Reveal, Text } from "@/ui-kit";
 import { BackgroundVideo } from "../BackgroundVideo";
 import { CentralLogo } from "../CentralLogo";
+import "./home-hero.css";
 
 interface HomeHeroProps {
   onOpenBooking: () => void;
@@ -19,16 +20,16 @@ export function HomeHero({ onOpenBooking }: HomeHeroProps) {
 
   return (
     <section
-      className="relative flex min-h-[100svh] w-full flex-col justify-between overflow-hidden bg-ink pt-24 pb-14 text-on-dark sm:pb-16"
+      className="home-hero relative flex w-full flex-col justify-center overflow-hidden bg-ink text-on-dark"
       data-ui-scheme="inverse"
     >
       {/* Background ambient video / lighting */}
       <BackgroundVideo />
 
-      {/* Main Hero Layout matching image.png */}
-      <Container className="relative z-10 my-auto grid grid-cols-1 items-center gap-8 desktop:grid-cols-12 desktop:gap-6 xl:gap-8">
+      {/* Intro, emblem and booking action share one responsive layout. */}
+      <Container className="home-hero__layout relative z-10 grid items-center">
         {/* Left Column: Title & Subtitle */}
-        <Reveal className="desktop:col-span-4 flex flex-col items-start text-left">
+        <Reveal className="home-hero__intro flex flex-col items-start text-left">
           <Heading level={1} variant="hero" className="text-on-dark">
             Современная
             <br />
@@ -38,20 +39,20 @@ export function HomeHero({ onOpenBooking }: HomeHeroProps) {
             <br />
           </Heading>
 
-          <Text variant="body-sm" className="mt-6 text-on-dark/70 max-w-sm">
+          <Text variant="body-sm" className="mt-4 text-on-dark/70 max-w-sm">
             От первого молочного зуба до сложной имплантации — бережно, точно и
             без спешки.
           </Text>
         </Reveal>
 
         {/* Center Column: Glowing Tooth Emblem */}
-        <div className="desktop:col-span-4 flex items-center justify-center py-4 desktop:py-0 relative overflow-visible">
+        <div className="home-hero__emblem flex items-center justify-center relative overflow-visible">
           <CentralLogo colorMode="glowing-white" />
         </div>
 
         {/* Right Column: Title & Action Buttons */}
-        <Reveal className="desktop:col-span-4 flex flex-col items-start desktop:items-start text-left w-full min-w-0">
-          <Heading level={2} className="text-on-dark mb-6 w-full max-w-full">
+        <Reveal className="home-hero__action flex flex-col items-start text-left w-full min-w-0">
+          <Heading level={2} className="text-on-dark mb-4 w-full max-w-full">
             <span className="block">Без боли.</span>
             <span className="block">Без спешки.</span>
             <span className="block">Без компромиссов.</span>

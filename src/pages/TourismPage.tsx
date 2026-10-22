@@ -326,6 +326,7 @@ function ConsultationDialog({
     <dialog
       ref={dialogRef}
       className="tourism-dialog"
+      aria-labelledby="tourism-dialog-title"
       onClose={onClose}
       onCancel={onClose}
       onClick={(event) => {
@@ -340,7 +341,9 @@ function ConsultationDialog({
           >
             Персональная консультация
           </Text>
-          <RevealHeading level={2}>Расскажите о задаче</RevealHeading>
+          <RevealHeading level={2} id="tourism-dialog-title">
+            Расскажите о задаче
+          </RevealHeading>
         </div>
         <IconButton onClick={onClose} aria-label="Закрыть форму">
           <X aria-hidden="true" />
@@ -701,6 +704,7 @@ export function TourismPage() {
               <Reveal
                 key={item.number}
                 className="tourism-package"
+                data-ui-scheme="inverse"
                 delay={index * 0.06}
               >
                 <img

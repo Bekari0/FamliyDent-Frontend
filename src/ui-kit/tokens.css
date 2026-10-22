@@ -328,8 +328,22 @@
   --container-max: 90rem;
   --container-readable: 46rem;
   --page-gutter: clamp(1.125rem, 3.6vw, 4rem);
-  --section-y: clamp(4.5rem, 9vw, 9rem);
-  --header-height: 4.75rem;
+  --section-y-mobile: 3rem;
+  --section-y-tablet: 4rem;
+  --section-y-desktop: 5rem;
+  --section-y: var(--section-y-mobile);
+  --section-y-compact-mobile: 2rem;
+  --section-y-compact-tablet: 2.5rem;
+  --section-y-compact-desktop: 3rem;
+  --section-y-compact: var(--section-y-compact-mobile);
+  --section-heading-gap-mobile: 1.5rem;
+  --section-heading-gap-tablet: 2rem;
+  --section-heading-gap-desktop: 2.5rem;
+  --section-heading-gap: var(--section-heading-gap-mobile);
+  --hero-emblem-size: 10rem;
+  --hero-y: clamp(2rem, 6svh, 4rem);
+  --hero-min-height: min(42rem, calc(100svh - var(--header-height)));
+  --header-height: 4rem;
   --layer-dialog: 90;
   --control-height-sm: 2.5rem;
   --control-height-md: 3rem;
@@ -369,10 +383,14 @@
 }
 
 :root {
+  @variant sm {
+    --header-height: 4.5rem;
+  }
+
   /* display: mobile / tablet / desktop. */
-  --type-display-mobile: 2.5rem;
-  --type-display-tablet: 3.5rem;
-  --type-display-desktop: 4.5rem;
+  --type-display-mobile: 2.25rem;
+  --type-display-tablet: 3rem;
+  --type-display-desktop: 4rem;
   --type-display-size: var(--type-display-mobile);
   --type-display-family: var(--font-display);
   --type-display-leading: 1.08;
@@ -390,9 +408,9 @@
   --type-hero-weight: var(--font-weight-semibold);
 
   /* heading-1: mobile / tablet / desktop. */
-  --type-heading-1-mobile: 2.25rem;
-  --type-heading-1-tablet: 3rem;
-  --type-heading-1-desktop: 3.5rem;
+  --type-heading-1-mobile: 2rem;
+  --type-heading-1-tablet: 2.75rem;
+  --type-heading-1-desktop: 3rem;
   --type-heading-1-size: var(--type-heading-1-mobile);
   --type-heading-1-family: var(--font-display);
   --type-heading-1-leading: 1.12;
@@ -400,9 +418,9 @@
   --type-heading-1-weight: var(--font-weight-semibold);
 
   /* heading-2: mobile / tablet / desktop. */
-  --type-heading-2-mobile: 1.875rem;
-  --type-heading-2-tablet: 2.25rem;
-  --type-heading-2-desktop: 2.75rem;
+  --type-heading-2-mobile: 1.75rem;
+  --type-heading-2-tablet: 2rem;
+  --type-heading-2-desktop: 2.5rem;
   --type-heading-2-size: var(--type-heading-2-mobile);
   --type-heading-2-family: var(--font-display);
   --type-heading-2-leading: 1.16;
@@ -410,9 +428,9 @@
   --type-heading-2-weight: var(--font-weight-semibold);
 
   /* heading-3: mobile / tablet / desktop. */
-  --type-heading-3-mobile: 1.5rem;
-  --type-heading-3-tablet: 1.625rem;
-  --type-heading-3-desktop: 1.875rem;
+  --type-heading-3-mobile: 1.375rem;
+  --type-heading-3-tablet: 1.5rem;
+  --type-heading-3-desktop: 1.75rem;
   --type-heading-3-size: var(--type-heading-3-mobile);
   --type-heading-3-family: var(--font-display);
   --type-heading-3-leading: 1.22;
@@ -421,8 +439,8 @@
 
   /* heading-4: mobile / tablet / desktop. */
   --type-heading-4-mobile: 1.25rem;
-  --type-heading-4-tablet: 1.375rem;
-  --type-heading-4-desktop: 1.5rem;
+  --type-heading-4-tablet: 1.25rem;
+  --type-heading-4-desktop: 1.375rem;
   --type-heading-4-size: var(--type-heading-4-mobile);
   --type-heading-4-family: var(--font-display);
   --type-heading-4-leading: 1.3;
@@ -470,7 +488,7 @@
   --type-body-weight: var(--font-weight-normal);
 
   /* body-sm: mobile / tablet / desktop. */
-  --type-body-sm-mobile: 0.875rem;
+  --type-body-sm-mobile: 0.9375rem;
   --type-body-sm-tablet: 0.9375rem;
   --type-body-sm-desktop: 1rem;
   --type-body-sm-size: var(--type-body-sm-mobile);
@@ -550,6 +568,10 @@
   --type-wordmark-weight: var(--font-weight-bold);
 
   @variant tablet {
+    --hero-emblem-size: 20rem;
+    --section-y: var(--section-y-tablet);
+    --section-y-compact: var(--section-y-compact-tablet);
+    --section-heading-gap: var(--section-heading-gap-tablet);
     --type-display-size: var(--type-display-tablet);
     --type-hero-size: var(--type-hero-tablet);
     --type-heading-1-size: var(--type-heading-1-tablet);
@@ -570,6 +592,10 @@
     --type-wordmark-size: var(--type-wordmark-tablet);
   }
   @variant desktop {
+    --hero-emblem-size: 24rem;
+    --section-y: var(--section-y-desktop);
+    --section-y-compact: var(--section-y-compact-desktop);
+    --section-heading-gap: var(--section-heading-gap-desktop);
     --type-display-size: var(--type-display-desktop);
     --type-hero-size: var(--type-hero-desktop);
     --type-heading-1-size: var(--type-heading-1-desktop);

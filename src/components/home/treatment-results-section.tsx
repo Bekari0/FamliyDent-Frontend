@@ -26,12 +26,12 @@ export function TreatmentResultsSection() {
 
   return (
     <section
-      className="w-full border-b border-rule bg-paper py-16 text-ink sm:py-20"
+      className="w-full border-b border-rule bg-paper section-space text-ink"
       data-ui-scheme="default"
     >
       <Container>
         {/* Header */}
-        <Reveal className="flex flex-col tablet:flex-row tablet:items-end justify-between mb-12 gap-4">
+        <Reveal className="flex flex-col tablet:flex-row tablet:items-end justify-between section-heading-gap gap-4">
           <div>
             <span className="type-overline uppercase text-brand-text mb-2 block">
               Клинические кейсы
@@ -63,11 +63,11 @@ export function TreatmentResultsSection() {
               data-ui-scheme="default"
             >
               <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="type-caption uppercase text-brand-text bg-accent-soft px-2.5 py-1 rounded-md border border-rule">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                  <span className="type-caption min-w-0 break-all uppercase text-brand-text bg-accent-soft px-2.5 py-1 rounded-md border border-rule">
                     {c.category}
                   </span>
-                  <div className="type-caption text-muted">
+                  <div className="type-caption min-w-0 break-words text-muted">
                     <span>Цифровая протоколизация</span>
                   </div>
                 </div>

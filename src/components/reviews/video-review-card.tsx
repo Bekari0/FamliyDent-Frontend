@@ -1,4 +1,4 @@
-import { Heading, Reveal, Text } from "@/ui-kit";
+import { Button, Heading, Reveal, Text } from "@/ui-kit";
 import { ExternalLink, Play, ShieldCheck } from "lucide-react";
 import type { PatientReview } from "../../lib/data/types";
 import { useCookieConsent } from "../shared/cookie-consent";
@@ -17,7 +17,7 @@ export function VideoReviewCard({ review }: VideoReviewCardProps) {
       className="flex flex-col overflow-hidden rounded-lg border border-rule bg-surface shadow-whisper"
       data-ui-scheme="default"
     >
-      <div className="relative aspect-[4/5] w-full overflow-hidden bg-paper-2">
+      <div className="relative grid aspect-[4/5] w-full overflow-hidden bg-paper-2">
         {isInstagram && review.videoUrl && externalContentAllowed ? (
           <iframe
             src={review.videoUrl}
@@ -28,7 +28,7 @@ export function VideoReviewCard({ review }: VideoReviewCardProps) {
           />
         ) : isInstagram && review.videoUrl ? (
           <div
-            className="flex h-full w-full flex-col items-center justify-center bg-ink px-6 text-center text-paper"
+            className="flex min-h-full w-full flex-col items-center justify-center bg-ink p-6 text-center text-paper"
             data-ui-scheme="inverse"
           >
             <span className="flex size-12 items-center justify-center rounded-full border border-accent/30 bg-accent/15 text-accent-2">
@@ -41,14 +41,10 @@ export function VideoReviewCard({ review }: VideoReviewCardProps) {
               Instagram загрузится только после вашего согласия на сторонние
               cookie.
             </Text>
-            <button
-              type="button"
-              onClick={acceptAll}
-              className="type-button mt-5 inline-flex min-h-10 items-center gap-2 rounded-pill bg-accent px-5 text-accent-ink transition-colors hover:bg-accent-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-            >
+            <Button onClick={acceptAll} className="mt-5">
               <Play aria-hidden="true" className="size-3.5 fill-current" />
-              Разрешить видео
-            </button>
+              <span className="min-w-0">Разрешить видео</span>
+            </Button>
           </div>
         ) : review.videoUrl ? (
           <video

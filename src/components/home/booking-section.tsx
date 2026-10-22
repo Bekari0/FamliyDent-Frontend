@@ -60,7 +60,7 @@ export function BookingSection(_props: BookingSectionProps) {
   return (
     <section
       id="booking"
-      className="relative w-full scroll-mt-24 overflow-hidden border-b border-rule bg-paper-2 py-12 text-ink sm:py-16 desktop:py-20"
+      className="relative w-full scroll-mt-24 overflow-hidden border-b border-rule bg-paper-2 section-space text-ink"
     >
       <Container>
         <Reveal

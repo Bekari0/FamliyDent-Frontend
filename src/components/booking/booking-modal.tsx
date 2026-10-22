@@ -1,5 +1,6 @@
 import {
   Button,
+  Dialog,
   Field,
   Heading,
   IconButton,
@@ -8,7 +9,6 @@ import {
   Text,
 } from "@/ui-kit";
 import { Calendar, CheckCircle2, Phone, User, X } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
 import React, { useEffect, useState } from "react";
 import { createBooking } from "../../lib/api";
 import { getDoctors } from "../../lib/data/doctors";
@@ -42,10 +42,8 @@ export function BookingModal({
   }, []);
 
   useEffect(() => {
-    if (preselectedDoctor) {
-      setDoctor(preselectedDoctor);
-    }
-  }, [preselectedDoctor]);
+    if (isOpen) setDoctor(preselectedDoctor ?? "");
+  }, [isOpen, preselectedDoctor]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,133 +72,131 @@ export function BookingModal({
   if (!isOpen) return null;
 
   return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-(--layer-dialog) flex items-start justify-center overflow-y-auto p-4 bg-overlay/50 backdrop-blur-md">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          className="relative my-auto w-full max-w-md bg-paper-2 border border-rule rounded-2xl p-6 sm:p-8 shadow-card text-ink"
-        >
-          <IconButton
-            onClick={onClose}
-            className="absolute top-4 right-4"
-            aria-label="Закрыть"
-            data-ui-scheme="default"
+    <Dialog
+      label="Запись на приём"
+      onClose={onClose}
+      className="max-w-md p-6 sm:p-8"
+    >
+      <IconButton
+        onClick={onClose}
+        className="absolute top-4 right-4"
+        aria-label="Закрыть"
+        data-ui-scheme="default"
+      >
+        <X className="w-5 h-5" />
+      </IconButton>
+
+      {submitted ? (
+        <div className="py-8 text-center flex flex-col items-center">
+          <div className="w-16 h-16 rounded-full bg-success-soft border border-success/40 text-success flex items-center justify-center mb-4">
+            <CheckCircle2 className="w-8 h-8" />
+          </div>
+          <Heading level={3} variant="heading-4" className="mb-2">
+            Заявка принята!
+          </Heading>
+          <Text variant="body-sm" className="text-muted mb-6">
+            Администратор клиники Family Dent свяжется с вами в течение 15 минут
+            для подтверждения времени записи.
+          </Text>
+          <button
+            onClick={handleReset}
+            className="type-button inline-flex min-h-11 items-center justify-center rounded-pill bg-ink text-paper px-6 py-2.5 hover:bg-accent hover:text-accent-ink transition duration-[var(--dur-micro)] cursor-pointer"
+            data-ui-scheme="inverse"
           >
-            <X className="w-5 h-5" />
-          </IconButton>
+            Отлично
+          </button>
+        </div>
+      ) : (
+        <div>
+          <div className="type-overline pr-12 flex items-center gap-2 text-brand-text uppercase mb-1">
+            <Calendar className="w-4 h-4" />
+            <span>Запись на приём</span>
+          </div>
+          <Heading
+            level={2}
+            variant="heading-4"
+            className="text-ink mb-2 pr-10"
+          >
+            Забронируйте время
+          </Heading>
+          <Text variant="body-sm" className="text-muted mb-6">
+            Оставьте контактные данные, и мы свяжемся с вами для выбора удобного
+            времени.
+          </Text>
 
-          {submitted ? (
-            <div className="py-8 text-center flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-success-soft border border-success/40 text-success flex items-center justify-center mb-4">
-                <CheckCircle2 className="w-8 h-8" />
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <Field label="Ваше имя" required>
+              <div className="relative">
+                <User className="w-4 h-4 text-brand-text absolute left-3 top-1/2 -translate-y-1/2" />
+                <Input
+                  type="text"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Алишер Назаров"
+                  className="pl-10"
+                  data-ui-scheme="default"
+                />
               </div>
-              <Heading level={3} variant="heading-4" className="mb-2">
-                Заявка принята!
-              </Heading>
-              <Text variant="body-sm" className="text-muted mb-6">
-                Администратор клиники Family Dent свяжется с вами в течение 15
-                минут для подтверждения времени записи.
-              </Text>
-              <button
-                onClick={handleReset}
-                className="type-button inline-flex min-h-11 items-center justify-center rounded-pill bg-ink text-paper px-6 py-2.5 hover:bg-accent hover:text-accent-ink transition duration-[var(--dur-micro)] cursor-pointer"
-                data-ui-scheme="inverse"
+            </Field>
+
+            <Field label="Номер телефона" required>
+              <div className="relative">
+                <Phone className="w-4 h-4 text-brand-text absolute left-3 top-1/2 -translate-y-1/2" />
+                <Input
+                  type="tel"
+                  required
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="+992 446 60 66 00"
+                  className="pl-10"
+                  data-ui-scheme="default"
+                />
+              </div>
+            </Field>
+
+            <Field label="Врач (необязательно)">
+              <Select
+                value={doctor}
+                onChange={(e) => setDoctor(e.target.value)}
+                data-ui-scheme="default"
               >
-                Отлично
-              </button>
-            </div>
-          ) : (
-            <div>
-              <div className="type-overline flex items-center gap-2 text-brand-text uppercase mb-1">
-                <Calendar className="w-4 h-4" />
-                <span>Запись на приём</span>
-              </div>
-              <Heading level={2} variant="heading-4" className="text-ink mb-2">
-                Забронируйте время
-              </Heading>
-              <Text variant="body-sm" className="text-muted mb-6">
-                Оставьте контактные данные, и мы свяжемся с вами для выбора
-                удобного времени.
+                <option value="">Любой свободный специалист</option>
+                {doctors.map((d) => (
+                  <option key={d.id} value={d.name}>
+                    {d.name} ({d.specialty})
+                  </option>
+                ))}
+              </Select>
+            </Field>
+
+            <Button
+              variant="secondary"
+              size="lg"
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full"
+              data-ui-scheme="inverse"
+            >
+              {isSubmitting ? "Отправляем…" : "Записаться на консультацию"}
+            </Button>
+
+            {submitError && (
+              <Text
+                variant="body-sm"
+                className="text-error-ink text-center"
+                role="alert"
+              >
+                {submitError}
               </Text>
+            )}
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <Field label="Ваше имя" required>
-                  <div className="relative">
-                    <User className="w-4 h-4 text-brand-text absolute left-3 top-1/2 -translate-y-1/2" />
-                    <Input
-                      type="text"
-                      required
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="Алишер Назаров"
-                      className="pl-10"
-                      data-ui-scheme="default"
-                    />
-                  </div>
-                </Field>
-
-                <Field label="Номер телефона" required>
-                  <div className="relative">
-                    <Phone className="w-4 h-4 text-brand-text absolute left-3 top-1/2 -translate-y-1/2" />
-                    <Input
-                      type="tel"
-                      required
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="+992 446 60 66 00"
-                      className="pl-10"
-                      data-ui-scheme="default"
-                    />
-                  </div>
-                </Field>
-
-                <Field label="Врач (необязательно)">
-                  <Select
-                    value={doctor}
-                    onChange={(e) => setDoctor(e.target.value)}
-                    data-ui-scheme="default"
-                  >
-                    <option value="">Любой свободный специалист</option>
-                    {doctors.map((d) => (
-                      <option key={d.id} value={d.name}>
-                        {d.name} ({d.specialty})
-                      </option>
-                    ))}
-                  </Select>
-                </Field>
-
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full"
-                  data-ui-scheme="inverse"
-                >
-                  {isSubmitting ? "Отправляем…" : "Записаться на консультацию"}
-                </Button>
-
-                {submitError && (
-                  <Text
-                    variant="body-sm"
-                    className="text-error-ink text-center"
-                    role="alert"
-                  >
-                    {submitError}
-                  </Text>
-                )}
-
-                <Text variant="caption" className="text-muted text-center mt-2">
-                  Нажимая кнопку, вы соглашаетесь на обработку персональных
-                  данных.
-                </Text>
-              </form>
-            </div>
-          )}
-        </motion.div>
-      </div>
-    </AnimatePresence>
+            <Text variant="caption" className="text-muted text-center mt-2">
+              Нажимая кнопку, вы соглашаетесь на обработку персональных данных.
+            </Text>
+          </form>
+        </div>
+      )}
+    </Dialog>
   );
 }

@@ -71,6 +71,9 @@ export function BeforeAfterSlider({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) {
+      e.preventDefault();
+    }
     if (e.key === "ArrowLeft") {
       setPosition((prev) => Math.max(0, prev - 5));
     } else if (e.key === "ArrowRight") {

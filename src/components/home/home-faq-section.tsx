@@ -24,11 +24,11 @@ export function HomeFaqSection() {
   return (
     <section
       id="faq"
-      className="scroll-mt-20 w-full bg-paper-2 text-ink py-16 sm:py-20 px-5 sm:px-8 border-b border-rule"
+      className="scroll-mt-20 w-full bg-paper-2 text-ink section-space px-5 sm:px-8 border-b border-rule"
     >
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between section-heading-gap gap-4">
           <div>
             <span className="type-overline uppercase text-brand-text mb-2 block">
               Вопросы и ответы
@@ -58,9 +58,13 @@ export function HomeFaqSection() {
                   onClick={() => toggleAccordion(faq.id)}
                   className="w-full text-left flex items-center justify-between gap-4 group cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-focus rounded-lg p-1"
                 >
-                  <span className="type-body-sm text-ink group-hover:text-brand-text transition-colors">
+                  <Text
+                    as="span"
+                    variant="body-sm"
+                    className="min-w-0 text-ink group-hover:text-brand-text transition-colors"
+                  >
                     {faq.question}
-                  </span>
+                  </Text>
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${
                       isOpen

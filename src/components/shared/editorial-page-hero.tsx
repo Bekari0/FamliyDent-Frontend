@@ -20,7 +20,7 @@ export function EditorialPageHero({
 
   return (
     <section
-      className={`relative w-full overflow-hidden pt-28 pb-12 text-center sm:pt-36 sm:pb-16 ${hasBackgroundImage ? "min-h-[25rem] sm:min-h-[30rem]" : ""}`}
+      className={`relative w-full overflow-hidden section-space text-center ${hasBackgroundImage ? "min-h-[20rem] tablet:min-h-[24rem] flex items-center" : ""}`}
     >
       {backgroundImage && (
         <>

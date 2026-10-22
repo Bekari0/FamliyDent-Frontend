@@ -1,0 +1,43 @@
+@reference "../../index.css";
+
+@layer components {
+  .home-hero {
+    min-height: var(--hero-min-height);
+    padding-block: var(--hero-y) calc(var(--hero-y) + var(--space-lg));
+  }
+
+  .home-hero__layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (width >= theme(--breakpoint-tablet)) {
+    .home-hero__layout {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-xl);
+    }
+
+    .home-hero__emblem {
+      grid-column: 2;
+      grid-row: 1 / 3;
+    }
+
+    .home-hero__action {
+      grid-column: 1;
+      grid-row: 2;
+    }
+  }
+
+  @media (width >= theme(--breakpoint-desktop)) {
+    .home-hero__layout {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .home-hero__emblem,
+    .home-hero__action {
+      grid-column: auto;
+      grid-row: auto;
+    }
+  }
+}

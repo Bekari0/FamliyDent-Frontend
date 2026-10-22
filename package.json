@@ -22,8 +22,10 @@
     "dev:web": "vite --host=0.0.0.0 --strictPort",
     "build:web": "vite build",
     "test:integration": "npm run test:integration --workspace @familydent/backend",
-    "check": "npm run lint && npm test && npm run test:integration && npm run build",
-    "admin:create": "npm run admin:create --workspace @familydent/backend"
+    "check": "npm run lint && npm test && npm run test:integration && npm run build && npm run lint:browser && npm run test:browser",
+    "admin:create": "npm run admin:create --workspace @familydent/backend",
+    "test:browser": "playwright test",
+    "lint:browser": "tsc --noEmit -p tests/browser/tsconfig.json"
   },
   "dependencies": {
     "lucide-react": "^0.546.0",
@@ -33,6 +35,8 @@
     "react-router-dom": "^7.11.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/vite": "^4.1.14",
     "@types/node": "^22.14.0",
     "@types/react": "^19.2.18",

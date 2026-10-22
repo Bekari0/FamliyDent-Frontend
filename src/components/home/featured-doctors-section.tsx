@@ -1,25 +1,20 @@
-import {
-  Container,
-  Heading,
-  Reveal,
-  RevealGroup,
-  RevealItem,
-  Text,
-} from "@/ui-kit";
+import { Container, Heading, Reveal, RevealGroup, Text } from "@/ui-kit";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getDoctors } from "../../lib/data/doctors";
-import type { TeamMember } from "../../lib/data/types";
-import { TeamMemberCard } from "../team/team-member-card";
+import type { Doctor } from "../../lib/data/types";
+import { DoctorCard } from "../team/doctor-card";
+import { DoctorProfileDialog } from "../team/doctor-profile-dialog";
 
 interface FeaturedDoctorsSectionProps {
   onOpenBooking?: (doctorName?: string) => void;
 }
 
 export function FeaturedDoctorsSection({
-  onOpenBooking: _onOpenBooking,
+  onOpenBooking,
 }: FeaturedDoctorsSectionProps) {
+  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
   const [featuredDoctors, setFeaturedDoctors] = useState<
     Awaited<ReturnType<typeof getDoctors>>
   >([]);
@@ -31,11 +26,11 @@ export function FeaturedDoctorsSection({
 
   return (
     <section
-      className="w-full border-b border-on-dark/10 bg-ink py-16 text-paper sm:py-20"
+      className="w-full border-b border-on-dark/10 bg-ink section-space text-paper"
       data-ui-scheme="inverse"
     >
       <Container>
-        <Reveal className="flex flex-col tablet:flex-row tablet:items-end justify-between mb-12 gap-4">
+        <Reveal className="flex flex-col tablet:flex-row tablet:items-end justify-between section-heading-gap gap-4">
           <div>
             <span className="type-overline uppercase text-brand-text mb-2 block">
               Врачи клиники
@@ -58,27 +53,24 @@ export function FeaturedDoctorsSection({
         </Reveal>
 
         <RevealGroup className="grid grid-cols-1 tablet:grid-cols-3 gap-6 items-stretch">
-          {featuredDoctors.map((doctor) => {
-            const member: TeamMember = {
-              id: doctor.id,
-              slug: doctor.slug,
-              name: doctor.name,
-              category: "doctors",
-              position: doctor.specialty,
-              shortBio: doctor.bio[0],
-              image: doctor.image!,
-              experienceYears: doctor.experienceYears,
-              specialties: doctor.specialties,
-            };
-
-            return (
-              <RevealItem key={doctor.id} className="flex flex-col">
-                <TeamMemberCard member={member} dark />
-              </RevealItem>
-            );
-          })}
+          {featuredDoctors.map((doctor) => (
+            <DoctorCard
+              key={doctor.id}
+              doctor={doctor}
+              headingLevel={3}
+              onOpen={setSelectedDoctor}
+            />
+          ))}
         </RevealGroup>
       </Container>
+      <DoctorProfileDialog
+        doctor={selectedDoctor}
+        onClose={() => setSelectedDoctor(null)}
+        onBook={(doctorName) => {
+          setSelectedDoctor(null);
+          onOpenBooking?.(doctorName);
+        }}
+      />
     </section>
   );
 }
