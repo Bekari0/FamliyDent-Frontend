@@ -1,4 +1,4 @@
-import { Container, Heading, Text } from "@/ui-kit";
+import { Container, Heading, Reveal, Text } from "@/ui-kit";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { useEffect } from "react";
 import { EditorialPageHero } from "../components/shared/editorial-page-hero";
@@ -24,7 +24,7 @@ export function ContactsPage() {
         className="my-8 grid grid-cols-1 gap-8 tablet:grid-cols-2"
       >
         {/* Contact info cards */}
-        <div
+        <Reveal
           className="bg-surface border border-rule rounded-3xl p-8 shadow-card flex flex-col gap-6"
           data-ui-scheme="default"
         >
@@ -99,10 +99,10 @@ export function ContactsPage() {
               </a>
             </div>
           </div>
-        </div>
+        </Reveal>
 
         {/* Interactive Map Placeholder */}
-        <div
+        <Reveal
           className="bg-surface border border-rule rounded-3xl p-6 shadow-card flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[300px]"
           data-ui-scheme="default"
         >
@@ -114,7 +114,7 @@ export function ContactsPage() {
             Удобный подъезд и собственная бесплатная парковка для пациентов
             клиники.
           </Text>
-        </div>
+        </Reveal>
       </Container>
     </div>
   );

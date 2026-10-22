@@ -1,5 +1,4 @@
-import { Heading, Text } from "@/ui-kit";
-import { ScrollAnimate } from "./scroll-animate";
+import { Heading, Reveal, Text } from "@/ui-kit";
 
 interface EditorialPageHeroProps {
   badge?: string;
@@ -38,7 +37,7 @@ export function EditorialPageHero({
           />
         </>
       )}
-      <ScrollAnimate className="page-container relative z-10 flex flex-col items-center">
+      <Reveal className="page-container relative z-10 flex flex-col items-center">
         <div className="flex w-full max-w-4xl flex-col items-center">
           {badge && (
             <span
@@ -69,7 +68,7 @@ export function EditorialPageHero({
             {description}
           </Text>
         </div>
-      </ScrollAnimate>
+      </Reveal>
     </section>
   );
 }

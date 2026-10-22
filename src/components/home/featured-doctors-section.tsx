@@ -1,14 +1,16 @@
-import { Container, Heading, Text } from "@/ui-kit";
+import {
+  Container,
+  Heading,
+  Reveal,
+  RevealGroup,
+  RevealItem,
+  Text,
+} from "@/ui-kit";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getDoctors } from "../../lib/data/doctors";
 import type { TeamMember } from "../../lib/data/types";
-import {
-  ScrollAnimate,
-  StaggerContainer,
-  StaggerItem,
-} from "../shared/scroll-animate";
 import { TeamMemberCard } from "../team/team-member-card";
 
 interface FeaturedDoctorsSectionProps {
@@ -33,7 +35,7 @@ export function FeaturedDoctorsSection({
       data-ui-scheme="inverse"
     >
       <Container>
-        <ScrollAnimate className="flex flex-col tablet:flex-row tablet:items-end justify-between mb-12 gap-4">
+        <Reveal className="flex flex-col tablet:flex-row tablet:items-end justify-between mb-12 gap-4">
           <div>
             <span className="type-overline uppercase text-brand-text mb-2 block">
               Врачи клиники
@@ -53,9 +55,9 @@ export function FeaturedDoctorsSection({
             <span>Все врачи</span>
             <ArrowRight className="w-4 h-4 text-brand-text group-hover:translate-x-1 transition-transform" />
           </Link>
-        </ScrollAnimate>
+        </Reveal>
 
-        <StaggerContainer className="grid grid-cols-1 tablet:grid-cols-3 gap-6 items-stretch">
+        <RevealGroup className="grid grid-cols-1 tablet:grid-cols-3 gap-6 items-stretch">
           {featuredDoctors.map((doctor) => {
             const member: TeamMember = {
               id: doctor.id,
@@ -70,12 +72,12 @@ export function FeaturedDoctorsSection({
             };
 
             return (
-              <StaggerItem key={doctor.id} className="flex flex-col">
+              <RevealItem key={doctor.id} className="flex flex-col">
                 <TeamMemberCard member={member} dark />
-              </StaggerItem>
+              </RevealItem>
             );
           })}
-        </StaggerContainer>
+        </RevealGroup>
       </Container>
     </section>
   );

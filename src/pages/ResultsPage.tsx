@@ -1,4 +1,4 @@
-import { Container } from "@/ui-kit";
+import { Container, RevealGroup } from "@/ui-kit";
 import { useEffect, useState } from "react";
 import { TreatmentCaseCard } from "../components/results/treatment-case-card";
 import { EditorialPageHero } from "../components/shared/editorial-page-hero";
@@ -63,11 +63,11 @@ export function ResultsPage() {
         </div>
 
         {/* Grid of case cards */}
-        <div className="grid grid-cols-1 tablet:grid-cols-2 gap-8 my-8">
+        <RevealGroup className="grid grid-cols-1 tablet:grid-cols-2 gap-8 my-8">
           {filteredCases.map((caseItem) => (
             <TreatmentCaseCard key={caseItem.id} treatmentCase={caseItem} />
           ))}
-        </div>
+        </RevealGroup>
       </Container>
     </div>
   );

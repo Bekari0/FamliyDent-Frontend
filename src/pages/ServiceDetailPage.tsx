@@ -1,4 +1,12 @@
-import { Button, buttonClass, Heading, Text } from "@/ui-kit";
+import {
+  Button,
+  buttonClass,
+  Heading,
+  RevealGroup,
+  RevealHeading,
+  RevealItem,
+  Text,
+} from "@/ui-kit";
 import { ArrowLeft, ArrowRight, Calendar, Clock } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
@@ -50,7 +58,7 @@ export function ServiceDetailPage({ onOpenBooking }: ServiceDetailPageProps) {
           <Text variant="overline" className="services-page__eyebrow">
             404 / Услуга не найдена
           </Text>
-          <Heading level={1}>Такого направления нет</Heading>
+          <RevealHeading level={1}>Такого направления нет</RevealHeading>
           <Text variant="body">
             Вернитесь в каталог и выберите подходящую услугу.
           </Text>
@@ -130,25 +138,19 @@ export function ServiceDetailPage({ onOpenBooking }: ServiceDetailPageProps) {
             <Text variant="overline" className="service-detail__eyebrow">
               Что входит
             </Text>
-            <Heading level={2} id="service-benefits-title">
+            <RevealHeading level={2} id="service-benefits-title">
               Внимание к каждой детали лечения
-            </Heading>
+            </RevealHeading>
             <Text variant="body">{service.description}</Text>
           </div>
-          <ol>
+          <RevealGroup as="ol">
             {service.details?.map((detail, detailIndex) => (
-              <motion.li
-                key={detail}
-                initial={reduceMotion ? false : { opacity: 0, x: 24 }}
-                whileInView={reduceMotion ? undefined : { opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: detailIndex * 0.08 }}
-              >
+              <RevealItem as="li" key={detail}>
                 <span>{String(detailIndex + 1).padStart(2, "0")}</span>
                 <strong>{detail}</strong>
-              </motion.li>
+              </RevealItem>
             ))}
-          </ol>
+          </RevealGroup>
         </div>
       </section>
 
@@ -158,7 +160,9 @@ export function ServiceDetailPage({ onOpenBooking }: ServiceDetailPageProps) {
             <Text variant="overline" className="service-detail__eyebrow">
               Консультация
             </Text>
-            <Heading level={2}>Составим индивидуальный план лечения</Heading>
+            <RevealHeading level={2}>
+              Составим индивидуальный план лечения
+            </RevealHeading>
           </div>
           <Button size="lg" onClick={onOpenBooking}>
             <Calendar aria-hidden="true" />
@@ -176,11 +180,11 @@ export function ServiceDetailPage({ onOpenBooking }: ServiceDetailPageProps) {
             <Text variant="overline" className="service-detail__eyebrow">
               Продолжить выбор
             </Text>
-            <Heading level={2} id="service-related-title">
+            <RevealHeading level={2} id="service-related-title">
               Другие направления
-            </Heading>
+            </RevealHeading>
           </header>
-          <div className="service-related__grid">
+          <RevealGroup className="service-related__grid">
             {related.map((item) => (
               <ServiceTile
                 key={item.id}
@@ -189,7 +193,7 @@ export function ServiceDetailPage({ onOpenBooking }: ServiceDetailPageProps) {
                 compact
               />
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
     </div>

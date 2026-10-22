@@ -45,7 +45,15 @@ export function OrbitalRings({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animationFrameId: number;
+    let animationFrameId = 0;
+    let visible = true;
+    let disposed = false;
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const requestRender = () => {
+      cancelAnimationFrame(animationFrameId);
+      if (!disposed && visible && !document.hidden)
+        animationFrameId = requestAnimationFrame(render);
+    };
 
     const colors = {
       accent: readCssToken("--color-accent", canvas),
@@ -102,8 +110,9 @@ export function OrbitalRings({
     let currentMouseY = mouseY;
 
     const render = (now: number) => {
+      if (disposed) return;
       // Use performance.now() directly for synchronized cross-layer timing
-      const elapsed = now;
+      const elapsed = preference.matches ? 0 : now;
 
       const rect = canvas.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -111,7 +120,8 @@ export function OrbitalRings({
       const height = rect.height;
 
       if (width === 0 || height === 0) {
-        animationFrameId = requestAnimationFrame(render);
+        if (!preference.matches && visible && !document.hidden)
+          animationFrameId = requestAnimationFrame(render);
         return;
       }
 
@@ -125,8 +135,12 @@ export function OrbitalRings({
       ctx.clearRect(0, 0, width, height);
 
       // Lerp mouse coordinates for continuous smooth parallax response
-      currentMouseX += (mouseRef.current.x - currentMouseX) * 0.06;
-      currentMouseY += (mouseRef.current.y - currentMouseY) * 0.06;
+      currentMouseX = preference.matches
+        ? 0
+        : currentMouseX + (mouseRef.current.x - currentMouseX) * 0.06;
+      currentMouseY = preference.matches
+        ? 0
+        : currentMouseY + (mouseRef.current.y - currentMouseY) * 0.06;
 
       const cx = width / 2;
       const cy = height / 2;
@@ -321,12 +335,33 @@ export function OrbitalRings({
       });
 
       ctx.restore();
-      animationFrameId = requestAnimationFrame(render);
+      if (!preference.matches && visible && !document.hidden)
+        animationFrameId = requestAnimationFrame(render);
     };
 
-    animationFrameId = requestAnimationFrame(render);
+    const observer =
+      typeof IntersectionObserver === "undefined"
+        ? null
+        : new IntersectionObserver(([entry]) => {
+            visible = entry.isIntersecting;
+            requestRender();
+          });
+    const resizeObserver =
+      typeof ResizeObserver === "undefined"
+        ? null
+        : new ResizeObserver(requestRender);
+    observer?.observe(canvas);
+    resizeObserver?.observe(canvas);
+    preference.addEventListener("change", requestRender);
+    document.addEventListener("visibilitychange", requestRender);
+    requestRender();
 
     return () => {
+      disposed = true;
+      observer?.disconnect();
+      resizeObserver?.disconnect();
+      preference.removeEventListener("change", requestRender);
+      document.removeEventListener("visibilitychange", requestRender);
       cancelAnimationFrame(animationFrameId);
     };
   }, [layer]);

@@ -1,15 +1,17 @@
-import { Container, Heading, Text } from "@/ui-kit";
+import {
+  Container,
+  Heading,
+  Reveal,
+  RevealGroup,
+  RevealItem,
+  Text,
+} from "@/ui-kit";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getTreatmentCases } from "../../lib/data/treatment-cases";
 import type { TreatmentCase } from "../../lib/data/types";
 import { BeforeAfterSlider } from "../results/before-after-slider";
-import {
-  ScrollAnimate,
-  StaggerContainer,
-  StaggerItem,
-} from "../shared/scroll-animate";
 
 export function TreatmentResultsSection() {
   const [cases, setCases] = useState<TreatmentCase[]>([]);
@@ -29,7 +31,7 @@ export function TreatmentResultsSection() {
     >
       <Container>
         {/* Header */}
-        <ScrollAnimate className="flex flex-col tablet:flex-row tablet:items-end justify-between mb-12 gap-4">
+        <Reveal className="flex flex-col tablet:flex-row tablet:items-end justify-between mb-12 gap-4">
           <div>
             <span className="type-overline uppercase text-brand-text mb-2 block">
               Клинические кейсы
@@ -50,12 +52,12 @@ export function TreatmentResultsSection() {
             <span>Все результаты</span>
             <ArrowRight className="w-4 h-4 text-brand-text group-hover:translate-x-1 transition-transform" />
           </Link>
-        </ScrollAnimate>
+        </Reveal>
 
         {/* Treatment Case Cards Grid */}
-        <StaggerContainer className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
+        <RevealGroup className="grid grid-cols-1 tablet:grid-cols-2 gap-8">
           {cases.map((c) => (
-            <StaggerItem
+            <RevealItem
               key={c.id}
               className="bg-surface rounded-3xl p-6 sm:p-7 border border-rule shadow-whisper flex flex-col justify-between"
               data-ui-scheme="default"
@@ -89,9 +91,9 @@ export function TreatmentResultsSection() {
                   disclaimer={c.disclaimer}
                 />
               </div>
-            </StaggerItem>
+            </RevealItem>
           ))}
-        </StaggerContainer>
+        </RevealGroup>
       </Container>
     </section>
   );

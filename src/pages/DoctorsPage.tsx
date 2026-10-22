@@ -1,10 +1,4 @@
-import { Container, Heading, Text } from "@/ui-kit";
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "motion/react";
+import { Container, Heading, Reveal, RevealGroup, Text } from "@/ui-kit";
 import { useEffect, useMemo, useState } from "react";
 import { EditorialPageHero } from "../components/shared/editorial-page-hero";
 import { DoctorCard } from "../components/team/doctor-card";
@@ -65,14 +59,6 @@ export function DoctorsPage({ onOpenBooking }: DoctorsPageProps) {
       return matchesSpecialty && matchesBranch;
     });
   }, [branch, doctors, specialty]);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll();
-  const introX = useTransform(
-    scrollYProgress,
-    [0, 0.28],
-    reduceMotion ? [0, 0] : [0, 56],
-  );
-
   useEffect(() => {
     document.title = "Врачи Family Dent — Стоматологи в Душанбе";
     void getDoctors().then(setDoctors);
@@ -95,10 +81,7 @@ export function DoctorsPage({ onOpenBooking }: DoctorsPageProps) {
         aria-labelledby="doctors-list-title"
       >
         <Container className="flex flex-col gap-10">
-          <motion.div
-            style={{ x: introX }}
-            className="flex max-w-3xl flex-col gap-3"
-          >
+          <Reveal className="flex max-w-3xl flex-col gap-3">
             <Text variant="overline" className="uppercase text-accent-2">
               Команда клиники
             </Text>
@@ -113,7 +96,7 @@ export function DoctorsPage({ onOpenBooking }: DoctorsPageProps) {
               Выберите специалиста, чтобы узнать об образовании,
               профессиональной подготовке и направлениях приёма.
             </Text>
-          </motion.div>
+          </Reveal>
 
           <div
             className="grid gap-4 border-y border-paper/15 py-5 desktop:grid-cols-[minmax(0,1fr)_16rem]"
@@ -156,16 +139,15 @@ export function DoctorsPage({ onOpenBooking }: DoctorsPageProps) {
           </Text>
 
           {filteredDoctors.length > 0 ? (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 desktop:grid-cols-3 xl:grid-cols-4">
-              {filteredDoctors.map((doctor, index) => (
+            <RevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2 desktop:grid-cols-3 xl:grid-cols-4">
+              {filteredDoctors.map((doctor) => (
                 <DoctorCard
                   key={doctor.id}
                   doctor={doctor}
-                  index={index}
                   onOpen={setSelectedDoctor}
                 />
               ))}
-            </div>
+            </RevealGroup>
           ) : (
             <Text
               variant="body"

@@ -4,6 +4,7 @@ import {
   Field,
   Heading,
   Input,
+  Reveal,
   Select,
   Text,
 } from "@/ui-kit";
@@ -17,7 +18,6 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import { createBooking } from "../../lib/api";
-import { ScrollAnimate } from "../shared/scroll-animate";
 
 interface BookingSectionProps {
   onOpenBookingModal?: () => void;
@@ -63,7 +63,7 @@ export function BookingSection(_props: BookingSectionProps) {
       className="relative w-full scroll-mt-24 overflow-hidden border-b border-rule bg-paper-2 py-12 text-ink sm:py-16 desktop:py-20"
     >
       <Container>
-        <ScrollAnimate
+        <Reveal
           className="grid grid-cols-1 desktop:grid-cols-12 gap-0 items-stretch rounded-3xl overflow-hidden border border-rule shadow-card bg-surface"
           data-ui-scheme="default"
         >
@@ -305,7 +305,7 @@ export function BookingSection(_props: BookingSectionProps) {
               </form>
             )}
           </div>
-        </ScrollAnimate>
+        </Reveal>
       </Container>
     </section>
   );

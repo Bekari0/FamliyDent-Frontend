@@ -1,4 +1,4 @@
-import { Container, Heading, Text } from "@/ui-kit";
+import { Container, Reveal, RevealGroup, RevealHeading, Text } from "@/ui-kit";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ClinicTour } from "../components/clinic/clinic-tour";
@@ -80,16 +80,16 @@ export function AboutPage() {
           className="border-y border-rule py-10"
           aria-labelledby="about-story-title"
         >
-          <Heading
+          <RevealHeading
             level={2}
             id="about-story-title"
             className="max-w-4xl text-balance text-ink"
           >
             Family Dent — стоматология, созданная с любовью к своему делу
-          </Heading>
+          </RevealHeading>
           <div className="mt-6 grid gap-5 tablet:grid-cols-[minmax(0,1fr)_22rem] tablet:items-center">
-            <div className="type-body-sm flex flex-col gap-5 text-muted">
-              <Text variant="body">
+            <RevealGroup className="type-body-sm flex flex-col gap-5 text-muted">
+              <Reveal as={Text} variant="body">
                 История Family Dent началась в 2018 году с желания создать
                 клинику, где качество лечения всегда будет стоять на первом
                 месте. Основатели клиники — врачи, искренне любящие свою
@@ -97,16 +97,16 @@ export function AboutPage() {
                 поддержке семьи эта идея превратилась в современную
                 стоматологическую клинику, которой сегодня доверяют тысячи
                 пациентов.
-              </Text>
-              <Text variant="body">
+              </Reveal>
+              <Reveal as={Text} variant="body">
                 Мы начинали с небольшой команды и трёх стоматологических кресел.
                 Шаг за шагом развивались, внедряли современные технологии,
                 расширяли команду специалистов и создавали комфортные условия
                 для пациентов. Сегодня Family Dent — это клиника, где можно
                 получить комплексное стоматологическое лечение для всей семьи в
                 одном месте.
-              </Text>
-            </div>
+              </Reveal>
+            </RevealGroup>
             <video
               className="aspect-[9/16] w-full max-w-[22rem] justify-self-center rounded-xl border border-rule bg-ink object-cover shadow-card tablet:justify-self-end"
               controls
@@ -125,9 +125,9 @@ export function AboutPage() {
 
       <Container width="content" className="mb-8 flex flex-col gap-10">
         <section aria-labelledby="values-title">
-          <Heading level={2} id="values-title" className="text-ink">
+          <RevealHeading level={2} id="values-title" className="text-ink">
             Наши ценности
-          </Heading>
+          </RevealHeading>
           <div className="mt-6 grid gap-5 tablet:grid-cols-[minmax(0,1fr)_22rem] tablet:items-center">
             <div className="min-h-[18rem]" aria-live="polite">
               <div className="flex items-start justify-between gap-6">
@@ -158,9 +158,9 @@ export function AboutPage() {
                 </div>
               </div>
               <article key={activeValue[0]} className="mt-10">
-                <Heading level={3} className="text-ink">
+                <RevealHeading level={3} className="text-ink">
                   {activeValue[0]}
-                </Heading>
+                </RevealHeading>
                 <Text
                   variant="body"
                   className="mt-4 max-w-lg text-pretty text-muted"
@@ -188,9 +188,9 @@ export function AboutPage() {
         >
           <div className="grid gap-8 desktop:grid-cols-[5fr_7fr]">
             <div>
-              <Heading level={2} id="belief-title" className="text-ink">
+              <RevealHeading level={2} id="belief-title" className="text-ink">
                 Во что мы верим
-              </Heading>
+              </RevealHeading>
               <Text variant="body" className="mt-4 text-pretty text-muted">
                 Мы считаем, что хорошая стоматология — это не самое дорогое
                 лечение. Это правильное лечение, выполненное качественно,
@@ -217,9 +217,13 @@ export function AboutPage() {
                 ],
               ].map(([title, text]) => (
                 <article key={title} className="border-t-2 border-accent pt-4">
-                  <Heading level={3} variant="heading-6" className="text-ink">
+                  <RevealHeading
+                    level={3}
+                    variant="heading-6"
+                    className="text-ink"
+                  >
                     {title}
-                  </Heading>
+                  </RevealHeading>
                   <Text variant="body-sm" className="mt-2 text-muted">
                     {text}
                   </Text>

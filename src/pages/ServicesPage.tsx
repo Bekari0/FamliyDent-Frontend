@@ -1,4 +1,11 @@
-import { Button, Heading, Text } from "@/ui-kit";
+import {
+  Button,
+  Heading,
+  Reveal,
+  RevealGroup,
+  RevealHeading,
+  Text,
+} from "@/ui-kit";
 import { ArrowRight, Calendar } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
@@ -20,20 +27,11 @@ export function ServiceTile({
   index: number;
   compact?: boolean;
 }) {
-  const reduceMotion = useReducedMotion();
   const number = String(index + 1).padStart(2, "0");
   return (
-    <motion.div
+    <Reveal
       id={compact ? undefined : service.slug}
       className={`service-tile-wrap${compact ? " service-tile-wrap--compact" : ""}`}
-      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{
-        duration: 0.55,
-        delay: compact ? 0 : (index % 4) * 0.06,
-        ease: [0.16, 1, 0.3, 1],
-      }}
     >
       <Link
         className="service-tile"
@@ -57,7 +55,7 @@ export function ServiceTile({
         <strong>{service.shortTitle}</strong>
         <ArrowRight className="service-tile__arrow" aria-hidden="true" />
       </Link>
-    </motion.div>
+    </Reveal>
   );
 }
 
@@ -131,20 +129,20 @@ export function ServicesPage({ onOpenBooking }: ServicesPageProps) {
               <Text variant="overline" className="services-page__eyebrow">
                 12 направлений
               </Text>
-              <Heading level={2} id="services-catalog-title">
+              <RevealHeading level={2} id="services-catalog-title">
                 Выберите направление
-              </Heading>
+              </RevealHeading>
             </div>
             <Text variant="body">
               Откройте страницу услуги, чтобы узнать подробнее о лечении и
               записаться на консультацию.
             </Text>
           </header>
-          <div className="services-grid">
+          <RevealGroup className="services-grid">
             {services.map((service, index) => (
               <ServiceTile key={service.id} service={service} index={index} />
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 
@@ -159,9 +157,9 @@ export function ServicesPage({ onOpenBooking }: ServicesPageProps) {
               <Text variant="overline" className="services-page__eyebrow">
                 Подход к лечению
               </Text>
-              <Heading level={2} id="services-process-title">
+              <RevealHeading level={2} id="services-process-title">
                 От диагностики до контроля результата
-              </Heading>
+              </RevealHeading>
             </div>
           </div>
           <ol>
@@ -184,9 +182,9 @@ export function ServicesPage({ onOpenBooking }: ServicesPageProps) {
             <Text variant="overline" className="services-page__eyebrow">
               Первый шаг
             </Text>
-            <Heading level={2} id="services-final-title">
+            <RevealHeading level={2} id="services-final-title">
               Не знаете, какое направление вам подходит?
-            </Heading>
+            </RevealHeading>
             <Text variant="body">
               Начните с консультации и диагностики — врач оценит состояние зубов
               и составит индивидуальный план лечения.

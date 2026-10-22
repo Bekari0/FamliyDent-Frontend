@@ -1,14 +1,9 @@
-import { Heading, Text } from "@/ui-kit";
+import { Heading, Reveal, RevealGroup, RevealItem, Text } from "@/ui-kit";
 import { Minus, Plus } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { getFaqItems } from "../../lib/data/faq";
 import type { FaqItem } from "../../lib/data/types";
-import {
-  ScrollAnimate,
-  StaggerContainer,
-  StaggerItem,
-} from "../shared/scroll-animate";
 
 export function HomeFaqSection() {
   const [faqs, setFaqs] = useState<FaqItem[]>([]);
@@ -33,7 +28,7 @@ export function HomeFaqSection() {
     >
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <ScrollAnimate className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <Reveal className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
           <div>
             <span className="type-overline uppercase text-brand-text mb-2 block">
               Вопросы и ответы
@@ -42,10 +37,10 @@ export function HomeFaqSection() {
               Часто задаваемые вопросы
             </Heading>
           </div>
-        </ScrollAnimate>
+        </Reveal>
 
         {/* Linear Accordion List */}
-        <StaggerContainer
+        <RevealGroup
           className="flex flex-col divide-y divide-rule border-t border-b border-rule bg-surface rounded-2xl shadow-whisper px-6 sm:px-8 py-2"
           data-ui-scheme="default"
         >
@@ -55,7 +50,7 @@ export function HomeFaqSection() {
             const buttonId = `faq-trigger-${faq.id}`;
 
             return (
-              <StaggerItem key={faq.id} className="py-5">
+              <RevealItem key={faq.id} className="py-5">
                 <button
                   id={buttonId}
                   aria-expanded={isOpen}
@@ -102,10 +97,10 @@ export function HomeFaqSection() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </StaggerItem>
+              </RevealItem>
             );
           })}
-        </StaggerContainer>
+        </RevealGroup>
       </div>
     </section>
   );

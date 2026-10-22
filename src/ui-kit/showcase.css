@@ -53,6 +53,18 @@
     align-items: center;
     gap: var(--space-sm);
   }
+  .ui-showcase__motion-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: var(--space-lg);
+  }
+  .ui-showcase__motion-card {
+    display: grid;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    border: var(--rule-thin) solid var(--color-border-default);
+    border-radius: var(--radius-md);
+  }
   .ui-showcase__fields {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));

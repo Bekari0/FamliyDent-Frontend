@@ -1,4 +1,12 @@
-import { Container, Heading, Text, readCssToken } from "@/ui-kit";
+import {
+  Container,
+  Heading,
+  Reveal,
+  RevealGroup,
+  RevealItem,
+  Text,
+  readCssToken,
+} from "@/ui-kit";
 import {
   ArrowRight,
   CheckCircle2,
@@ -11,11 +19,6 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { getServices } from "../../lib/data/services";
 import type { Service } from "../../lib/data/types";
-import {
-  ScrollAnimate,
-  StaggerContainer,
-  StaggerItem,
-} from "../shared/scroll-animate";
 
 interface FeaturedServicesSectionProps {
   onOpenBooking: () => void;
@@ -65,7 +68,7 @@ export function FeaturedServicesSection({
 
           window.scrollTo({
             top,
-            behavior: "smooth",
+            behavior: "auto",
           });
         }
         setPendingScrollId(null);
@@ -80,7 +83,7 @@ export function FeaturedServicesSection({
     <section className="w-full border-b border-rule bg-paper-2 py-16 text-ink sm:py-20">
       <Container>
         {/* Header */}
-        <ScrollAnimate className="flex flex-col tablet:flex-row tablet:items-end justify-between mb-12 gap-4">
+        <Reveal className="flex flex-col tablet:flex-row tablet:items-end justify-between mb-12 gap-4">
           <div>
             <span className="type-overline uppercase text-brand-text mb-2 block">
               Направления лечения
@@ -101,10 +104,10 @@ export function FeaturedServicesSection({
             <span>Все услуги</span>
             <ArrowRight className="w-4 h-4 text-brand-text group-hover:translate-x-1 transition-transform" />
           </Link>
-        </ScrollAnimate>
+        </Reveal>
 
         {/* DESKTOP VIEW: Split interactive layout */}
-        <ScrollAnimate
+        <Reveal
           delay={0.1}
           className="hidden desktop:grid desktop:grid-cols-12 gap-8 items-stretch"
         >
@@ -235,14 +238,14 @@ export function FeaturedServicesSection({
               </AnimatePresence>
             </div>
           )}
-        </ScrollAnimate>
+        </Reveal>
 
         {/* MOBILE VIEW: Accordion List */}
-        <StaggerContainer className="desktop:hidden flex flex-col gap-3">
+        <RevealGroup className="desktop:hidden flex flex-col gap-3">
           {services.map((service) => {
             const isOpen = service.id === activeServiceId;
             return (
-              <StaggerItem
+              <RevealItem
                 key={service.id}
                 className="bg-paper border border-rule rounded-2xl overflow-hidden transition-all"
                 data-ui-scheme="default"
@@ -326,10 +329,10 @@ export function FeaturedServicesSection({
                     </button>
                   </div>
                 )}
-              </StaggerItem>
+              </RevealItem>
             );
           })}
-        </StaggerContainer>
+        </RevealGroup>
       </Container>
     </section>
   );

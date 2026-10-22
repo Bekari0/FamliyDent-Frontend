@@ -356,6 +356,16 @@
   --dur-short: 220ms;
   --dur-long: 420ms;
   --dur-section: 680ms;
+
+  /* Motion changes behavior only; typography and layout retain their own tokens. */
+  --motion-reveal-duration: var(--dur-section);
+  --motion-count-duration: 2800ms;
+  --motion-reveal-distance: 1.25rem;
+  --motion-stagger: 80ms;
+  --motion-stagger-max: 240ms;
+  --motion-ease-enter: var(--ease-out);
+  --motion-press-scale: 0.98;
+  --motion-icon-shift: 0.2rem;
 }
 
 :root {

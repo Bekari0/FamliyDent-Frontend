@@ -1,4 +1,4 @@
-import { Heading, Text } from "@/ui-kit";
+import { Heading, Reveal, Text } from "@/ui-kit";
 import { ExternalLink, Play, ShieldCheck } from "lucide-react";
 import type { PatientReview } from "../../lib/data/types";
 import { useCookieConsent } from "../shared/cookie-consent";
@@ -12,7 +12,8 @@ export function VideoReviewCard({ review }: VideoReviewCardProps) {
   const { externalContentAllowed, acceptAll } = useCookieConsent();
 
   return (
-    <article
+    <Reveal
+      as="article"
       className="flex flex-col overflow-hidden rounded-lg border border-rule bg-surface shadow-whisper"
       data-ui-scheme="default"
     >
@@ -89,6 +90,6 @@ export function VideoReviewCard({ review }: VideoReviewCardProps) {
           </Text>
         )}
       </div>
-    </article>
+    </Reveal>
   );
 }

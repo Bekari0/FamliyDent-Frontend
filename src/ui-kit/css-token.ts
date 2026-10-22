@@ -5,3 +5,15 @@ export function readCssToken(name: `--${string}`, element?: Element): string {
     .getPropertyValue(name)
     .trim();
 }
+
+/** Read a CSS duration in milliseconds, accepting either CSS time unit. */
+export function readCssMilliseconds(
+  name: `--${string}`,
+  element?: Element,
+): number {
+  const value = readCssToken(name, element);
+  const match = value.match(/^([\d.]+)(ms|s)$/);
+  if (!match) return 0;
+  const amount = Number(match[1]);
+  return Number.isFinite(amount) ? amount * (match[2] === "s" ? 1000 : 1) : 0;
+}
