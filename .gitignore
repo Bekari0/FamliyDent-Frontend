@@ -40,3 +40,7 @@ Thumbs.db
 *.swo
 /lighthouse.json
 /*.report.html
+
+# Browser test artifacts
+/test-results/
+/playwright-report/

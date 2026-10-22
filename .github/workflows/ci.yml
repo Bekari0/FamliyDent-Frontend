@@ -22,9 +22,18 @@ jobs:
           key: mongodb-8.0.17-${{ runner.os }}-${{ runner.arch }}
       - run: npm ci --ignore-scripts
       - run: npm run lint
+      - run: npm run lint:browser
       - run: npm test
       - run: npm run test:integration
       - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-failures
+          path: test-results/
+          retention-days: 7
       - run: npm audit --omit=dev --audit-level=high
   container:
     runs-on: ubuntu-latest
