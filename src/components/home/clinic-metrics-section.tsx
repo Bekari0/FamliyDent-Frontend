@@ -4,6 +4,7 @@ import {
   readCssMilliseconds,
   Reveal,
   RevealGroup,
+  RevealHeading,
 } from "@/ui-kit";
 import { useInView, useReducedMotion } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
@@ -99,7 +100,7 @@ export function ClinicMetricsSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative z-10 flex h-auto min-h-screen w-full flex-col justify-between overflow-hidden py-6 text-on-dark sm:py-8 desktop:h-screen desktop:max-h-screen desktop:py-10"
+      className="relative z-10 flex min-h-[var(--hero-min-height)] w-full flex-col justify-between gap-12 overflow-hidden section-space-compact text-on-dark"
     >
       {/* 1. FULL-SCREEN BACKGROUND VIDEO / POSTER WITH OVERLAY */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
@@ -150,14 +151,15 @@ export function ClinicMetricsSection() {
 
         {/* Headline + Paragraph */}
         <div className="max-w-2xl">
-          <Reveal
-            as="h2"
-            className="type-heading-3 text-on-dark drop-shadow-sm max-w-[660px]"
+          <RevealHeading
+            level={2}
+            variant="heading-3"
+            className=" text-on-dark drop-shadow-sm max-w-[660px]"
           >
             Раскройте совершенство. <br />
             Откройте для себя стандарт{" "}
             <span className="text-accent-soft font-bold">Family Dent</span>.
-          </Reveal>
+          </RevealHeading>
 
           <Reveal
             as="p"
@@ -173,7 +175,7 @@ export function ClinicMetricsSection() {
 
       {/* 3. HORIZONTAL GLASS STATISTICAL CARDS ROW */}
       <Container className="relative z-10 pt-4 pb-1 sm:pt-6">
-        <RevealGroup className="grid grid-cols-2 desktop:grid-cols-4 gap-3 sm:gap-4 desktop:gap-5 items-stretch">
+        <RevealGroup className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,8rem),1fr))] gap-3 sm:gap-4 desktop:gap-5 items-stretch">
           {metrics.map((item) => (
             <StatGlassCard
               key={item.id}
@@ -239,7 +241,7 @@ function StatGlassCard({ metric, shouldReduceMotion }: StatGlassCardProps) {
   return (
     <Reveal
       as="div"
-      className="bg-surface/10 backdrop-blur-md border border-on-dark/15 rounded-2xl p-5 sm:p-6 text-on-dark shadow-xl transition-all duration-300 hover:bg-surface/15 hover:border-on-dark/25 hover:-translate-y-0.5 flex flex-col justify-between"
+      className="bg-surface/10 backdrop-blur-md border border-on-dark/15 rounded-2xl p-4 sm:p-6 text-on-dark shadow-xl transition-all duration-300 hover:bg-surface/15 hover:border-on-dark/25 hover:-translate-y-0.5 flex flex-col justify-between"
     >
       <div ref={countRef}>
         <div className="flex items-baseline gap-1">

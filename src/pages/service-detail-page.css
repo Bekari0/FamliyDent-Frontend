@@ -17,7 +17,7 @@
   }
   .service-detail-hero {
     position: relative;
-    min-height: clamp(38rem, 76svh, 48rem);
+    min-height: var(--hero-min-height);
     display: flex;
     align-items: end;
     overflow: hidden;
@@ -50,7 +50,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-lg);
-    padding-block: clamp(3.5rem, 8vh, var(--space-3xl));
+    padding-block: var(--hero-y);
   }
   .service-detail__back {
     @apply type-body-sm;
@@ -129,7 +129,7 @@
     @apply type-heading-4;
   }
   .service-booking {
-    padding-block: clamp(var(--space-2xl), 7vw, 7rem);
+    padding-block: var(--section-y);
     color: var(--color-paper);
     background: var(--color-ink);
   }
@@ -158,7 +158,7 @@
   .service-related__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 17rem;
+    grid-auto-rows: minmax(14rem, auto);
     gap: var(--space-sm);
   }
   .service-related__grid .service-tile-wrap {
@@ -188,7 +188,7 @@
   }
   @media (width < theme(--breakpoint-tablet)) {
     .service-detail-hero {
-      min-height: 38rem;
+      min-height: min(32rem, calc(100svh - var(--header-height)));
     }
     .service-detail-hero__shade {
       background: linear-gradient(
@@ -215,7 +215,7 @@
     }
     .service-related__grid {
       grid-template-columns: 1fr;
-      grid-auto-rows: 14rem;
+      grid-auto-rows: minmax(12rem, auto);
     }
   }
   @media (prefers-reduced-motion: reduce) {

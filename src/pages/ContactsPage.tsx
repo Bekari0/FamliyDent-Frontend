@@ -36,7 +36,7 @@ export function ContactsPage() {
             <div className="w-9 h-9 rounded-xl bg-accent/15 text-brand-text flex items-center justify-center flex-shrink-0">
               <MapPin className="w-5 h-5" />
             </div>
-            <div>
+            <div className="min-w-0">
               <span className="type-overline uppercase text-brand-text block">
                 Адреса филиалов
               </span>
@@ -53,13 +53,13 @@ export function ContactsPage() {
             <div className="w-9 h-9 rounded-xl bg-accent/15 text-brand-text flex items-center justify-center flex-shrink-0">
               <Phone className="w-5 h-5" />
             </div>
-            <div>
+            <div className="min-w-0">
               <span className="type-overline uppercase text-brand-text block">
                 Телефон
               </span>
               <a
                 href="tel:+992446606600"
-                className="type-body-sm text-ink hover:text-brand-text"
+                className="type-body-sm break-words text-ink hover:text-brand-text"
               >
                 +992 446 60 66 00
               </a>
@@ -70,7 +70,7 @@ export function ContactsPage() {
             <div className="w-9 h-9 rounded-xl bg-accent/15 text-brand-text flex items-center justify-center flex-shrink-0">
               <Clock className="w-5 h-5" />
             </div>
-            <div>
+            <div className="min-w-0">
               <span className="type-overline uppercase text-brand-text block">
                 График работы
               </span>
@@ -87,13 +87,13 @@ export function ContactsPage() {
             <div className="w-9 h-9 rounded-xl bg-accent/15 text-brand-text flex items-center justify-center flex-shrink-0">
               <Mail className="w-5 h-5" />
             </div>
-            <div>
+            <div className="min-w-0">
               <span className="type-overline uppercase text-brand-text block">
                 Email
               </span>
               <a
                 href="mailto:info@familydent.tj"
-                className="type-body-sm text-ink hover:text-brand-text"
+                className="type-body-sm break-words text-ink hover:text-brand-text"
               >
                 info@familydent.tj
               </a>

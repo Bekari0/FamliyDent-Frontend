@@ -147,7 +147,7 @@
 @layer components {
   .ui-text {
     margin: 0;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
   }
   .ui-heading {
     text-wrap: balance;

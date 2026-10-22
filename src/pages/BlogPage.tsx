@@ -69,8 +69,8 @@ export function BlogPage() {
                   </Text>
                 </div>
 
-                <div className="type-caption flex items-center justify-between text-muted border-t border-rule pt-4">
-                  <div className="flex items-center gap-3">
+                <div className="type-caption flex flex-wrap gap-3 items-center justify-between text-muted border-t border-rule pt-4">
+                  <div className="flex flex-wrap items-center gap-3">
                     <span className="flex items-center gap-1">
                       <User className="w-3.5 h-3.5 text-brand-text" />
                       <span>{post.author}</span>

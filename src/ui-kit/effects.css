@@ -1,4 +1,16 @@
 @layer utilities {
+  .section-space {
+    padding-block: var(--section-y);
+  }
+
+  .section-space-compact {
+    padding-block: var(--section-y-compact);
+  }
+
+  .section-heading-gap {
+    margin-bottom: var(--section-heading-gap);
+  }
+
   .page-container {
     width: min(calc(100% - 2 * var(--page-gutter)), var(--container-max));
     margin-inline: auto;

@@ -77,7 +77,7 @@ export function DoctorsPage({ onOpenBooking }: DoctorsPageProps) {
       />
 
       <section
-        className="w-full border-t border-paper/10 py-12 sm:py-16 desktop:py-20"
+        className="w-full border-t border-paper/10 section-space"
         aria-labelledby="doctors-list-title"
       >
         <Container className="flex flex-col gap-10">

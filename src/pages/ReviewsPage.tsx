@@ -38,7 +38,7 @@ function TextReviewCard({ review }: { review: PatientReview }) {
       data-ui-scheme="default"
     >
       <div className="flex flex-col gap-5">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-4">
           <div
             className="flex items-center gap-1"
             role="img"
@@ -93,7 +93,7 @@ function GoogleSourceCard({
       className="group flex min-h-64 flex-col justify-between gap-8 rounded-lg bg-ink p-6 text-paper transition-transform hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus sm:p-7"
       data-ui-scheme="inverse"
     >
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-wrap items-start justify-between gap-4">
         <span className="flex size-11 items-center justify-center rounded-full bg-accent text-accent-ink">
           <MapPin aria-hidden="true" className="size-5" />
         </span>
@@ -154,7 +154,7 @@ export function ReviewsPage() {
         description="Видеоистории и отзывы с карт — с прямыми ссылками на оригинальные публикации."
       />
 
-      <section aria-labelledby="reviews-list-title" className="py-12 sm:py-16">
+      <section aria-labelledby="reviews-list-title" className="section-space">
         <Container className="flex flex-col gap-10">
           <div className="flex flex-col gap-5 border-b border-rule pb-7 desktop:flex-row desktop:items-end desktop:justify-between">
             <div className="flex max-w-xl flex-col gap-2">

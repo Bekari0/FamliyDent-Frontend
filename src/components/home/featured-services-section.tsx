@@ -80,10 +80,10 @@ export function FeaturedServicesSection({
     services.find((s) => s.id === activeServiceId) || services[0];
 
   return (
-    <section className="w-full border-b border-rule bg-paper-2 py-16 text-ink sm:py-20">
+    <section className="w-full border-b border-rule bg-paper-2 section-space text-ink">
       <Container>
         {/* Header */}
-        <Reveal className="flex flex-col tablet:flex-row tablet:items-end justify-between mb-12 gap-4">
+        <Reveal className="flex flex-col tablet:flex-row tablet:items-end justify-between section-heading-gap gap-4">
           <div>
             <span className="type-overline uppercase text-brand-text mb-2 block">
               Направления лечения
@@ -127,16 +127,14 @@ export function FeaturedServicesSection({
                   }`}
                   data-ui-scheme={isActive ? "inverse" : "default"}
                 >
-                  <div className="flex items-center gap-3.5">
+                  <div className="flex min-w-0 items-center gap-3.5">
                     <div
                       className={`w-2.5 h-2.5 rounded-full transition-colors ${
                         isActive ? "bg-accent" : "bg-rule"
                       }`}
                     />
                     <div>
-                      <Heading level={3} variant="heading-6">
-                        {service.title}
-                      </Heading>
+                      <span className="type-heading-6">{service.title}</span>
                     </div>
                   </div>
                   <ChevronRight
@@ -217,7 +215,7 @@ export function FeaturedServicesSection({
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex items-center gap-3 pt-4 border-t border-rule">
+                  <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-rule">
                     <button
                       onClick={onOpenBooking}
                       className="type-button green-shimmer-bg hover:brightness-105 px-6 py-3 rounded-xl transition-all shadow-md cursor-pointer flex items-center gap-2 active:scale-95"
@@ -254,6 +252,8 @@ export function FeaturedServicesSection({
                   ref={(el) => {
                     serviceRefs.current[service.id] = el;
                   }}
+                  aria-expanded={isOpen}
+                  aria-controls={`service-panel-${service.id}`}
                   onClick={() => {
                     if (isOpen) {
                       setActiveServiceId("");
@@ -286,6 +286,7 @@ export function FeaturedServicesSection({
 
                 {isOpen && (
                   <div
+                    id={`service-panel-${service.id}`}
                     className="p-4 pt-0 border-t border-rule bg-surface"
                     data-ui-scheme="default"
                   >

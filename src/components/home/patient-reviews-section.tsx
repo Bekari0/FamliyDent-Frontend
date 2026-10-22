@@ -1,12 +1,6 @@
 import { Heading, Text } from "@/ui-kit";
 import { ArrowRight, Star } from "lucide-react";
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getPatientReviews } from "../../lib/data/patient-reviews";
 import type { PatientReview } from "../../lib/data/types";
@@ -94,14 +88,6 @@ function ReviewCard({ review }: { review: PatientReview }) {
 
 export function PatientReviewsSection() {
   const [reviews, setReviews] = useState<PatientReview[]>([]);
-  const sectionRef = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  const firstColumnY = useTransform(scrollYProgress, [0, 1], [-96, 112]);
-  const secondColumnY = useTransform(scrollYProgress, [0, 1], [96, -128]);
 
   useEffect(() => {
     getPatientReviews().then(setReviews);
@@ -112,12 +98,11 @@ export function PatientReviewsSection() {
 
   return (
     <section
-      ref={sectionRef}
       aria-labelledby="patient-reviews-title"
-      className="bg-paper px-4 py-16 sm:px-8 sm:py-24"
+      className="bg-paper px-4 section-space sm:px-8"
       data-ui-scheme="default"
     >
-      <div className="mx-auto overflow-hidden rounded-xl bg-paper-2 min-[900px]:grid min-[900px]:h-[48rem] min-[900px]:max-w-7xl min-[900px]:grid-cols-[minmax(18rem,0.84fr)_minmax(0,1.16fr)]">
+      <div className="mx-auto overflow-hidden rounded-xl bg-paper-2 min-[900px]:grid min-[900px]:min-h-[32rem] min-[900px]:max-w-7xl min-[900px]:grid-cols-[minmax(18rem,0.84fr)_minmax(0,1.16fr)]">
         <div className="flex flex-col items-start px-6 py-12 sm:px-10 min-[900px]:px-12 min-[900px]:py-16 min-[1100px]:px-16">
           <Heading
             level={2}
@@ -192,23 +177,22 @@ export function PatientReviewsSection() {
             ))}
           </div>
 
-          <div className="hidden h-full grid-cols-2 gap-3 overflow-hidden p-3 min-[900px]:grid">
-            <motion.div
-              style={reduceMotion ? undefined : { y: firstColumnY }}
-              className="flex flex-col gap-3 will-change-transform"
-            >
-              {firstColumn.concat(firstColumn).map((review, index) => (
+          <div
+            role="region"
+            aria-label="Отзывы пациентов на картах"
+            tabIndex={0}
+            className="hidden max-h-[36rem] grid-cols-2 gap-3 overflow-y-auto overscroll-contain p-3 focus-visible:outline-offset-[-3px] min-[900px]:grid"
+          >
+            <div className="flex flex-col gap-3">
+              {firstColumn.map((review, index) => (
                 <ReviewCard key={`${review.id}-${index}`} review={review} />
               ))}
-            </motion.div>
-            <motion.div
-              style={reduceMotion ? undefined : { y: secondColumnY }}
-              className="flex flex-col gap-3 will-change-transform"
-            >
-              {secondColumn.concat(secondColumn).map((review, index) => (
+            </div>
+            <div className="flex flex-col gap-3">
+              {secondColumn.map((review, index) => (
                 <ReviewCard key={`${review.id}-${index}`} review={review} />
               ))}
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
