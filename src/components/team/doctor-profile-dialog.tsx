@@ -1,6 +1,5 @@
-import { Heading, Text } from "@/ui-kit";
+import { Dialog, Heading, Text } from "@/ui-kit";
 import { Calendar, GraduationCap, Stethoscope, X } from "lucide-react";
-import { useEffect, useRef } from "react";
 import type { Doctor } from "../../lib/data/types";
 
 interface DoctorProfileDialogProps {
@@ -44,45 +43,13 @@ export function DoctorProfileDialog({
   onClose,
   onBook,
 }: DoctorProfileDialogProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-
-    if (doctor && !dialog.open) {
-      dialog.showModal();
-      document.body.style.overflow = "hidden";
-    } else if (!doctor && dialog.open) {
-      dialog.close();
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [doctor]);
-
   if (!doctor) return null;
 
-  const handleClose = () => {
-    document.body.style.overflow = "";
-    onClose();
-  };
-
   return (
-    <dialog
-      ref={dialogRef}
-      onClose={handleClose}
-      onCancel={(event) => {
-        event.preventDefault();
-        dialogRef.current?.close();
-      }}
-      onClick={(event) => {
-        if (event.target === dialogRef.current) dialogRef.current.close();
-      }}
-      aria-labelledby="doctor-profile-title"
+    <Dialog
+      label={doctor.name}
+      onClose={onClose}
       className="m-auto max-h-[calc(100dvh-1.5rem)] w-[calc(100%-1.5rem)] max-w-6xl overflow-hidden rounded-xl border border-rule bg-surface p-0 text-ink shadow-card backdrop:bg-ink/75 backdrop:backdrop-blur-sm open:animate-[dialog-in_var(--dur-long)_var(--ease-out)]"
-      data-ui-scheme="inverse"
     >
       <div className="grid h-[calc(100dvh-1.5rem)] grid-rows-[16rem_minmax(0,1fr)] tablet:grid-cols-[minmax(17rem,0.82fr)_minmax(0,1.18fr)] tablet:grid-rows-1">
         <div
@@ -245,10 +212,7 @@ export function DoctorProfileDialog({
 
             <button
               type="button"
-              onClick={() => {
-                dialogRef.current?.close();
-                onBook(doctor.name);
-              }}
+              onClick={() => onBook(doctor.name)}
               className="type-button mt-auto inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-pill bg-ink px-6 text-paper transition duration-[var(--dur-short)] hover:bg-trust focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus sm:w-fit"
               data-ui-scheme="inverse"
             >
@@ -262,13 +226,13 @@ export function DoctorProfileDialog({
       <button
         type="button"
         autoFocus
-        onClick={() => dialogRef.current?.close()}
+        onClick={onClose}
         className="absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full border border-rule bg-surface text-ink shadow-whisper transition hover:bg-paper-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
         aria-label="Закрыть профиль врача"
         data-ui-scheme="default"
       >
         <X className="h-5 w-5" aria-hidden="true" />
       </button>
-    </dialog>
+    </Dialog>
   );
 }

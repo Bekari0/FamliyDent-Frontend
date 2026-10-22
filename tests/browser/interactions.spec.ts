@@ -55,8 +55,17 @@ test("a doctor on the homepage opens their profile and carries the selection int
   const booking = page.getByRole("dialog", { name: "Запись на приём" });
   await expect(booking).toBeVisible();
   await expect(booking.locator("select")).toHaveValue(name);
+  await expect(page.locator("body")).toHaveCSS("overflow", "hidden");
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toHaveCount(0);
+  const genericBooking = page
+    .locator("header")
+    .getByRole("button", { name: "Записаться", exact: true });
+  await genericBooking.focus();
+  await genericBooking.click();
+  await expect(
+    page.getByRole("dialog", { name: "Запись на приём" }).locator("select"),
+  ).toHaveValue("");
 });
 
 test("the comparison slider handles Home and End without scrolling the document", async ({

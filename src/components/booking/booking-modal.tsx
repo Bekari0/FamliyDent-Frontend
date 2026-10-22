@@ -42,10 +42,8 @@ export function BookingModal({
   }, []);
 
   useEffect(() => {
-    if (preselectedDoctor) {
-      setDoctor(preselectedDoctor);
-    }
-  }, [preselectedDoctor]);
+    if (isOpen) setDoctor(preselectedDoctor ?? "");
+  }, [isOpen, preselectedDoctor]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
